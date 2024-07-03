@@ -19,17 +19,17 @@ scene.add(axesHelper);
 const boxGeometry = new THREE.BoxGeometry();
 const boxMaterial = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
 const cube = new THREE.Mesh(boxGeometry, boxMaterial);
+cube.position.set(0, 5, 0);
 scene.add(cube);
 
 const controls = new FirstPersonControls(camera, renderer.domElement);
-controls.translation_.y = 2;
+controls.translation_.y = 3.5;
 controls.translation_.z = 10;
 controls.update();
 
 function animate() {
     cube.rotation.x += 0.01;
     cube.rotation.y += 0.01;
-    boxMaterial.color.setHex(Math.random() * 0xffffff);   
 }
 
 
@@ -72,3 +72,28 @@ function createCheckerboardTexture(divisions) {
 
     return texture;
 }
+
+import * as GaussianSplats3D from '@mkkellogg/gaussian-splats-3d';
+import * as THREE from 'three';
+
+const viewer = new GaussianSplats3D.DropInViewer({
+    'sharedMemoryForWorkers': false, //todo: this should be configurable
+    'gpuAcceleratedSort': true
+});
+
+
+
+
+const quat = new THREE.Quaternion();
+// rotate the scene 90 degrees around the x-axis
+quat.setFromAxisAngle(new THREE.Vector3(1, 0, 0), THREE.MathUtils.degToRad(150));
+
+viewer.addSplatScenes([{
+        'path': 'garden.ksplat',
+        'rotation': quat.toArray(),
+        'scale': [1.5, 1.5, 1.5],
+        'position': [0, 5, 0],
+        'splatAlphaRemovalThreshold': 5
+    }
+], true);
+scene.add(viewer);

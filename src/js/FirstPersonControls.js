@@ -127,7 +127,7 @@ class FirstPersonControls {
         this.theta_ = 0;
         this.phiSpeed_ = 8;
         this.thetaSpeed_ = 5;
-        this.moveSpeed_ = 5; 
+        this.moveSpeed_ = 3; 
     }
 
     update() {

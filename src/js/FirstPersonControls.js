@@ -82,6 +82,10 @@ class InputController {
         this.keys_[e.keyCode] = false;
     }
 
+    key(keyCode) {
+        return !!this.keys_[keyCode];
+    }
+
     onPointerLockChange_() {
         if (document.pointerLockElement === this.canvas) {
             console.log('Pointer lock enabled');
@@ -105,6 +109,14 @@ class InputController {
 }
 
 
+const KEYS = {
+    'a': 65,
+    's': 83,
+    'w': 87,
+    'd': 68,
+  };
+
+
 class FirstPersonControls {
     constructor(camera, canvas) {
         this.camera_ = camera;
@@ -115,12 +127,14 @@ class FirstPersonControls {
         this.theta_ = 0;
         this.phiSpeed_ = 8;
         this.thetaSpeed_ = 5;
+        this.moveSpeed_ = 5; 
     }
 
     update() {
         this.input_.update();
         this.updateRotation_();
         this.updateCamera_();
+        this.updateTranslation_(1 / 60);
     }
 
     updateCamera_(_) {
@@ -145,6 +159,31 @@ class FirstPersonControls {
         q.multiply(qz);
     
         this.rotation_.copy(q);
+    }
+
+    updateTranslation_(timeElapsedS) {
+        const forwardVelocity = (this.input_.key(KEYS.w) ? 1 : 0) + (this.input_.key(KEYS.s) ? -1 : 0)
+        const strafeVelocity = (this.input_.key(KEYS.a) ? 1 : 0) + (this.input_.key(KEYS.d) ? -1 : 0)
+    
+        const qx = new THREE.Quaternion();
+        qx.setFromAxisAngle(new THREE.Vector3(0, 1, 0), this.phi_);
+    
+        const forward = new THREE.Vector3(0, 0, -1);
+        forward.applyQuaternion(qx);
+        forward.multiplyScalar(forwardVelocity * timeElapsedS * this.moveSpeed_);
+    
+        const left = new THREE.Vector3(-1, 0, 0);
+        left.applyQuaternion(qx);
+        left.multiplyScalar(strafeVelocity * timeElapsedS * this.moveSpeed_);
+
+        //todo: fix diagonal speeds
+    
+        this.translation_.add(forward);
+        this.translation_.add(left);
+    
+        if (forwardVelocity != 0 || strafeVelocity != 0) {
+          this.headBobActive_ = true;
+        }
     }
 
     listenToKeyEvents() {

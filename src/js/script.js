@@ -1,6 +1,11 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { FirstPersonControls } from './FirstPersonControls';
+import Stats from 'three/examples/jsm/libs/stats.module.js';
+
+const stats = new Stats();
+stats.showPanel(0); // 0: fps, 1: ms, 2: mb, 3+: custom
+document.body.appendChild(stats.dom);
 
 const renderer = new THREE.WebGLRenderer();
 
@@ -34,9 +39,11 @@ function animate() {
 
 
 renderer.setAnimationLoop(() => {
+    stats.begin();
     animate();
     controls.update();
     renderer.render(scene, camera);
+    stats.end();
 });
 
 const size = 5000;

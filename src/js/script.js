@@ -19,7 +19,7 @@ scene.add(axesHelper);
 const boxGeometry = new THREE.BoxGeometry();
 const boxMaterial = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
 const cube = new THREE.Mesh(boxGeometry, boxMaterial);
-cube.position.set(0, 5, 0);
+cube.position.set(-10, 5, 0);
 scene.add(cube);
 
 const controls = new FirstPersonControls(camera, renderer.domElement);
@@ -85,15 +85,28 @@ const viewer = new GaussianSplats3D.DropInViewer({
 
 
 const quat = new THREE.Quaternion();
-// rotate the scene 90 degrees around the x-axis
-quat.setFromAxisAngle(new THREE.Vector3(1, 0, 0), THREE.MathUtils.degToRad(150));
+// flip y
+quat.setFromAxisAngle(new THREE.Vector3(1, 0, 0), THREE.MathUtils.degToRad(180));
+
+const quat2 = new THREE.Quaternion();
+// flip y
+quat2.setFromAxisAngle(new THREE.Vector3(1, 0, 0), THREE.MathUtils.degToRad(180));
+//fllip x
+quat2.multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 1, 0), THREE.MathUtils.degToRad(180)));
 
 viewer.addSplatScenes([{
-        'path': 'garden.ksplat',
+        'path': 'Khachkar_2924.ply',
         'rotation': quat.toArray(),
-        'scale': [1.5, 1.5, 1.5],
-        'position': [0, 5, 0],
+        'scale': [10, 10, 10],
+        'position': [0, 4, 0],
         'splatAlphaRemovalThreshold': 5
-    }
+    },
+    {
+        'path': 'Khachkar_2925.ply',
+        'rotation': quat2.toArray(),
+        'scale': [10, 10, 10],
+        'position': [10, 4, 0],
+        'splatAlphaRemovalThreshold': 5
+    },
 ], true);
 scene.add(viewer);

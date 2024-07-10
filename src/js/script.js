@@ -1,5 +1,4 @@
 import * as THREE from 'three';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { FirstPersonControls } from './FirstPersonControls';
 import Stats from 'three/examples/jsm/libs/stats.module.js';
 
@@ -24,7 +23,7 @@ scene.add(axesHelper);
 const boxGeometry = new THREE.BoxGeometry();
 const boxMaterial = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
 const cube = new THREE.Mesh(boxGeometry, boxMaterial);
-cube.position.set(-10, 5, 0);
+cube.position.set(-10, 5, -10);
 scene.add(cube);
 
 const controls = new FirstPersonControls(camera, renderer.domElement);
@@ -105,7 +104,7 @@ viewer.addSplatScenes([{
         'path': 'Khachkar_2924.ply',
         'rotation': quat.toArray(),
         'scale': [10, 10, 10],
-        'position': [0, 4, 0],
+        'position': [0, 3.5, 0],
         'splatAlphaRemovalThreshold': 5
     },
     {
@@ -115,5 +114,26 @@ viewer.addSplatScenes([{
         'position': [10, 4, 0],
         'splatAlphaRemovalThreshold': 5
     },
+    {
+        'path': 'Khachkar_2923.ply',
+        'rotation': quat2.toArray(),
+        'scale': [10, 10, 10],
+        'position': [-10, 3.5, 0],
+        'splatAlphaRemovalThreshold': 5
+    },
 ], true);
 scene.add(viewer);
+
+document.addEventListener('keydown', (event) => {
+    if (event.key === 'v') {
+        viewer.visible = !viewer.visible;
+    }
+});
+
+const infoBox = document.getElementById('infoBox');
+
+document.addEventListener('keydown', (event) => {
+    if (event.key === 'x') {
+        infoBox.style.display = infoBox.style.display === 'none' ? 'block' : 'none';
+    }
+});

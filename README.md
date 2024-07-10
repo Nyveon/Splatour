@@ -19,4 +19,4 @@ npx parcel src/index.html
 <https://www.youtube.com/watch?v=oqKzxPMLWxo>
 
 Khachkar videos
-<https://drive.google.com/drive/u/1/folders/1BYm1-ijfOmRIEMclVCCo1cUrLYIUgpsL>
+<https://drive.google.com/drive/u/1/folders/1T7olQ1MWyAnDPSOB5TnkdjeKj-EzXFvL>

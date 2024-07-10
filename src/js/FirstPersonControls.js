@@ -61,16 +61,6 @@ class InputController {
 
             this.current_.mouseXDelta = this.current_.mouseX - this.previous_.mouseX;
             this.current_.mouseYDelta = this.current_.mouseY - this.previous_.mouseY;
-        } else {
-            this.current_.mouseX = e.pageX - window.innerWidth / 2;
-            this.current_.mouseY = e.pageY - window.innerHeight / 2;
-
-            if (this.previous_ === null) {
-                this.previous_ = { ...this.current_ };
-            }
-
-            this.current_.mouseXDelta = this.current_.mouseX - this.previous_.mouseX;
-            this.current_.mouseYDelta = this.current_.mouseY - this.previous_.mouseY;
         }
     }
 

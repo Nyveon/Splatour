@@ -24,3 +24,66 @@ body {
     border-radius: 5px;
     z-index: 100;
 }
+
+/* Basic styles for the modal */
+#rotationModal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 100;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+}
+
+#rotationModal h2 {
+    margin: 0;
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+.slider-container {
+    margin-bottom: 10px;
+}
+
+.slider-label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.slider {
+    width: 100%;
+}
+
+#closeModalBtn {
+    margin-top: 10px;
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+#exportBtn {
+    margin-top: 10px;
+    padding: 5px 10px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+#transformValues {
+    margin-top: 10px;
+    font-size: 14px;
+    white-space: pre-wrap;
+    background-color: #f8f9fa;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}

@@ -104,6 +104,8 @@ const KEYS = {
     's': 83,
     'w': 87,
     'd': 68,
+    'q': 81,
+    'e': 69,
   };
 
 
@@ -154,6 +156,7 @@ class FirstPersonControls {
     updateTranslation_(timeElapsedS) {
         const forwardVelocity = (this.input_.key(KEYS.w) ? 1 : 0) + (this.input_.key(KEYS.s) ? -1 : 0)
         const strafeVelocity = (this.input_.key(KEYS.a) ? 1 : 0) + (this.input_.key(KEYS.d) ? -1 : 0)
+        const verticalVelocity = (this.input_.key(KEYS.q) ? 1 : 0) + (this.input_.key(KEYS.e) ? -1 : 0)
     
         const qx = new THREE.Quaternion();
         qx.setFromAxisAngle(new THREE.Vector3(0, 1, 0), this.phi_);
@@ -166,10 +169,15 @@ class FirstPersonControls {
         left.applyQuaternion(qx);
         left.multiplyScalar(strafeVelocity * timeElapsedS * this.moveSpeed_);
 
+        const up = new THREE.Vector3(0, 1, 0);
+        up.applyQuaternion(qx);
+        up.multiplyScalar(verticalVelocity * timeElapsedS * this.moveSpeed_);
+
         //todo: fix diagonal speeds
     
         this.translation_.add(forward);
         this.translation_.add(left);
+        this.translation_.add(up);
     
         if (forwardVelocity != 0 || strafeVelocity != 0) {
           this.headBobActive_ = true;

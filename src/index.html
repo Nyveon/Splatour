@@ -12,5 +12,44 @@
         <h2>Information Box</h2>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum...</p>
     </div>
+
+    <div id="rotationModal">
+        <h2>Rotate & Translate Viewer</h2>
+        
+        <!-- Rotation Sliders -->
+        <div class="slider-container">
+            <label class="slider-label" for="xRotation">X Rotation</label>
+            <input type="range" id="xRotation" class="slider" min="0" max="360" value="0">
+        </div>
+        <div class="slider-container">
+            <label class="slider-label" for="yRotation">Y Rotation</label>
+            <input type="range" id="yRotation" class="slider" min="0" max="360" value="0">
+        </div>
+        <div class="slider-container">
+            <label class="slider-label" for="zRotation">Z Rotation</label>
+            <input type="range" id="zRotation" class="slider" min="0" max="360" value="0">
+        </div>
+
+        <!-- Translation Sliders -->
+        <div class="slider-container">
+            <label class="slider-label" for="xTranslation">X Translation</label>
+            <input type="range" id="xTranslation" class="slider" min="-50" max="50" value="0">
+        </div>
+        <div class="slider-container">
+            <label class="slider-label" for="yTranslation">Y Translation</label>
+            <input type="range" id="yTranslation" class="slider" min="-50" max="50" value="0">
+        </div>
+        <div class="slider-container">
+            <label class="slider-label" for="zTranslation">Z Translation</label>
+            <input type="range" id="zTranslation" class="slider" min="-50" max="50" value="0">
+        </div>
+
+        <button id="closeModalBtn">Close</button>
+        <button id="exportBtn">Export Transform</button>
+
+        <div id="transformValues"></div>
+    </div>
+    
+    <button id="openModalBtn">Transformations</button>
 </body>
 </html>

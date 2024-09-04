@@ -17,7 +17,7 @@ document.body.appendChild(renderer.domElement);
 const scene = new THREE.Scene();
 
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-camera.position.set(0, 2, 10); 
+// camera.position.set(0, 2, 10); 
 
 const axesHelper = new THREE.AxesHelper(500);
 scene.add(axesHelper);
@@ -56,8 +56,8 @@ plane.rotation.x = -Math.PI / 2;  // Rotate the plane to be horizontal
 scene.add(plane);
 
 function createCheckerboardTexture(divisions) {
-    const canvas = document.createElement('canvas');
-    const context = canvas.getContext('2d');
+    const canvas = document.createElement('canvas')!;
+    const context = canvas.getContext('2d')!;
     const size = 1024;
 
     canvas.width = size;
@@ -98,9 +98,9 @@ function updateSplatRotation(splat, axis, angleDegrees) {
 
 document.addEventListener('keydown', (event) => {
     if (event.key === 'v') {
-        viewer.visible = !viewer.visible;
+        gs.viewer.visible = !gs.viewer.visible;
     } else if (event.key === 'r') {
-        console.log(viewer)
+        console.log(gs.viewer)
         const axis = new THREE.Vector3(0, 1, 0);  // Rotate around Y-axis
         const angle = THREE.MathUtils.degToRad(45);  // Rotate by 45 degrees
         
@@ -114,23 +114,24 @@ document.addEventListener('keydown', (event) => {
 });
 
 document.addEventListener('DOMContentLoaded', function () {
-    const modal = document.getElementById('rotationModal');
-    const openModalBtn = document.getElementById('openModalBtn');
-    const closeModalBtn = document.getElementById('closeModalBtn');
-    const exportBtn = document.getElementById('exportBtn');
+    const modal = document.getElementById('rotationModal')!;
+    const openModalBtn = document.getElementById('openModalBtn')!;
+    const closeModalBtn = document.getElementById('closeModalBtn')!;
+    const exportBtn = document.getElementById('exportBtn')!;
     
     // Rotation sliders
-    const xRotationSlider = document.getElementById('xRotation');
-    const yRotationSlider = document.getElementById('yRotation');
-    const zRotationSlider = document.getElementById('zRotation');
+    // const xRotationSlider = document.getElementById('xRotation')!;
+    const xRotationSlider = document.getElementById('xRotation') as HTMLInputElement;
+    const yRotationSlider = document.getElementById('yRotation') as HTMLInputElement;
+    const zRotationSlider = document.getElementById('zRotation') as HTMLInputElement;
 
     // Translation sliders
-    const xTranslationSlider = document.getElementById('xTranslation');
-    const yTranslationSlider = document.getElementById('yTranslation');
-    const zTranslationSlider = document.getElementById('zTranslation');
+    const xTranslationSlider = document.getElementById('xTranslation') as HTMLInputElement;
+    const yTranslationSlider = document.getElementById('yTranslation') as HTMLInputElement;
+    const zTranslationSlider = document.getElementById('zTranslation') as HTMLInputElement;
 
     // Display area for current transform values
-    const transformValuesDisplay = document.getElementById('transformValues');
+    const transformValuesDisplay = document.getElementById('transformValues')!;
 
     openModalBtn.addEventListener('click', () => {
         modal.style.display = 'block';
@@ -144,9 +145,9 @@ document.addEventListener('DOMContentLoaded', function () {
     // Update viewer rotation and translation based on slider values
     function updateViewerTransform() {
         // Rotation values
-        const xRotation = THREE.MathUtils.degToRad(xRotationSlider.value);
-        const yRotation = THREE.MathUtils.degToRad(yRotationSlider.value);
-        const zRotation = THREE.MathUtils.degToRad(zRotationSlider.value);
+        const xRotation = THREE.MathUtils.degToRad(parseInt(xRotationSlider.value));
+        const yRotation = THREE.MathUtils.degToRad(parseInt(yRotationSlider.value));
+        const zRotation = THREE.MathUtils.degToRad(parseInt(zRotationSlider.value));
 
         // Translation values
         const xTranslation = parseFloat(xTranslationSlider.value);
@@ -218,7 +219,7 @@ document.addEventListener('DOMContentLoaded', function () {
     exportBtn.addEventListener('click', exportTransform);
 });
 
-const infoBox = document.getElementById('infoBox');
+const infoBox = document.getElementById('infoBox')!;
 
 document.addEventListener('keydown', (event) => {
     if (event.key === 'x') {
@@ -229,7 +230,7 @@ document.addEventListener('keydown', (event) => {
 const sky = new Sky();
 sky.scale.setScalar( 450000 );
 scene.add( sky );
-sun = new THREE.Vector3();
+const sun = new THREE.Vector3();
 
 const effectController = {
     turbidity: 10,

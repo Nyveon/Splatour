@@ -4,6 +4,12 @@ import { clamp } from './_util.js';
 import { KEYS } from './_constants.js';
 
 class InputController {
+    canvas: HTMLCanvasElement;
+    current_: any; //todo: not any
+    previous_: any; //todo: not any
+    keys_: any; //todo: not any
+    previousKeys_: any; //todo: not any
+
     constructor(canvas) {
         this.canvas = canvas;
         this.initialize_();
@@ -87,7 +93,7 @@ class InputController {
         console.log('Pointer lock error');
     }
 
-    update(_) {
+    update() {
         if (this.previous_ !== null) {
             this.current_.mouseXDelta = this.current_.mouseX - this.previous_.mouseX;
             this.current_.mouseYDelta = this.current_.mouseY - this.previous_.mouseY;
@@ -99,7 +105,18 @@ class InputController {
 
 
 export default class FirstPersonController {
-    constructor(camera, canvas) {
+    camera_: THREE.PerspectiveCamera;
+    input_: InputController;
+    rotation_: THREE.Quaternion;
+    translation_: THREE.Vector3;
+    phi_: number;
+    theta_: number;
+    phiSpeed_: number;
+    thetaSpeed_: number;
+    moveSpeed_: number;
+    headBobActive_: boolean;
+
+    constructor(camera: THREE.PerspectiveCamera, canvas: HTMLCanvasElement) {
         this.camera_ = camera;
         this.input_ = new InputController(canvas);
         this.rotation_ = new THREE.Quaternion();
@@ -118,7 +135,7 @@ export default class FirstPersonController {
         this.updateTranslation_(1 / 60);
     }
 
-    updateCamera_(_) {
+    updateCamera_() {
         this.camera_.quaternion.copy(this.rotation_);
         this.camera_.position.copy(this.translation_);
     }

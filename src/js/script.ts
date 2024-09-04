@@ -1,9 +1,9 @@
 import * as THREE from "three";
-import FirstPersonController from "./FirstPersonController.js";
+import FirstPersonController from "./player/FirstPersonController.js";
 import Stats from "three/examples/jsm/libs/stats.module.js";
-import GS3dScene from "./GS3dScene.ts";
-import createSky from "./Sky.ts";
-import createCheckerboard from "./CheckerBoard.ts";
+import GS3dScene from "./maps/GS3dScene.ts";
+import createSky from "./environment/Sky.ts";
+import createCheckerboard from "./environment/CheckerBoard.ts";
 
 const stats = new Stats();
 stats.showPanel(0);

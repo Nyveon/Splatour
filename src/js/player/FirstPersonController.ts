@@ -1,6 +1,6 @@
 import * as THREE from "three";
 
-import { clamp } from "./_util.js";
+import { clamp } from "../_util.js";
 import { KEYS } from "./InputController.js";
 import InputController from "./InputController.js";
 

@@ -36,9 +36,9 @@ export default class FirstPersonController {
 		this.updateTranslation(1 / 60);
 	}
 
-    setTranslation(x: number, y: number, z: number): void {
-        this.translation.set(x, y, z);
-    }
+	setTranslation(x: number, y: number, z: number): void {
+		this.translation.set(x, y, z);
+	}
 
 	private updateCamera(): void {
 		this.camera.quaternion.copy(this.rotation);

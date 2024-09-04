@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import FirstPersonController from './FirstPersonController.js';
 import Stats from 'three/examples/jsm/libs/stats.module.js';
+import GS3dScene from './GS3dScene.ts'; 
 import { Sky } from 'three/examples/jsm/objects/Sky.js';
 
 const stats = new Stats();
@@ -80,63 +81,11 @@ function createCheckerboardTexture(divisions) {
     return texture;
 }
 
-import * as GaussianSplats3D from '@mkkellogg/gaussian-splats-3d';
-import * as THREE from 'three';
-
-const viewer = new GaussianSplats3D.DropInViewer({
-    'sharedMemoryForWorkers': false, //todo: this should be configurable
-    // 'gpuAcceleratedSort': true 
-});
-
-
-
-
-const quat = new THREE.Quaternion();
-// flip y
-quat.setFromAxisAngle(new THREE.Vector3(1, 0, 0), THREE.MathUtils.degToRad(180));
-
-const quat2 = new THREE.Quaternion();
-// flip y
-quat2.setFromAxisAngle(new THREE.Vector3(1, 0, 0), THREE.MathUtils.degToRad(180));
-//fllip x
-quat2.multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 1, 0), THREE.MathUtils.degToRad(180)));
-
-viewer.addSplatScenes([
-    // {
-    //     'path': 'Khachkar_2924.ply',
-    //     'rotation': quat.toArray(),
-    //     'scale': [10, 10, 10],
-    //     'position': [0, 3.5, 0],
-    //     'splatAlphaRemovalThreshold': 5
-    // },
-    {
-        'path': 'LivingRoom.ply',
-        'scale': [10, 10, 10],
-        'position': [0, 0, 0],
-        'splatAlphaRemovalThreshold': 5
-    },
-    // {
-    //     'path': 'Khachkar_2923.ply',
-    //     'rotation': quat2.toArray(),
-    //     'scale': [10, 10, 10],
-    //     'position': [-10, 3.5, 0],
-    //     'splatAlphaRemovalThreshold': 5
-    // },
-], true);
-scene.add(viewer);
-
-
-// viewer preset:
-
-
-//Rotation (degrees):
-// X: 168.00, Y: 0.00, Z: 352.00
-
-// Translation:
-// X: 0.00, Y: 3.00, Z: 0.00
-
-viewer.rotation.set(THREE.MathUtils.degToRad(168), 0, THREE.MathUtils.degToRad(352));
-viewer.position.set(0, 3, 0);
+const gs = new GS3dScene('LivingRoom.ply');
+gs.setScale(10, 10, 10);
+gs.setPosition(0, 3, 0);
+gs.setRotationDegrees(168, 0, 352);
+gs.addToScene(scene);
 
 
 function updateSplatRotation(splat, axis, angleDegrees) {
@@ -160,7 +109,7 @@ document.addEventListener('keydown', (event) => {
         quaternion.setFromAxisAngle(axis, angle);
 
         // Apply the quaternion to the viewer's rotation
-        viewer.quaternion.multiplyQuaternions(quaternion, viewer.quaternion);
+        gs.viewer.quaternion.multiplyQuaternions(quaternion, gs.viewer.quaternion);
     }
 });
 
@@ -205,10 +154,10 @@ document.addEventListener('DOMContentLoaded', function () {
         const zTranslation = parseFloat(zTranslationSlider.value);
 
         // Update viewer rotation
-        viewer.rotation.set(xRotation, yRotation, zRotation);
+        gs.viewer.rotation.set(xRotation, yRotation, zRotation);
 
         // Update viewer translation (position)
-        viewer.position.set(xTranslation, yTranslation, zTranslation);
+        gs.viewer.position.set(xTranslation, yTranslation, zTranslation);
 
         // Update the display
         updateTransformDisplay();
@@ -217,14 +166,14 @@ document.addEventListener('DOMContentLoaded', function () {
     // Function to update the displayed transform values
     function updateTransformDisplay() {
         const rotation = {
-            x: THREE.MathUtils.radToDeg(viewer.rotation.x).toFixed(2),
-            y: THREE.MathUtils.radToDeg(viewer.rotation.y).toFixed(2),
-            z: THREE.MathUtils.radToDeg(viewer.rotation.z).toFixed(2),
+            x: THREE.MathUtils.radToDeg(gs.viewer.rotation.x).toFixed(2),
+            y: THREE.MathUtils.radToDeg(gs.viewer.rotation.y).toFixed(2),
+            z: THREE.MathUtils.radToDeg(gs.viewer.rotation.z).toFixed(2),
         };
         const translation = {
-            x: viewer.position.x.toFixed(2),
-            y: viewer.position.y.toFixed(2),
-            z: viewer.position.z.toFixed(2),
+            x: gs.positionX.toFixed(2),
+            y: gs.positionY.toFixed(2),
+            z: gs.positionZ.toFixed(2),
         };
         
         transformValuesDisplay.textContent = `Rotation (degrees):\nX: ${rotation.x}, Y: ${rotation.y}, Z: ${rotation.z}\n\n` +
@@ -235,14 +184,14 @@ document.addEventListener('DOMContentLoaded', function () {
     function exportTransform() {
         const transformData = {
             rotation: {
-                x: viewer.rotation.x,
-                y: viewer.rotation.y,
-                z: viewer.rotation.z,
+                x: gs.viewer.rotation.x,
+                y: gs.viewer.rotation.y,
+                z: gs.viewer.rotation.z,
             },
             translation: {
-                x: viewer.position.x,
-                y: viewer.position.y,
-                z: viewer.position.z,
+                x: gs.viewer.position.x,
+                y: gs.viewer.position.y,
+                z: gs.viewer.position.z,
             }
         };
         const jsonString = JSON.stringify(transformData, null, 2);

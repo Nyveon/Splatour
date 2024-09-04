@@ -3,21 +3,15 @@ import * as GaussianSplats3D from "@mkkellogg/gaussian-splats-3d";
 
 export default class Scene {
 	filePath: string;
-	private scaleX: number; //todo: make a vector type?
-	private scaleY: number;
-	private scaleZ: number;
-	private rotationX: number;
-	private rotationY: number;
-	private rotationZ: number;
-	private positionX: number;
-	private positionY: number;
-	private positionZ: number;
+	private scale: { x: number; y: number; z: number } = { x: 1, y: 1, z: 1 };
+	private rotation: { x: number; y: number; z: number } = { x: 0, y: 0, z: 0 };
+	private position: { x: number; y: number; z: number } = { x: 0, y: 0, z: 0 };
 	private viewer: any;
 
 	constructor(filePath: string) {
 		this.viewer = new GaussianSplats3D.DropInViewer({
 			sharedMemoryForWorkers: false, //todo: this should be configurable
-			// 'gpuAcceleratedSort': true //todo: this should be on?
+			'gpuAcceleratedSort': true, //todo: this might not work on phones
 		});
 
 		this.filePath = filePath;
@@ -37,27 +31,45 @@ export default class Scene {
 	}
 
 	setScale(x: number, y: number, z: number): void {
-		this.scaleX = x;
-		this.scaleY = y;
-		this.scaleZ = z;
+		this.scale = {
+			x: x,
+			y: y,
+			z: z,
+		};
 
-		this.viewer.scale.set(this.scaleX, this.scaleY, this.scaleZ);
+		this.viewer.scale.set(this.scale.x, this.scale.y, this.scale.z);
+	}
+
+	getRotationDegrees(): { x: number; y: number; z: number } {
+		return {
+			x: THREE.MathUtils.radToDeg(this.rotation.x),
+			y: THREE.MathUtils.radToDeg(this.rotation.y),
+			z: THREE.MathUtils.radToDeg(this.rotation.z),
+		};
 	}
 
 	setRotationDegrees(x: number, y: number, z: number): void {
-		this.rotationX = THREE.MathUtils.degToRad(x);
-		this.rotationY = THREE.MathUtils.degToRad(y);
-		this.rotationZ = THREE.MathUtils.degToRad(z);
+		this.rotation = {
+			x: THREE.MathUtils.degToRad(x),
+			y: THREE.MathUtils.degToRad(y),
+			z: THREE.MathUtils.degToRad(z),
+		};
 
-		this.viewer.rotation.set(x, y, z);
+		this.viewer.rotation.set(this.rotation.x, this.rotation.y, this.rotation.z);
+	}
+
+	getPosition(): { x: number; y: number; z: number } {
+		return this.position;
 	}
 
 	setPosition(x: number, y: number, z: number): void {
-		this.positionX = x;
-		this.positionY = y;
-		this.positionZ = z;
+		this.position = {
+			x: x,
+			y: y,
+			z: z,
+		};
 
-		this.viewer.position.set(x, y, z);
+		this.viewer.position.set(this.position.x, this.position.y, this.position.z);
 	}
 
 	addToScene(scene: THREE.Scene): void {
@@ -70,21 +82,5 @@ export default class Scene {
 
 	toggleVisibility(): void {
 		this.viewer.visible = !this.viewer.visible;
-	}
-
-	getRotation(): { x: number; y: number; z: number } {
-		return {
-			x: THREE.MathUtils.radToDeg(this.rotationX),
-			y: THREE.MathUtils.radToDeg(this.rotationY),
-			z: THREE.MathUtils.radToDeg(this.rotationZ),
-		};
-	}
-
-	getPosition(): { x: number; y: number; z: number } {
-		return {
-			x: this.positionX,
-			y: this.positionY,
-			z: this.positionZ,
-		};
 	}
 }

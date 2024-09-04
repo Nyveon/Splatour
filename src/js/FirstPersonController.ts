@@ -1,196 +1,236 @@
-import * as THREE from 'three';
+import * as THREE from "three";
 
-import { clamp } from './_util.js';
-import { KEYS } from './_constants.js';
+import { clamp } from "./_util.js";
+import { KEYS } from "./_constants.js";
 
-class InputController {
-    canvas: HTMLCanvasElement;
-    current_: any; //todo: not any
-    previous_: any; //todo: not any
-    keys_: any; //todo: not any
-    previousKeys_: any; //todo: not any
-
-    constructor(canvas) {
-        this.canvas = canvas;
-        this.initialize_();
-    }
-
-    initialize_() {
-        this.current_ = {
-            leftButton: false,
-            rightButton: false,
-            mouseX: 0,
-            mouseY: 0,
-            mouseXDelta: 0,
-            mouseYDelta: 0
-        };
-
-        this.previous_ = null;
-        this.keys_ = {};
-        this.previousKeys_ = {};
-
-        document.addEventListener('mousedown', (e) => this.onMouseDown_(e), false);
-        document.addEventListener('mouseup', (e) => this.onMouseUp_(e), false);
-        document.addEventListener('mousemove', (e) => this.onMouseMove_(e), false);
-        document.addEventListener('keydown', (e) => this.onKeyDown_(e), false);
-        document.addEventListener('keyup', (e) => this.onKeyUp_(e), false);
-        this.canvas.addEventListener('click', () => this.canvas.requestPointerLock());
-        document.addEventListener('pointerlockchange', () => this.onPointerLockChange_(), false);
-        document.addEventListener('pointerlockerror', () => this.onPointerLockError_(), false);
-    }
-
-    onMouseDown_(e) {
-        if (e.button === 0) {
-            this.current_.leftButton = true;
-        } else if (e.button === 2) {
-            this.current_.rightButton = true;
-        }
-    }
-
-    onMouseUp_(e) {
-        if (e.button === 0) {
-            this.current_.leftButton = false;
-        } else if (e.button === 2) {
-            this.current_.rightButton = false;
-        }
-    }
-
-    onMouseMove_(e) {
-        if (document.pointerLockElement === this.canvas) {
-            this.current_.mouseX += e.movementX;
-            this.current_.mouseY += e.movementY;
-
-            if (this.previous_ === null) {
-                this.previous_ = { ...this.current_ };
-            }
-
-            this.current_.mouseXDelta = this.current_.mouseX - this.previous_.mouseX;
-            this.current_.mouseYDelta = this.current_.mouseY - this.previous_.mouseY;
-        }
-    }
-
-    onKeyDown_(e) {
-        this.keys_[e.keyCode] = true;
-    }
-
-    onKeyUp_(e) {
-        this.keys_[e.keyCode] = false;
-    }
-
-    key(keyCode) {
-        return !!this.keys_[keyCode];
-    }
-
-    onPointerLockChange_() {
-        if (document.pointerLockElement === this.canvas) {
-            console.log('Pointer lock enabled');
-        } else {
-            console.log('Pointer lock disabled');
-        }
-    }
-
-    onPointerLockError_() {
-        console.log('Pointer lock error');
-    }
-
-    update() {
-        if (this.previous_ !== null) {
-            this.current_.mouseXDelta = this.current_.mouseX - this.previous_.mouseX;
-            this.current_.mouseYDelta = this.current_.mouseY - this.previous_.mouseY;
-      
-            this.previous_ = {...this.current_};
-        }
-    }
+interface MouseState {
+	leftButton: boolean;
+	rightButton: boolean;
+	mouseX: number;
+	mouseY: number;
+	mouseXDelta: number;
+	mouseYDelta: number;
 }
 
+type KeysState = { [key: string]: boolean };
+
+//todo: should be a separate class
+class InputController {
+	canvas: HTMLCanvasElement;
+	private current: MouseState; //todo: not any
+	private previous: MouseState | null; //todo: not any
+	private keys: KeysState; //todo: not any
+	private previousKeys: KeysState; //todo: not any
+
+	constructor(canvas) {
+		this.canvas = canvas;
+		this.initialize();
+	}
+
+	private initialize() {
+		this.current = {
+			leftButton: false,
+			rightButton: false,
+			mouseX: 0,
+			mouseY: 0,
+			mouseXDelta: 0,
+			mouseYDelta: 0,
+		};
+
+		this.previous = null;
+		this.keys = {};
+		this.previousKeys = {};
+
+		document.addEventListener("mousedown", (e) => this.onMouseDown_(e), false);
+		document.addEventListener("mouseup", (e) => this.onMouseUp_(e), false);
+		document.addEventListener("mousemove", (e) => this.onMouseMove_(e), false);
+		document.addEventListener("keydown", (e) => this.onKeyDown_(e), false);
+		document.addEventListener("keyup", (e) => this.onKeyUp_(e), false);
+		this.canvas.addEventListener("click", () =>
+			this.canvas.requestPointerLock()
+		);
+		document.addEventListener(
+			"pointerlockchange",
+			() => this.onPointerLockChange_(),
+			false
+		);
+		document.addEventListener(
+			"pointerlockerror",
+			() => this.onPointerLockError_(),
+			false
+		);
+	}
+
+	private onMouseDown_(e: MouseEvent): void {
+		if (e.button === 0) {
+			this.current.leftButton = true;
+		} else if (e.button === 2) {
+			this.current.rightButton = true;
+		}
+	}
+
+	private onMouseUp_(e: MouseEvent): void {
+		if (e.button === 0) {
+			this.current.leftButton = false;
+		} else if (e.button === 2) {
+			this.current.rightButton = false;
+		}
+	}
+
+	private onMouseMove_(e: MouseEvent): void {
+		if (document.pointerLockElement === this.canvas) {
+			this.current.mouseX += e.movementX;
+			this.current.mouseY += e.movementY;
+
+			if (this.previous === null) {
+				this.previous = { ...this.current };
+			}
+
+			this.current.mouseXDelta = this.current.mouseX - this.previous.mouseX;
+			this.current.mouseYDelta = this.current.mouseY - this.previous.mouseY;
+		}
+	}
+
+	//todo: keycodes are deprecated
+	private onKeyDown_(e: KeyboardEvent): void {
+		this.keys[e.keyCode] = true;
+	}
+
+	private onKeyUp_(e: KeyboardEvent): void {
+		this.keys[e.keyCode] = false;
+	}
+
+	key(keyCode: number): boolean {
+		return !!this.keys[keyCode];
+	}
+
+	private onPointerLockChange_(): void {
+		if (document.pointerLockElement === this.canvas) {
+			console.log("Pointer lock enabled");
+		} else {
+			console.log("Pointer lock disabled");
+		}
+	}
+
+	private onPointerLockError_(): void {
+		console.log("Pointer lock error");
+	}
+
+	update(): void {
+		if (this.previous !== null) {
+			this.current.mouseXDelta = this.current.mouseX - this.previous.mouseX;
+			this.current.mouseYDelta = this.current.mouseY - this.previous.mouseY;
+
+			this.previous = { ...this.current };
+		}
+	}
+
+	getXH(): number {
+		return this.current.mouseXDelta / window.innerWidth;
+	}
+
+	getYH(): number {
+		return this.current.mouseYDelta / window.innerHeight;
+	}
+}
 
 export default class FirstPersonController {
-    camera_: THREE.PerspectiveCamera;
-    input_: InputController;
-    rotation_: THREE.Quaternion;
-    translation_: THREE.Vector3;
-    phi_: number;
-    theta_: number;
-    phiSpeed_: number;
-    thetaSpeed_: number;
-    moveSpeed_: number;
-    headBobActive_: boolean;
+	private camera: THREE.PerspectiveCamera;
+	private input: InputController;
+	private rotation: THREE.Quaternion;
+	private translation: THREE.Vector3;
+	private phi: number;
+	private theta: number;
+	private phiSpeed: number;
+	private thetaSpeed: number;
+	private moveSpeed: number;
+	private headBobActive: boolean;
 
-    constructor(camera: THREE.PerspectiveCamera, canvas: HTMLCanvasElement) {
-        this.camera_ = camera;
-        this.input_ = new InputController(canvas);
-        this.rotation_ = new THREE.Quaternion();
-        this.translation_ = new THREE.Vector3();
-        this.phi_ = 0;
-        this.theta_ = 0;
-        this.phiSpeed_ = 8;
-        this.thetaSpeed_ = 5;
-        this.moveSpeed_ = 3; 
+	constructor(camera: THREE.PerspectiveCamera, canvas: HTMLCanvasElement) {
+		this.camera = camera;
+		this.input = new InputController(canvas);
+		this.rotation = new THREE.Quaternion();
+		this.translation = new THREE.Vector3();
+		this.phi = 0;
+		this.theta = 0;
+		this.phiSpeed = 8;
+		this.thetaSpeed = 5;
+		this.moveSpeed = 3;
+		this.headBobActive = false;
+	}
+
+	update(): void {
+		this.input.update();
+		this.updateRotation();
+		this.updateCamera();
+		this.updateTranslation(1 / 60);
+	}
+
+    setTranslation(x: number, y: number, z: number): void {
+        this.translation.set(x, y, z);
     }
 
-    update() {
-        this.input_.update();
-        this.updateRotation_();
-        this.updateCamera_();
-        this.updateTranslation_(1 / 60);
-    }
+	private updateCamera(): void {
+		this.camera.quaternion.copy(this.rotation);
+		this.camera.position.copy(this.translation);
+	}
 
-    updateCamera_() {
-        this.camera_.quaternion.copy(this.rotation_);
-        this.camera_.position.copy(this.translation_);
-    }
+	private updateRotation(): void {
+		const xh = this.input.getXH();
+		const yh = this.input.getYH();
 
-    updateRotation_() {
-        const xh = this.input_.current_.mouseXDelta / window.innerWidth;
-        const yh = this.input_.current_.mouseYDelta / window.innerHeight;
-    
-        this.phi_ += -xh * this.phiSpeed_;
-        this.theta_ = clamp(this.theta_ + -yh * this.thetaSpeed_, -Math.PI / 3, Math.PI / 3);
-    
-        const qx = new THREE.Quaternion();
-        qx.setFromAxisAngle(new THREE.Vector3(0, 1, 0), this.phi_);
-        const qz = new THREE.Quaternion();
-        qz.setFromAxisAngle(new THREE.Vector3(1, 0, 0), this.theta_);
-    
-        const q = new THREE.Quaternion();
-        q.multiply(qx);
-        q.multiply(qz);
-    
-        this.rotation_.copy(q);
-    }
+		this.phi += -xh * this.phiSpeed;
+		this.theta = clamp(
+			this.theta + -yh * this.thetaSpeed,
+			-Math.PI / 3,
+			Math.PI / 3
+		);
 
-    updateTranslation_(timeElapsedS) {
-        const forwardVelocity = (this.input_.key(KEYS.w) ? 1 : 0) + (this.input_.key(KEYS.s) ? -1 : 0)
-        const strafeVelocity = (this.input_.key(KEYS.a) ? 1 : 0) + (this.input_.key(KEYS.d) ? -1 : 0)
-        const verticalVelocity = (this.input_.key(KEYS.q) ? 1 : 0) + (this.input_.key(KEYS.e) ? -1 : 0)
-    
-        const qx = new THREE.Quaternion();
-        qx.setFromAxisAngle(new THREE.Vector3(0, 1, 0), this.phi_);
-    
-        const forward = new THREE.Vector3(0, 0, -1);
-        forward.applyQuaternion(qx);
-        forward.multiplyScalar(forwardVelocity * timeElapsedS * this.moveSpeed_);
-    
-        const left = new THREE.Vector3(-1, 0, 0);
-        left.applyQuaternion(qx);
-        left.multiplyScalar(strafeVelocity * timeElapsedS * this.moveSpeed_);
+		const qx = new THREE.Quaternion();
+		qx.setFromAxisAngle(new THREE.Vector3(0, 1, 0), this.phi);
+		const qz = new THREE.Quaternion();
+		qz.setFromAxisAngle(new THREE.Vector3(1, 0, 0), this.theta);
 
-        const up = new THREE.Vector3(0, 1, 0);
-        up.applyQuaternion(qx);
-        up.multiplyScalar(verticalVelocity * timeElapsedS * this.moveSpeed_);
+		const q = new THREE.Quaternion();
+		q.multiply(qx);
+		q.multiply(qz);
 
-        //todo: fix diagonal speeds
-    
-        this.translation_.add(forward);
-        this.translation_.add(left);
-        this.translation_.add(up);
-    
-        if (forwardVelocity != 0 || strafeVelocity != 0) {
-          this.headBobActive_ = true;
-        }
-    }
+		this.rotation.copy(q);
+	}
 
-    listenToKeyEvents() {
-        return;
-    }
+	private updateTranslation(timeElapsedS: number): void {
+		const forwardVelocity =
+			(this.input.key(KEYS.w) ? 1 : 0) + (this.input.key(KEYS.s) ? -1 : 0);
+		const strafeVelocity =
+			(this.input.key(KEYS.a) ? 1 : 0) + (this.input.key(KEYS.d) ? -1 : 0);
+		const verticalVelocity =
+			(this.input.key(KEYS.q) ? 1 : 0) + (this.input.key(KEYS.e) ? -1 : 0);
+
+		const qx = new THREE.Quaternion();
+		qx.setFromAxisAngle(new THREE.Vector3(0, 1, 0), this.phi);
+
+		const forward = new THREE.Vector3(0, 0, -1);
+		forward.applyQuaternion(qx);
+		forward.multiplyScalar(forwardVelocity * timeElapsedS * this.moveSpeed);
+
+		const left = new THREE.Vector3(-1, 0, 0);
+		left.applyQuaternion(qx);
+		left.multiplyScalar(strafeVelocity * timeElapsedS * this.moveSpeed);
+
+		const up = new THREE.Vector3(0, 1, 0);
+		up.multiplyScalar(verticalVelocity * timeElapsedS * this.moveSpeed);
+
+		if (forwardVelocity !== 0 && strafeVelocity !== 0) {
+			forward.multiplyScalar(1 / Math.sqrt(2));
+			left.multiplyScalar(1 / Math.sqrt(2));
+		}
+
+		this.translation.add(forward);
+		this.translation.add(left);
+		this.translation.add(up);
+
+		if (forwardVelocity !== 0 || strafeVelocity !== 0) {
+			this.headBobActive = true;
+		}
+	}
 }

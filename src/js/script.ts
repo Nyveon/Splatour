@@ -15,9 +15,8 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
 const scene = new THREE.Scene();
-
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-// camera.position.set(0, 2, 10); 
+
 
 const axesHelper = new THREE.AxesHelper(500);
 scene.add(axesHelper);
@@ -28,10 +27,10 @@ const cube = new THREE.Mesh(boxGeometry, boxMaterial);
 cube.position.set(-10, 5, -10);
 scene.add(cube);
 
+
 const controls = new FirstPersonController(camera, renderer.domElement);
-controls.translation_.y = 3.5;
-controls.translation_.z = 10;
-controls.update();
+controls.setTranslation(0, 3.5, 10);
+
 
 function animate() {
     cube.rotation.x += 0.01;
@@ -88,28 +87,9 @@ gs.setRotationDegrees(168, 0, 352);
 gs.addToScene(scene);
 
 
-function updateSplatRotation(splat, axis, angleDegrees) {
-    const quaternion = new THREE.Quaternion();
-    quaternion.setFromAxisAngle(axis, THREE.MathUtils.degToRad(angleDegrees));
-    splat.rotation.copy(quaternion);
-    splat.updateMatrix(); // Make sure the matrix is updated with the new rotation
-}
-
-
 document.addEventListener('keydown', (event) => {
     if (event.key === 'v') {
-        gs.viewer.visible = !gs.viewer.visible;
-    } else if (event.key === 'r') {
-        console.log(gs.viewer)
-        const axis = new THREE.Vector3(0, 1, 0);  // Rotate around Y-axis
-        const angle = THREE.MathUtils.degToRad(45);  // Rotate by 45 degrees
-        
-        // Create a quaternion for the rotation
-        const quaternion = new THREE.Quaternion();
-        quaternion.setFromAxisAngle(axis, angle);
-
-        // Apply the quaternion to the viewer's rotation
-        gs.viewer.quaternion.multiplyQuaternions(quaternion, gs.viewer.quaternion);
+        gs.toggleVisibility();
     }
 });
 
@@ -120,7 +100,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const exportBtn = document.getElementById('exportBtn')!;
     
     // Rotation sliders
-    // const xRotationSlider = document.getElementById('xRotation')!;
     const xRotationSlider = document.getElementById('xRotation') as HTMLInputElement;
     const yRotationSlider = document.getElementById('yRotation') as HTMLInputElement;
     const zRotationSlider = document.getElementById('zRotation') as HTMLInputElement;
@@ -135,7 +114,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     openModalBtn.addEventListener('click', () => {
         modal.style.display = 'block';
-        updateTransformDisplay(); // Display current values when opening
+        updateTransformDisplay();
     });
 
     closeModalBtn.addEventListener('click', () => {
@@ -144,10 +123,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Update viewer rotation and translation based on slider values
     function updateViewerTransform() {
-        // Rotation values
-        const xRotation = THREE.MathUtils.degToRad(parseInt(xRotationSlider.value));
-        const yRotation = THREE.MathUtils.degToRad(parseInt(yRotationSlider.value));
-        const zRotation = THREE.MathUtils.degToRad(parseInt(zRotationSlider.value));
 
         // Translation values
         const xTranslation = parseFloat(xTranslationSlider.value);
@@ -155,10 +130,10 @@ document.addEventListener('DOMContentLoaded', function () {
         const zTranslation = parseFloat(zTranslationSlider.value);
 
         // Update viewer rotation
-        gs.viewer.rotation.set(xRotation, yRotation, zRotation);
+        gs.setRotationDegrees(parseInt(xRotationSlider.value), parseInt(yRotationSlider.value), parseInt(zRotationSlider.value));
 
         // Update viewer translation (position)
-        gs.viewer.position.set(xTranslation, yTranslation, zTranslation);
+        gs.setPosition(xTranslation, yTranslation, zTranslation);
 
         // Update the display
         updateTransformDisplay();
@@ -166,17 +141,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Function to update the displayed transform values
     function updateTransformDisplay() {
-        const rotation = {
-            x: THREE.MathUtils.radToDeg(gs.viewer.rotation.x).toFixed(2),
-            y: THREE.MathUtils.radToDeg(gs.viewer.rotation.y).toFixed(2),
-            z: THREE.MathUtils.radToDeg(gs.viewer.rotation.z).toFixed(2),
-        };
-        const translation = {
-            x: gs.positionX.toFixed(2),
-            y: gs.positionY.toFixed(2),
-            z: gs.positionZ.toFixed(2),
-        };
-        
+        const rotation = gs.getRotation();
+        const translation = gs.getPosition();
         transformValuesDisplay.textContent = `Rotation (degrees):\nX: ${rotation.x}, Y: ${rotation.y}, Z: ${rotation.z}\n\n` +
                                              `Translation:\nX: ${translation.x}, Y: ${translation.y}, Z: ${translation.z}`;
     }
@@ -184,16 +150,8 @@ document.addEventListener('DOMContentLoaded', function () {
     // Function to export the current transform values as JSON
     function exportTransform() {
         const transformData = {
-            rotation: {
-                x: gs.viewer.rotation.x,
-                y: gs.viewer.rotation.y,
-                z: gs.viewer.rotation.z,
-            },
-            translation: {
-                x: gs.viewer.position.x,
-                y: gs.viewer.position.y,
-                z: gs.viewer.position.z,
-            }
+            rotation: gs.getRotation(),
+            translation: gs.getPosition()
         };
         const jsonString = JSON.stringify(transformData, null, 2);
         const blob = new Blob([jsonString], { type: 'application/json' });

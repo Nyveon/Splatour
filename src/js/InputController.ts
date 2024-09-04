@@ -1,12 +1,3 @@
-export const KEYS = {
-    'a': 65,
-    's': 83,
-    'w': 87,
-    'd': 68,
-    'q': 81,
-    'e': 69,
-};
-
 interface MouseState {
 	leftButton: boolean;
 	rightButton: boolean;
@@ -16,8 +7,16 @@ interface MouseState {
 	mouseYDelta: number;
 }
 
-type KeysState = { [key: string]: boolean };
+export const KEYS = {
+	w: "KeyW",
+	s: "KeyS",
+	a: "KeyA",
+	d: "KeyD",
+	q: "KeyQ",
+	e: "KeyE",
+};
 
+type KeysState = { [key: string]: boolean };
 
 export default class InputController {
 	canvas: HTMLCanvasElement;
@@ -95,16 +94,15 @@ export default class InputController {
 		}
 	}
 
-	//todo: keycodes are deprecated
 	private onKeyDown_(e: KeyboardEvent): void {
-		this.keys[e.keyCode] = true;
+		this.keys[e.code] = true;
 	}
 
 	private onKeyUp_(e: KeyboardEvent): void {
-		this.keys[e.keyCode] = false;
+		this.keys[e.code] = false;
 	}
 
-	key(keyCode: number): boolean {
+	public key(keyCode: string): boolean {
 		return !!this.keys[keyCode];
 	}
 

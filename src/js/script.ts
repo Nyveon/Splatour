@@ -19,7 +19,7 @@ scene.add(new THREE.AxesHelper(500));
 scene.add(createSky(renderer));
 scene.add(createCheckerboard());
 
-//todo: update aspect ratio with resinzing window
+//todo: update aspect ratio with resizing window
 const aspectRatio = window.innerWidth / window.innerHeight;
 const camera = new THREE.PerspectiveCamera(75, aspectRatio, 0.1, 1000);
 
@@ -33,10 +33,18 @@ renderer.setAnimationLoop(() => {
 	stats.end();
 });
 
+const globalScale = 1;
+
+const gs2 = new GS3dScene("garden.ksplat")
+gs2.setScale(globalScale, globalScale, globalScale);
+gs2.setPosition(0, 4, 0);
+gs2.setRotationDegrees(154, 0, 0);
+gs2.addToScene(scene);
+
 const gs = new GS3dScene("LivingRoom.ply");
-gs.setScale(10, 10, 10);
-gs.setPosition(0, 3, 0);
-gs.setRotationDegrees(168, 0, 352);
+gs.setScale(globalScale, globalScale, globalScale);
+gs.setPosition(-9, 3, 16);
+gs.setRotationDegrees(0, 21, 180);
 gs.addToScene(scene);
 
 document.addEventListener("DOMContentLoaded", function () {

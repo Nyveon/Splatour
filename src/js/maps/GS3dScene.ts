@@ -21,7 +21,7 @@ export default class Scene {
 					path: filePath,
 					scale: [1, 1, 1],
 					position: [0, 0, 0],
-					splatAlphaRemovalThreshold: 5, //todo: make configurable?
+					splatAlphaRemovalThreshold: 10, //todo: make configurable?
 				},
 			],
 			true

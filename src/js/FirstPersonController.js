@@ -1,8 +1,7 @@
 import * as THREE from 'three';
 
-function clamp(x, a, b) {
-    return Math.min(Math.max(x, a), b);
-}
+import { clamp } from './_util.js';
+import { KEYS } from './_constants.js';
 
 class InputController {
     constructor(canvas) {
@@ -99,17 +98,7 @@ class InputController {
 }
 
 
-const KEYS = {
-    'a': 65,
-    's': 83,
-    'w': 87,
-    'd': 68,
-    'q': 81,
-    'e': 69,
-  };
-
-
-class FirstPersonControls {
+export default class FirstPersonController {
     constructor(camera, canvas) {
         this.camera_ = camera;
         this.input_ = new InputController(canvas);
@@ -188,5 +177,3 @@ class FirstPersonControls {
         return;
     }
 }
-
-export { FirstPersonControls };

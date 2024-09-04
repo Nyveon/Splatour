@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { FirstPersonControls } from './FirstPersonControls';
+import FirstPersonController from './FirstPersonController.js';
 import Stats from 'three/examples/jsm/libs/stats.module.js';
 import { Sky } from 'three/examples/jsm/objects/Sky.js';
 
@@ -27,7 +27,7 @@ const cube = new THREE.Mesh(boxGeometry, boxMaterial);
 cube.position.set(-10, 5, -10);
 scene.add(cube);
 
-const controls = new FirstPersonControls(camera, renderer.domElement);
+const controls = new FirstPersonController(camera, renderer.domElement);
 controls.translation_.y = 3.5;
 controls.translation_.z = 10;
 controls.update();

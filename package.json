@@ -2,7 +2,6 @@
   "name": "gaussiansplats3dmaps",
   "version": "1.0.0",
   "description": "Three.js-based 3D Gaussian splatting map-making and virtual tour system",
-  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

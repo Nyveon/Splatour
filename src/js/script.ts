@@ -10,7 +10,6 @@ const stats = new Stats();
 stats.showPanel(0);
 document.body.appendChild(stats.dom);
 
-//todo: make this update with resizing window
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
@@ -20,9 +19,14 @@ scene.add(new THREE.AxesHelper(500));
 scene.add(createSky(renderer));
 scene.add(createCheckerboard());
 
-//todo: update aspect ratio with resizing window
 const aspectRatio = window.innerWidth / window.innerHeight;
 const camera = new THREE.PerspectiveCamera(75, aspectRatio, 0.1, 1000);
+
+window.addEventListener('resize', () => {
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+});
 
 const controls = new FirstPersonController(camera, renderer.domElement);
 controls.setTranslation(0, 3.5, 10);

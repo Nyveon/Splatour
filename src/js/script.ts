@@ -4,13 +4,14 @@ import Stats from "three/examples/jsm/libs/stats.module.js";
 import GS3dScene from "./maps/GS3dScene.ts";
 import createSky from "./environment/Sky.ts";
 import createCheckerboard from "./environment/CheckerBoard.ts";
+import GS3dMap from "./maps/GS3dMap.ts";
 
 const stats = new Stats();
 stats.showPanel(0);
 document.body.appendChild(stats.dom);
 
 //todo: make this update with resizing window
-const renderer = new THREE.WebGLRenderer(); 
+const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
@@ -33,102 +34,45 @@ renderer.setAnimationLoop(() => {
 	stats.end();
 });
 
-const globalScale = 1;
-
-const gs2 = new GS3dScene("garden.ksplat")
-gs2.setScale(globalScale, globalScale, globalScale);
-gs2.setPosition(0, 4, 0);
-gs2.setRotationDegrees(154, 0, 0);
-gs2.addToScene(scene);
-
-const gs = new GS3dScene("LivingRoom.ply");
-gs.setScale(globalScale, globalScale, globalScale);
-gs.setPosition(-9, 3, 16);
-gs.setRotationDegrees(0, 21, 180);
-gs.addToScene(scene);
-
-document.addEventListener("DOMContentLoaded", function () {
-	const modal = document.getElementById("rotationModal")!;
-	const openModalBtn = document.getElementById("openModalBtn")!;
-	const closeModalBtn = document.getElementById("closeModalBtn")!;
-	const exportBtn = document.getElementById("exportBtn")!;
-
-	const xRotationSlider = document.getElementById(
-		"xRotation"
-	) as HTMLInputElement;
-	const yRotationSlider = document.getElementById(
-		"yRotation"
-	) as HTMLInputElement;
-	const zRotationSlider = document.getElementById(
-		"zRotation"
+function handleModalSubmit() {
+	const modal = document.getElementById("myModal")!;
+	const fileInput: HTMLInputElement = document.getElementById(
+		"fileInput"
 	) as HTMLInputElement;
 
-	const xTranslationSlider = document.getElementById(
-		"xTranslation"
-	) as HTMLInputElement;
-	const yTranslationSlider = document.getElementById(
-		"yTranslation"
-	) as HTMLInputElement;
-	const zTranslationSlider = document.getElementById(
-		"zTranslation"
-	) as HTMLInputElement;
-
-	const transformValuesDisplay = document.getElementById("transformValues")!;
-
-	openModalBtn.addEventListener("click", () => {
-		modal.style.display = "block";
-		updateTransformDisplay();
-	});
-
-	closeModalBtn.addEventListener("click", () => {
-		modal.style.display = "none";
-	});
-
-	function updateViewerTransform() {
-		gs.setRotationDegrees(
-			parseInt(xRotationSlider.value),
-			parseInt(yRotationSlider.value),
-			parseInt(zRotationSlider.value)
-		);
-
-		gs.setPosition(
-			parseFloat(xTranslationSlider.value),
-			parseFloat(yTranslationSlider.value),
-			parseFloat(zTranslationSlider.value)
-		);
-
-		updateTransformDisplay();
+	if (!fileInput || !fileInput.files) {
+		alert("File input not found.");
+		return;
 	}
 
-	function updateTransformDisplay() {
-		const rotation = gs.getRotationDegrees();
-		const translation = gs.getPosition();
-		transformValuesDisplay.textContent =
-			`Rotation (degrees):\nX: ${rotation.x}, Y: ${rotation.y}, Z: ${rotation.z}\n\n` +
-			`Translation:\nX: ${translation.x}, Y: ${translation.y}, Z: ${translation.z}`;
+	const file = fileInput.files[0];
+
+	if (!file) {
+		alert("Please select a JSON file");
+		return;
 	}
 
-	function exportTransform() {
-		const transformData = {
-			rotation: gs.getRotationDegrees(),
-			translation: gs.getPosition(),
-		};
-		const jsonString = JSON.stringify(transformData, null, 2);
-		const blob = new Blob([jsonString], { type: "application/json" });
-		const url = URL.createObjectURL(blob);
-		const a = document.createElement("a");
-		a.href = url;
-		a.download = "transform.json";
-		a.click();
-		URL.revokeObjectURL(url);
-	}
+	const reader = new FileReader();
 
-	xRotationSlider.addEventListener("input", updateViewerTransform);
-	yRotationSlider.addEventListener("input", updateViewerTransform);
-	zRotationSlider.addEventListener("input", updateViewerTransform);
-	xTranslationSlider.addEventListener("input", updateViewerTransform);
-	yTranslationSlider.addEventListener("input", updateViewerTransform);
-	zTranslationSlider.addEventListener("input", updateViewerTransform);
+	reader.onload = function (e) {
+		try {
+			if (!e.target || !e.target.result) {
+				throw new Error("Invalid file data.");
+			}
 
-	exportBtn.addEventListener("click", exportTransform);
-});
+			console.log("JSON data uploaded:", e.target.result);
+			const gsmap = GS3dMap.deserialize(e.target.result.toString());
+			gsmap.addAllToScene(scene);
+		} catch (error) {
+			alert("Invalid JSON file." + error);
+		}
+	};
+
+	reader.readAsText(file);
+
+	modal.classList.add("hidden");
+}
+
+document
+	.getElementById("modalButton")!
+	.addEventListener("click", handleModalSubmit);

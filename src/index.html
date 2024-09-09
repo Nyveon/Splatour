@@ -7,45 +7,15 @@
     <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
-    <script src="./js/script.ts" type="module"></script>
-
-    <div id="rotationModal">
-        <h2>Rotate & Translate Viewer</h2>
-        
-        <!-- Rotation Sliders -->
-        <div class="slider-container">
-            <label class="slider-label" for="xRotation">X Rotation</label>
-            <input type="range" id="xRotation" class="slider" min="0" max="360" value="0">
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <h2>Upload JSON File</h2>
+            <input type="file" id="fileInput" accept=".json">
+            <br><br>
+            <button id="modalButton">Submit</button>
         </div>
-        <div class="slider-container">
-            <label class="slider-label" for="yRotation">Y Rotation</label>
-            <input type="range" id="yRotation" class="slider" min="0" max="360" value="0">
-        </div>
-        <div class="slider-container">
-            <label class="slider-label" for="zRotation">Z Rotation</label>
-            <input type="range" id="zRotation" class="slider" min="0" max="360" value="0">
-        </div>
-
-        <!-- Translation Sliders -->
-        <div class="slider-container">
-            <label class="slider-label" for="xTranslation">X Translation</label>
-            <input type="range" id="xTranslation" class="slider" min="-50" max="50" value="0">
-        </div>
-        <div class="slider-container">
-            <label class="slider-label" for="yTranslation">Y Translation</label>
-            <input type="range" id="yTranslation" class="slider" min="-50" max="50" value="0">
-        </div>
-        <div class="slider-container">
-            <label class="slider-label" for="zTranslation">Z Translation</label>
-            <input type="range" id="zTranslation" class="slider" min="-50" max="50" value="0">
-        </div>
-
-        <button id="closeModalBtn">Close</button>
-        <button id="exportBtn">Export Transform</button>
-
-        <div id="transformValues"></div>
     </div>
-    
-    <button id="openModalBtn">Transformations</button>
+
+    <script src="./js/script.ts" type="module"></script>
 </body>
 </html>

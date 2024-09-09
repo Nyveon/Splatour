@@ -1,0 +1,125 @@
+document.addEventListener("DOMContentLoaded", function () {
+	const modal = document.getElementById("rotationModal")!;
+	const openModalBtn = document.getElementById("openModalBtn")!;
+	const closeModalBtn = document.getElementById("closeModalBtn")!;
+	const exportBtn = document.getElementById("exportBtn")!;
+
+	const xRotationSlider = document.getElementById(
+		"xRotation"
+	) as HTMLInputElement;
+	const yRotationSlider = document.getElementById(
+		"yRotation"
+	) as HTMLInputElement;
+	const zRotationSlider = document.getElementById(
+		"zRotation"
+	) as HTMLInputElement;
+
+	const xTranslationSlider = document.getElementById(
+		"xTranslation"
+	) as HTMLInputElement;
+	const yTranslationSlider = document.getElementById(
+		"yTranslation"
+	) as HTMLInputElement;
+	const zTranslationSlider = document.getElementById(
+		"zTranslation"
+	) as HTMLInputElement;
+
+	const transformValuesDisplay = document.getElementById("transformValues")!;
+
+	openModalBtn.addEventListener("click", () => {
+		modal.style.display = "block";
+		updateTransformDisplay();
+	});
+
+	closeModalBtn.addEventListener("click", () => {
+		modal.style.display = "none";
+	});
+
+	function updateViewerTransform() {
+		gs.setRotationDegrees(
+			parseInt(xRotationSlider.value),
+			parseInt(yRotationSlider.value),
+			parseInt(zRotationSlider.value)
+		);
+
+		gs.setPosition(
+			parseFloat(xTranslationSlider.value),
+			parseFloat(yTranslationSlider.value),
+			parseFloat(zTranslationSlider.value)
+		);
+
+		updateTransformDisplay();
+	}
+
+	function updateTransformDisplay() {
+		const rotation = gs.getRotationDegrees();
+		const translation = gs.getPosition();
+		transformValuesDisplay.textContent =
+			`Rotation (degrees):\nX: ${rotation.x}, Y: ${rotation.y}, Z: ${rotation.z}\n\n` +
+			`Translation:\nX: ${translation.x}, Y: ${translation.y}, Z: ${translation.z}`;
+	}
+
+	function exportTransform() {
+		const transformData = {
+			rotation: gs.getRotationDegrees(),
+			translation: gs.getPosition(),
+		};
+		const jsonString = JSON.stringify(transformData, null, 2);
+		const blob = new Blob([jsonString], { type: "application/json" });
+		const url = URL.createObjectURL(blob);
+		const a = document.createElement("a");
+		a.href = url;
+		a.download = "transform.json";
+		a.click();
+		URL.revokeObjectURL(url);
+	}
+
+	xRotationSlider.addEventListener("input", updateViewerTransform);
+	yRotationSlider.addEventListener("input", updateViewerTransform);
+	zRotationSlider.addEventListener("input", updateViewerTransform);
+	xTranslationSlider.addEventListener("input", updateViewerTransform);
+	yTranslationSlider.addEventListener("input", updateViewerTransform);
+	zTranslationSlider.addEventListener("input", updateViewerTransform);
+
+	exportBtn.addEventListener("click", exportTransform);
+});
+
+
+    <div id="rotationModal">
+        <h2>Rotate & Translate Viewer</h2>
+        
+        <!-- Rotation Sliders -->
+        <div class="slider-container">
+            <label class="slider-label" for="xRotation">X Rotation</label>
+            <input type="range" id="xRotation" class="slider" min="0" max="360" value="0">
+        </div>
+        <div class="slider-container">
+            <label class="slider-label" for="yRotation">Y Rotation</label>
+            <input type="range" id="yRotation" class="slider" min="0" max="360" value="0">
+        </div>
+        <div class="slider-container">
+            <label class="slider-label" for="zRotation">Z Rotation</label>
+            <input type="range" id="zRotation" class="slider" min="0" max="360" value="0">
+        </div>
+
+        <!-- Translation Sliders -->
+        <div class="slider-container">
+            <label class="slider-label" for="xTranslation">X Translation</label>
+            <input type="range" id="xTranslation" class="slider" min="-50" max="50" value="0">
+        </div>
+        <div class="slider-container">
+            <label class="slider-label" for="yTranslation">Y Translation</label>
+            <input type="range" id="yTranslation" class="slider" min="-50" max="50" value="0">
+        </div>
+        <div class="slider-container">
+            <label class="slider-label" for="zTranslation">Z Translation</label>
+            <input type="range" id="zTranslation" class="slider" min="-50" max="50" value="0">
+        </div>
+
+        <button id="closeModalBtn">Close</button>
+        <button id="exportBtn">Export Transform</button>
+
+        <div id="transformValues"></div>
+    </div>
+    
+    <button id="openModalBtn">Transformations</button>

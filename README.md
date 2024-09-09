@@ -10,6 +10,7 @@ Install:
 Run:
 
 ```bash
+nvm use 14
 npx parcel src/index.html
 ```
 

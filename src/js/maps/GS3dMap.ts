@@ -8,7 +8,7 @@ export default class GS3dMap {
 
 	constructor() {
 		this.viewer = new GaussianSplats3D.DropInViewer({
-			dynamicScene: true
+			dynamicScene: true,
 		});
 	}
 

@@ -7,10 +7,10 @@ import FirstPersonController from "../player/FirstPersonController.js";
 
 export default class GS3dViewer {
 	private map: GS3dMap;
-	private scene: THREE.Scene;
-	private camera: THREE.PerspectiveCamera;
-	private controls: FirstPersonController;
-	private renderer: THREE.WebGLRenderer;
+	private scene!: THREE.Scene;
+	private camera!: THREE.PerspectiveCamera;
+	private controls!: FirstPersonController;
+	private renderer!: THREE.WebGLRenderer;
 	private stats?: Stats;
 	private viewerContainer: HTMLElement | null;
 
@@ -56,7 +56,7 @@ export default class GS3dViewer {
 		this.controls = new FirstPersonController(
 			this.camera,
 			this.renderer.domElement,
-            debug
+			debug
 		);
 		this.controls.setTranslation(0, 3.5, 10);
 	}

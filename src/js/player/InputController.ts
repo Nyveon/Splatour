@@ -14,20 +14,20 @@ export const KEYS = {
 	d: "KeyD",
 	q: "KeyQ",
 	e: "KeyE",
-    space: "Space",
-    shift: "ShiftLeft",
+	space: "Space",
+	shift: "ShiftLeft",
 };
 
 type KeysState = { [key: string]: boolean };
 
 export default class InputController {
 	canvas: HTMLCanvasElement;
-	private current: MouseState; //todo: not any
-	private previous: MouseState | null; //todo: not any
-	private keys: KeysState; //todo: not any
-	private previousKeys: KeysState; //todo: not any
+	private current!: MouseState;
+	private previous: MouseState | null = null;
+	private keys!: KeysState;
+	private previousKeys!: KeysState;
 
-	constructor(canvas) {
+	constructor(canvas: HTMLCanvasElement) {
 		this.canvas = canvas;
 		this.initialize();
 	}

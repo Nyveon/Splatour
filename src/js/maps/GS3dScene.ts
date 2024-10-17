@@ -1,5 +1,4 @@
 import * as THREE from "three";
-import * as GaussianSplats3D from "@mkkellogg/gaussian-splats-3d";
 
 export default class GS3dScene {
 	filePath: string;
@@ -8,18 +7,15 @@ export default class GS3dScene {
 	private rotation: { x: number; y: number; z: number } = { x: 0, y: 0, z: 0 };
 	private position: { x: number; y: number; z: number } = { x: 0, y: 0, z: 0 };
 	private visibility: boolean = true;
-
-	private viewer: any;
 	private sceneIndex: number = -1;
 
-	constructor(filePath: string) {
+	constructor(filePath: string) {THREE.WebGLRenderer
 		this.filePath = filePath;
 		this.container = new THREE.Group();
 	}
 
 	register(index: number, viewer: any): void {
 		this.sceneIndex = index;
-		this.viewer = viewer;
 		this.container.add(viewer.getSplatScene(index));
 		this.updateContainer();
 	}
@@ -102,7 +98,7 @@ export default class GS3dScene {
 			path: this.filePath,
 			scale: [1, 1, 1],
 			position: [0, 0, 0],
-			splatAlphaRemovalThreshold: 20, //todo: make configurable?
+			splatAlphaRemovalThreshold: 20,
 		};
 	}
 

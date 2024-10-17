@@ -5,6 +5,14 @@
     --text-color-light: #fff;
     --primary-color: #007bff;
     --secondary-color: #6c757d;
+    --border-color: #ced4da;
+}
+
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
 
@@ -37,7 +45,6 @@ ul {
 
 li {
     padding: 10px;
-    border-bottom: 1px solid #ccc;
 }
 
 a.button {

@@ -34,6 +34,7 @@ export default class GS3dMap {
 	}
 
 	serialize(): string {
+        //todo: serialization is wrong D:
 		return JSON.stringify({
 			scenes: this.scenes.map((scene) => scene.serialize()),
 		});

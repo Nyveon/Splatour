@@ -9,25 +9,33 @@
 
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
-<body>
+<body
+    x-init="map = await (await fetch('test_map.json')).json();"
+    x-data="{ map: {
+        'test': 'test'
+    } }"
+>
     <header>
-        <div>
-            <button></button>
+        <div role="toolbar">
+            Map Name
+            <button>Load</button>
+            <button>Export</button>
         </div>
 
         <div>
-
+            Placeholder
         </div>
     </header>
 
-    <main>
+    <main x-data>
         <aside>
             <ul>
-                <li>Option 1</li>
-                <li>Option 2</li>
-                <li>Option 3</li>
+                <template x-for="scene in map.scenes">
+                    <li x-text="scene.filePath" class="splat-file"></li>
+                </template>
             </ul>
         </aside>
+
 
         <div id="viewer"></div>
     </main>

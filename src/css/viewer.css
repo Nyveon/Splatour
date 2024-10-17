@@ -19,3 +19,8 @@
     text-align: center;
     width: 300px;
 }
+
+#viewer {
+    width: 100%;
+    height: 100%;
+}

@@ -4,14 +4,14 @@ Three.js-based 3D Gaussian splatting map-making and virtual tour system
 
 Install:
 
-- Node version: 14.21.3 *(parcel seems broken on higher versions when running on windows)*
-- `npm i`
+```bash
+npm install
+```
 
 Run:
 
 ```bash
-nvm use 14
-npx parcel src/index.html
+npm run dev
 ```
 
 ## Resources

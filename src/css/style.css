@@ -1,6 +1,8 @@
 :root {
     --background-color: #f8f9fa;
+    --background-color-dark: #343a40;
     --text-color: #333;
+    --text-color-light: #fff;
     --primary-color: #007bff;
     --secondary-color: #6c757d;
 }
@@ -12,6 +14,7 @@ body {
     background-color: var(--background-color);
 
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;

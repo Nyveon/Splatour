@@ -8,9 +8,7 @@ export default class GS3dMap {
 
 	constructor() {
 		this.viewer = new GaussianSplats3D.DropInViewer({
-			sharedMemoryForWorkers: false, //todo: this should be configurable
-			gpuAcceleratedSort: false, //todo: this might not work on phones
-			dynamicScene: true,
+			dynamicScene: true
 		});
 	}
 

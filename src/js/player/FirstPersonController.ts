@@ -15,8 +15,9 @@ export default class FirstPersonController {
 	private thetaSpeed: number;
 	private moveSpeed: number;
 	private headBobActive: boolean;
+    private debug: boolean;
 
-	constructor(camera: THREE.PerspectiveCamera, canvas: HTMLCanvasElement) {
+	constructor(camera: THREE.PerspectiveCamera, canvas: HTMLCanvasElement, debug = false) {
 		this.camera = camera;
 		this.input = new InputController(canvas);
 		this.rotation = new THREE.Quaternion();
@@ -27,6 +28,7 @@ export default class FirstPersonController {
 		this.thetaSpeed = 5;
 		this.moveSpeed = 3;
 		this.headBobActive = false;
+        this.debug = debug;
 	}
 
 	update(): void {
@@ -74,7 +76,7 @@ export default class FirstPersonController {
 		const strafeVelocity =
 			(this.input.key(KEYS.a) ? 1 : 0) + (this.input.key(KEYS.d) ? -1 : 0);
 		const verticalVelocity =
-			(this.input.key(KEYS.q) ? 1 : 0) + (this.input.key(KEYS.e) ? -1 : 0);
+			(this.input.key(KEYS.space) ? 1 : 0) + (this.input.key(KEYS.shift) ? -1 : 0);
 
 		const qx = new THREE.Quaternion();
 		qx.setFromAxisAngle(new THREE.Vector3(0, 1, 0), this.phi);
@@ -87,8 +89,8 @@ export default class FirstPersonController {
 		left.applyQuaternion(qx);
 		left.multiplyScalar(strafeVelocity * timeElapsedS * this.moveSpeed);
 
-		const up = new THREE.Vector3(0, 1, 0);
-		up.multiplyScalar(verticalVelocity * timeElapsedS * this.moveSpeed);
+		const up = this.debug ? new THREE.Vector3(0, 1, 0) : new THREE.Vector3(0, 0, 0);
+        up.multiplyScalar(verticalVelocity * timeElapsedS * this.moveSpeed);
 
 		if (forwardVelocity !== 0 && strafeVelocity !== 0) {
 			forward.multiplyScalar(1 / Math.sqrt(2));

@@ -29,7 +29,7 @@ function handleModalSubmit() {
 
 			console.log("JSON data uploaded:", e.target.result);
 			const gsmap = GS3dMap.deserialize(e.target.result.toString());
-			const world = new GS3dViewer(gsmap, true);
+			const world = new GS3dViewer(gsmap, false);
 		} catch (error) {
 			alert("Invalid JSON file." + error);
 		}

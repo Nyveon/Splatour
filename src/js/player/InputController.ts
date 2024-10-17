@@ -14,6 +14,8 @@ export const KEYS = {
 	d: "KeyD",
 	q: "KeyQ",
 	e: "KeyE",
+    space: "Space",
+    shift: "ShiftLeft",
 };
 
 type KeysState = { [key: string]: boolean };

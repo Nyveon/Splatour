@@ -11,7 +11,6 @@ export default class GS3dViewer {
 	private camera: THREE.PerspectiveCamera;
 	private controls: FirstPersonController;
 	private renderer: THREE.WebGLRenderer;
-
 	private stats?: Stats;
 	private viewerContainer: HTMLElement | null;
 
@@ -21,7 +20,7 @@ export default class GS3dViewer {
 		this.initializeRenderer();
 		this.initializeScene(debug);
 		this.initializeCamera();
-		this.initializeControls();
+		this.initializeControls(debug);
 		this.handleResize();
 		this.startRenderLoop(debug);
 		this.map.addToScene(this.scene);
@@ -53,11 +52,11 @@ export default class GS3dViewer {
 		this.camera = new THREE.PerspectiveCamera(75, aspectRatio, 0.1, 1000);
 	}
 
-	private initializeControls() {
-		//todo: debug unlocks vertical movement
+	private initializeControls(debug: boolean) {
 		this.controls = new FirstPersonController(
 			this.camera,
-			this.renderer.domElement
+			this.renderer.domElement,
+            debug
 		);
 		this.controls.setTranslation(0, 3.5, 10);
 	}

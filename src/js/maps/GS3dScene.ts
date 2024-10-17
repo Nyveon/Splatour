@@ -3,31 +3,46 @@ import * as GaussianSplats3D from "@mkkellogg/gaussian-splats-3d";
 
 export default class GS3dScene {
 	filePath: string;
+	private container: THREE.Group;
 	private scale: { x: number; y: number; z: number } = { x: 1, y: 1, z: 1 };
 	private rotation: { x: number; y: number; z: number } = { x: 0, y: 0, z: 0 };
 	private position: { x: number; y: number; z: number } = { x: 0, y: 0, z: 0 };
+	private visibility: boolean = true;
+
 	private viewer: any;
+	private sceneIndex: number = -1;
 
 	constructor(filePath: string) {
-		this.viewer = new GaussianSplats3D.DropInViewer({
-			sharedMemoryForWorkers: false, //todo: this should be configurable
-			'gpuAcceleratedSort': true, //todo: this might not work on phones
-		});
-
 		this.filePath = filePath;
-		this.viewer.addSplatScenes(
-			[
-				{
-					path: filePath,
-					scale: [1, 1, 1],
-					position: [0, 0, 0],
-					splatAlphaRemovalThreshold: 10, //todo: make configurable?
-				},
-			],
-			true
-		);
+		this.container = new THREE.Group();
+	}
 
-		console.log(`Scene created with file path: ${filePath}`);
+	register(index: number, viewer: any): void {
+		this.sceneIndex = index;
+		this.viewer = viewer;
+		this.container.add(viewer.getSplatScene(index));
+		this.updateContainer();
+	}
+
+	getContainer(): THREE.Group {
+		return this.container;
+	}
+
+	updateContainer(): void {
+		if (this.sceneIndex !== -1) {
+			this.container.scale.set(this.scale.x, this.scale.y, this.scale.z);
+			this.container.position.set(
+				this.position.x,
+				this.position.y,
+				this.position.z
+			);
+			this.container.rotation.set(
+				this.rotation.x,
+				this.rotation.y,
+				this.rotation.z
+			);
+			this.container.visible = this.visibility;
+		}
 	}
 
 	setScale(x: number, y: number, z: number): void {
@@ -37,7 +52,7 @@ export default class GS3dScene {
 			z: z,
 		};
 
-		this.viewer.scale.set(this.scale.x, this.scale.y, this.scale.z);
+		this.updateContainer();
 	}
 
 	getRotationDegrees(): { x: number; y: number; z: number } {
@@ -48,15 +63,15 @@ export default class GS3dScene {
 		};
 	}
 
-    setRotationRadians(x: number, y: number, z: number): void {
-        this.rotation = {
-            x: x,
-            y: y,
-            z: z,
-        };
+	setRotationRadians(x: number, y: number, z: number): void {
+		this.rotation = {
+			x: x,
+			y: y,
+			z: z,
+		};
 
-        this.viewer.rotation.set(this.rotation.x, this.rotation.y, this.rotation.z);
-    }
+		this.updateContainer();
+	}
 
 	setRotationDegrees(x: number, y: number, z: number): void {
 		this.rotation = {
@@ -65,7 +80,7 @@ export default class GS3dScene {
 			z: THREE.MathUtils.degToRad(z),
 		};
 
-		this.viewer.rotation.set(this.rotation.x, this.rotation.y, this.rotation.z);
+		this.updateContainer();
 	}
 
 	getPosition(): { x: number; y: number; z: number } {
@@ -79,36 +94,43 @@ export default class GS3dScene {
 			z: z,
 		};
 
-		this.viewer.position.set(this.position.x, this.position.y, this.position.z);
+		this.updateContainer();
 	}
 
-	addToScene(scene: THREE.Scene): void {
-		scene.add(this.viewer);
+	getSplatScene(): any {
+		return {
+			path: this.filePath,
+			scale: [1, 1, 1],
+			position: [0, 0, 0],
+			splatAlphaRemovalThreshold: 20, //todo: make configurable?
+		};
 	}
 
 	setVisibility(visible: boolean): void {
-		this.viewer.visible = visible;
+		this.visibility = visible;
+		this.updateContainer();
 	}
 
 	toggleVisibility(): void {
-		this.viewer.visible = !this.viewer.visible;
+		this.visibility = !this.visibility;
+		this.updateContainer();
 	}
 
-    serialize(): string {
-        return JSON.stringify({
-            filePath: this.filePath,
-            scale: this.scale,
-            rotation: this.rotation,
-            position: this.position,
-        });
-    }
+	serialize(): string {
+		return JSON.stringify({
+			filePath: this.filePath,
+			scale: this.scale,
+			rotation: this.rotation,
+			position: this.position,
+		});
+	}
 
-    static deserialize(json: string): GS3dScene {
-        const obj = JSON.parse(json);
-        const scene = new GS3dScene(obj.filePath);
-        scene.setScale(obj.scale.x, obj.scale.y, obj.scale.z);
-        scene.setPosition(obj.position.x, obj.position.y, obj.position.z);
-        scene.setRotationRadians(obj.rotation.x, obj.rotation.y, obj.rotation.z);
-        return scene;
-    }
+	static deserialize(json: string): GS3dScene {
+		const obj = JSON.parse(json);
+		const scene = new GS3dScene(obj.filePath);
+		scene.setScale(obj.scale.x, obj.scale.y, obj.scale.z);
+		scene.setPosition(obj.position.x, obj.position.y, obj.position.z);
+		scene.setRotationRadians(obj.rotation.x, obj.rotation.y, obj.rotation.z);
+		return scene;
+	}
 }

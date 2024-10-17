@@ -1,37 +1,54 @@
 import * as THREE from "three";
 import GS3dScene from "./GS3dScene.ts";
+import * as GaussianSplats3D from "@mkkellogg/gaussian-splats-3d";
 
 export default class GS3dMap {
-    private scenes: GS3dScene[];
+	private viewer: any;
+	private scenes: GS3dScene[] = [];
 
-    constructor() {
-        this.scenes = [];
-    }
+	constructor() {
+		this.viewer = new GaussianSplats3D.DropInViewer({
+			sharedMemoryForWorkers: false, //todo: this should be configurable
+			gpuAcceleratedSort: false, //todo: this might not work on phones
+			dynamicScene: true,
+		});
+	}
 
-    registerGSScene(scene: GS3dScene): void {
-        this.scenes.push(scene);
-    }
+	registerGSScene(scene: GS3dScene): void {
+		this.scenes.push(scene);
+	}
 
-    addAllToScene(scene: THREE.Scene): void {
-        this.scenes.forEach((GSScene) => {
-            GSScene.addToScene(scene);
-        });
-    }
+	addToScene(worldScene: THREE.Scene): void {
+		this.viewer
+			.addSplatScenes(
+				this.scenes.map((scene) => scene.getSplatScene()),
+				true
+			)
+			.then(() => {
+				this.scenes.forEach((scene, index) => {
+					scene.register(index, this.viewer);
+					worldScene.add(scene.getContainer());
+					console.log("here");
+				});
+			});
 
-    serialize(): string {
-        return JSON.stringify({
-            scenes: this.scenes.map((scene) => scene.serialize()),
-        });
-    }
+		worldScene.add(this.viewer);
+	}
 
-    static deserialize(json: string) {
-        const obj = JSON.parse(json);
-        const map = new GS3dMap();
+	serialize(): string {
+		return JSON.stringify({
+			scenes: this.scenes.map((scene) => scene.serialize()),
+		});
+	}
 
-        obj.scenes.forEach((scene: string) => {
-            map.registerGSScene(GS3dScene.deserialize(scene));
-        });
+	static deserialize(json: string) {
+		const obj = JSON.parse(json);
+		const map = new GS3dMap();
 
-        return map;
-    }
+		obj.scenes.forEach((scene: string) => {
+			map.registerGSScene(GS3dScene.deserialize(scene));
+		});
+
+		return map;
+	}
 }

@@ -13,7 +13,7 @@
     "parcel-reporter-static-files-copy": "^1.5.3"
   },
   "dependencies": {
-    "@mkkellogg/gaussian-splats-3d": "^0.4.2",
+    "@mkkellogg/gaussian-splats-3d": "0.4.5",
     "@types/three": "^0.168.0",
     "three": "^0.166.1"
   }

@@ -22,10 +22,10 @@ scene.add(createCheckerboard());
 const aspectRatio = window.innerWidth / window.innerHeight;
 const camera = new THREE.PerspectiveCamera(75, aspectRatio, 0.1, 1000);
 
-window.addEventListener('resize', () => {
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
+window.addEventListener("resize", () => {
+	renderer.setSize(window.innerWidth, window.innerHeight);
+	camera.aspect = window.innerWidth / window.innerHeight;
+	camera.updateProjectionMatrix();
 });
 
 const controls = new FirstPersonController(camera, renderer.domElement);
@@ -66,7 +66,7 @@ function handleModalSubmit() {
 
 			console.log("JSON data uploaded:", e.target.result);
 			const gsmap = GS3dMap.deserialize(e.target.result.toString());
-			gsmap.addAllToScene(scene);
+			gsmap.addToScene(scene);
 		} catch (error) {
 			alert("Invalid JSON file." + error);
 		}

@@ -21,28 +21,28 @@
 	>
 		<header x-data>
 			<div role="toolbar" x-data>
-				<div
-					class="text"
-					id="map-name"
-					x-data="{
-                        editing: false,
-                    }"
-					@keyup.escape.window="editing = false"
-				>
-					<template x-if="mapdata" x-data>
-						<span
-							x-text="mapdata.metadata.name"
-							:contenteditable="editing"
-						></span>
-					</template>
-					<button class="edit" @click="editing = !editing">
-						<i data-feather="edit-3" x-show="!editing"></i>
-						<i data-feather="check" x-show="editing"></i>
-					</button>
-				</div>
+                <template x-if="mapdata" x-data>
+                    <div
+                        class="text"
+                        id="map-name"
+                        x-data="{
+                            editing: false,
+                        }"
+                        @keyup.escape.window="editing = false"
+                    >
+                        <span
+                            x-text="mapdata.metadata.name"
+                            :contenteditable="editing"
+                        ></span>
+                        <button class="edit" @click="editing = !editing">
+                            <i x-feather="edit-3" x-show="!editing"></i>
+                            <i x-feather="check" x-show="editing"></i>
+                        </button>
+                    </div>
+                </template>
 				<div></div>
-				<button class="action"><i data-feather="upload"></i>Import</button>
-				<button class="action"><i data-feather="download"></i>Export</button>
+				<button class="action"><i x-feather="upload"></i>Import</button>
+				<button class="action"><i x-feather="download"></i>Export</button>
 			</div>
 
 			<div>Placeholder</div>
@@ -53,7 +53,12 @@
 				<aside>
 					<ul>
 						<template x-for="scene in mapdata.scenes">
-							<li x-text="scene.filePath" class="splat-file"></li>
+							<li class="splat-file">
+                                <span x-text="scene.name"></span>
+                                <ul>
+                                    <li x-text="scene.filePath"></li>
+                                </ul>
+                            </li>
 						</template>
 					</ul>
 				</aside>
@@ -68,7 +73,7 @@
                         loadPreview()
                         "
 					>
-						<i data-feather="eye"></i>Load Preview
+						<i x-feather="eye"></i>Load Preview
 					</button>
 
 					<div id="viewer" x-show="previewing"></div>

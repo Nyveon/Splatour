@@ -97,7 +97,9 @@ export default class InputController {
 	}
 
 	private onKeyDown_(e: KeyboardEvent): void {
-		this.keys[e.code] = true;
+        if (document.pointerLockElement === this.canvas) {
+		    this.keys[e.code] = true;
+        }
 	}
 
 	private onKeyUp_(e: KeyboardEvent): void {

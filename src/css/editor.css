@@ -72,8 +72,6 @@ div.text {
 }
 
 button.edit {
-	background-color: var(--background-color-medium);
-
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -84,13 +82,7 @@ button.edit {
 
 	border-radius: 50%;
 
-	color: var(--text-color-disabled);
 	border: none;
-	cursor: pointer;
-}
-
-button.edit:hover {
-	color: var(--text-color-light);
 }
 
 button.edit > svg {
@@ -105,4 +97,25 @@ input[type="text"] {
     background-color: var(--background-color-medium);
     color: currentColor;
     font-size: inherit;
+}
+
+ul.splat-details {
+    display: flex;
+    flex-direction: column;
+    align-items: cennter;
+}
+
+ul.splat-details > li {
+    display: flex;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0rem;
+    color: var(--text-color-disabled);
+}
+
+.name-bar {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: space-between;
+    align-items: center;
 }

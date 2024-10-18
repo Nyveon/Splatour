@@ -96,7 +96,15 @@ button.big {
 	font-size: 1.25rem;
 }
 
-.feather {
+svg.feather {
 	width: 1rem;
 	height: 1rem;
+}
+
+span.feather {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+	width: 1rem;
+	height: 1rem;    
 }

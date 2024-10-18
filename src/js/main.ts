@@ -25,19 +25,25 @@ Alpine.directive('feather', (el: HTMLElement, { expression }: { expression: stri
     tempDiv.innerHTML = svgString;
     const icon = tempDiv.firstElementChild as SVGElement | null;
 
-    if (icon && el.parentNode) {
-        for (const attr of el.attributes) {
-            if (attr.name === 'x-feather') {
-                continue;
-            }
+    el.classList.add('feather');
 
-            icon.setAttribute(attr.name, attr.value);
-        }
-
-        el.parentNode.replaceChild(icon, el);
-    } else {
-        console.warn('Could not replace element, icon or parentNode is null');
+    if (icon) {
+        el.appendChild(icon);
     }
+
+    // if (icon && el.parentNode) {
+    //     for (const attr of el.attributes) {
+    //         if (attr.name === 'x-feather') {
+    //             continue;
+    //         }
+
+    //         icon.setAttribute(attr.name, attr.value);
+    //     }
+
+    //     el.parentNode.replaceChild(icon, el);
+    // } else {
+    //     console.warn('Could not replace element, icon or parentNode is null');
+    // }
 });
 
 

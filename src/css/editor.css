@@ -98,9 +98,11 @@ button.edit > svg {
 	height: 1rem;
 }
 
-span[contenteditable="true"] {
-	border: thin solid var(--border-color);
-	border-radius: 0.25rem;
-	padding: 0.25rem;
-	background-color: var(--background-color-medium);
+input[type="text"] {
+    border: thin solid var(--border-color);
+    border-radius: 0.25rem;
+    padding: 0.25rem;
+    background-color: var(--background-color-medium);
+    color: currentColor;
+    font-size: inherit;
 }

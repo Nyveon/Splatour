@@ -10,11 +10,7 @@
 	</head>
 	<body
 		x-data="{
-        mapdata: {
-            'metadata': {
-                'name': 'Loading...',
-            }
-        },
+        mapdata: null,
         previewing: false,
         loadPreview() {
             this.previewing = true;
@@ -23,18 +19,22 @@
     }"
 		x-init="mapdata = await (await fetch('test_map.json')).json();"
 	>
-		<header>
-			<div role="toolbar">
+		<header x-data>
+			<div role="toolbar" x-data>
 				<div
 					class="text"
 					id="map-name"
-					x-data="{ editing: false }"
+					x-data="{
+                        editing: false,
+                    }"
 					@keyup.escape.window="editing = false"
 				>
-					<span
-						x-text="mapdata.metadata.name"
-						:contenteditable="editing"
-					></span>
+					<template x-if="mapdata" x-data>
+						<span
+							x-text="mapdata.metadata.name"
+							:contenteditable="editing"
+						></span>
+					</template>
 					<button class="edit" @click="editing = !editing">
 						<i data-feather="edit-3" x-show="!editing"></i>
 						<i data-feather="check" x-show="editing"></i>
@@ -48,31 +48,33 @@
 			<div>Placeholder</div>
 		</header>
 
-		<main x-data>
-			<aside>
-				<ul>
-					<template x-for="scene in mapdata.scenes">
-						<li x-text="scene.filePath" class="splat-file"></li>
-					</template>
-				</ul>
-			</aside>
+		<template x-if="mapdata">
+			<main x-data>
+				<aside>
+					<ul>
+						<template x-for="scene in mapdata.scenes">
+							<li x-text="scene.filePath" class="splat-file"></li>
+						</template>
+					</ul>
+				</aside>
 
-			<section id="preview">
-				<button
-					x-show="!previewing"
-					class="big"
-					@click="
-                    previewing = true;
-                    await $nextTick();
-                    loadPreview()
-                    "
-				>
-					<i data-feather="eye"></i>Load Preview
-				</button>
+				<section id="preview">
+					<button
+						x-show="!previewing"
+						class="big"
+						@click="
+                        previewing = true;
+                        await $nextTick();
+                        loadPreview()
+                        "
+					>
+						<i data-feather="eye"></i>Load Preview
+					</button>
 
-				<div id="viewer" x-show="previewing"></div>
-			</section>
-		</main>
+					<div id="viewer" x-show="previewing"></div>
+				</section>
+			</main>
+		</template>
 
 		<script type="module" src="./js/main.ts"></script>
 	</body>

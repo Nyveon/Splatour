@@ -12,11 +12,11 @@ export default class GS3dViewer {
 	private controls!: FirstPersonController;
 	private renderer!: THREE.WebGLRenderer;
 	private stats?: Stats;
-	private viewerContainer: HTMLElement | null;
+	private viewerContainer!: HTMLElement;
 
 	constructor(map: GS3dMap, debug: boolean) {
 		this.map = map;
-		this.viewerContainer = document.getElementById("viewer");
+		this.viewerContainer = document.getElementById("viewer")!;
 		this.initializeRenderer();
 		this.initializeScene(debug);
 		this.initializeCamera();
@@ -28,7 +28,7 @@ export default class GS3dViewer {
 
 	private initializeRenderer() {
 		this.renderer = new THREE.WebGLRenderer({ antialias: true });
-		this.renderer.setSize(window.innerWidth, window.innerHeight);
+		this.renderer.setSize(this.viewerContainer.clientWidth, this.viewerContainer.clientHeight);
 		this.viewerContainer?.appendChild(this.renderer.domElement);
 	}
 
@@ -41,6 +41,8 @@ export default class GS3dViewer {
 
 			this.stats = new Stats();
 			this.stats.showPanel(0);
+            // this.stats.dom.setAttribute("id", "stats");
+            this.stats.dom.style.position = "absolute";
 			this.viewerContainer?.appendChild(this.stats.dom);
 		}
 
@@ -48,7 +50,7 @@ export default class GS3dViewer {
 	}
 
 	private initializeCamera() {
-		const aspectRatio = window.innerWidth / window.innerHeight;
+		const aspectRatio = this.viewerContainer.clientWidth / this.viewerContainer.clientHeight;
 		this.camera = new THREE.PerspectiveCamera(75, aspectRatio, 0.1, 1000);
 	}
 
@@ -61,30 +63,21 @@ export default class GS3dViewer {
 		this.controls.setTranslation(0, 3.5, 10);
 	}
 
+    private resizeHandler() {
+        if (!this.viewerContainer) return;
+
+        const newWidth = this.viewerContainer.clientWidth;
+        const newHeight = this.viewerContainer.clientHeight;
+        this.renderer.setSize(newWidth, newHeight);
+        this.camera.aspect = newWidth / newHeight;
+        this.camera.updateProjectionMatrix();
+        console.log("resize");
+        console.log(newWidth);
+    }
+
+
 	private handleResize() {
-		const resizeHandler = () => {
-			if (!this.viewerContainer) return;
-
-			const newWidth = this.viewerContainer.clientWidth;
-			const newHeight = this.viewerContainer.clientHeight;
-			this.renderer.setSize(newWidth, newHeight);
-			this.camera.aspect = newWidth / newHeight;
-			this.camera.updateProjectionMatrix();
-		};
-
-		window.addEventListener("resize", this.throttle(resizeHandler, 200));
-	}
-
-	// Utility function to throttle event handlers
-	private throttle(func: Function, limit: number) {
-		let inThrottle: boolean;
-		return function (this: any, ...args: any[]) {
-			if (!inThrottle) {
-				func.apply(this, args);
-				inThrottle = true;
-				setTimeout(() => (inThrottle = false), limit);
-			}
-		};
+		window.addEventListener("resize", this.resizeHandler.bind(this));
 	}
 
 	private startRenderLoop(debug: boolean) {

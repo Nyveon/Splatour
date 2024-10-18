@@ -7,7 +7,8 @@
     --text-color: #333;
     --text-color-light: #fff;
     --text-color-disabled: #a2aeb8;
-    --primary-color: #007bff;
+    --primary-color: #0a69cf;
+    --primary-color-light: #329ff8;
     --border-color: #ced4da;
 }
 
@@ -71,8 +72,8 @@ button {
     gap: 0.5rem;
     align-items: center;
 
-    color: currentColor;
-    background-color: var(--background-color-medium);
+    color: var(--text-color-light);
+    background-color: var(--primary-color);
 
     margin: 0;
     padding-inline: 0.5rem;
@@ -88,7 +89,13 @@ button {
 }
 
 button:hover {
-    background-color: var(--background-color-medium-light);
+    background-color: var(--primary-color-light);
+}
+
+button.big {
+    padding-inline: 1rem;
+    padding-block: 0.5rem;
+    font-size: 1.25rem;
 }
 
 .feather {

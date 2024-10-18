@@ -129,4 +129,12 @@ export default class GS3dScene {
 		scene.setRotationRadians(obj.rotation.x, obj.rotation.y, obj.rotation.z);
 		return scene;
 	}
+
+    static deserializeFromJSON(obj: any): GS3dScene {
+        const scene = new GS3dScene(obj.filePath);
+        scene.setScale(obj.scale.x, obj.scale.y, obj.scale.z);
+        scene.setPosition(obj.position.x, obj.position.y, obj.position.z);
+        scene.setRotationRadians(obj.rotation.x, obj.rotation.y, obj.rotation.z);
+        return scene;
+    }
 }

@@ -10,7 +10,9 @@
   },
   "devDependencies": {
     "@mkkellogg/gaussian-splats-3d": "0.4.5",
+    "@types/feather-icons": "^4.29.4",
     "@types/three": "^0.168.0",
+    "feather-icons": "^4.29.2",
     "three": "^0.166.1",
     "typescript": "^5.5.3",
     "vite": "^5.4.8",

@@ -7,19 +7,30 @@
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="./css/editor.css">
 
+    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/focus@3.x.x/dist/cdn.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 <body
-    x-init="map = await (await fetch('test_map.json')).json();"
     x-data="{ map: {
-        'test': 'test'
+        'metadata': {
+            'name': 'Loading...',
+        }
     } }"
+    x-init="map = await (await fetch('test_map.json')).json();"
 >
     <header>
         <div role="toolbar">
-            Map Name
-            <button>Load</button>
-            <button>Export</button>
+            <div class="text" id="map-name" x-data="{ editing: false }" x-trap="editing" @keyup.escape.window="editing = false">
+                <span x-text="map.metadata.name" :contenteditable="editing"></span>
+                <button class="edit" @click="editing = !editing">
+                    <i data-feather="edit-3" x-show="!editing"></i>
+                    <i data-feather="check" x-show="editing"></i>
+                </button>
+            </div>
+            <button class="action"><i data-feather="upload"></i>
+                Load</button>
+            <button class="action"><i data-feather="download"></i>
+                Export</button>
         </div>
 
         <div>
@@ -39,5 +50,7 @@
 
         <div id="viewer"></div>
     </main>
+
+    <script type="module" src="./js/main.ts"></script>
 </body>
 </html>

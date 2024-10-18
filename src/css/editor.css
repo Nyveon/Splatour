@@ -44,9 +44,57 @@ main {
     border: thin solid var(--border-color);
 }
 
+#map-name {
+    font-size: 1.5rem;
+}
+
 div[role="toolbar"] {
     display: flex;
     gap: 1rem;
     justify-content: center;
     align-items: center;
+}
+
+div.text {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+button.edit {
+    background-color: var(--background-color-medium);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 0.25rem;
+    width: 1.25rem;
+    height: 1.25rem;
+
+    border-radius: 50%;
+
+    color: var(--text-color-disabled);
+    border: none;
+    cursor: pointer;
+}
+
+button.edit:hover {
+    color: var(--text-color-light);
+}
+
+button.edit>svg {
+    width: 1rem;
+    height: 1rem;
+}
+
+span[contenteditable="true"] {
+    border: thin solid var(--border-color);
+    border-radius: 0.25rem;
+    padding: 0.25rem;
+    background-color: var(--background-color-medium);
+}
+
+button.action {
+    width: 5rem;
 }

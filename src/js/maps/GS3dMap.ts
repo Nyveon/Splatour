@@ -4,12 +4,14 @@ import * as GaussianSplats3D from "@mkkellogg/gaussian-splats-3d";
 
 export default class GS3dMap {
 	private viewer: any;
+    private name: string;
 	private scenes: GS3dScene[] = [];
 
-	constructor() {
+	constructor(name: string) {
 		this.viewer = new GaussianSplats3D.DropInViewer({
 			dynamicScene: true,
 		});
+        this.name = name;
 	}
 
 	registerGSScene(scene: GS3dScene): void {
@@ -36,13 +38,14 @@ export default class GS3dMap {
 	serialize(): string {
         //todo: serialization is wrong D:
 		return JSON.stringify({
+            name: this.name,
 			scenes: this.scenes.map((scene) => scene.serialize()),
 		});
 	}
 
 	static deserialize(json: string) {
 		const obj = JSON.parse(json);
-		const map = new GS3dMap();
+		const map = new GS3dMap(obj.metadata.name);
 
 		obj.scenes.forEach((scene: string) => {
 			map.registerGSScene(GS3dScene.deserialize(scene));

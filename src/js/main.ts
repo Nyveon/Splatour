@@ -3,9 +3,8 @@ import GS3dMap from "./maps/GS3dMap.ts";
 import GS3dViewer from "./maps/GS3dViewer.ts";
 import Alpine from 'alpinejs'
 
-Alpine.data('gs3dviewer', (mapdata: GS3dMap) => new GS3dViewer(
-    GS3dMap.deserializeFromJSON(mapdata), true)
-);
+window.GS3dMap = GS3dMap;
+window.GS3dViewer = GS3dViewer;
 
 
 /**
@@ -14,8 +13,6 @@ Alpine.data('gs3dviewer', (mapdata: GS3dMap) => new GS3dViewer(
  * Reasoning: x-if and similar would mean having to do feather.replace() every time the element is added to the DOM
  */
 Alpine.directive('feather', (el: HTMLElement, { expression }: { expression: string }) => {
-    console.log(expression);
-
     const icons = feather.icons as Record<string, { toSvg: () => string }>;
 
     if (typeof expression !== 'string' || !icons[expression]) {
@@ -28,11 +25,8 @@ Alpine.directive('feather', (el: HTMLElement, { expression }: { expression: stri
     tempDiv.innerHTML = svgString;
     const icon = tempDiv.firstElementChild as SVGElement | null;
 
-    console.log(icon);
-
     if (icon && el.parentNode) {
         for (const attr of el.attributes) {
-            console.log(attr);
             if (attr.name === 'x-feather') {
                 continue;
             }
@@ -49,5 +43,6 @@ Alpine.directive('feather', (el: HTMLElement, { expression }: { expression: stri
 
 window.Alpine = Alpine;
 Alpine.start()
+
 
 

@@ -10,18 +10,18 @@
 	</head>
 	<body
 		x-data="{
-        mapdata: null,
+        world: null,
         previewing: false,
-        loadPreview() {
-            this.previewing = true;
-            const world = gs3dviewer(this.mapdata, true);
+        async loadPreview() {
+            const jsondata = await (await fetch('test_map.json')).json();
+            const gsmap = GS3dMap.deserializeFromJSON(jsondata);
+            this.world = new GS3dViewer(gsmap, true);
         }
     }"
-		x-init="mapdata = await (await fetch('test_map.json')).json();"
 	>
 		<header x-data>
 			<div role="toolbar" x-data>
-                <template x-if="mapdata" x-data>
+                <template x-if="world" x-data>
                     <div
                         class="text"
                         id="map-name"
@@ -31,7 +31,7 @@
                         @keyup.escape.window="editing = false"
                     >
                         <span
-                            x-text="mapdata.metadata.name"
+                            x-text="world.gsmap.name"
                             :contenteditable="editing"
                         ></span>
                         <button class="edit" @click="editing = !editing">
@@ -48,38 +48,37 @@
 			<div>Placeholder</div>
 		</header>
 
-		<template x-if="mapdata">
-			<main x-data>
-				<aside>
-					<ul>
-						<template x-for="scene in mapdata.scenes">
-							<li class="splat-file">
-                                <span x-text="scene.name"></span>
-                                <ul>
-                                    <li x-text="scene.filePath"></li>
-                                </ul>
-                            </li>
-						</template>
-					</ul>
-				</aside>
+        <main x-data>
+            <aside>
+                <ul>
+                    <template x-for="scene in world.gsmap.scenes">
+                        <li class="splat-file">
+                            <span x-text="scene.name"></span>
+                            <ul>
+                                <li x-text="scene.filePath"></li>
+                            </ul>
+                        </li>
+                    </template>
+                </ul>
+            </aside>
 
-				<section id="preview">
-					<button
-						x-show="!previewing"
-						class="big"
-						@click="
-                        previewing = true;
-                        await $nextTick();
-                        loadPreview()
-                        "
-					>
-						<i x-feather="eye"></i>Load Preview
-					</button>
+            <section id="preview">
+                <button
+                    x-show="!previewing"
+                    class="big"
+                    @click="
+                    previewing = true;
+                    await $nextTick();
+                    loadPreview()
+                    "
+                >
+                    <i x-feather="eye"></i>Load Preview
+                </button>
 
-					<div id="viewer" x-show="previewing"></div>
-				</section>
-			</main>
-		</template>
+                <div id="viewer" x-show="previewing"></div>
+            </section>
+        </main>
+
 
 		<script type="module" src="./js/main.ts"></script>
 	</body>

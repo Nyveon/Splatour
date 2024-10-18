@@ -2,15 +2,18 @@ import * as THREE from "three";
 
 export default class GS3dScene {
 	filePath: string;
-	private container: THREE.Group;
+    name: string;
 	private scale: { x: number; y: number; z: number } = { x: 1, y: 1, z: 1 };
 	private rotation: { x: number; y: number; z: number } = { x: 0, y: 0, z: 0 };
 	private position: { x: number; y: number; z: number } = { x: 0, y: 0, z: 0 };
+
+	private container: THREE.Group;
 	private visibility: boolean = true;
 	private sceneIndex: number = -1;
 
-	constructor(filePath: string) {THREE.WebGLRenderer
+	constructor(filePath: string, name: string) {THREE.WebGLRenderer
 		this.filePath = filePath;
+        this.name = name;
 		this.container = new THREE.Group();
 	}
 
@@ -114,6 +117,7 @@ export default class GS3dScene {
 
 	serialize(): string {
 		return JSON.stringify({
+            //todo: add name
 			filePath: this.filePath,
 			scale: this.scale,
 			rotation: this.rotation,
@@ -123,7 +127,7 @@ export default class GS3dScene {
 
 	static deserialize(json: string): GS3dScene {
 		const obj = JSON.parse(json);
-		const scene = new GS3dScene(obj.filePath);
+		const scene = new GS3dScene(obj.filePath, obj.name);
 		scene.setScale(obj.scale.x, obj.scale.y, obj.scale.z);
 		scene.setPosition(obj.position.x, obj.position.y, obj.position.z);
 		scene.setRotationRadians(obj.rotation.x, obj.rotation.y, obj.rotation.z);
@@ -131,7 +135,7 @@ export default class GS3dScene {
 	}
 
     static deserializeFromJSON(obj: any): GS3dScene {
-        const scene = new GS3dScene(obj.filePath);
+        const scene = new GS3dScene(obj.filePath, obj.name);
         scene.setScale(obj.scale.x, obj.scale.y, obj.scale.z);
         scene.setPosition(obj.position.x, obj.position.y, obj.position.z);
         scene.setRotationRadians(obj.rotation.x, obj.rotation.y, obj.rotation.z);

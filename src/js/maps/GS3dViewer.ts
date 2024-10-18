@@ -6,7 +6,7 @@ import createCheckerboard from "../environment/CheckerBoard.ts";
 import FirstPersonController from "../player/FirstPersonController.js";
 
 export default class GS3dViewer {
-	private map: GS3dMap;
+	private gsmap: GS3dMap;
 	private scene!: THREE.Scene;
 	private camera!: THREE.PerspectiveCamera;
 	private controls!: FirstPersonController;
@@ -14,8 +14,8 @@ export default class GS3dViewer {
 	private stats?: Stats;
 	private viewerContainer!: HTMLElement;
 
-	constructor(map: GS3dMap, debug: boolean) {
-		this.map = map;
+	constructor(gsmap: GS3dMap, debug: boolean) {
+		this.gsmap = gsmap;
 		this.viewerContainer = document.getElementById("viewer")!;
 		this.initializeRenderer();
 		this.initializeScene(debug);
@@ -23,7 +23,7 @@ export default class GS3dViewer {
 		this.initializeControls(debug);
 		this.handleResize();
 		this.startRenderLoop(debug);
-		this.map.addToScene(this.scene);
+		this.gsmap.addToScene(this.scene);
 	}
 
 	private initializeRenderer() {

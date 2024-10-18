@@ -28,7 +28,10 @@ export default class GS3dViewer {
 
 	private initializeRenderer() {
 		this.renderer = new THREE.WebGLRenderer({ antialias: true });
-		this.renderer.setSize(this.viewerContainer.clientWidth, this.viewerContainer.clientHeight);
+		this.renderer.setSize(
+			this.viewerContainer.clientWidth,
+			this.viewerContainer.clientHeight
+		);
 		this.viewerContainer?.appendChild(this.renderer.domElement);
 	}
 
@@ -41,8 +44,8 @@ export default class GS3dViewer {
 
 			this.stats = new Stats();
 			this.stats.showPanel(0);
-            // this.stats.dom.setAttribute("id", "stats");
-            this.stats.dom.style.position = "absolute";
+			// this.stats.dom.setAttribute("id", "stats");
+			this.stats.dom.style.position = "absolute";
 			this.viewerContainer?.appendChild(this.stats.dom);
 		}
 
@@ -50,7 +53,8 @@ export default class GS3dViewer {
 	}
 
 	private initializeCamera() {
-		const aspectRatio = this.viewerContainer.clientWidth / this.viewerContainer.clientHeight;
+		const aspectRatio =
+			this.viewerContainer.clientWidth / this.viewerContainer.clientHeight;
 		this.camera = new THREE.PerspectiveCamera(75, aspectRatio, 0.1, 1000);
 	}
 
@@ -63,18 +67,17 @@ export default class GS3dViewer {
 		this.controls.setTranslation(0, 3.5, 10);
 	}
 
-    private resizeHandler() {
-        if (!this.viewerContainer) return;
+	private resizeHandler() {
+		if (!this.viewerContainer) return;
 
-        const newWidth = this.viewerContainer.clientWidth;
-        const newHeight = this.viewerContainer.clientHeight;
-        this.renderer.setSize(newWidth, newHeight);
-        this.camera.aspect = newWidth / newHeight;
-        this.camera.updateProjectionMatrix();
-        console.log("resize");
-        console.log(newWidth);
-    }
-
+		const newWidth = this.viewerContainer.clientWidth;
+		const newHeight = this.viewerContainer.clientHeight;
+		this.renderer.setSize(newWidth, newHeight);
+		this.camera.aspect = newWidth / newHeight;
+		this.camera.updateProjectionMatrix();
+		console.log("resize");
+		console.log(newWidth);
+	}
 
 	private handleResize() {
 		window.addEventListener("resize", this.resizeHandler.bind(this));

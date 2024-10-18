@@ -1,104 +1,102 @@
 :root {
-    --background-color: #f8f9fa;
-    --background-color-medium-light: #6e7575;
-    --background-color-medium: #484949;
-    --background-color-dark: #343a40;
+	--background-color: #f8f9fa;
+	--background-color-medium-light: #6e7575;
+	--background-color-medium: #484949;
+	--background-color-dark: #343a40;
 
-    --text-color: #333;
-    --text-color-light: #fff;
-    --text-color-disabled: #a2aeb8;
-    --primary-color: #0a69cf;
-    --primary-color-light: #329ff8;
-    --border-color: #ced4da;
+	--text-color: #333;
+	--text-color-light: #fff;
+	--text-color-disabled: #a2aeb8;
+	--primary-color: #0a69cf;
+	--primary-color-light: #329ff8;
+	--border-color: #ced4da;
 }
-
 
 *,
 *::before,
 *::after {
-  box-sizing: border-box;
+	box-sizing: border-box;
 }
 
-
 body {
-    margin: 0;
-    color: var(--text-color);
-    background-color: var(--background-color);
+	margin: 0;
+	color: var(--text-color);
+	background-color: var(--background-color);
 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    
-    width: 100vw;
-    max-width: 100%;
-    height: 100vh;
-    max-height: 100%;
-    font-family: Arial, sans-serif;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+
+	width: 100vw;
+	max-width: 100%;
+	height: 100vh;
+	max-height: 100%;
+	font-family: Arial, sans-serif;
 }
 
 .hidden {
-    display: none !important;
+	display: none !important;
 }
 
 ul {
-    list-style-type: none;
-    padding: 0;
+	list-style-type: none;
+	padding: 0;
 }
 
 li {
-    padding: 10px;
+	padding: 10px;
 }
 
 a.button {
-    display: block;
-    padding: 10px;
-    text-align: center;
-    background-color: var(--primary-color);
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-    cursor: pointer;
+	display: block;
+	padding: 10px;
+	text-align: center;
+	background-color: var(--primary-color);
+	color: white;
+	text-decoration: none;
+	border-radius: 5px;
+	cursor: pointer;
 }
 
 a.button:hover {
-    background-color: #0056b3;
+	background-color: #0056b3;
 }
 
 button {
-    display: flex;
-    justify-content: flex-start;
-    gap: 0.5rem;
-    align-items: center;
+	display: flex;
+	justify-content: flex-start;
+	gap: 0.5rem;
+	align-items: center;
 
-    color: var(--text-color-light);
-    background-color: var(--primary-color);
+	color: var(--text-color-light);
+	background-color: var(--primary-color);
 
-    margin: 0;
-    padding-inline: 0.5rem;
-    padding-block: 0.25rem;
+	margin: 0;
+	padding-inline: 0.5rem;
+	padding-block: 0.25rem;
 
-    border: none;
-    border-radius: 0.5rem;
+	border: none;
+	border-radius: 0.5rem;
 
-    cursor: pointer;
-    
-    font-family: inherit;
-    font-size: inherit;
+	cursor: pointer;
+
+	font-family: inherit;
+	font-size: inherit;
 }
 
 button:hover {
-    background-color: var(--primary-color-light);
+	background-color: var(--primary-color-light);
 }
 
 button.big {
-    padding-inline: 1rem;
-    padding-block: 0.5rem;
-    font-size: 1.25rem;
+	padding-inline: 1rem;
+	padding-block: 0.5rem;
+	font-size: 1.25rem;
 }
 
 .feather {
-    width: 1rem;
-    height: 1rem;
+	width: 1rem;
+	height: 1rem;
 }

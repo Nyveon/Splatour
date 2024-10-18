@@ -5,7 +5,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>3DGSM Editor</title>
 		<link rel="stylesheet" href="./css/style.css" />
-        <link rel="stylesheet" href="./css/viewer.css" />
+		<link rel="stylesheet" href="./css/viewer.css" />
 		<link rel="stylesheet" href="./css/editor.css" />
 	</head>
 	<body
@@ -31,13 +31,16 @@
 					x-data="{ editing: false }"
 					@keyup.escape.window="editing = false"
 				>
-					<span x-text="mapdata.metadata.name" :contenteditable="editing"></span>
+					<span
+						x-text="mapdata.metadata.name"
+						:contenteditable="editing"
+					></span>
 					<button class="edit" @click="editing = !editing">
 						<i data-feather="edit-3" x-show="!editing"></i>
 						<i data-feather="check" x-show="editing"></i>
 					</button>
 				</div>
-                <div></div>
+				<div></div>
 				<button class="action"><i data-feather="upload"></i>Import</button>
 				<button class="action"><i data-feather="download"></i>Export</button>
 			</div>
@@ -54,15 +57,21 @@
 				</ul>
 			</aside>
 
-            <section id="preview">
-                <button x-show="!previewing" class="big" @click="
+			<section id="preview">
+				<button
+					x-show="!previewing"
+					class="big"
+					@click="
                     previewing = true;
                     await $nextTick();
                     loadPreview()
-                    "><i data-feather="eye"></i>Load Preview</button>
-    
-                <div id="viewer" x-show="previewing"></div>
-            </section>
+                    "
+				>
+					<i data-feather="eye"></i>Load Preview
+				</button>
+
+				<div id="viewer" x-show="previewing"></div>
+			</section>
 		</main>
 
 		<script type="module" src="./js/main.ts"></script>

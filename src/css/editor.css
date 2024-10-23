@@ -99,6 +99,34 @@ input[type="text"] {
     font-size: inherit;
 }
 
+label{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+div.values {
+    display: flex;
+    gap: 0.5rem;
+}
+
+ul.value-set {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    gap: 0.25rem;
+}
+
+input[type="number"] {
+    border: thin solid var(--border-color);
+    border-radius: 0.25rem;
+    background-color: var(--background-color-medium);
+    color: currentColor;
+    font-size: inherit;
+    width: 3rem;
+}
+
 ul.splat-details {
     display: flex;
     flex-direction: column;
@@ -111,6 +139,17 @@ ul.splat-details > li {
     width: 100%;
     padding: 0rem;
     color: var(--text-color-disabled);
+}
+
+ul.splat-details.editing > li {
+    border-bottom: thin solid var(--border-color);
+    padding-block: 0.5rem;
+}
+
+ul.splat-details.editing > li:last-child {
+    justify-content: flex-end;
+    border-bottom: none;
+    padding-bottom: 0;
 }
 
 .name-bar {

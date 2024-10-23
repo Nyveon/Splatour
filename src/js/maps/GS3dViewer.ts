@@ -75,8 +75,6 @@ export default class GS3dViewer {
 		this.renderer.setSize(newWidth, newHeight);
 		this.camera.aspect = newWidth / newHeight;
 		this.camera.updateProjectionMatrix();
-		console.log("resize");
-		console.log(newWidth);
 	}
 
 	private handleResize() {

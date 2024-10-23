@@ -9,7 +9,7 @@ export default class GS3dScene {
 
 	private container: THREE.Group;
 	private visibility: boolean = true;
-	private sceneIndex: number = -1;
+	sceneIndex: number = -1;
 
 	constructor(filePath: string, name: string) {THREE.WebGLRenderer
 		this.filePath = filePath;

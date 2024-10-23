@@ -59,7 +59,15 @@
 				<template x-if="world">
 					<ul>
 						<template x-for="scene in world.gsmap.scenes">
-							<li class="splat-file" x-data="{ editing: false }">
+							<li
+								class="splat-file"
+								x-data="{
+                                editing: false
+                            }"
+								x-init="
+                                    $watch('scene', value => scene.updateContainer());
+                                "
+							>
 								<div class="name-bar" x-data>
 									<input
 										type="text"
@@ -71,18 +79,114 @@
 										maxlength="16"
 									/>
 									<span x-text="scene.name" x-show="!editing"></span>
-									<button
-										class="edit"
-										@click="editing = !editing; console.log(editing)"
-									>
-										<span x-feather="edit" x-show="!editing"></span>
+									<button class="edit" @click="editing = !editing;">
+										<span x-feather="sliders" x-show="!editing"></span>
 										<span x-feather="check" x-show="editing"></span>
 									</button>
 								</div>
-								<ul class="splat-details">
+								<ul class="splat-details" :class="!editing || 'editing'">
 									<li>
 										<span x-feather="file"></span
 										><span x-text="scene.filePath"></span>
+									</li>
+									<li>
+										<div class="values">
+											<span x-feather="maximize-2"></span>
+											<div x-show="!editing">
+												(<span x-text="scene.scale.x.toFixed(1)">x</span>,
+												<span x-text="scene.scale.y.toFixed(1)">y</span>,
+												<span x-text="scene.scale.z.toFixed(1)">z</span>)
+											</div>
+										</div>
+										<ul class="value-set" x-show="editing">
+											<label
+												>x
+												<input type="number" x-model="scene.scale.x" step="0.1"
+											/></label>
+											<label
+												>y
+												<input type="number" x-model="scene.scale.y" step="0.1"
+											/></label>
+											<label
+												>z
+												<input type="number" x-model="scene.scale.z" step="0.1"
+											/></label>
+										</ul>
+									</li>
+									<li>
+										<div class="values">
+											<span x-feather="move"></span>
+											<div x-show="!editing">
+												(<span x-text="scene.position.x.toFixed(1)"></span>,
+												<span x-text="scene.position.y.toFixed(1)"></span>,
+												<span x-text="scene.position.z.toFixed(1)"></span>)
+											</div>
+										</div>
+										<ul class="value-set" x-show="editing">
+											<label
+												>x
+												<input
+													type="number"
+													x-model="scene.position.x"
+													step="0.5"
+											/></label>
+											<label
+												>y
+												<input
+													type="number"
+													x-model="scene.position.y"
+													step="0.5"
+											/></label>
+											<label
+												>z
+												<input
+													type="number"
+													x-model="scene.position.z"
+													step="0.5"
+											/></label>
+										</ul>
+									</li>
+									<li>
+										<div class="values">
+											<span x-feather="rotate-cw"></span>
+											<div x-show="!editing">
+												(<span x-text="scene.rotation.x.toFixed(1)"></span>,
+												<span x-text="scene.rotation.y.toFixed(1)"></span>,
+												<span x-text="scene.rotation.z.toFixed(1)"></span>)
+											</div>
+										</div>
+										<ul class="value-set" x-show="editing">
+											<label
+												>x
+												<input
+													type="number"
+													x-model="scene.rotation.x"
+													step="0.1"
+											/></label>
+											<label
+												>y
+												<input
+													type="number"
+													x-model="scene.rotation.y"
+													step="0.1"
+											/></label>
+											<label
+												>z
+												<input
+													type="number"
+													x-model="scene.rotation.z"
+													step="0.1"
+											/></label>
+										</ul>
+									</li>
+									<li>
+										<button
+											class="danger"
+											x-show="editing"
+											@click="editing=false;world.gsmap.deleteGSScene(scene.sceneIndex);"
+										>
+											<span x-feather="trash-2"></span>Delete
+										</button>
 									</li>
 								</ul>
 							</li>

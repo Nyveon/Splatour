@@ -13,9 +13,11 @@ export default class GS3dViewer {
 	private renderer!: THREE.WebGLRenderer;
 	private stats?: Stats;
 	private viewerContainer!: HTMLElement;
+    private isPaused: boolean = false;
 
 	constructor(gsmap: GS3dMap, debug: boolean) {
 		this.gsmap = gsmap;
+        gsmap.parent = this;
 		this.viewerContainer = document.getElementById("viewer")!;
 		this.initializeRenderer();
 		this.initializeScene(debug);
@@ -83,6 +85,8 @@ export default class GS3dViewer {
 
 	private startRenderLoop(debug: boolean) {
 		this.renderer.setAnimationLoop(() => {
+            if (this.isPaused) return;
+
 			if (debug && this.stats) this.stats.begin();
 
 			this.controls.update();
@@ -90,5 +94,13 @@ export default class GS3dViewer {
 
 			if (debug && this.stats) this.stats.end();
 		});
+	}
+
+	public pauseRenderLoop() {
+		this.isPaused = true;
+	}
+
+	public resumeRenderLoop() {
+		this.isPaused = false;
 	}
 }

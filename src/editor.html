@@ -12,6 +12,12 @@
 		x-data="{
         world: null,
         previewing: false,
+        axes: ['x', 'y', 'z'],
+        defaultStep: 0.1,
+        formatCoordinate(vector, axis) {
+            const value = vector[axis].toFixed(1)
+            return (axis === 'x' ? '(' : '') + value + (axis === 'z' ? ')' : ', ')
+        },
         async loadPreview() {
             const jsondata = await (await fetch('test_map.json')).json();
             const gsmap = GS3dMap.deserializeFromJSON(jsondata);
@@ -93,90 +99,110 @@
 										<div class="values">
 											<span x-feather="maximize-2"></span>
 											<div x-show="!editing">
-												(<span x-text="scene.scale.x.toFixed(1)">x</span>,
-												<span x-text="scene.scale.y.toFixed(1)">y</span>,
-												<span x-text="scene.scale.z.toFixed(1)">z</span>)
+												<template x-for="axis in axes" :key="axis"
+													><span
+														x-text="formatCoordinate(scene.scale, axis)"
+													></span
+												></template>
 											</div>
 										</div>
 										<ul class="value-set" x-show="editing">
-											<label
-												>x
-												<input type="number" x-model="scene.scale.x" step="0.1"
-											/></label>
-											<label
-												>y
-												<input type="number" x-model="scene.scale.y" step="0.1"
-											/></label>
-											<label
-												>z
-												<input type="number" x-model="scene.scale.z" step="0.1"
-											/></label>
+											<template x-for="axis in axes" :key="axis">
+												<div class="editable-parameters">
+													<label
+														x-text="axis"
+														class="axis"
+														:class="axis"
+														:for="axis + '-scale-' +scene.name"
+													></label>
+
+													<button
+														class="stepper"
+														@click="scene.scale[axis] -= defaultStep"
+													>
+														-
+													</button>
+													<input
+														:id="axis + '-scale-' + scene.name"
+														type="number"
+														x-model.number="scene.scale[axis]"
+														step="0.1"
+													/>
+													<button
+														class="stepper"
+														@click="scene.scale[axis] += defaultStep"
+													>
+														+
+													</button>
+												</div>
+											</template>
 										</ul>
 									</li>
 									<li>
 										<div class="values">
 											<span x-feather="move"></span>
 											<div x-show="!editing">
-												(<span x-text="scene.position.x.toFixed(1)"></span>,
-												<span x-text="scene.position.y.toFixed(1)"></span>,
-												<span x-text="scene.position.z.toFixed(1)"></span>)
+												<template x-for="axis in axes" :key="axis"
+													><span
+														x-text="formatCoordinate(scene.position, axis)"
+													></span
+												></template>
 											</div>
 										</div>
 										<ul class="value-set" x-show="editing">
-											<label
-												>x
-												<input
-													type="number"
-													x-model="scene.position.x"
-													step="0.5"
-											/></label>
-											<label
-												>y
-												<input
-													type="number"
-													x-model="scene.position.y"
-													step="0.5"
-											/></label>
-											<label
-												>z
-												<input
-													type="number"
-													x-model="scene.position.z"
-													step="0.5"
-											/></label>
+											<template x-for="axis in axes" :key="axis">
+												<div class="editable-parameters">
+													<label
+														x-text="axis"
+														class="axis"
+														:class="axis"
+														:for="axis + '-position-' +scene.name"
+													></label>
+
+													<button
+														class="stepper"
+														@click="scene.position[axis] -= defaultStep"
+													>
+														-
+													</button>
+													<input
+														:id="axis + '-position-' + scene.name"
+														type="number"
+														x-model.number="scene.position[axis]"
+														step="0.1"
+													/>
+													<button
+														class="stepper"
+														@click="scene.position[axis] += defaultStep"
+													>
+														+
+													</button>
+												</div>
+											</template>
 										</ul>
 									</li>
 									<li>
 										<div class="values">
 											<span x-feather="rotate-cw"></span>
 											<div x-show="!editing">
-												(<span x-text="scene.rotation.x.toFixed(1)"></span>,
-												<span x-text="scene.rotation.y.toFixed(1)"></span>,
-												<span x-text="scene.rotation.z.toFixed(1)"></span>)
+												<template x-for="axis in axes" :key="axis"
+													><span
+														x-text="formatCoordinate(scene.rotation, axis)"
+													></span
+												></template>
 											</div>
 										</div>
 										<ul class="value-set" x-show="editing">
-											<label
-												>x
-												<input
-													type="number"
-													x-model="scene.rotation.x"
-													step="0.1"
-											/></label>
-											<label
-												>y
-												<input
-													type="number"
-													x-model="scene.rotation.y"
-													step="0.1"
-											/></label>
-											<label
-												>z
-												<input
-													type="number"
-													x-model="scene.rotation.z"
-													step="0.1"
-											/></label>
+											<template x-for="axis in axes" :key="axis">
+												<label>
+													<span x-text="axis" :class="'axis-' + axis"></span>
+													<input
+														type="number"
+														x-model.number="scene.rotation[axis]"
+														step="0.1"
+													/>
+												</label>
+											</template>
 										</ul>
 									</li>
 									<li>
@@ -185,7 +211,7 @@
 											x-show="editing"
 											@click="editing=false;world.gsmap.deleteGSScene(scene.sceneIndex);"
 										>
-											<span x-feather="trash-2"></span>Delete
+											<span x-feather="trash-2"></span>Remove
 										</button>
 									</li>
 								</ul>

@@ -91,70 +91,124 @@ button.edit > svg {
 }
 
 input[type="text"] {
-    border: thin solid var(--border-color);
-    border-radius: 0.25rem;
-    padding: 0.25rem;
-    background-color: var(--background-color-medium);
-    color: currentColor;
-    font-size: inherit;
+	border: thin solid var(--border-color);
+	border-radius: 0.25rem;
+	padding: 0.25rem;
+	background-color: var(--background-color-medium);
+	color: currentColor;
+	font-size: inherit;
 }
 
-label{
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    gap: 0.75rem;
+.editable-parameters {
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+    gap: 0.5rem;
 }
 
 div.values {
-    display: flex;
-    gap: 0.5rem;
+	display: flex;
+	gap: 0.5rem;
+}
+
+ul.editing div.values {
+	flex-direction: column;
+	justify-content: space-around;
+	padding-right: 0.25rem;
 }
 
 ul.value-set {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    gap: 0.25rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	gap: 0.25rem;
 }
 
 input[type="number"] {
-    border: thin solid var(--border-color);
-    border-radius: 0.25rem;
-    background-color: var(--background-color-medium);
-    color: currentColor;
-    font-size: inherit;
-    width: 3rem;
+    font-family: 'Courier New', Courier, monospace;
+
+	border: thin solid var(--border-color);
+	border-radius: 0.25rem;
+	background-color: var(--background-color-medium);
+	color: currentColor;
+	font-size: inherit;
+	width: 2.5rem;
+
+    text-align: right;
+
+    /* No arrows - Firefox */
+	-moz-appearance: textfield;
+    appearance: textfield;
 }
 
 ul.splat-details {
-    display: flex;
-    flex-direction: column;
-    align-items: cennter;
+	display: flex;
+	flex-direction: column;
+	align-items: cennter;
 }
 
 ul.splat-details > li {
-    display: flex;
-    gap: 0.5rem;
-    width: 100%;
-    padding: 0rem;
-    color: var(--text-color-disabled);
+	display: flex;
+	gap: 0.5rem;
+	width: 100%;
+	padding: 0rem;
+	color: var(--text-color-disabled);
 }
 
 ul.splat-details.editing > li {
-    border-bottom: thin solid var(--border-color);
-    padding-block: 0.5rem;
+	border-bottom: thin solid var(--border-color);
+	padding-block: 0.5rem;
 }
 
 ul.splat-details.editing > li:last-child {
-    justify-content: flex-end;
-    border-bottom: none;
-    padding-bottom: 0;
+	justify-content: flex-end;
+	border-bottom: none;
+	padding-bottom: 0;
 }
 
 .name-bar {
+	display: flex;
+	gap: 0.5rem;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.axis {
+    margin-right: 0.5rem;
+}
+
+.axis.x {
+	color: #ea7773;
+}
+
+.axis.y {
+	color: #62b561;
+}
+
+.axis.z {
+	color: #0aace8;
+}
+
+/* No arrows - Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+button.stepper {
     display: flex;
-    gap: 0.5rem;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
+    text-align: center;
+
+    padding: 0.25rem;
+    width: 1.25rem;
+    height: 1.25rem;
+
+    border-radius: 50%;
+
+    border: none;
+
+    font-family: 'Courier New', Courier, monospace;
 }

@@ -11,8 +11,8 @@
 	--primary-color: #0a69cf;
 	--primary-color-light: #329ff8;
 
-    --danger-color: #dc3545;
-    --danger-color-light: #ff505f;
+	--danger-color: #dc3545;
+	--danger-color-light: #ff505f;
 
 	--border-color: #ced4da;
 }
@@ -92,7 +92,7 @@ button {
 }
 
 button.danger {
-    background-color: var(--danger-color);
+	background-color: var(--danger-color);
 }
 
 button:hover {
@@ -100,7 +100,7 @@ button:hover {
 }
 
 button.danger:hover {
-    background-color: var(--danger-color-light);
+	background-color: var(--danger-color-light);
 }
 
 button.big {
@@ -115,9 +115,9 @@ svg.feather {
 }
 
 span.feather {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	width: 1rem;
-	height: 1rem;    
+	height: 1rem;
 }

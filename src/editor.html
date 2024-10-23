@@ -54,7 +54,12 @@
 				</template>
 				<div></div>
 				<button class="action"><span x-feather="upload"></span>Import</button>
-				<button class="action"><span x-feather="download"></span>Export</button>
+				<button
+					class="action"
+					@click="copyToClipboard('map JSON', world.gsmap.serialize())"
+				>
+					<span x-feather="download"></span>Export
+				</button>
 			</div>
 
 			<div>Placeholder</div>

@@ -194,14 +194,37 @@
 										</div>
 										<ul class="value-set" x-show="editing">
 											<template x-for="axis in axes" :key="axis">
-												<label>
-													<span x-text="axis" :class="'axis-' + axis"></span>
-													<input
-														type="number"
-														x-model.number="scene.rotation[axis]"
-														step="0.1"
-													/>
-												</label>
+												<div class="editable-parameters">
+													<label
+														x-text="axis"
+														class="axis"
+														:class="axis"
+														:for="axis + '-rotation-' +scene.name"
+													></label>
+
+													<div
+														class="slider-container"
+														x-data="{ showTooltip: false }"
+													>
+														<input
+															:id="axis + '-rotation-' + scene.name"
+															type="range"
+															x-model.number="scene.rotation[axis]"
+															min="0"
+															max="6.3"
+															step="0.01"
+															@input="showTooltip = true"
+															@change="showTooltip = false"
+															@click.outside="showTooltip = false"
+														/>
+
+														<div
+															x-show="showTooltip"
+															class="slider-tooltip"
+															x-text="scene.rotation[axis].toFixed(3)"
+														></div>
+													</div>
+												</div>
 											</template>
 										</ul>
 									</li>

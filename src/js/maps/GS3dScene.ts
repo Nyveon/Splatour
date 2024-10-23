@@ -115,14 +115,14 @@ export default class GS3dScene {
 		this.updateContainer();
 	}
 
-	serialize(): string {
-		return JSON.stringify({
-            //todo: add name
+	serialize(): Object {
+		return {
+            name: this.name,
 			filePath: this.filePath,
 			scale: this.scale,
 			rotation: this.rotation,
 			position: this.position,
-		});
+		};
 	}
 
 	static deserialize(json: string): GS3dScene {

@@ -3,6 +3,8 @@ import GS3dScene from "./GS3dScene.ts";
 import GS3dViewer from "./GS3dViewer.ts";
 import * as GaussianSplats3D from "@mkkellogg/gaussian-splats-3d";
 
+const EXPORT_VERSION = 0;
+
 export default class GS3dMap {
 	parent: GS3dViewer | null = null;
 	private viewer: any;
@@ -61,9 +63,11 @@ export default class GS3dMap {
 	}
 
 	serialize(): string {
-		//todo: serialization is wrong D:
 		return JSON.stringify({
-			name: this.name,
+            metadata: {
+                version: EXPORT_VERSION,
+                name: this.name,
+            },
 			scenes: this.scenes.map((scene) => scene.serialize()),
 		});
 	}

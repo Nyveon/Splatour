@@ -74,7 +74,9 @@ export default class GS3dMap {
 
 	static deserialize(json: string) {
 		const obj = JSON.parse(json);
+        console.log(obj);
 		const map = new GS3dMap(obj.metadata.name);
+
 
 		obj.scenes.forEach((scene: string) => {
 			map.registerGSScene(GS3dScene.deserializeFromJSON(scene));

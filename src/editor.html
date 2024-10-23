@@ -14,14 +14,43 @@
         previewing: false,
         axes: ['x', 'y', 'z'],
         defaultStep: 0.1,
+        uploadModalVisible: false,
         formatCoordinate(vector, axis) {
             const value = vector[axis].toFixed(1)
             return (axis === 'x' ? '(' : '') + value + (axis === 'z' ? ')' : ', ')
         },
-        async loadPreview() {
-            const jsondata = await (await fetch('test_map.json')).json();
-            const gsmap = GS3dMap.deserializeFromJSON(jsondata);
-            this.world = new GS3dViewer(gsmap, true);
+        handleModalSubmit(fileInput) {
+            if (!fileInput || !fileInput.files) {
+                alert('File input not found.');
+                return;
+            }
+
+            const file = fileInput.files[0];
+
+            if (!file) {
+                alert('Please select a JSON file');
+                return;
+            }
+
+            const reader = new FileReader();
+
+            reader.onload = (e) => {
+                try {
+                    if (!e.target || !e.target.result) {
+                        throw new Error('Invalid file data.');
+                    }
+
+                    successToast('JSON data uploaded');
+                    const gsmap = GS3dMap.deserialize(e.target.result);
+                    this.world = new GS3dViewer(gsmap, true);
+                } catch (error) {
+                    alert('Invalid JSON file. '+ error);
+                }
+            };
+
+            this.previewing = true;
+            reader.readAsText(file);
+            this.uploadModalVisible = false;
         }
     }"
 	>
@@ -53,7 +82,9 @@
 					</div>
 				</template>
 				<div></div>
-				<button class="action"><span x-feather="upload"></span>Import</button>
+				<button class="action" @click="uploadModalVisible=true">
+					<span x-feather="upload"></span>Import
+				</button>
 				<button
 					class="action"
 					@click="copyToClipboard('map JSON', world.gsmap.serialize())"
@@ -65,9 +96,18 @@
 			<div>Placeholder</div>
 		</header>
 
+		<div id="upload-modal" class="modal" x-show="uploadModalVisible">
+			<div class="modal-content">
+				<h2>Upload JSON File</h2>
+				<input type="file" id="fileInput" accept=".json" x-ref="fileInput" />
+				<br /><br />
+				<button @click="handleModalSubmit($refs.fileInput)">Submit</button>
+			</div>
+		</div>
+
 		<main x-data>
 			<aside>
-				<template x-if="world">
+				<template x-if="world.gsmap.scenes">
 					<ul>
 						<template x-for="scene in world.gsmap.scenes">
 							<li
@@ -250,17 +290,7 @@
 			</aside>
 
 			<section id="preview">
-				<button
-					x-show="!previewing"
-					class="big"
-					@click="
-                    previewing = true;
-                    await $nextTick();
-                    loadPreview()
-                    "
-				>
-					<i x-feather="eye"></i>Load Preview
-				</button>
+				<div class="info-box" x-show="!previewing"><i x-feather="eye"></i>Load or create a map to preview it</div>
 
 				<div id="viewer" x-show="previewing"></div>
 			</section>

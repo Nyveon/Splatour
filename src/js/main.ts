@@ -4,9 +4,11 @@ import Alpine from "alpinejs";
 import Toastify from "toastify-js";
 import "toastify-js/src/toastify.css";
 
+import GS3dScene from "./maps/GS3dScene.ts";
 import GS3dMap from "./maps/GS3dMap.ts";
 import GS3dViewer from "./maps/GS3dViewer.ts";
 
+window.GS3dScene = GS3dScene;
 window.GS3dMap = GS3dMap;
 window.GS3dViewer = GS3dViewer;
 

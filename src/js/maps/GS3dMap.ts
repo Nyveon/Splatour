@@ -39,14 +39,16 @@ export default class GS3dMap {
 		this.scenes.push(scene);
 	}
 
-	async deleteGSScene(sceneIndex: number) {
+    async refreshMap(deletion: number = -1) {
 		this.parent?.pauseRenderLoop();
 
 		this.scenes.forEach((scene, _) => {
 			scene.getContainer().removeFromParent();
 		});
 		this.viewer.removeFromParent();
-		this.scenes.splice(sceneIndex, 1);
+        if (deletion != -1) {
+            this.scenes.splice(deletion, 1);
+        }
 		await this.viewer.dispose();
 
 		this.initializeViewer();
@@ -54,6 +56,10 @@ export default class GS3dMap {
 		await this.initializeSplats();
 
 		this.parent?.resumeRenderLoop();
+    }
+
+	async deleteGSScene(sceneIndex: number) {
+		await this.refreshMap(sceneIndex);
 	}
 
 	async addToScene(worldScene: THREE.Scene) {

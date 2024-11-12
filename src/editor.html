@@ -57,6 +57,34 @@
                 successToast('Map created');
                 this.world = new GS3dViewer(new GS3dMap('New Map'), true);
             },
+            async loadSplatFile() {
+                try {
+                    const [fileHandle] = await window.showOpenFilePicker({
+                        multiple: false,
+                        types: [
+                            {
+                            description: 'Splat files',
+                            accept: {
+                                'application/octet-stream': ['.splat', '.ksplat', '.ply']
+                            }
+                            }
+                        ]
+                    });
+
+                    const file = await fileHandle.getFile();
+                    console.log('Selected file:', file.name);
+                    console.log('File size:', file.size);
+
+                    const scene = new GS3dScene(file.name, file.name);
+                    this.world.gsmap.registerGSScene(scene);
+                    this.world.gsmap.refreshMap();
+
+                    successToast('Splat scene loaded');
+                } catch (e) {
+                    console.log(e);
+                    alert('Invalid splat file');
+                }
+            }
         }"
 	>
 		<header x-data>
@@ -295,15 +323,15 @@
 								</ul>
 							</li>
 						</template>
-                        <li id="new-splat">
-                            <button><span x-feather="plus-circle"></span>New Scene</button>
-                        </li>
+						<li id="new-splat">
+							<button class="action" @click="loadSplatFile()"><span x-feather="plus-circle"></span>New Scene</button>
+						</li>
 					</ul>
 				</template>
 			</aside>
 
 			<section id="preview">
-                <div id="viewer" x-show="previewing"></div>
+				<div id="viewer" x-show="previewing"></div>
 
 				<div class="info-box" x-show="!previewing">
 					<i x-feather="eye"></i>Load or create a map to preview it

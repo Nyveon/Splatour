@@ -106,9 +106,14 @@ export default class FirstPersonController {
 			(this.input.key(KEYS.w) ? 1 : 0) + (this.input.key(KEYS.s) ? -1 : 0);
 		const strafeVelocity =
 			(this.input.key(KEYS.a) ? 1 : 0) + (this.input.key(KEYS.d) ? -1 : 0);
+		const verticalVelocity =
+			(this.input.key(KEYS.space) ? 1 : 0) +
+			(this.input.key(KEYS.shift) ? -1 : 0);
 
-		// No vertical movement in this implementation
-		const verticalVelocity = 0;
+		const up = this.debug
+			? new THREE.Vector3(0, 1, 0)
+			: new THREE.Vector3(0, 0, 0);
+		up.multiplyScalar(verticalVelocity * timeElapsedS * this.moveSpeed);
 
 		// Compute the movement vector in world space
 		const movementVector = new THREE.Vector3();
@@ -137,6 +142,7 @@ export default class FirstPersonController {
 		this.applyCollisionResponse(movementVector);
 
 		// Update the player's position
+		this.translation.add(up);
 		this.translation.add(movementVector);
 	}
 

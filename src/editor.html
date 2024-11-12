@@ -15,6 +15,7 @@
             axes: ['x', 'y', 'z'],
             defaultStep: 0.1,
             uploadModalVisible: false,
+            showCollisions: false,
             formatCoordinate(vector, axis) {
                 const value = vector[axis].toFixed(1)
                 return (axis === 'x' ? '(' : '') + value + (axis === 'z' ? ')' : ', ')
@@ -132,6 +133,7 @@
 				<button class="action" @click="createNewMap()" x-show="!world">
 					<span x-feather="file-plus"></span>Create
 				</button>
+                <label x-show="world"><input type="checkbox" x-model="showCollisions"/>Show collisions</label>
 			</div>
 
 			<div>Placeholder</div>
@@ -361,7 +363,8 @@
 									<li x-data>
 										<button
 											x-show="editing"
-											@click="world.enterBirdsEyeView(scene);window.successToast('Press ENTER to exit collision mode')"
+											@click="world.enterBirdsEyeView(scene);window.successToast('Press ENTER to exit collision mode');showCollisions=true;"
+                                            x-effect="world.setWallsVisibility(showCollisions);"
 										>
 											<span x-feather="box"></span>Collisions
 										</button>

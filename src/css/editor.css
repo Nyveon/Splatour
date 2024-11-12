@@ -251,3 +251,8 @@ input[type="range"] {
 	padding: 1px 3px;
 	border-radius: 4px;
 }
+
+
+label {
+    cursor: pointer;
+}

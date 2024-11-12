@@ -9,8 +9,11 @@ export default class FirstPersonController {
 	private input: InputController;
 	private rotation: THREE.Quaternion;
 	private translation: THREE.Vector3;
+    private translationBackup: THREE.Vector3 = new THREE.Vector3();
 	private phi: number;
+    private phiBackup: number = 0;
 	private theta: number;
+    private thetaBackup: number = 0;
 	private phiSpeed: number;
 	private thetaSpeed: number;
 	private moveSpeed: number;
@@ -40,6 +43,20 @@ export default class FirstPersonController {
 		this.updateTranslation(1 / 60);
 	}
 
+    enableBirdsEye(): void {
+        this.translationBackup = this.translation.clone();
+        this.phiBackup = this.phi;
+        this.thetaBackup = this.theta;
+        this.input.setMode('birdsEye');
+    }
+
+    disableBirdsEye(): void {
+        this.translation = this.translationBackup;
+        this.phi = this.phiBackup;
+        this.theta = this.thetaBackup;
+        this.input.setMode('firstPerson');
+    }
+
 	setTranslation(x: number, y: number, z: number): void {
 		this.translation.set(x, y, z);
 	}
@@ -49,6 +66,11 @@ export default class FirstPersonController {
 		this.camera.position.copy(this.translation);
 	}
 
+    public setRotation(phi: number, theta: number): void {
+        this.phi = phi;
+        this.theta = theta;
+    }
+
 	private updateRotation(): void {
 		const xh = this.input.getXH();
 		const yh = this.input.getYH();
@@ -56,7 +78,7 @@ export default class FirstPersonController {
 		this.phi += -xh * this.phiSpeed;
 		this.theta = clamp(
 			this.theta + -yh * this.thetaSpeed,
-			-Math.PI / 3,
+			-Math.PI / 2,
 			Math.PI / 3
 		);
 

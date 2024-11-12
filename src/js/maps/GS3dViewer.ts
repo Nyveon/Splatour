@@ -13,11 +13,13 @@ export default class GS3dViewer {
 	private renderer!: THREE.WebGLRenderer;
 	private stats?: Stats;
 	private viewerContainer!: HTMLElement;
-    private isPaused: boolean = false;
+	private isPaused: boolean = false;
+	private mode: "firstPerson" | "birdEye" = "firstPerson";
+    private oldPosition: THREE.Vector3 = new THREE.Vector3();
 
 	constructor(gsmap: GS3dMap, debug: boolean) {
 		this.gsmap = gsmap;
-        gsmap.parent = this;
+		gsmap.parent = this;
 		this.viewerContainer = document.getElementById("viewer")!;
 		this.initializeRenderer();
 		this.initializeScene(debug);
@@ -26,6 +28,44 @@ export default class GS3dViewer {
 		this.handleResize();
 		this.startRenderLoop(debug);
 		this.gsmap.addToScene(this.scene);
+
+		if (debug) {
+			this.initializeModeSwitching();
+		}
+	}
+
+	private initializeModeSwitching() {
+		document.addEventListener("keydown", (event) => {
+			if (event.code === "KeyB") {
+				// Press 'B' to switch modes
+                console.log("switching")
+				if (this.mode === "firstPerson") {
+					this.enterBirdEyeView();
+				} else {
+					this.enterFirstPersonView();
+				}
+			}
+		});
+	}
+
+	private enterBirdEyeView() {
+		this.mode = "birdEye";
+        this.controls.enableBirdsEye()
+        this.controls.setTranslation(0, 10, 0);
+        this.controls.setRotation(0, -Math.PI / 2);
+        this.controls.update();
+        //todo: oldPosition
+		// this.camera.position.set(0, 50, 0); // Move camera above the scene
+		// this.camera.lookAt(0, 0, 0); // Look at the center
+
+	}
+
+	private enterFirstPersonView() {
+		this.mode = "firstPerson";
+        this.controls.disableBirdsEye()
+		// this.controls.setTranslation(0, 3.5, 10); // Reset position
+		// this.camera.up.set(0, 1, 0); // Reset up vector
+
 	}
 
 	private initializeRenderer() {
@@ -85,7 +125,7 @@ export default class GS3dViewer {
 
 	private startRenderLoop(debug: boolean) {
 		this.renderer.setAnimationLoop(() => {
-            if (this.isPaused) return;
+			if (this.isPaused) return;
 
 			if (debug && this.stats) this.stats.begin();
 

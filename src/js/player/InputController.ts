@@ -26,6 +26,7 @@ export default class InputController {
 	private previous: MouseState | null = null;
 	private keys!: KeysState;
 	private previousKeys!: KeysState;
+    private mode: 'firstPerson' | 'birdsEye' = 'firstPerson';
 
 	constructor(canvas: HTMLCanvasElement) {
 		this.canvas = canvas;
@@ -54,17 +55,21 @@ export default class InputController {
 		this.canvas.addEventListener("click", () =>
 			this.canvas.requestPointerLock()
 		);
-		document.addEventListener(
-			"pointerlockchange",
-			() => this.onPointerLockChange_(),
-			false
-		);
+		// document.addEventListener(
+		// 	"pointerlockchange",
+		// 	() => this.onPointerLockChange_(),
+		// 	false
+		// );
 		document.addEventListener(
 			"pointerlockerror",
 			() => this.onPointerLockError_(),
 			false
 		);
 	}
+
+    public setMode(mode: 'firstPerson' | 'birdsEye'): void {
+        this.mode = mode;
+    }
 
 	private onMouseDown_(e: MouseEvent): void {
 		if (e.button === 0) {
@@ -83,7 +88,7 @@ export default class InputController {
 	}
 
 	private onMouseMove_(e: MouseEvent): void {
-		if (document.pointerLockElement === this.canvas) {
+		if (this.mode === 'firstPerson' && document.pointerLockElement === this.canvas) {
 			this.current.mouseX += e.movementX;
 			this.current.mouseY += e.movementY;
 
@@ -110,13 +115,13 @@ export default class InputController {
 		return !!this.keys[keyCode];
 	}
 
-	private onPointerLockChange_(): void {
-		if (document.pointerLockElement === this.canvas) {
-			console.log("Pointer lock enabled");
-		} else {
-			console.log("Pointer lock disabled");
-		}
-	}
+	// private onPointerLockChange_(): void {
+	// 	if (document.pointerLockElement === this.canvas) {
+	// 		console.log("Pointer lock enabled");
+	// 	} else {
+	// 		console.log("Pointer lock disabled");
+	// 	}
+	// }
 
 	private onPointerLockError_(): void {
 		console.log("Pointer lock error");

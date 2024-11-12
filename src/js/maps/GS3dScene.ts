@@ -74,6 +74,10 @@ export default class GS3dScene {
         this.updateContainer();
     }
 
+    getScale(): { x: number; y: number; z: number } {
+        return this.scale;
+    }
+
 	getRotationDegrees(): { x: number; y: number; z: number } {
 		return {
 			x: THREE.MathUtils.radToDeg(this.rotation.x),

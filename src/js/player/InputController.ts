@@ -26,7 +26,7 @@ export default class InputController {
 	private previous: MouseState | null = null;
 	private keys!: KeysState;
 	private previousKeys!: KeysState;
-    private mode: 'firstPerson' | 'birdsEye' = 'firstPerson';
+	private mode: "firstPerson" | "birdsEye" = "firstPerson";
 
 	constructor(canvas: HTMLCanvasElement) {
 		this.canvas = canvas;
@@ -52,9 +52,11 @@ export default class InputController {
 		document.addEventListener("mousemove", (e) => this.onMouseMove_(e), false);
 		document.addEventListener("keydown", (e) => this.onKeyDown_(e), false);
 		document.addEventListener("keyup", (e) => this.onKeyUp_(e), false);
-		this.canvas.addEventListener("click", () =>
-			this.canvas.requestPointerLock()
-		);
+		this.canvas.addEventListener("click", () => {
+			if (this.mode === "firstPerson") {
+                this.canvas.requestPointerLock()
+            }
+        });
 		// document.addEventListener(
 		// 	"pointerlockchange",
 		// 	() => this.onPointerLockChange_(),
@@ -67,9 +69,9 @@ export default class InputController {
 		);
 	}
 
-    public setMode(mode: 'firstPerson' | 'birdsEye'): void {
-        this.mode = mode;
-    }
+	public setMode(mode: "firstPerson" | "birdsEye"): void {
+		this.mode = mode;
+	}
 
 	private onMouseDown_(e: MouseEvent): void {
 		if (e.button === 0) {
@@ -88,7 +90,10 @@ export default class InputController {
 	}
 
 	private onMouseMove_(e: MouseEvent): void {
-		if (this.mode === 'firstPerson' && document.pointerLockElement === this.canvas) {
+		if (
+			this.mode === "firstPerson" &&
+			document.pointerLockElement === this.canvas
+		) {
 			this.current.mouseX += e.movementX;
 			this.current.mouseY += e.movementY;
 
@@ -102,9 +107,9 @@ export default class InputController {
 	}
 
 	private onKeyDown_(e: KeyboardEvent): void {
-        if (document.pointerLockElement === this.canvas) {
-		    this.keys[e.code] = true;
-        }
+		if (document.pointerLockElement === this.canvas || this.mode === "birdsEye") {
+			this.keys[e.code] = true;
+		}
 	}
 
 	private onKeyUp_(e: KeyboardEvent): void {
@@ -125,6 +130,12 @@ export default class InputController {
 
 	private onPointerLockError_(): void {
 		console.log("Pointer lock error");
+	}
+
+	public releasePointerLock() {
+		if (document.pointerLockElement === this.canvas) {
+			document.exitPointerLock();
+		}
 	}
 
 	update(): void {

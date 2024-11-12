@@ -48,6 +48,7 @@ export default class FirstPersonController {
         this.phiBackup = this.phi;
         this.thetaBackup = this.theta;
         this.input.setMode('birdsEye');
+        this.input.releasePointerLock();
     }
 
     disableBirdsEye(): void {

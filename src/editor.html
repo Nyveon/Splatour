@@ -358,13 +358,19 @@
 											</template>
 										</ul>
 									</li>
-									<li>
+									<li x-data>
+										<button
+											x-show="editing"
+											@click="world.enterBirdsEyeView(scene);window.successToast('Press ENTER to exit collision mode')"
+										>
+											<span x-feather="box"></span>Collisions
+										</button>
 										<button
 											class="danger"
 											x-show="editing"
 											@click="editing=false;world.gsmap.deleteGSScene(scene.sceneIndex);"
 										>
-											<span x-feather="trash-2"></span>Remove
+											<span x-feather="trash-2"></span>
 										</button>
 									</li>
 								</ul>

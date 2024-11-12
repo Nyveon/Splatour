@@ -19,9 +19,12 @@ export default class FirstPersonController {
 	private moveSpeed: number;
 	private debug: boolean;
 
+    private wallsArray: THREE.Mesh[] = [];
+
 	constructor(
 		camera: THREE.PerspectiveCamera,
 		canvas: HTMLCanvasElement,
+        wallsArray: THREE.Mesh[],
 		debug = false
 	) {
 		this.camera = camera;
@@ -34,6 +37,8 @@ export default class FirstPersonController {
 		this.thetaSpeed = 5;
 		this.moveSpeed = 3;
 		this.debug = debug;
+
+        this.wallsArray = wallsArray;
 	}
 
 	update(): void {
@@ -125,8 +130,28 @@ export default class FirstPersonController {
 			left.multiplyScalar(1 / Math.sqrt(2));
 		}
 
-		this.translation.add(forward);
-		this.translation.add(left);
-		this.translation.add(up);
+        const proposedPosition = this.translation.clone();
+		proposedPosition.add(forward);
+		proposedPosition.add(left);
+		proposedPosition.add(up);
+
+        if (!this.checkCollisionsRaycast(this.translation, proposedPosition)) {
+            // If no collision, update position
+            this.translation.copy(proposedPosition);
+          } else {
+            // Handle collision (simple: prevent movement)
+            //todo: Advanced: implement sliding along walls
+          }
 	}
+
+    private checkCollisionsRaycast(currentPosition: THREE.Vector3, proposedPosition: THREE.Vector3): boolean {
+        const direction = new THREE.Vector3().subVectors(proposedPosition, currentPosition).normalize();
+        const distance = currentPosition.distanceTo(proposedPosition);
+      
+        const raycaster = new THREE.Raycaster(currentPosition, direction, 0, distance);
+      
+        const intersects = raycaster.intersectObjects(this.wallsArray, true);
+      
+        return intersects.length > 0;
+      }
 }

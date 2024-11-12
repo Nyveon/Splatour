@@ -241,7 +241,7 @@ export default class GS3dViewer {
 
     private createWall(startPoint: THREE.Vector3, endPoint: THREE.Vector3) {
         const wallThickness = 0.1;
-        const wallHeight = 2.5;
+        const wallHeight = 4;
     
         const direction = new THREE.Vector3().subVectors(endPoint, startPoint);
         const length = direction.length();
@@ -336,6 +336,7 @@ export default class GS3dViewer {
 		this.controls = new FirstPersonController(
 			this.camera,
 			this.renderer.domElement,
+            this.wallsArray,
 			debug
 		);
 		this.controls.setTranslation(0, 3.5, 10);

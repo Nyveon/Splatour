@@ -9,22 +9,22 @@ export default class FirstPersonController {
 	private input: InputController;
 	private rotation: THREE.Quaternion;
 	private translation: THREE.Vector3;
-    private translationBackup: THREE.Vector3 = new THREE.Vector3();
+	private translationBackup: THREE.Vector3 = new THREE.Vector3();
 	private phi: number;
-    private phiBackup: number = 0;
+	private phiBackup: number = 0;
 	private theta: number;
-    private thetaBackup: number = 0;
+	private thetaBackup: number = 0;
 	private phiSpeed: number;
 	private thetaSpeed: number;
 	private moveSpeed: number;
 	private debug: boolean;
 
-    private wallsArray: THREE.Mesh[] = [];
+	private wallsArray: THREE.Mesh[] = [];
 
 	constructor(
 		camera: THREE.PerspectiveCamera,
 		canvas: HTMLCanvasElement,
-        wallsArray: THREE.Mesh[],
+		wallsArray: THREE.Mesh[],
 		debug = false
 	) {
 		this.camera = camera;
@@ -38,7 +38,7 @@ export default class FirstPersonController {
 		this.moveSpeed = 3;
 		this.debug = debug;
 
-        this.wallsArray = wallsArray;
+		this.wallsArray = wallsArray;
 	}
 
 	update(): void {
@@ -48,20 +48,20 @@ export default class FirstPersonController {
 		this.updateTranslation(1 / 60);
 	}
 
-    enableBirdsEye(): void {
-        this.translationBackup = this.translation.clone();
-        this.phiBackup = this.phi;
-        this.thetaBackup = this.theta;
-        this.input.setMode('birdsEye');
-        this.input.releasePointerLock();
-    }
+	enableBirdsEye(): void {
+		this.translationBackup = this.translation.clone();
+		this.phiBackup = this.phi;
+		this.thetaBackup = this.theta;
+		this.input.setMode("birdsEye");
+		this.input.releasePointerLock();
+	}
 
-    disableBirdsEye(): void {
-        this.translation = this.translationBackup;
-        this.phi = this.phiBackup;
-        this.theta = this.thetaBackup;
-        this.input.setMode('firstPerson');
-    }
+	disableBirdsEye(): void {
+		this.translation = this.translationBackup;
+		this.phi = this.phiBackup;
+		this.theta = this.thetaBackup;
+		this.input.setMode("firstPerson");
+	}
 
 	setTranslation(x: number, y: number, z: number): void {
 		this.translation.set(x, y, z);
@@ -72,10 +72,10 @@ export default class FirstPersonController {
 		this.camera.position.copy(this.translation);
 	}
 
-    public setRotation(phi: number, theta: number): void {
-        this.phi = phi;
-        this.theta = theta;
-    }
+	public setRotation(phi: number, theta: number): void {
+		this.phi = phi;
+		this.theta = theta;
+	}
 
 	private updateRotation(): void {
 		const xh = this.input.getXH();
@@ -101,57 +101,117 @@ export default class FirstPersonController {
 	}
 
 	private updateTranslation(timeElapsedS: number): void {
+		// Calculate input-based velocities
 		const forwardVelocity =
 			(this.input.key(KEYS.w) ? 1 : 0) + (this.input.key(KEYS.s) ? -1 : 0);
 		const strafeVelocity =
 			(this.input.key(KEYS.a) ? 1 : 0) + (this.input.key(KEYS.d) ? -1 : 0);
-		const verticalVelocity =
-			(this.input.key(KEYS.space) ? 1 : 0) +
-			(this.input.key(KEYS.shift) ? -1 : 0);
+
+		// No vertical movement in this implementation
+		const verticalVelocity = 0;
+
+		// Compute the movement vector in world space
+		const movementVector = new THREE.Vector3();
 
 		const qx = new THREE.Quaternion();
 		qx.setFromAxisAngle(new THREE.Vector3(0, 1, 0), this.phi);
 
-		const forward = new THREE.Vector3(0, 0, -1);
-		forward.applyQuaternion(qx);
-		forward.multiplyScalar(forwardVelocity * timeElapsedS * this.moveSpeed);
+		if (forwardVelocity !== 0 || strafeVelocity !== 0) {
+			const forward = new THREE.Vector3(0, 0, -1);
+			forward.applyQuaternion(qx);
+			forward.normalize();
 
-		const left = new THREE.Vector3(-1, 0, 0);
-		left.applyQuaternion(qx);
-		left.multiplyScalar(strafeVelocity * timeElapsedS * this.moveSpeed);
+			const left = new THREE.Vector3(-1, 0, 0);
+			left.applyQuaternion(qx);
+			left.normalize();
 
-		const up = this.debug
-			? new THREE.Vector3(0, 1, 0)
-			: new THREE.Vector3(0, 0, 0);
-		up.multiplyScalar(verticalVelocity * timeElapsedS * this.moveSpeed);
+			// Combine forward and strafe movements
+			movementVector.addScaledVector(forward, forwardVelocity);
+			movementVector.addScaledVector(left, strafeVelocity);
+			movementVector.normalize(); // Ensure consistent movement speed
 
-		if (forwardVelocity !== 0 && strafeVelocity !== 0) {
-			forward.multiplyScalar(1 / Math.sqrt(2));
-			left.multiplyScalar(1 / Math.sqrt(2));
+			movementVector.multiplyScalar(timeElapsedS * this.moveSpeed);
 		}
 
-        const proposedPosition = this.translation.clone();
-		proposedPosition.add(forward);
-		proposedPosition.add(left);
-		proposedPosition.add(up);
+		// Apply collision detection and response
+		this.applyCollisionResponse(movementVector);
 
-        if (!this.checkCollisionsRaycast(this.translation, proposedPosition)) {
-            // If no collision, update position
-            this.translation.copy(proposedPosition);
-          } else {
-            // Handle collision (simple: prevent movement)
-            //todo: Advanced: implement sliding along walls
-          }
+		// Update the player's position
+		this.translation.add(movementVector);
 	}
 
-    private checkCollisionsRaycast(currentPosition: THREE.Vector3, proposedPosition: THREE.Vector3): boolean {
-        const direction = new THREE.Vector3().subVectors(proposedPosition, currentPosition).normalize();
-        const distance = currentPosition.distanceTo(proposedPosition);
-      
-        const raycaster = new THREE.Raycaster(currentPosition, direction, 0, distance);
-      
-        const intersects = raycaster.intersectObjects(this.wallsArray, true);
-      
-        return intersects.length > 0;
-      }
+	private applyCollisionResponse(movementVector: THREE.Vector3): void {
+		// Define the maximum number of collision iterations to prevent infinite loops
+		const maxIterations = 3;
+		let iteration = 0;
+
+		// Temporary variables for calculations
+		let remainingMovement = movementVector.clone();
+
+		while (iteration < maxIterations && remainingMovement.lengthSq() > 0) {
+			const proposedPosition = this.translation.clone().add(remainingMovement);
+
+			// Perform collision detection
+			const collisionResult = this.checkCollisionsRaycast(
+				this.translation,
+				proposedPosition
+			);
+
+			if (!collisionResult) {
+				// No collision, movement is safe
+				break;
+			} else {
+				// Adjust the movement vector based on collision normal
+				const { collisionPoint, collisionNormal } = collisionResult;
+
+				// Calculate the amount of movement into the collision plane
+				const moveDistance = remainingMovement.length();
+				const pushBack =
+					remainingMovement.dot(collisionNormal) / collisionNormal.lengthSq();
+
+				// Remove the component of movement in the direction of the collision normal
+				const adjustment = collisionNormal.clone().multiplyScalar(pushBack);
+
+				remainingMovement.sub(adjustment);
+
+				// Increment iteration counter
+				iteration++;
+			}
+		}
+
+		// Update the movement vector with the adjusted remaining movement
+		movementVector.copy(remainingMovement);
+	}
+
+	private checkCollisionsRaycast(
+		currentPosition: THREE.Vector3,
+		proposedPosition: THREE.Vector3
+	): { collisionPoint: THREE.Vector3; collisionNormal: THREE.Vector3 } | null {
+		const direction = new THREE.Vector3()
+			.subVectors(proposedPosition, currentPosition)
+			.normalize();
+		const distance = currentPosition.distanceTo(proposedPosition);
+
+		const raycaster = new THREE.Raycaster(
+			currentPosition,
+			direction,
+			0,
+			distance
+		);
+
+		const intersects = raycaster.intersectObjects(this.wallsArray, false);
+
+		if (intersects.length > 0) {
+			const collisionPoint = intersects[0].point;
+			const collisionNormal =
+				intersects[0].face?.normal.clone() || new THREE.Vector3();
+
+			// Transform the collision normal to world space
+			intersects[0].object.getWorldDirection(collisionNormal);
+
+			return { collisionPoint, collisionNormal };
+		}
+
+		return null; // No collision
+	}
 }

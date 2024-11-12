@@ -117,6 +117,16 @@ div.values {
 	gap: 0.5rem;
 }
 
+div.values .feather {
+    width: 1.25rem;
+    height: 1.25rem;
+}
+
+div.values .feather>svg {
+    width: 1rem;
+    height: 1rem;
+}
+
 ul.editing div.values {
 	flex-direction: column;
 	justify-content: space-around;
@@ -180,7 +190,7 @@ ul.splat-details.editing > li:last-child {
 }
 
 .axis {
-	margin-right: 0.5rem;
+    width: 20px;
 }
 
 .axis.x {

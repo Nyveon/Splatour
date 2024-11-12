@@ -54,6 +54,26 @@ export default class GS3dScene {
 		this.updateContainer();
 	}
 
+    setLinkedScale(scale: number): void {
+        this.scale = {
+            x: scale,
+            y: scale,
+            z: scale,
+        };
+
+        this.updateContainer();
+    }
+
+    updateLinkedScale(delta: number): void {
+        this.scale = {
+            x: this.scale.x + delta,
+            y: this.scale.x + delta,
+            z: this.scale.x + delta,
+        };
+
+        this.updateContainer();
+    }
+
 	getRotationDegrees(): { x: number; y: number; z: number } {
 		return {
 			x: THREE.MathUtils.radToDeg(this.rotation.x),

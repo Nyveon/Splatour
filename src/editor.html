@@ -75,9 +75,12 @@
                     console.log('Selected file:', file.name);
                     console.log('File size:', file.size);
 
-                    const scene = new GS3dScene(file.name, file.name);
+                    const name = file.name.split('.').slice(0, -1).join('.');
+
+                    const scene = new GS3dScene(file.name, name);
                     this.world.gsmap.registerGSScene(scene);
                     this.world.gsmap.refreshMap();
+                    this.world.resizeHandler()
 
                     successToast('Splat scene loaded');
                 } catch (e) {
@@ -178,9 +181,22 @@
 										<span x-feather="file"></span
 										><span x-text="scene.filePath"></span>
 									</li>
-									<li>
+									<li x-data="{ linkedMode: true }">
 										<div class="values">
-											<span x-feather="maximize-2"></span>
+											<template x-if="!linkedMode && editing">
+												<div>
+													<button
+														class="edit"
+														@click="linkedMode = !linkedMode"
+													>
+														<span x-feather="maximize-2"></span>
+													</button>
+												</div>
+											</template>
+											<template x-if="linkedMode || !editing">
+												<span x-feather="maximize-2"></span>
+											</template>
+
 											<div x-show="!editing">
 												<template x-for="axis in axes" :key="axis"
 													><span
@@ -190,30 +206,61 @@
 											</div>
 										</div>
 										<ul class="value-set" x-show="editing">
-											<template x-for="axis in axes" :key="axis">
-												<div class="editable-parameters">
-													<label
-														x-text="axis"
-														class="axis"
-														:class="axis"
-														:for="axis + '-scale-' +scene.name"
-													></label>
+											<template x-if="!linkedMode">
+												<template x-for="axis in axes" :key="axis">
+													<div class="editable-parameters">
+														<label
+															x-text="axis"
+															class="axis"
+															:class="axis"
+															:for="axis + '-scale-' +scene.name"
+														></label>
 
+														<button
+															class="stepper"
+															@click="scene.scale[axis] -= defaultStep"
+														>
+															-
+														</button>
+														<input
+															:id="axis + '-scale-' + scene.name"
+															type="number"
+															x-model.number="scene.scale[axis]"
+															step="0.1"
+														/>
+														<button
+															class="stepper"
+															@click="scene.scale[axis] += defaultStep"
+														>
+															+
+														</button>
+													</div>
+												</template>
+											</template>
+											<template x-if="linkedMode">
+												<div class="editable-parameters">
+													<button
+														class="edit"
+														@click="linkedMode = !linkedMode"
+													>
+														<span x-feather="link"></span>
+													</button>
 													<button
 														class="stepper"
-														@click="scene.scale[axis] -= defaultStep"
+														@click="scene.updateLinkedScale(-defaultStep)"
 													>
 														-
 													</button>
 													<input
-														:id="axis + '-scale-' + scene.name"
+														:id="'linked-scale-' + scene.name"
 														type="number"
-														x-model.number="scene.scale[axis]"
+														x-model.number="scene.scale['x']"
+														x-effect="scene.updateLinkedScale(0)"
 														step="0.1"
 													/>
 													<button
 														class="stepper"
-														@click="scene.scale[axis] += defaultStep"
+														@click="scene.updateLinkedScale(defaultStep)"
 													>
 														+
 													</button>
@@ -324,7 +371,9 @@
 							</li>
 						</template>
 						<li id="new-splat">
-							<button class="action" @click="loadSplatFile()"><span x-feather="plus-circle"></span>New Scene</button>
+							<button class="action" @click="loadSplatFile()">
+								<span x-feather="plus-circle"></span>New Scene
+							</button>
 						</li>
 					</ul>
 				</template>

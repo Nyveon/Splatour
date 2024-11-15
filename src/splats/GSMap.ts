@@ -14,15 +14,15 @@ export default class GSMap {
 		this.scenes = scenes;
 	}
 
-	static deserializeJSON(jsonString: string) {
+	static deserializeStringJSON(jsonString: string) {
 		const json = JSON.parse(jsonString);
-		return GSMap.deserializeObject(json);
+		return GSMap.deserializeObjectJSON(json);
 	}
 
-	static deserializeObject(obj: SerialGSMap) {
+	static deserializeObjectJSON(obj: SerialGSMap) {
 		return new GSMap(
 			obj.name,
-			obj.scenes.map((scene: SerialGSScene) => GSScene.deserialize(scene))
+			obj.scenes.map((scene: SerialGSScene) => GSScene.deserialize(scene)),
 		);
 	}
 }

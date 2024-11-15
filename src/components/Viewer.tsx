@@ -1,13 +1,13 @@
-import { useState } from "react";
-import { Canvas } from "@react-three/fiber";
-import { PointerLockControls, KeyboardControls } from "@react-three/drei";
 import styled from "@emotion/styled";
-import Player from "../objects/Player";
-import Debug from "../objects/Debug";
-import Ambient from "../objects/Ambient";
-import GSViewer from "../splats/GSViewer";
+import { KeyboardControls, PointerLockControls } from "@react-three/drei";
+import { Canvas } from "@react-three/fiber";
+import { useEffect, useState } from "react";
 import GSMap from "../splats/GSMap";
+import GSViewer from "../splats/GSViewer";
 import { KeyMap } from "../utils/constants";
+import Ambient from "../world/Ambient";
+import Debug from "../world/Debug";
+import Player from "../world/Player";
 
 const ViewerContainer = styled.div`
 	position: relative;
@@ -19,12 +19,36 @@ const ViewerContainer = styled.div`
 	padding: 0;
 `;
 
-const gsmap = GSMap.deserializeJSON(
-	'{"metadata":{"version":0,"name":"Test Map"},"scenes":[{"name":"Garden","filePath":"garden.ksplat","scale":{"x":1.7000000000000006,"y":1,"z":1},"rotation":{"x":2.69,"y":0,"z":0},"position":{"x":0,"y":4,"z":0}},{"name":"Living Room","filePath":"LivingRoom.ply","scale":{"x":1,"y":1,"z":1},"rotation":{"x":0,"y":0.37,"z":3.14},"position":{"x":-9,"y":3,"z":16}}]}'
-);
+function useGSMap() {
+	const [gsmap, setGSMap] = useState<GSMap | null>(null);
+	const [error, setError] = useState<Error | null>(null);
+	const [loading, setLoading] = useState<Boolean>(true);
+
+	useEffect(() => {
+		fetch("/test_map.json", { mode: "no-cors" })
+			.then((response) => {
+				if (response.status >= 400) {
+					throw new Error("Server error");
+				}
+				return response.json();
+			})
+			.then((data: any) => {
+				console.log(data);
+				return setGSMap(GSMap.deserializeObjectJSON(data));
+			})
+			.catch((error: Error) => setError(error))
+			.finally(() => setLoading(false));
+	}, []);
+
+	return { gsmap, error, loading };
+}
 
 export default function Viewer({ debug }: { debug: boolean }) {
-	// const [ gsmap, setGSMap ] = useState(null);
+	const { gsmap, error, loading } = useGSMap();
+
+	if (loading) return <h1>Loading...</h1>;
+
+	if (error) return <h1>Error: {error.message}</h1>;
 
 	return (
 		<ViewerContainer>
@@ -34,7 +58,7 @@ export default function Viewer({ debug }: { debug: boolean }) {
 					<Ambient />
 					<PointerLockControls />
 					<Player />
-					<GSViewer gsmap={gsmap} />
+					{gsmap && <GSViewer gsmap={gsmap} />}
 				</Canvas>
 			</KeyboardControls>
 		</ViewerContainer>

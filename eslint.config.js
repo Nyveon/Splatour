@@ -13,7 +13,6 @@ export default tseslint.config(
 			js.configs.recommended,
 			...tseslint.configs.strictTypeChecked,
 			...tseslint.configs.stylisticTypeChecked,
-			// "plugin:prettier/recommended"
 		],
 		files: ["**/*.{ts,tsx}"],
 		languageOptions: {

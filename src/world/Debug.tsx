@@ -1,5 +1,5 @@
-import Checkerboard from "../objects/Checkerboard";
 import { GizmoHelper, GizmoViewport, Stats } from "@react-three/drei";
+import Checkerboard from "../world/Checkerboard";
 
 export default function Debug() {
 	return (

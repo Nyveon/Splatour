@@ -2,29 +2,31 @@ import styled from "@emotion/styled";
 import { Link } from "react-router-dom";
 import { color } from "../utils/theme";
 
-const PageLink = styled(Link)`
-	display: block;
-	padding: 10px;
-	text-align: center;
-	background-color: ${color.primary};
-	color: white;
-	text-decoration: none;
-	border-radius: 5px;
-	cursor: pointer;
+const s = {
+	Link: styled(Link)`
+		display: block;
+		padding: 10px;
+		text-align: center;
+		background-color: ${color.primary};
+		color: white;
+		text-decoration: none;
+		border-radius: 5px;
+		cursor: pointer;
 
-	&:hover {
-		background-color: ${color.primaryDark};
-	}
-`;
+		&:hover {
+			background-color: ${color.primaryDark};
+		}
+	`,
 
-const LinkList = styled.ul`
-	padding: 0;
-	list-style: none;
-`;
+	ul: styled.ul`
+		padding: 0;
+		list-style: none;
+	`,
 
-const LinkListItem = styled.li`
-	margin-bottom: 10px;
-`;
+	li: styled.li`
+		margin-bottom: 10px;
+	`,
+};
 
 export default function App() {
 	return (
@@ -35,14 +37,14 @@ export default function App() {
 				<i>Trabajo de título de Eric Kirchgesser, 2024</i>
 			</p>
 
-			<LinkList>
-				<LinkListItem>
-					<PageLink to="viewer">Viewer</PageLink>
-				</LinkListItem>
-				<LinkListItem>
-					<PageLink to="editor">Editor</PageLink>
-				</LinkListItem>
-			</LinkList>
+			<s.ul>
+				<s.li>
+					<s.Link to="viewer">Viewer</s.Link>
+				</s.li>
+				<s.li>
+					<s.Link to="editor">Editor</s.Link>
+				</s.li>
+			</s.ul>
 		</>
 	);
 }

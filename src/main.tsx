@@ -1,11 +1,11 @@
+import { css, Global } from "@emotion/react";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { Global, css } from "@emotion/react";
 
+import Editor from "./pages/Editor";
 import App from "./pages/Index";
 import Viewer from "./pages/Preview";
-import Editor from "./pages/Editor";
 
 import { color } from "./utils/theme";
 
@@ -65,5 +65,5 @@ createRoot(root).render(
 			`}
 		/>
 		<RouterProvider router={router} />
-	</StrictMode>
+	</StrictMode>,
 );

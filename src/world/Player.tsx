@@ -1,7 +1,7 @@
-import { useFrame } from "@react-three/fiber";
 import { useKeyboardControls } from "@react-three/drei";
-import { Controls } from "../utils/constants";
+import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
+import { Controls } from "../utils/constants";
 
 const speed = 5;
 
@@ -18,7 +18,6 @@ export default function Player() {
 			(controls[Controls.left] ? 1 : 0) - (controls[Controls.right] ? 1 : 0);
 		const verticalDirection =
 			(controls[Controls.up] ? 1 : 0) - (controls[Controls.down] ? 1 : 0);
-
 
 		const camera = state.camera;
 

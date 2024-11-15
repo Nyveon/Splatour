@@ -25,7 +25,7 @@ function useGSMap() {
 	const [loading, setLoading] = useState<Boolean>(true);
 
 	useEffect(() => {
-		fetch("/test_map.json", { mode: "no-cors" })
+		fetch("/empty.json", { mode: "no-cors" })
 			.then((response) => {
 				if (response.status >= 400) {
 					throw new Error("Server error");

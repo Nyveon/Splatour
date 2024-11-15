@@ -1,10 +1,10 @@
 import js from "@eslint/js";
-import globals from "globals";
 import react from "eslint-plugin-react";
 import reactHooks from "eslint-plugin-react-hooks";
 import reactRefresh from "eslint-plugin-react-refresh";
-import tseslint from "typescript-eslint";
+import globals from "globals";
 import { ReactThreeFiber } from "react-three/fiber";
+import tseslint from "typescript-eslint";
 
 export default tseslint.config(
 	{ ignores: ["dist"] },
@@ -21,9 +21,9 @@ export default tseslint.config(
 			parserOptions: {
 				project: ["./tsconfig.node.json", "./tsconfig.app.json"],
 				tsconfigRootDir: import.meta.dirname,
-                ecmaVersion: "latest",
-                ecmaFeatures: { jsx: true },
-                sourceType: "module",
+				ecmaVersion: "latest",
+				ecmaFeatures: { jsx: true },
+				sourceType: "module",
 			},
 		},
 		settings: { react: { version: "18.3" } },
@@ -42,5 +42,5 @@ export default tseslint.config(
 			...react.configs.recommended.rules,
 			...react.configs["jsx-runtime"].rules,
 		},
-	}
+	},
 );

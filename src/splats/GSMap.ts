@@ -1,6 +1,6 @@
 import GSScene, { SerialGSScene } from "./GSScene";
 
-interface SerialGSMap {
+export interface SerialGSMap {
 	name: string;
 	scenes: SerialGSScene[];
 }
@@ -15,7 +15,7 @@ export default class GSMap {
 	}
 
 	static deserializeStringJSON(jsonString: string) {
-		const json = JSON.parse(jsonString);
+		const json = JSON.parse(jsonString) as SerialGSMap;
 		return GSMap.deserializeObjectJSON(json);
 	}
 

@@ -3,7 +3,6 @@ import react from "eslint-plugin-react";
 import reactHooks from "eslint-plugin-react-hooks";
 import reactRefresh from "eslint-plugin-react-refresh";
 import globals from "globals";
-import { ReactThreeFiber } from "react-three/fiber";
 import tseslint from "typescript-eslint";
 
 export default tseslint.config(
@@ -29,7 +28,7 @@ export default tseslint.config(
 		settings: { react: { version: "18.3" } },
 		plugins: {
 			react,
-			"react-three": ReactThreeFiber,
+			// "react-three": ReactThreeFiber,
 			"react-hooks": reactHooks,
 			"react-refresh": reactRefresh,
 		},
@@ -41,6 +40,7 @@ export default tseslint.config(
 			],
 			...react.configs.recommended.rules,
 			...react.configs["jsx-runtime"].rules,
+			"react/no-unknown-property": "off",
 		},
 	},
 );

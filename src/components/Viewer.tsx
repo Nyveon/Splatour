@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { KeyboardControls, PointerLockControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { useEffect, useState } from "react";
-import GSMap from "../splats/GSMap";
+import GSMap, { SerialGSMap } from "../splats/GSMap";
 import GSViewer from "../splats/GSViewer";
 import { KeyMap } from "../utils/constants";
 import Ambient from "../world/Ambient";
@@ -22,7 +22,7 @@ const ViewerContainer = styled.div`
 function useGSMap() {
 	const [gsmap, setGSMap] = useState<GSMap | null>(null);
 	const [error, setError] = useState<Error | null>(null);
-	const [loading, setLoading] = useState<Boolean>(true);
+	const [loading, setLoading] = useState<boolean>(true);
 
 	useEffect(() => {
 		fetch("/empty.json", { mode: "no-cors" })
@@ -32,12 +32,20 @@ function useGSMap() {
 				}
 				return response.json();
 			})
-			.then((data: any) => {
+			.then((data: SerialGSMap) => {
 				console.log(data);
-				return setGSMap(GSMap.deserializeObjectJSON(data));
+				setGSMap(GSMap.deserializeObjectJSON(data));
 			})
-			.catch((error: Error) => setError(error))
-			.finally(() => setLoading(false));
+			.catch((error: unknown) => {
+				if (error instanceof Error) {
+					setError(error);
+				} else {
+					console.error("Unexpected error");
+				}
+			})
+			.finally(() => {
+				setLoading(false);
+			});
 	}, []);
 
 	return { gsmap, error, loading };

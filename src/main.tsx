@@ -1,7 +1,7 @@
 import { css, Global } from "@emotion/react";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createHashRouter, RouterProvider } from "react-router-dom";
 
 import Editor from "./pages/Editor";
 import App from "./pages/Index";
@@ -9,7 +9,7 @@ import Viewer from "./pages/Preview";
 
 import { color } from "./utils/theme";
 
-const router = createBrowserRouter([
+const router = createHashRouter([
 	{
 		path: "/",
 		element: <App />,

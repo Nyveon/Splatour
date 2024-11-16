@@ -27,3 +27,4 @@ dist-ssr
 *.ply
 *.splat
 *.ksplat
+!garden.ksplat

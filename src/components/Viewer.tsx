@@ -19,8 +19,14 @@ const ViewerContainer = styled.div`
 	padding: 0;
 `;
 
-export default function Viewer({ debug }: { debug: boolean }) {
-	const { gsmap, error, loading } = useFetchGSMap("/empty.json");
+export default function Viewer({
+	debug,
+	file,
+}: {
+	debug: boolean;
+	file: string;
+}) {
+	const { gsmap, error, loading } = useFetchGSMap(file);
 	const viewerContainerRef = useRef(null);
 
 	if (loading) return <h1>Loading...</h1>;

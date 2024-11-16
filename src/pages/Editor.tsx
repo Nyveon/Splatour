@@ -64,7 +64,7 @@ export default function Editor() {
 					<Sidebar />
 				</s.aside>
 				<s.preview>
-					<Viewer debug={true} />
+					<Viewer debug={true} file="/empty.json" />
 				</s.preview>
 			</s.main>
 		</>

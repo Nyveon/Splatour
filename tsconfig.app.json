@@ -26,5 +26,5 @@
 
     "types": ["vite/client"]
   },
-  "include": ["src", "src/decs.d.ts"]
+  "include": ["./src", "./src/decs.d.ts"]
 }

@@ -13,6 +13,7 @@ export default function GSViewer({ gsmap }: { gsmap: GSMap }) {
 	useEffect(() => {
 		const viewer = new DropInViewer({
 			sharedMemoryForWorkers: true,
+			// gpuAcceleratedSort: false,
 		});
 		const addParams: { path: string }[] = gsmap.scenes.map(
 			(scene: GSScene) => ({

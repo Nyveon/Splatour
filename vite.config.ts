@@ -9,6 +9,7 @@ export default defineConfig({
 		emptyOutDir: true,
 	},
 	server: {
+		port: 8080,
 		headers: {
 			"Cross-Origin-Embedder-Policy": "require-corp",
 			"Cross-Origin-Opener-Policy": "same-origin",

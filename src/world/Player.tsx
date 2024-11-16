@@ -1,21 +1,28 @@
 import { useKeyboardControls } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
+import { useJoystickControls } from "../hooks/useJoystickControls";
 import { Controls } from "../utils/constants";
 
 const speed = 5;
 
 export default function Player() {
 	const [, getControls] = useKeyboardControls();
+	const joystickState = useJoystickControls();
+	const joystickX = joystickState.x / 100; // Normalize to -1 to 1
+	const joystickY = joystickState.y / 100;
 
 	useFrame((state, delta) => {
 		const controls = getControls();
 
 		const straightDirection =
 			(controls[Controls.forward] ? 1 : 0) -
-			(controls[Controls.backward] ? 1 : 0);
+			(controls[Controls.backward] ? 1 : 0) +
+			joystickY;
 		const strafeDirection =
-			(controls[Controls.left] ? 1 : 0) - (controls[Controls.right] ? 1 : 0);
+			(controls[Controls.left] ? 1 : 0) -
+			(controls[Controls.right] ? 1 : 0) -
+			joystickX;
 		const verticalDirection =
 			(controls[Controls.up] ? 1 : 0) - (controls[Controls.down] ? 1 : 0);
 

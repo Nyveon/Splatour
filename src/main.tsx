@@ -9,25 +9,20 @@ import Viewer from "./pages/Preview";
 
 import { color } from "./utils/theme";
 
-const router = createBrowserRouter(
-	[
-		{
-			path: "/",
-			element: <App />,
-		},
-		{
-			path: "viewer",
-			element: <Viewer />,
-		},
-		{
-			path: "editor",
-			element: <Editor />,
-		},
-	],
-	// {
-	// 	basename: "/GaussianSplats3DMaps",
-	// },
-);
+const router = createBrowserRouter([
+	{
+		path: "/",
+		element: <App />,
+	},
+	{
+		path: "viewer",
+		element: <Viewer />,
+	},
+	{
+		path: "editor",
+		element: <Editor />,
+	},
+]);
 
 const root = document.getElementById("root");
 

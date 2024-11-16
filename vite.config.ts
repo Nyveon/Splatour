@@ -3,7 +3,6 @@ import { defineConfig } from "vite";
 
 // https://vite.dev/config/
 export default defineConfig({
-	// base: "/GaussianSplats3DMaps/",
 	plugins: [react()],
 	build: {
 		outDir: "docs",

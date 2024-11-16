@@ -23,7 +23,8 @@ dist-ssr
 *.sln
 *.sw?
 
-progress.md
 
 *.ply
+*.splat
 *.ksplat
+!garden.ksplat

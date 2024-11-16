@@ -6,7 +6,7 @@ export default defineConfig({
 	// base: "/GaussianSplats3DMaps/",
 	plugins: [react()],
 	build: {
-		outDir: "../docs",
+		outDir: "docs",
 		emptyOutDir: true,
 	},
 	server: {

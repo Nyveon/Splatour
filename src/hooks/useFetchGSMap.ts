@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import GSMap, { SerialGSMap } from "./GSMap";
+import GSMap, { SerialGSMap } from "../splats/GSMap";
 
 export default function useFetchGSMap(url: string) {
 	const [gsmap, setGSMap] = useState<GSMap | null>(null);

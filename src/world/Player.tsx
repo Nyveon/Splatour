@@ -1,25 +1,37 @@
 import { useKeyboardControls } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
+import { useJoystickControls } from "../hooks/useJoystickControls";
 import { Controls } from "../utils/constants";
 
-const speed = 5;
+const walkSpeed = 5;
+const rotationSpeed = 1;
 
 export default function Player() {
 	const [, getControls] = useKeyboardControls();
+	const joystickState = useJoystickControls();
 
 	useFrame((state, delta) => {
 		const controls = getControls();
+		const { moveX, moveY, cameraX, cameraY } = joystickState;
+		const camera = state.camera;
 
+		// Move direction
 		const straightDirection =
 			(controls[Controls.forward] ? 1 : 0) -
-			(controls[Controls.backward] ? 1 : 0);
+			(controls[Controls.backward] ? 1 : 0) +
+			moveY;
 		const strafeDirection =
-			(controls[Controls.left] ? 1 : 0) - (controls[Controls.right] ? 1 : 0);
+			(controls[Controls.left] ? 1 : 0) -
+			(controls[Controls.right] ? 1 : 0) -
+			moveX;
 		const verticalDirection =
 			(controls[Controls.up] ? 1 : 0) - (controls[Controls.down] ? 1 : 0);
 
-		const camera = state.camera;
+		// Camera direction
+		camera.rotation.order = "YXZ";
+		camera.rotation.y -= cameraX * rotationSpeed * delta;
+		camera.rotation.x += cameraY * rotationSpeed * delta;
 
 		const forward = new THREE.Vector3();
 		camera.getWorldDirection(forward);
@@ -38,7 +50,7 @@ export default function Player() {
 			move.normalize();
 		}
 
-		move.multiplyScalar(speed * delta);
+		move.multiplyScalar(walkSpeed * delta);
 
 		camera.position.add(move);
 	});

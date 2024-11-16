@@ -1,82 +1,61 @@
 # GaussianSplats3DMaps 
 
+3D Gaussian splatting map-making, multimedia scene composition and virtual tour system. Using [GaussianSplats3D](https://github.com/mkkellogg/GaussianSplats3D) by mkkellogg
 
-## Libraries:
+## Made with
 
-- [React Three Fiber](https://r3f.docs.pmnd.rs/getting-started/introduction)
-- [Drei](https://drei.docs.pmnd.rs/getting-started/introduction)
-- [React Router](https://reactrouter.com/en/main)
+### Web
 
+- [Vite](https://vite.dev/guide/) - Build tool
 
-To install:
+### React
 
-- Immer https://immerjs.github.io/immer/
-- Feather https://github.com/feathericons/react-feather
+- [React Router](https://reactrouter.com/en/main) - Path routing
+- [React Device Detect](https://github.com/duskload/react-device-detect#readme) - Device type detection
+- [Emotion](https://emotion.sh/docs/introduction) - CSS-in-JS styled componentss
+- [React Joystick Component](https://github.com/elmarti/react-joystick-component#readme) - Joystick component
+- [Zustand](https://github.com/pmndrs/zustand) - Shared state management
 
+### 3D
 
-## Immediate to-do list
+- [Three.js](https://threejs.org/)
+- [React Three Fiber](https://r3f.docs.pmnd.rs/getting-started/introduction) - Three.js as react components
+- [Drei](https://drei.docs.pmnd.rs/getting-started/introduction) - Extra Three.js components
+- [GaussianSplats3D](https://github.com/mkkellogg/GaussianSplats3D) - Gaussian Splt renderer
 
-Put more permanent stuff on trello
+### Resources
 
-# Timeline
-
-## E + Semana 1
-
-- Parcel/Node project setup
-- Three.js installation
-- GaussianSplats3D installation
-- First person camera
-- First person controller
-- Splat in ThreeJS world
-- Sky shader
-- Text box modal test
-
-## Semana 2
-
-- Nothing
-
-## Semana 3
-
-- Real-time translations
-- Real-time rotations
-
-## Semana 4
-
-- Refactor to typescript
-- Viewer: Multiple viewers/splats
-
-## Semana 5
-
-- Viewer: Allow resizing
-- Map serialization/deserialization
-
-- [x] Homepage to view or edit maps
-- [x] Switch from Parcel to Vite
-- [x] Map-Edit: Map name
-- [x] Map-Edit: preview view
-- [x] Map-Edit-Sidebar: Out-of-character splat editing. File, name
-- [x] Small feature: axis colors
-- [x] Small feature: rotation should be a slider
+- [Feather Icons](https://github.com/feathericons/react-feather) - Icon images
 
 
-- [x] Create from blank
-- [x] New splat scene
+## Instructions
 
-- [x] Collision mode button
-- [x] Birds eye view
-- [x] Draw collision line
-- [x] Delete collision line
-- [x] Viewer collide with collision polygon
-  
-- [x] Collision shape visibility toggle
-- [x] Fix flight mode
+Currently deployed at: <https://thesis.eri.cl>
 
-- [ ] Modal escape route exit button
-- [x] Link values button for scale
-- [ ] Edit skybox for map
-- [ ] Scroll for scene list
-- [ ] Scroll wheel + key for parameter editing
-- [ ] Hide/disable collision mode button when in collision mode
-- [ ] Fix camera clipping with wall in debug mode
-- [ ] Version mismatch warning
-- [ ] Edit only one at a time
+Install:
+
+```bash
+npm install
+```
+
+Run:
+
+```bash
+npm run dev
+```
+
+## Other Resources
+
+- [https://react.dev/learn](React.dev learn)
+- [https://www.theodinproject.com/paths/full-stack-javascript/courses/react](The Odin Project React course)
+
+<https://medium.com/@heyulei/capture-images-for-gaussian-splatting-81d081bbc826>
+
+<https://current-exhibition.com/laboratorio31/>
+
+<https://radiancefields.com/gaussian-splatting-brings-art-exhibitions-online-with-yulei>
+
+<https://www.youtube.com/watch?v=oqKzxPMLWxo>
+
+Khachkar videos
+<https://drive.google.com/drive/u/1/folders/1T7olQ1MWyAnDPSOB5TnkdjeKj-EzXFvL>

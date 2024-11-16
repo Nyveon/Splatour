@@ -17,7 +17,7 @@ export default function Debug({
 		<>
 			<axesHelper args={[50]} />
 			<Checkerboard />
-			<GizmoHelper alignment="bottom-right" margin={[80, 80]}>
+			<GizmoHelper alignment="top-right" margin={[80, 80]}>
 				<GizmoViewport
 					axisColors={["red", "green", "blue"]}
 					labelColor="black"

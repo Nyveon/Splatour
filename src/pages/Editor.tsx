@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import mapUrl from "../assets/maps/empty.json?url";
 import Sidebar from "../components/editor/Sidebar";
 import Toolbar from "../components/editor/Toolbar";
 import Viewer from "../components/Viewer";
@@ -64,7 +65,7 @@ export default function Editor() {
 					<Sidebar />
 				</s.aside>
 				<s.preview>
-					<Viewer debug={true} file="/empty.json" />
+					<Viewer debug={true} file={mapUrl} />
 				</s.preview>
 			</s.main>
 		</>

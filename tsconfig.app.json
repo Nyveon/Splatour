@@ -22,7 +22,9 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
-    "useUnknownInCatchVariables": false
+    "useUnknownInCatchVariables": false,
+
+    "types": ["vite/client"]
   },
   "include": ["src", "src/decs.d.ts"]
 }

@@ -33,6 +33,23 @@ const s = {
 
 		text-align: left;
 	`,
+
+	main: styled.main`
+		display: flex;
+		width: 100%;
+		height: 100%;
+		max-width: 100%;
+	`,
+
+	preview: styled.section`
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+
+		width: 100%;
+		height: 100%;
+	`,
 };
 
 export default function Editor() {
@@ -41,10 +58,15 @@ export default function Editor() {
 			<s.header>
 				<Toolbar />
 			</s.header>
-			<s.aside>
-				<Sidebar />
-			</s.aside>
-			<Viewer debug={true} />
+
+			<s.main>
+				<s.aside>
+					<Sidebar />
+				</s.aside>
+				<s.preview>
+					<Viewer debug={true} />
+				</s.preview>
+			</s.main>
 		</>
 	);
 }

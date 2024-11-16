@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
@@ -133,7 +133,10 @@
 				<button class="action" @click="createNewMap()" x-show="!world">
 					<span x-feather="file-plus"></span>Create
 				</button>
-                <label x-show="world"><input type="checkbox" x-model="showCollisions"/>Show collisions</label>
+				<label x-show="world"
+					><input type="checkbox" x-model="showCollisions" />Show
+					collisions</label
+				>
 			</div>
 
 			<div>Placeholder</div>
@@ -364,7 +367,7 @@
 										<button
 											x-show="editing"
 											@click="world.enterBirdsEyeView(scene);window.successToast('Press ENTER to exit collision mode');showCollisions=true;"
-                                            x-effect="world.setWallsVisibility(showCollisions);"
+											x-effect="world.setWallsVisibility(showCollisions);"
 										>
 											<span x-feather="box"></span>Collisions
 										</button>

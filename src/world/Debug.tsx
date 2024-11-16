@@ -1,7 +1,18 @@
+import styled from "@emotion/styled";
 import { GizmoHelper, GizmoViewport, Stats } from "@react-three/drei";
 import Checkerboard from "../world/Checkerboard";
 
-export default function Debug() {
+const s = {
+	Stats: styled(Stats)`
+		position: absolute !important;
+	`,
+};
+
+export default function Debug({
+	viewerContainerRef,
+}: {
+	viewerContainerRef: React.RefObject<HTMLElement>;
+}) {
 	return (
 		<>
 			<axesHelper args={[50]} />
@@ -12,7 +23,7 @@ export default function Debug() {
 					labelColor="black"
 				/>
 			</GizmoHelper>
-			<Stats showPanel={0} className="stats" />
+			<s.Stats parent={viewerContainerRef} showPanel={0} />
 		</>
 	);
 }

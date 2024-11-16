@@ -1,1 +1,7 @@
-{"metadata":{"version":0,"name":"Test Map"},"scenes":[{"name":"Garden","filePath":"garden.ksplat","scale":{"x":1.7000000000000006,"y":1,"z":1},"rotation":{"x":2.69,"y":0,"z":0},"position":{"x":0,"y":4,"z":0}},{"name":"Living Room","filePath":"LivingRoom.ply","scale":{"x":1,"y":1,"z":1},"rotation":{"x":0,"y":0.37,"z":3.14},"position":{"x":-9,"y":3,"z":16}}]}
+{
+    "metadata": {
+        "version": 0,
+        "name": "Test Map"
+    },
+    "scenes": []
+}

@@ -3,7 +3,7 @@ import { KeyboardControls, PointerLockControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { useRef } from "react";
 import { isMobile } from "react-device-detect";
-import useFetchGSMap from "../hooks/useFetchGSMap";
+import GSMap from "../splats/GSMap";
 import GSViewer from "../splats/GSViewer";
 import { KeyMap } from "../utils/constants";
 import Ambient from "../world/Ambient";
@@ -34,23 +34,14 @@ const debugMobile = false;
 
 export default function Viewer({
 	debug,
-	file,
+	gsmap,
 }: {
 	debug: boolean;
-	file: string;
+	gsmap: GSMap;
 }) {
-	const { gsmap, error, loading } = useFetchGSMap(file);
 	const viewerContainerRef = useRef(null);
 
-	if (loading) return <h1>Loading...</h1>;
-
-	if (error) return <h1>Error: {error.message}</h1>;
-
 	const mobileControls = debugMobile || isMobile;
-
-	if (!gsmap) {
-		return <div>loading</div>;
-	}
 
 	return (
 		<s.ViewerContainer ref={viewerContainerRef}>

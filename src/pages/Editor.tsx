@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
-import mapUrl from "../assets/maps/empty.json?url";
 import Sidebar from "../components/editor/Sidebar";
 import Toolbar from "../components/editor/Toolbar";
 import Viewer from "../components/Viewer";
+import GSMap from "../splats/GSMap";
 import { color } from "../utils/theme";
 
 const s = {
@@ -51,13 +51,26 @@ const s = {
 		width: 100%;
 		height: 100%;
 	`,
+
+	left: styled.div`
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		gap: 1.5rem;
+	`,
 };
 
 export default function Editor() {
+	const gsmap = GSMap.createEmpty();
+
 	return (
 		<>
 			<s.header>
-				<Toolbar />
+				<s.left>
+					<span>{gsmap.name}</span>
+					<Toolbar />
+				</s.left>
+				<span>Placeholder</span>
 			</s.header>
 
 			<s.main>
@@ -65,7 +78,7 @@ export default function Editor() {
 					<Sidebar />
 				</s.aside>
 				<s.preview>
-					<Viewer debug={true} file={mapUrl} />
+					<Viewer debug={true} gsmap={gsmap} />
 				</s.preview>
 			</s.main>
 		</>

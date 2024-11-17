@@ -25,4 +25,8 @@ export default class GSMap {
 			obj.scenes.map((scene: SerialGSScene) => GSScene.deserialize(scene)),
 		);
 	}
+
+	static createEmpty() {
+		return new GSMap("New Map", []);
+	}
 }

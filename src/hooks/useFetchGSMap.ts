@@ -7,6 +7,7 @@ export default function useFetchGSMap(url: string) {
 	const [loading, setLoading] = useState<boolean>(true);
 
 	useEffect(() => {
+		console.log("Fetching data from:", url);
 		fetch(url, { mode: "no-cors" })
 			.then((response) => {
 				if (response.status >= 400) {
@@ -15,7 +16,6 @@ export default function useFetchGSMap(url: string) {
 				return response.json();
 			})
 			.then((data: SerialGSMap) => {
-				console.log(data);
 				setGSMap(GSMap.deserializeObjectJSON(data));
 			})
 			.catch((error: unknown) => {

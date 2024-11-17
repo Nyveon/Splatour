@@ -2,27 +2,36 @@ import { css, Global } from "@emotion/react";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { createHashRouter, RouterProvider } from "react-router-dom";
-
 import Editor from "./pages/Editor";
 import App from "./pages/Index";
 import Viewer from "./pages/Preview";
-
 import { color } from "./utils/theme";
 
-const router = createHashRouter([
+const router = createHashRouter(
+	[
+		{
+			path: "/",
+			element: <App />,
+		},
+		{
+			path: "viewer",
+			element: <Viewer />,
+		},
+		{
+			path: "editor",
+			element: <Editor />,
+		},
+	],
 	{
-		path: "/",
-		element: <App />,
+		future: {
+			v7_fetcherPersist: true,
+			v7_normalizeFormMethod: true,
+			v7_partialHydration: true,
+			v7_relativeSplatPath: true,
+			v7_skipActionErrorRevalidation: true,
+		},
 	},
-	{
-		path: "viewer",
-		element: <Viewer />,
-	},
-	{
-		path: "editor",
-		element: <Editor />,
-	},
-]);
+);
 
 const root = document.getElementById("root");
 
@@ -64,6 +73,6 @@ createRoot(root).render(
 				}
 			`}
 		/>
-		<RouterProvider router={router} />
+		<RouterProvider router={router} />,
 	</StrictMode>,
 );

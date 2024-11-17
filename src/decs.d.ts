@@ -12,5 +12,6 @@ declare module "@mkkellogg/gaussian-splats-3d" {
 
 	export interface DropInViewerOptions {
 		sharedMemoryForWorkers?: boolean;
+        logLevel?: number;
 	}
 }

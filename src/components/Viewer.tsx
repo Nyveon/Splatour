@@ -48,10 +48,17 @@ export default function Viewer({
 
 	const mobileControls = debugMobile || isMobile;
 
+	if (!gsmap) {
+		return <div>loading</div>;
+	}
+
 	return (
 		<s.ViewerContainer ref={viewerContainerRef}>
 			<KeyboardControls map={KeyMap}>
-				<Canvas camera={{ position: [0, 3.5, 10], fov: 75 }}>
+				<Canvas
+					camera={{ position: [0, 3.5, 10], fov: 75 }}
+					gl={{ antialias: false }}
+				>
 					{!mobileControls && <PointerLockControls />}
 					<Player />
 

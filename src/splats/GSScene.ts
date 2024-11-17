@@ -39,7 +39,7 @@ export default class GSScene {
 	static deserialize(scene: SerialGSScene): GSScene {
 		const newScene = new GSScene(scene.filePath, scene.name);
 		newScene.scale = scene.scale;
-		// newScene.rotation = scene.rotation;
+		newScene.rotation = scene.rotation;
 		newScene.position = scene.position;
 		return newScene;
 	}

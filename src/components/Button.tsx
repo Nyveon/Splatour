@@ -1,5 +1,7 @@
 import styled from "@emotion/styled";
+import { FeatherIconNames } from "feather-icons";
 import { color } from "../utils/theme";
+import Icon from "./Icon";
 
 const s = {
 	Button: styled.button<{ variant: Variant }>`
@@ -28,6 +30,11 @@ const s = {
 			background-color: ${(props) =>
 				props.variant === "primary" ? color.primaryLight : color.dangerLight};
 		}
+
+		svg {
+			width: 1rem;
+			height: 1rem;
+		}
 	`,
 };
 
@@ -35,9 +42,19 @@ type Variant = "primary" | "danger";
 
 interface ButtonProps {
 	variant?: Variant;
+	icon?: FeatherIconNames;
 	text: string;
 }
 
-export default function Button({ variant = "primary", text }: ButtonProps) {
-	return <s.Button variant={variant}>{text}</s.Button>;
+export default function Button({
+	text,
+	variant = "primary",
+	icon,
+}: ButtonProps) {
+	return (
+		<s.Button variant={variant}>
+			{icon && <Icon icon={icon} />}
+			{text}
+		</s.Button>
+	);
 }

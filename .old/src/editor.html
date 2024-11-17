@@ -123,6 +123,7 @@
 				<button class="action" @click="uploadModalVisible=true" x-show="!world">
 					<span x-feather="upload"></span>Import
 				</button>
+
 				<button
 					class="action"
 					@click="copyToClipboard('map JSON', world.gsmap.serialize())"
@@ -130,9 +131,11 @@
 				>
 					<span x-feather="download"></span>Export
 				</button>
+                
 				<button class="action" @click="createNewMap()" x-show="!world">
 					<span x-feather="file-plus"></span>Create
 				</button>
+                
 				<label x-show="world"
 					><input type="checkbox" x-model="showCollisions" />Show
 					collisions</label

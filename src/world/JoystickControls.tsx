@@ -39,7 +39,7 @@ function BaseJoystick({
 	);
 }
 
-export default function Joysticks() {
+export default function JoystickControls() {
 	return (
 		<>
 			<s.LeftJoystickContainer>

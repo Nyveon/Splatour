@@ -57,6 +57,10 @@ const s = {
 		justify-content: center;
 		align-items: center;
 		gap: 1.5rem;
+
+		> span {
+			font-size: 1.25rem;
+		}
 	`,
 };
 

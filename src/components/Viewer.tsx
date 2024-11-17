@@ -8,7 +8,7 @@ import GSViewer from "../splats/GSViewer";
 import { KeyMap } from "../utils/constants";
 import Ambient from "../world/Ambient";
 import Debug from "../world/Debug";
-import Joysticks from "../world/Joysticks";
+import JoystickControls from "../world/JoystickControls";
 import Player from "../world/Player";
 
 const s = {
@@ -28,6 +28,15 @@ const s = {
 		bottom: 24px;
 		left: 24px;
 	`,
+
+	CanvasArea: styled.div`
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 1;
+	`,
 };
 
 const debugMobile = false;
@@ -44,13 +53,14 @@ export default function Viewer({
 	const mobileControls = debugMobile || isMobile;
 
 	return (
-		<s.ViewerContainer ref={viewerContainerRef}>
+		<s.ViewerContainer ref={viewerContainerRef} id="#viewer">
 			<KeyboardControls map={KeyMap}>
+				<s.CanvasArea id="canvas-area" />
 				<Canvas
 					camera={{ position: [0, 3.5, 10], fov: 75 }}
 					gl={{ antialias: false }}
 				>
-					{!mobileControls && <PointerLockControls />}
+					{!mobileControls && <PointerLockControls selector="#canvas-area" />}
 					<Player />
 
 					<Ambient />
@@ -58,7 +68,7 @@ export default function Viewer({
 					{gsmap && <GSViewer gsmap={gsmap} />}
 				</Canvas>
 			</KeyboardControls>
-			{mobileControls && <Joysticks />}
+			{mobileControls && <JoystickControls />}
 		</s.ViewerContainer>
 	);
 }

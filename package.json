@@ -50,6 +50,7 @@
     },
     "prettier": {
         "useTabs": true,
+        "trailingComma": "es5",
         "plugins": [
             "prettier-plugin-organize-imports"
         ]

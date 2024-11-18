@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import { useState } from "react";
+import testmap from "../assets/maps/test_map.json";
 import Sidebar from "../components/editor/Sidebar";
 import Toolbar from "../components/editor/Toolbar";
 import Viewer from "../components/Viewer";
@@ -68,7 +69,8 @@ const s = {
 export default function Editor() {
 	const [debug, setDebug] = useState(true);
 	const [debugMobile, setDebugMobile] = useState(false);
-	const gsmap = GSMap.createEmpty();
+	// const gsmap = GSMap.createEmpty();
+	const gsmap = GSMap.deserializeObjectJSON(testmap);
 
 	return (
 		<>
@@ -89,7 +91,7 @@ export default function Editor() {
 
 			<s.main>
 				<s.aside>
-					<Sidebar />
+					<Sidebar gsmap={gsmap} />
 				</s.aside>
 				<s.preview>
 					<Viewer debug={debug} debugMobile={debugMobile} gsmap={gsmap} />

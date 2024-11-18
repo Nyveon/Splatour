@@ -1,7 +1,5 @@
 import styled from "@emotion/styled";
-import { useState } from "react";
 import { Link } from "react-router-dom";
-import Modal from "../components/Modal";
 import { color } from "../utils/theme";
 
 const s = {
@@ -31,8 +29,6 @@ const s = {
 };
 
 export default function App() {
-	const [open, setOpen] = useState(false);
-
 	return (
 		<>
 			<h1>Gaussian Splats 3D Maps</h1>
@@ -49,14 +45,6 @@ export default function App() {
 					<s.Link to="editor">Editor</s.Link>
 				</s.li>
 			</s.ul>
-
-			<button onClick={() => setOpen(true)}>Open modal</button>
-			<Modal
-				open={open}
-				handleClose={() => setOpen(false)}
-				title="Modal title"
-				description="Modal description"
-			></Modal>
 		</>
 	);
 }

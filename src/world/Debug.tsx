@@ -21,6 +21,7 @@ export default function Debug({
 				<GizmoViewport
 					axisColors={["red", "green", "blue"]}
 					labelColor="black"
+					disabled={true}
 				/>
 			</GizmoHelper>
 			<s.Stats parent={viewerContainerRef} showPanel={0} />

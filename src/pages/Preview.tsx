@@ -13,7 +13,7 @@ export default function Preview() {
 
 	return (
 		<>
-			<Viewer debug={false} gsmap={gsmap} />
+			<Viewer gsmap={gsmap} />
 		</>
 	);
 }

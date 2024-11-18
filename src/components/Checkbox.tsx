@@ -1,3 +1,12 @@
+import styled from "@emotion/styled";
+
+const s = {
+	label: styled.label`
+		cursor: pointer;
+		user-select: none;
+	`,
+};
+
 interface CheckboxProps {
 	label: string;
 	value: boolean;
@@ -6,13 +15,13 @@ interface CheckboxProps {
 
 export default function Checkbox({ label, value, onChange }: CheckboxProps) {
 	return (
-		<label>
+		<s.label>
 			<input
 				type="checkbox"
 				checked={value}
 				onChange={(event) => onChange(event.target.checked)}
 			/>
 			{label}
-		</label>
+		</s.label>
 	);
 }

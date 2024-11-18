@@ -1,7 +1,9 @@
 import GSScene, { SerialGSScene } from "./GSScene";
 
 export interface SerialGSMap {
-	name: string;
+	metadata: {
+		name: string;
+	};
 	scenes: SerialGSScene[];
 }
 
@@ -21,8 +23,8 @@ export default class GSMap {
 
 	static deserializeObjectJSON(obj: SerialGSMap) {
 		return new GSMap(
-			obj.name,
-			obj.scenes.map((scene: SerialGSScene) => GSScene.deserialize(scene)),
+			obj.metadata.name,
+			obj.scenes.map((scene: SerialGSScene) => GSScene.deserialize(scene))
 		);
 	}
 

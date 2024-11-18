@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import Button from "../Button";
 import Checkbox from "../Checkbox";
+import UploadMap from "./UploadMap";
 
 const s = {
 	Toolbar: styled.div`
@@ -26,7 +27,8 @@ export default function Toolbar({
 }: ToolbarProps) {
 	return (
 		<s.Toolbar role="toolbar">
-			<Button label="Upload" icon="upload" />
+			<UploadMap />
+
 			<Button label="Export" icon="download" />
 			<Button label="Create" icon="file-plus" />
 			<Checkbox label="Debug" value={debug} onChange={handleDebugChange} />

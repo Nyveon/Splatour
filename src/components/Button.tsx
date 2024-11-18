@@ -44,15 +44,17 @@ interface ButtonProps {
 	label: string;
 	variant?: Variant;
 	icon?: FeatherIconNames;
+	onClick?: () => void;
 }
 
 export default function Button({
 	label,
 	variant = "primary",
 	icon,
+	onClick,
 }: ButtonProps) {
 	return (
-		<s.Button variant={variant}>
+		<s.Button variant={variant} onClick={onClick}>
 			{icon && <Icon icon={icon} />}
 			{label}
 		</s.Button>

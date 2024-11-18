@@ -7,6 +7,7 @@ export interface SerialGSScene {
 }
 
 export default class GSScene {
+	id: string;
 	filePath: string;
 	name: string;
 	scale: { x: number; y: number; z: number } = { x: 1, y: 1, z: 1 };
@@ -19,6 +20,7 @@ export default class GSScene {
 	position: { x: number; y: number; z: number } = { x: 0, y: 0, z: 0 };
 
 	constructor(filePath: string, name: string) {
+		this.id = crypto.randomUUID();
 		this.filePath = filePath;
 		this.name = name;
 	}

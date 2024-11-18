@@ -33,12 +33,12 @@ const s = {
 };
 
 export default function Viewer({
-	debug,
-	debugMobile,
+	debug=false,
+	debugMobile=false,
 	gsmap,
 }: {
-	debug: boolean;
-	debugMobile: boolean;
+	debug?: boolean;
+	debugMobile?: boolean;
 	gsmap: GSMap;
 }) {
 	const viewerContainerRef = useRef<HTMLDivElement>(null);

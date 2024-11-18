@@ -36,6 +36,7 @@ interface ModalProps {
 	handleClose: () => void;
 	title: string;
 	description: string;
+	children?: React.ReactNode;
 }
 
 export default function Modal({
@@ -43,6 +44,7 @@ export default function Modal({
 	handleClose,
 	title,
 	description,
+	children,
 }: ModalProps) {
 	return (
 		<s.Dialog open={open} onClose={handleClose}>
@@ -50,6 +52,7 @@ export default function Modal({
 				<s.DialogPanel>
 					<DialogTitle>{title}</DialogTitle>
 					<Description>{description}</Description>
+					{children}
 				</s.DialogPanel>
 			</s.FullScreen>
 		</s.Dialog>

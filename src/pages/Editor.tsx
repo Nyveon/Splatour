@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { useState } from "react";
 import Sidebar from "../components/editor/Sidebar";
 import Toolbar from "../components/editor/Toolbar";
 import Viewer from "../components/Viewer";
@@ -65,6 +66,8 @@ const s = {
 };
 
 export default function Editor() {
+	const [debug, setDebug] = useState(true);
+	const [debugMobile, setDebugMobile] = useState(false);
 	const gsmap = GSMap.createEmpty();
 
 	return (
@@ -72,7 +75,14 @@ export default function Editor() {
 			<s.header>
 				<s.left>
 					<span>{gsmap.name}</span>
-					<Toolbar />
+					<Toolbar
+						debug={debug}
+						handleDebugChange={(newDebug) => setDebug(newDebug)}
+						debugMobile={debugMobile}
+						handleDebugMobileChange={(newDebugMobile) =>
+							setDebugMobile(newDebugMobile)
+						}
+					/>
 				</s.left>
 				<span>Placeholder</span>
 			</s.header>
@@ -82,7 +92,7 @@ export default function Editor() {
 					<Sidebar />
 				</s.aside>
 				<s.preview>
-					<Viewer debug={true} gsmap={gsmap} />
+					<Viewer debug={debug} debugMobile={debugMobile} gsmap={gsmap} />
 				</s.preview>
 			</s.main>
 		</>

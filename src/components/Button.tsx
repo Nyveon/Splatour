@@ -41,20 +41,20 @@ const s = {
 type Variant = "primary" | "danger";
 
 interface ButtonProps {
+	label: string;
 	variant?: Variant;
 	icon?: FeatherIconNames;
-	text: string;
 }
 
 export default function Button({
-	text,
+	label,
 	variant = "primary",
 	icon,
 }: ButtonProps) {
 	return (
 		<s.Button variant={variant}>
 			{icon && <Icon icon={icon} />}
-			{text}
+			{label}
 		</s.Button>
 	);
 }

@@ -1,6 +1,6 @@
-import { Global, css } from "@emotion/react";
-import { color } from "./utils/theme";
+import { css, Global } from "@emotion/react";
 import { createHashRouter, RouterProvider } from "react-router-dom";
+import { color } from "./utils/theme";
 
 import Editor from "./pages/Editor";
 import Index from "./pages/Index";
@@ -29,9 +29,8 @@ const router = createHashRouter(
 			v7_relativeSplatPath: true,
 			v7_skipActionErrorRevalidation: true,
 		},
-	},
+	}
 );
-
 
 export default function App() {
 	return (
@@ -106,7 +105,7 @@ export default function App() {
 					}
 				`}
 			/>
-            <RouterProvider router={router} />
+			<RouterProvider router={router} />
 		</>
 	);
 }

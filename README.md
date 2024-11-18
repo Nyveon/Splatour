@@ -15,6 +15,7 @@
 - [Emotion](https://emotion.sh/docs/introduction) - CSS-in-JS styled componentss
 - [React Joystick Component](https://github.com/elmarti/react-joystick-component#readme) - Joystick component
 - [Zustand](https://github.com/pmndrs/zustand) - Shared state management
+- [Headless UI](https://headlessui.com/react) - Modals and dropdowns
 
 ### 3D
 

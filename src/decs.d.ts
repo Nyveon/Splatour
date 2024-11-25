@@ -7,11 +7,12 @@ declare module "@mkkellogg/gaussian-splats-3d" {
 	export class DropInViewer {
 		constructor(options?: DropInViewerOptions);
 		addSplatScenes(scenes: SplatSceneParams[], flag: boolean): Promise<void>;
+		getSplatScene(index: number): THREE.Group;
 		dispose(): void;
 	}
 
 	export interface DropInViewerOptions {
 		sharedMemoryForWorkers?: boolean;
-        logLevel?: number;
+		logLevel?: number;
 	}
 }

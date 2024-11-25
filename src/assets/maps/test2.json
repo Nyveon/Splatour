@@ -5,8 +5,8 @@
     },
     "scenes": [
         {
-            "name": "Garden",
-            "filePath": "garden.ksplat",
+            "name": "Living Room",
+            "filePath": "converted_file.ksplat",
             "scale": {
                 "x": 1,
                 "y": 1,

@@ -1,3 +1,5 @@
+import * as THREE from "three";
+
 export interface SerialGSScene {
 	filePath: string;
 	name: string;
@@ -6,43 +8,52 @@ export interface SerialGSScene {
 	position: { x: number; y: number; z: number };
 }
 
-export default class GSScene {
+export interface GSScene {
 	id: string;
 	filePath: string;
 	name: string;
-	scale: { x: number; y: number; z: number } = { x: 1, y: 1, z: 1 };
-	rotation: { a: number; b: number; c: number; d: number } = {
-		a: 0,
-		b: 0,
-		c: 0,
-		d: 1,
+	scale: { x: number; y: number; z: number };
+	rotation: { a: number; b: number; c: number; d: number };
+	position: { x: number; y: number; z: number };
+	container: THREE.Group;
+}
+
+export function gssCreate(filePath: string, name: string): GSScene {
+	return {
+		id: crypto.randomUUID(),
+		filePath: filePath,
+		name: name,
+		scale: { x: 1, y: 1, z: 1 },
+		rotation: { a: 0, b: 0, c: 0, d: 1 },
+		position: { x: 0, y: 0, z: 0 },
+		container: new THREE.Group(),
 	};
-	position: { x: number; y: number; z: number } = { x: 0, y: 0, z: 0 };
+}
 
-	constructor(filePath: string, name: string) {
-		this.id = crypto.randomUUID();
-		this.filePath = filePath;
-		this.name = name;
-	}
+export function gssGetOptions(scene: GSScene) {
+	return {
+		scale: [scene.scale.x, scene.scale.y, scene.scale.z],
+		rotation: [
+			scene.rotation.a,
+			scene.rotation.b,
+			scene.rotation.c,
+			scene.rotation.d,
+		],
+		position: [scene.position.x, scene.position.y, scene.position.z],
+	};
+}
 
-	getOptions() {
-		return {
-			scale: [this.scale.x, this.scale.y, this.scale.z],
-			rotation: [
-				this.rotation.a,
-				this.rotation.b,
-				this.rotation.c,
-				this.rotation.d,
-			],
-			position: [this.position.x, this.position.y, this.position.z],
-		};
-	}
+export function gssDeserialize(scene: SerialGSScene): GSScene {
+	return gssCreate(scene.filePath, scene.name);
+}
 
-	static deserialize(scene: SerialGSScene): GSScene {
-		const newScene = new GSScene(scene.filePath, scene.name);
-		newScene.scale = scene.scale;
-		newScene.rotation = scene.rotation;
-		newScene.position = scene.position;
-		return newScene;
-	}
+export function gssUpdateTransform(scene: GSScene, container: THREE.Group) {
+	container.position.set(scene.position.x, scene.position.y, scene.position.z);
+	container.quaternion.set(
+		scene.rotation.a,
+		scene.rotation.b,
+		scene.rotation.c,
+		scene.rotation.d
+	);
+	container.scale.set(scene.scale.x, scene.scale.y, scene.scale.z);
 }

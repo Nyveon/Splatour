@@ -1,11 +1,11 @@
 import styled from "@emotion/styled";
-import { useState } from "react";
-import testmap from "../assets/maps/test_map.json";
+import { useState, useEffect } from "react";
 import Sidebar from "../components/editor/Sidebar";
 import Toolbar from "../components/editor/Toolbar";
 import Viewer from "../components/Viewer";
-import GSMap from "../splats/GSMap";
+import { useGSStore } from "../hooks/useGSStore";
 import { color } from "../utils/theme";
+import { useSettingsStore } from "../hooks/useSettingsStore";
 
 const s = {
 	header: styled.header`
@@ -67,34 +67,35 @@ const s = {
 };
 
 export default function Editor() {
-	const [debug, setDebug] = useState(true);
-	const [debugMobile, setDebugMobile] = useState(false);
+	// const [debug, setDebug] = useState(true);
+	// const [debugMobile, setDebugMobile] = useState(false);
 	// const gsmap = GSMap.createEmpty();
-	const gsmap = GSMap.deserializeObjectJSON(testmap);
+	// const gsmap = GSMap.deserializeObjectJSON(testmap); // This wil be loaded from a modal later
+
+    const initializeSettings = useSettingsStore((state) => state.initializeSettings);
+
+    useEffect(() => {
+        initializeSettings({ debug: true, mobileDebug: false });
+    }, [initializeSettings]);
+
+	const gsmap = useGSStore((state) => state.gsmap);
 
 	return (
 		<>
 			<s.header>
 				<s.left>
 					<span>{gsmap.name}</span>
-					<Toolbar
-						debug={debug}
-						handleDebugChange={(newDebug) => setDebug(newDebug)}
-						debugMobile={debugMobile}
-						handleDebugMobileChange={(newDebugMobile) =>
-							setDebugMobile(newDebugMobile)
-						}
-					/>
+					<Toolbar />
 				</s.left>
 				<span>Placeholder</span>
 			</s.header>
 
 			<s.main>
 				<s.aside>
-					<Sidebar gsmap={gsmap} />
+					<Sidebar />
 				</s.aside>
 				<s.preview>
-					<Viewer debug={debug} debugMobile={debugMobile} gsmap={gsmap} />
+					<Viewer />
 				</s.preview>
 			</s.main>
 		</>

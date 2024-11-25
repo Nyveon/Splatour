@@ -1,7 +1,6 @@
 import styled from "@emotion/styled";
 import { useState } from "react";
-import GSMap from "../../splats/GSMap";
-import GSScene from "../../splats/GSScene";
+import { useGSStore } from "../../hooks/useGSStore";
 import { color } from "../../utils/theme";
 import SceneCard from "./SceneCard";
 
@@ -23,20 +22,25 @@ const s = {
 	`,
 };
 
-export default function Sidebar({ gsmap }: { gsmap: GSMap }) {
-	const [selectedScene, setSelectedScene] = useState<GSScene | null>(null);
+export default function Sidebar() {
+	const [selectedSceneId, setSelectedSceneId] = useState<string | null>(null);
+	// const sceneIds = useGSStore((state) =>
+	// 	state.gsmap.scenes.map((scene) => scene.id)
+	// );
+	const sceneIds = ["1", "2", "3"];
 
 	return (
 		<ul>
-			{gsmap.scenes.map((scene) => (
+			{sceneIds.map((sceneId) => (
 				<s.li
-					key={scene.id}
+					key={sceneId}
 					onClick={() => {
-						setSelectedScene(scene);
-						console.log(selectedScene);
+						setSelectedSceneId((prevId) =>
+							prevId === sceneId ? null : sceneId
+						);
 					}}
 				>
-					<SceneCard scene={scene} selected={selectedScene == scene} />
+					<SceneCard sceneId={sceneId} selected={selectedSceneId === sceneId} />
 				</s.li>
 			))}
 		</ul>

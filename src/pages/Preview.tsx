@@ -11,6 +11,7 @@ export default function Preview() {
 
 	if (!gsmap) return <h1>No GSMap loaded?</h1>;
 
+    //todo: fix this
 	return (
 		<>
 			<Viewer gsmap={gsmap} />

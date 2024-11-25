@@ -2,13 +2,12 @@ import styled from "@emotion/styled";
 import { KeyboardControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { useRef } from "react";
-import { isMobile } from "react-device-detect";
 import { PointerLockControls as PointerLockControlsImpl } from "three-stdlib";
-import GSMap from "../splats/GSMap";
+import { useSettingsStore } from "../hooks/useSettingsStore";
 import GSViewer from "../splats/GSViewer";
 import { KeyMap } from "../utils/constants";
 import Ambient from "../world/Ambient";
-import Debug from "../world/Debug";
+import DebugUtils from "../world/DebugUtils";
 import JoystickControls from "../world/JoystickControls";
 import Player from "../world/Player";
 import { PointerLockControls } from "../world/PointerLockControls";
@@ -32,19 +31,9 @@ const s = {
 	`,
 };
 
-export default function Viewer({
-	debug=false,
-	debugMobile=false,
-	gsmap,
-}: {
-	debug?: boolean;
-	debugMobile?: boolean;
-	gsmap: GSMap;
-}) {
+export default function Viewer() {
 	const viewerContainerRef = useRef<HTMLDivElement>(null);
 	const pointerLockControlsRef = useRef<PointerLockControlsImpl>(null);
-
-	const mobileControls = debugMobile || isMobile;
 
 	function handleClick() {
 		if (!pointerLockControlsRef.current || !viewerContainerRef.current) {
@@ -64,17 +53,15 @@ export default function Viewer({
 					gl={{ antialias: false }}
 					onClick={handleClick}
 				>
-					{!mobileControls && (
-						<PointerLockControls ref={pointerLockControlsRef} />
-					)}
+					<PointerLockControls ref={pointerLockControlsRef} />
 					<Player />
 
 					<Ambient />
-					{debug && <Debug viewerContainerRef={viewerContainerRef} />}
-					{gsmap && <GSViewer gsmap={gsmap} />}
+					<DebugUtils viewerContainerRef={viewerContainerRef} />
+					<GSViewer />
 				</Canvas>
 			</KeyboardControls>
-			{mobileControls && <JoystickControls />}
+			<JoystickControls />
 		</s.ViewerContainer>
 	);
 }

@@ -52,6 +52,7 @@
     "prettier": {
         "useTabs": true,
         "trailingComma": "es5",
+        "organizeImportsSkipDestructiveCodeActions": true,
         "plugins": [
             "prettier-plugin-organize-imports"
         ]

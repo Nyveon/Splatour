@@ -1,7 +1,8 @@
 import styled from "@emotion/styled";
-import GSScene from "../../splats/GSScene";
+import { useGSStore } from "../../hooks/useGSStore";
 import { color } from "../../utils/theme";
 import Icon from "../Icon";
+import PositionEditor from "./PositionEditor";
 
 const s = {
 	SceneDetails: styled.ul`
@@ -14,7 +15,7 @@ const s = {
 		gap: 0.5rem;
 		width: 100%;
 		padding-block: 0.5rem;
-		border-bottom: thin solid ${color.border};
+		/* border-bottom: thin solid ${color.border}; */
 
 		svg {
 			width: 1rem;
@@ -28,12 +29,22 @@ const s = {
 };
 
 export default function SceneCard({
-	scene,
+	sceneId,
 	selected,
 }: {
-	scene: GSScene;
+	sceneId: string;
 	selected: boolean;
 }) {
+	// const scene = useGSStore((state) =>
+	// 	state.gsmap.scenes.find((scene) => scene.id === sceneId)
+	// );
+
+	const scene = null;
+
+	if (!scene) {
+		return null;
+	}
+
 	if (selected) {
 		return (
 			<s.SceneDetails>
@@ -45,6 +56,11 @@ export default function SceneCard({
 					<Icon icon="file" />
 					<s.Uneditable>{scene.filePath}</s.Uneditable>
 				</s.Item>
+				<s.Item>
+					<PositionEditor scene={scene} />
+				</s.Item>
+				<s.Item>Scale</s.Item>
+				<s.Item>Scale</s.Item>
 			</s.SceneDetails>
 		);
 	} else {

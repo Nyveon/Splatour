@@ -1,5 +1,7 @@
 import styled from "@emotion/styled";
 import { GizmoHelper, GizmoViewport, Stats } from "@react-three/drei";
+
+import { useSettingsStore } from "../hooks/useSettingsStore";
 import Checkerboard from "../world/Checkerboard";
 
 const s = {
@@ -8,11 +10,17 @@ const s = {
 	`,
 };
 
-export default function Debug({
+export default function DebugUtils({
 	viewerContainerRef,
 }: {
 	viewerContainerRef: React.RefObject<HTMLElement>;
 }) {
+	const debug = useSettingsStore((state) => state.debug);
+
+	if (!debug) {
+		return null;
+	}
+
 	return (
 		<>
 			<axesHelper args={[50]} />

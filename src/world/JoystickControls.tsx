@@ -1,7 +1,9 @@
 import styled from "@emotion/styled";
+import { isMobile } from "react-device-detect";
 import { Joystick } from "react-joystick-component";
 import { IJoystickUpdateEvent } from "react-joystick-component/build/lib/Joystick";
 import { useJoystickControls } from "../hooks/useJoystickControls";
+import { useSettingsStore } from "../hooks/useSettingsStore";
 
 const joystickMargin = 24;
 
@@ -40,6 +42,13 @@ function BaseJoystick({
 }
 
 export default function JoystickControls() {
+	const debugMobile = useSettingsStore((state) => state.mobileDebug);
+	const mobileControls = debugMobile || isMobile;
+
+	if (!mobileControls) {
+		return null;
+	}
+
 	return (
 		<>
 			<s.LeftJoystickContainer>

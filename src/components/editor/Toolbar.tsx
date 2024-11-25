@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import Button from "../Button";
-import Checkbox from "../Checkbox";
+import ToggleDebug from "./ToggleDebug";
+import ToggleMobileDebug from "./ToggleMobileDebug";
 import UploadMap from "./UploadMap";
 
 const s = {
@@ -12,31 +13,16 @@ const s = {
 	`,
 };
 
-interface ToolbarProps {
-	debug: boolean;
-	handleDebugChange: (newDebugValue: boolean) => void;
-	debugMobile: boolean;
-	handleDebugMobileChange: (newDebugMobileValue: boolean) => void;
-}
-
-export default function Toolbar({
-	debug,
-	handleDebugChange,
-	debugMobile,
-	handleDebugMobileChange,
-}: ToolbarProps) {
+export default function Toolbar() {
 	return (
 		<s.Toolbar role="toolbar">
 			<UploadMap />
 
 			<Button label="Export" icon="download" />
 			<Button label="Create" icon="file-plus" />
-			<Checkbox label="Debug" value={debug} onChange={handleDebugChange} />
-			<Checkbox
-				label="Mobile"
-				value={debugMobile}
-				onChange={handleDebugMobileChange}
-			/>
+
+			<ToggleDebug />
+			<ToggleMobileDebug />
 		</s.Toolbar>
 	);
 }

@@ -1,36 +1,10 @@
 import { css, Global } from "@emotion/react";
-import { createHashRouter, RouterProvider } from "react-router-dom";
+import { HashRouter, Route, Routes } from "react-router";
 import { color } from "./utils/theme";
 
 import Editor from "./pages/Editor";
 import Index from "./pages/Index";
 import Preview from "./pages/Preview";
-
-const router = createHashRouter(
-	[
-		{
-			path: "/",
-			element: <Index />,
-		},
-		{
-			path: "viewer",
-			element: <Preview />,
-		},
-		{
-			path: "editor",
-			element: <Editor />,
-		},
-	],
-	{
-		future: {
-			v7_fetcherPersist: true,
-			v7_normalizeFormMethod: true,
-			v7_partialHydration: true,
-			v7_relativeSplatPath: true,
-			v7_skipActionErrorRevalidation: true,
-		},
-	}
-);
 
 export default function App() {
 	return (
@@ -97,7 +71,13 @@ export default function App() {
 					}
 				`}
 			/>
-			<RouterProvider router={router} />
+			<HashRouter>
+				<Routes>
+					<Route path="/" element={<Index />} />
+					<Route path="viewer" element={<Preview />} />
+					<Route path="editor" element={<Editor />} />
+				</Routes>
+			</HashRouter>
 		</>
 	);
 }

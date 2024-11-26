@@ -33,11 +33,17 @@ export default function GSViewer() {
 			.addSplatScenes(addParams, true)
 			.then(() => {
 				for (let i = 0; i < scenes.length; i++) {
-					console.log(scenes[i]);
 					const sceneContainer = viewer.getSplatScene(i).parent;
+
+					if (!sceneContainer) {
+						console.error("sceneContainer is null");
+						return;
+					}
+
 					sceneContainer.position.copy(scenes[i].position);
 					sceneContainer.scale.copy(scenes[i].scale);
-					sceneContainer.rotation.copy(scenes[i].rotation);
+					// sceneContainer.rotation.copy(scenes[i].rotation);
+					//todo: rotation
 				}
 			})
 			.catch((err: unknown) => {
@@ -60,9 +66,14 @@ export default function GSViewer() {
 		console.log("V2", viewer);
 
 		scenes.forEach((scene, index) => {
-			const splatScene = viewer.getSplatScene(index).parent;
-			console.log(splatScene);
-			splatScene.position.copy(scene.position);
+			const sceneContainer = viewer.getSplatScene(index).parent;
+
+			if (!sceneContainer) {
+				console.error("sceneContainer is null");
+				return;
+			}
+
+			sceneContainer.position.copy(scene.position);
 		});
 	}, [scenes]);
 

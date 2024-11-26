@@ -1,3 +1,5 @@
+import Icon from "@/components/Icon";
+import Stepper from "@/components/input/Stepper";
 import { useGSStore } from "@/hooks/useGSStore";
 import { GSScene } from "@/model/GSScene";
 
@@ -8,12 +10,23 @@ export default function EditTranslation({ scene }: { scene: GSScene }) {
 		setSceneTransform(scene.id, {
 			position: { ...scene.position, [axis]: value },
 		});
-		// console.log("temp disable");
 	};
 
 	return (
 		<div>
-			<input
+			<Icon icon="move"></Icon>
+			<ul>
+				<li>
+					<Stepper
+						value={scene.position.x}
+						valueHandler={(value) => handlePositionChange("x", value)}
+						label="x"
+					/>
+				</li>
+				<li>y</li>
+				<li>z</li>
+			</ul>
+			{/* <input
 				type="number"
 				value={scene.position.x}
 				onChange={(e) => handlePositionChange("x", parseFloat(e.target.value))}
@@ -27,7 +40,7 @@ export default function EditTranslation({ scene }: { scene: GSScene }) {
 				type="number"
 				value={scene.position.z}
 				onChange={(e) => handlePositionChange("z", parseFloat(e.target.value))}
-			/>
+			/> */}
 		</div>
 	);
 }

@@ -1,10 +1,15 @@
 import Icon from "@/components/Icon";
 import { color } from "@/utils/theme";
 import styled from "@emotion/styled";
+import { Button as BaseButton } from "@headlessui/react";
 import { FeatherIconNames } from "feather-icons";
 
+interface StyledButtonProps extends React.ComponentProps<"button"> {
+	variant: Variant;
+}
+
 const s = {
-	Button: styled.button<{ variant: Variant }>`
+	Button: styled(BaseButton)<StyledButtonProps>`
 		display: flex;
 		justify-content: flex-start;
 		align-items: center;

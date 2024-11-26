@@ -5,7 +5,7 @@ export interface SerialGSScene {
 	filePath: string;
 	name: string;
 	scale: { x: number; y: number; z: number };
-	rotation: { a: number; b: number; c: number; d: number };
+	rotation: { x: number; y: number; z: number };
 	position: { x: number; y: number; z: number };
 }
 
@@ -14,7 +14,7 @@ export interface GSScene {
 	filePath: string;
 	name: string;
 	scale: { x: number; y: number; z: number };
-	rotation: { a: number; b: number; c: number; d: number };
+	rotation: { x: number; y: number; z: number };
 	position: { x: number; y: number; z: number };
 	container: THREE.Group;
 }
@@ -25,7 +25,7 @@ export function gssCreate(filePath: string, name: string): GSScene {
 		filePath: filePath,
 		name: name,
 		scale: { x: 1, y: 1, z: 1 },
-		rotation: { a: 0, b: 0, c: 0, d: 1 },
+		rotation: { x: 0, y: 0, z: 0 },
 		position: { x: 0, y: 0, z: 0 },
 		container: new THREE.Group(),
 	};
@@ -34,12 +34,7 @@ export function gssCreate(filePath: string, name: string): GSScene {
 export function gssGetOptions(scene: GSScene) {
 	return {
 		scale: [scene.scale.x, scene.scale.y, scene.scale.z],
-		rotation: [
-			scene.rotation.a,
-			scene.rotation.b,
-			scene.rotation.c,
-			scene.rotation.d,
-		],
+		rotation: [scene.rotation.x, scene.rotation.y, scene.rotation.z],
 		position: [scene.position.x, scene.position.y, scene.position.z],
 	};
 }
@@ -54,12 +49,7 @@ export function gssDeserialize(scene: SerialGSScene): GSScene {
 
 function gssUpdateTransform(container: THREE.Object3D, scene: GSScene) {
 	container.position.set(scene.position.x, scene.position.y, scene.position.z);
-	container.quaternion.set(
-		scene.rotation.a,
-		scene.rotation.b,
-		scene.rotation.c,
-		scene.rotation.d
-	);
+	container.rotation.set(scene.rotation.x, scene.rotation.y, scene.rotation.z);
 	container.scale.set(scene.scale.x, scene.scale.y, scene.scale.z);
 }
 

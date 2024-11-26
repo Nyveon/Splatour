@@ -1,7 +1,6 @@
 import Icon from "@/components/Icon";
 import Stepper from "@/components/input/Stepper";
 import { useGSStore } from "@/hooks/useGSStore";
-import { GSScene } from "@/model/GSScene";
 import styled from "@emotion/styled";
 
 const EditWrapper = styled.div`
@@ -16,12 +15,13 @@ const EditFields = styled.ul`
 	gap: 0.5rem;
 `;
 
-export default function EditScale({ scene }: { scene: GSScene }) {
+export default function EditScale({ sceneId }: { sceneId: string }) {
 	const setSceneTransform = useGSStore((state) => state.setSceneTransform);
+	const sceneScale = useGSStore((state) => state.gsmap.scenes[sceneId].scale);
 
 	const handleScaleChange = (axis: string, value: number) => {
-		setSceneTransform(scene.id, {
-			scale: { ...scene.scale, [axis]: value },
+		setSceneTransform(sceneId, {
+			scale: { ...sceneScale, [axis]: value },
 		});
 	};
 
@@ -38,7 +38,7 @@ export default function EditScale({ scene }: { scene: GSScene }) {
 				{axes.map((axis) => (
 					<li key={axis}>
 						<Stepper
-							value={scene.scale[axis]}
+							value={sceneScale[axis]}
 							valueHandler={(value) => handleScaleChange(axis, value)}
 							label={axis}
 						/>

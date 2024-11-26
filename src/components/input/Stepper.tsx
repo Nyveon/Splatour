@@ -21,7 +21,7 @@ const StepperInput = styled(Input)<React.ComponentProps<"input">>`
 
 	width: 2.5rem;
 
-	border: thin solid ${color.border};
+	border: thin solid ${color.borderHalf};
 	border-radius: 0.25rem;
 
 	background-color: ${color.backgroundMedium};

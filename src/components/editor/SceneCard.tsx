@@ -35,37 +35,34 @@ export default function SceneCard({
 	sceneId: string;
 	selected: boolean;
 }) {
-	const scene = useGSStore((state) => state.gsmap.scenes[sceneId]);
+	const sceneName = useGSStore((state) => state.gsmap.scenes[sceneId].name);
+	const sceneFile = useGSStore((state) => state.gsmap.scenes[sceneId].filePath);
 
 	console.log("scenecard" + sceneId);
-
-	if (!scene) {
-		return null;
-	}
 
 	if (selected) {
 		return (
 			<SceneDetails>
 				<SceneItem>
-					<span>{scene.name}</span>
+					<span>{sceneName}</span>
 					{/* todo: make this editable */}
 				</SceneItem>
 				<SceneItem>
 					<Icon icon="file" />
-					<Uneditable>{scene.filePath}</Uneditable>
+					<Uneditable>{sceneFile}</Uneditable>
 				</SceneItem>
 				<SceneItem>
-					<EditTranslation scene={scene} />
+					<EditTranslation sceneId={sceneId} />
 				</SceneItem>
 				<SceneItem>
-					<EditScale scene={scene} />
+					<EditScale sceneId={sceneId} />
 				</SceneItem>
 				<SceneItem>
-					<EditRotation scene={scene} />
+					<EditRotation sceneId={sceneId} />
 				</SceneItem>
 			</SceneDetails>
 		);
 	} else {
-		return <span>{scene.name}</span>;
+		return <span>{sceneName}</span>;
 	}
 }

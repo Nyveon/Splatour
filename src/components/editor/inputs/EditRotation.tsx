@@ -1,7 +1,6 @@
 import Icon from "@/components/Icon";
-import Stepper from "@/components/input/Stepper";
+import Slider from "@/components/input/Slider";
 import { useGSStore } from "@/hooks/useGSStore";
-import { GSScene } from "@/model/GSScene";
 import styled from "@emotion/styled";
 import * as THREE from "three";
 
@@ -15,32 +14,20 @@ const EditFields = styled.ul`
 	display: flex;
 	flex-direction: column;
 	gap: 0.5rem;
+	max-width: 7.25rem;
 `;
 
-export default function EditRotation({ scene }: { scene: GSScene }) {
+export default function EditRotation({ sceneId }: { sceneId: string }) {
 	const setSceneTransform = useGSStore((state) => state.setSceneTransform);
-
-	const quaternion = new THREE.Quaternion(
-		scene.rotation.a,
-		scene.rotation.b,
-		scene.rotation.c,
-		scene.rotation.d
+	const sceneRotation = useGSStore(
+		(state) => state.gsmap.scenes[sceneId].rotation
 	);
-	const euler = new THREE.Euler().setFromQuaternion(quaternion);
 
 	const handleRotationChange = (axis: "x" | "y" | "z", value: number) => {
-		const updatedEuler = new THREE.Euler(euler.x, euler.y, euler.z);
-		updatedEuler[axis] = THREE.MathUtils.degToRad(value);
-		const updatedQuaternion = new THREE.Quaternion().setFromEuler(updatedEuler);
-
-		console.log("updatedQuaternion: ", updatedQuaternion);
-
-		setSceneTransform(scene.id, {
+		setSceneTransform(sceneId, {
 			rotation: {
-				a: updatedQuaternion.x,
-				b: updatedQuaternion.y,
-				c: updatedQuaternion.z,
-				d: updatedQuaternion.w,
+				...sceneRotation,
+				[axis]: THREE.MathUtils.degToRad(value),
 			},
 		});
 	};
@@ -57,8 +44,10 @@ export default function EditRotation({ scene }: { scene: GSScene }) {
 			<EditFields>
 				{axes.map((axis) => (
 					<li key={axis}>
-						<Stepper
-							value={THREE.MathUtils.radToDeg(euler[axis])}
+						<Slider
+							min={-180}
+							max={180}
+							value={THREE.MathUtils.radToDeg(sceneRotation[axis])}
 							valueHandler={(value) => handleRotationChange(axis, value)}
 							label={axis}
 						/>

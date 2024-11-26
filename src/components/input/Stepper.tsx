@@ -50,7 +50,7 @@ interface StepperProps {
 }
 
 export default function Stepper({
-	min = -1,
+	min = -Infinity,
 	max = Infinity,
 	step = 1,
 	label = "",

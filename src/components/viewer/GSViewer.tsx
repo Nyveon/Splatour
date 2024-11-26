@@ -1,5 +1,5 @@
 import { useGSStore } from "@/hooks/useGSStore";
-import { GSScene } from "@/model/GSScene";
+import { GSScene, gssUpdateTransforms } from "@/model/GSScene";
 import { DropInViewer, SplatSceneParams } from "@mkkellogg/gaussian-splats-3d";
 import { useEffect, useState } from "react";
 import { useShallow } from "zustand/react/shallow";
@@ -32,19 +32,7 @@ export default function GSViewer() {
 		viewer
 			.addSplatScenes(addParams, true)
 			.then(() => {
-				for (let i = 0; i < scenes.length; i++) {
-					const sceneContainer = viewer.getSplatScene(i).parent;
-
-					if (!sceneContainer) {
-						console.error("sceneContainer is null");
-						return;
-					}
-
-					sceneContainer.position.copy(scenes[i].position);
-					sceneContainer.scale.copy(scenes[i].scale);
-					// sceneContainer.rotation.copy(scenes[i].rotation);
-					//todo: rotation
-				}
+				gssUpdateTransforms(viewer, scenes);
 			})
 			.catch((err: unknown) => {
 				// Needed for next js
@@ -62,20 +50,8 @@ export default function GSViewer() {
 
 	useEffect(() => {
 		if (!viewer) return;
-
 		console.log("V2", viewer);
-
-		scenes.forEach((scene, index) => {
-			const sceneContainer = viewer.getSplatScene(index).parent;
-
-			if (!sceneContainer) {
-				console.error("sceneContainer is null");
-				return;
-			}
-
-			sceneContainer.position.copy(scene.position);
-			sceneContainer.scale.copy(scene.scale);
-		});
+		gssUpdateTransforms(viewer, scenes);
 	}, [scenes]);
 
 	if (!viewer || !scenes.length) {

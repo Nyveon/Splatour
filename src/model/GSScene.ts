@@ -1,3 +1,4 @@
+import { DropInViewer } from "@mkkellogg/gaussian-splats-3d";
 import * as THREE from "three";
 
 export interface SerialGSScene {
@@ -51,7 +52,7 @@ export function gssDeserialize(scene: SerialGSScene): GSScene {
 	return gssBase;
 }
 
-export function gssUpdateTransform(scene: GSScene, container: THREE.Group) {
+function gssUpdateTransform(container: THREE.Object3D, scene: GSScene) {
 	container.position.set(scene.position.x, scene.position.y, scene.position.z);
 	container.quaternion.set(
 		scene.rotation.a,
@@ -60,4 +61,17 @@ export function gssUpdateTransform(scene: GSScene, container: THREE.Group) {
 		scene.rotation.d
 	);
 	container.scale.set(scene.scale.x, scene.scale.y, scene.scale.z);
+}
+
+export function gssUpdateTransforms(viewer: DropInViewer, scenes: GSScene[]) {
+	scenes.forEach((scene, index) => {
+		const sceneContainer = viewer.getSplatScene(index).parent;
+
+		if (!sceneContainer) {
+			console.error("sceneContainer is null");
+			return;
+		}
+
+		gssUpdateTransform(sceneContainer, scene);
+	});
 }

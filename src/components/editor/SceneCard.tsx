@@ -4,6 +4,7 @@ import EditTranslation from "@/components/editor/inputs/EditTranslation";
 import { useGSStore } from "@/hooks/useGSStore";
 import { color } from "@/utils/theme";
 import styled from "@emotion/styled";
+import EditRotation from "./inputs/EditRotation";
 
 const SceneDetails = styled.ul`
 	display: flex;
@@ -59,7 +60,9 @@ export default function SceneCard({
 				<SceneItem>
 					<EditScale scene={scene} />
 				</SceneItem>
-				<SceneItem>Rotation</SceneItem>
+				<SceneItem>
+					<EditRotation scene={scene} />
+				</SceneItem>
 			</SceneDetails>
 		);
 	} else {

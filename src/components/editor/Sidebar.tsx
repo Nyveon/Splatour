@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import { useState } from "react";
+import { useShallow } from "zustand/react/shallow";
 import { useGSStore } from "../../hooks/useGSStore";
 import { color } from "../../utils/theme";
 import SceneCard from "./SceneCard";
@@ -24,10 +25,13 @@ const s = {
 
 export default function Sidebar() {
 	const [selectedSceneId, setSelectedSceneId] = useState<string | null>(null);
-	// const sceneIds = useGSStore((state) =>
-	// 	state.gsmap.scenes.map((scene) => scene.id)
-	// );
-	const sceneIds = ["1", "2", "3"];
+	const sceneIds = useGSStore(
+		useShallow((state) => Object.keys(state.gsmap.scenes))
+	);
+	// const sceneIds = useGSStore((state) => Object.keys(state.gsmap.scenes));
+	// const sceneIds = ["1", "2", "3"];
+
+	console.log("sidebar");
 
 	return (
 		<ul>
@@ -35,9 +39,10 @@ export default function Sidebar() {
 				<s.li
 					key={sceneId}
 					onClick={() => {
-						setSelectedSceneId((prevId) =>
-							prevId === sceneId ? null : sceneId
-						);
+						setSelectedSceneId(sceneId);
+						// setSelectedSceneId((prevId) =>
+						// 	prevId === sceneId ? null : sceneId
+						// );
 					}}
 				>
 					<SceneCard sceneId={sceneId} selected={selectedSceneId === sceneId} />

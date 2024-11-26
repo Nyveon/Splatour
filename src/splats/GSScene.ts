@@ -44,7 +44,11 @@ export function gssGetOptions(scene: GSScene) {
 }
 
 export function gssDeserialize(scene: SerialGSScene): GSScene {
-	return gssCreate(scene.filePath, scene.name);
+	const gssBase = gssCreate(scene.filePath, scene.name);
+	gssBase.scale = scene.scale;
+	gssBase.rotation = scene.rotation;
+	gssBase.position = scene.position;
+	return gssBase;
 }
 
 export function gssUpdateTransform(scene: GSScene, container: THREE.Group) {

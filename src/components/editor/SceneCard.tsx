@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { useGSStore } from "../../hooks/useGSStore";
 import { color } from "../../utils/theme";
 import Icon from "../Icon";
-import PositionEditor from "./PositionEditor";
+import PositionEditor from "./EditTranslation";
 
 const s = {
 	SceneDetails: styled.ul`
@@ -38,8 +38,9 @@ export default function SceneCard({
 	// const scene = useGSStore((state) =>
 	// 	state.gsmap.scenes.find((scene) => scene.id === sceneId)
 	// );
+	const scene = useGSStore((state) => state.gsmap.scenes[sceneId]);
 
-	const scene = null;
+	console.log("scenecard" + sceneId);
 
 	if (!scene) {
 		return null;

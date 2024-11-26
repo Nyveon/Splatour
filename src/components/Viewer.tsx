@@ -45,6 +45,8 @@ export default function Viewer() {
 		}
 	}
 
+	console.log("viewer");
+
 	return (
 		<s.ViewerContainer ref={viewerContainerRef} id="#viewer">
 			<KeyboardControls map={KeyMap}>

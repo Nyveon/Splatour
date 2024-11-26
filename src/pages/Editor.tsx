@@ -1,11 +1,11 @@
 import styled from "@emotion/styled";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import Sidebar from "../components/editor/Sidebar";
 import Toolbar from "../components/editor/Toolbar";
 import Viewer from "../components/Viewer";
 import { useGSStore } from "../hooks/useGSStore";
-import { color } from "../utils/theme";
 import { useSettingsStore } from "../hooks/useSettingsStore";
+import { color } from "../utils/theme";
 
 const s = {
 	header: styled.header`
@@ -72,19 +72,21 @@ export default function Editor() {
 	// const gsmap = GSMap.createEmpty();
 	// const gsmap = GSMap.deserializeObjectJSON(testmap); // This wil be loaded from a modal later
 
-    const initializeSettings = useSettingsStore((state) => state.initializeSettings);
+	const initializeSettings = useSettingsStore(
+		(state) => state.initializeSettings
+	);
 
-    useEffect(() => {
-        initializeSettings({ debug: true, mobileDebug: false });
-    }, [initializeSettings]);
+	useEffect(() => {
+		initializeSettings({ debug: true, mobileDebug: false });
+	}, [initializeSettings]);
 
-	const gsmap = useGSStore((state) => state.gsmap);
+	const gsmapName = useGSStore((state) => state.gsmap.name);
 
 	return (
 		<>
 			<s.header>
 				<s.left>
-					<span>{gsmap.name}</span>
+					<span>{gsmapName}</span>
 					<Toolbar />
 				</s.left>
 				<span>Placeholder</span>

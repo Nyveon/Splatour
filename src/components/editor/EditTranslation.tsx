@@ -1,14 +1,14 @@
 import { useGSStore } from "../../hooks/useGSStore";
 import { GSScene } from "../../splats/GSScene";
 
-export default function PositionEditor({ scene }: { scene: GSScene }) {
-	// const updateScene = useGSStore((state) => state.updateScene);
+export default function EditTranslation({ scene }: { scene: GSScene }) {
+	const setSceneTransform = useGSStore((state) => state.setSceneTransform);
 
 	const handlePositionChange = (axis: string, value: number) => {
-		// updateScene(scene.id, {
-		// 	position: { ...scene.position, [axis]: value },
-		// });
-		console.log("temp disable");
+		setSceneTransform(scene.id, {
+			position: { ...scene.position, [axis]: value },
+		});
+		// console.log("temp disable");
 	};
 
 	return (

@@ -1,53 +1,77 @@
-import { DropInViewer } from "@mkkellogg/gaussian-splats-3d";
+import { DropInViewer, SplatSceneParams } from "@mkkellogg/gaussian-splats-3d";
 import { useEffect, useState } from "react";
 import * as THREE from "three";
+import { useShallow } from "zustand/react/shallow";
 import { useGSStore } from "../hooks/useGSStore";
 import { GSScene, gssGetOptions } from "./GSScene";
-import sceneContainerMap from "./sceneContainerMap";
 
 export default function GSViewer() {
-	const gsmap = useGSStore((state) => state.gsmap);
-
-	const [viewer, setViewer] = useState<DropInViewer | THREE.Group>(
-		new THREE.Group()
+	const scenes: GSScene[] = useGSStore(
+		useShallow((state) => Object.values(state.gsmap.scenes))
 	);
+
+	console.log("gsviewer");
+
+	const [viewer, setViewer] = useState<DropInViewer>(null);
 
 	useEffect(() => {
 		const viewer = new DropInViewer({
 			sharedMemoryForWorkers: true,
 		});
-		const addParams: { path: string }[] = gsmap.scenes.map(
-			(scene: GSScene) => ({
-				path: scene.filePath,
-				showLoadingUI: false,
-				splatAlphaRemovalThreshold: 20,
-				...gssGetOptions(scene),
-			})
-		);
+
+		console.log("dropinviewer");
+
+		const addParams: SplatSceneParams[] = scenes.map((scene: GSScene) => ({
+			path: scene.filePath,
+			showLoadingUI: false,
+			splatAlphaRemovalThreshold: 20,
+			// ...gssGetOptions(scene),
+		}));
+
+		console.log("addParams: ", addParams);
+
 		viewer
 			.addSplatScenes(addParams, true)
-			// .then(() => {
-			// 	gsmap.scenes.forEach((scene, index) => {
-			// 		const container = viewer.getSplatScene(index);
-			// 		sceneContainerMap.set(scene.id, container);
-			// 		// Initialize container transform
-			// 		updateContainerTransform(scene, container);
-			// 	});
-			// })
+			.then(() => {
+				for (let i = 0; i < scenes.length; i++) {
+					console.log(scenes[i]);
+					const sceneContainer = viewer.getSplatScene(i).parent;
+					sceneContainer.position.copy(scenes[i].position);
+					sceneContainer.scale.copy(scenes[i].scale);
+					sceneContainer.rotation.copy(scenes[i].rotation);
+				}
+			})
 			.catch((err: unknown) => {
 				// Needed for next js
 				console.log("Error loading splat scenes:", err);
 			});
 
+		console.log("V", viewer);
+
 		setViewer(viewer);
 
 		return () => {
 			viewer.dispose();
-			sceneContainerMap.clear();
 		};
-	}, [gsmap]);
+	}, [scenes.length]); //todo change to length of key array
 
-	if (!gsmap) {
+	useEffect(() => {
+		if (!viewer) return;
+
+		console.log("V2", viewer);
+
+		scenes.forEach((scene, index) => {
+			const splatScene = viewer.getSplatScene(index).parent;
+			console.log(splatScene);
+			splatScene.position.copy(scene.position);
+		});
+	}, [scenes]);
+
+	// if (!scenes.length) {
+	// 	return null;
+	// }
+
+	if (!viewer) {
 		return null;
 	}
 

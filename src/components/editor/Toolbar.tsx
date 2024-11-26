@@ -14,6 +14,8 @@ const s = {
 };
 
 export default function Toolbar() {
+	console.log("toolbar");
+
 	return (
 		<s.Toolbar role="toolbar">
 			<UploadMap />

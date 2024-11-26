@@ -1,43 +1,25 @@
 import { create } from "zustand";
+import { immer } from "zustand/middleware/immer";
 import testmap from "../assets/maps/test2.json";
 import { GSMap, gsmDeserializeObjectJSON } from "../splats/GSMap";
-// import { GSScene, gssUpdateTransform } from "../splats/GSScene";
-// import sceneContainerMap from "../splats/sceneContainerMap";
+import { GSScene } from "../splats/GSScene";
 
 interface SceneState {
 	gsmap: GSMap;
-	setGSMap: (gsmap: GSMap) => void;
-	// updateScene: (sceneId: string, newProperties: Partial<GSScene>) => void;
-	// Can have async in zustand
-	// incrementAsync: () => Promise<void>;
+	setSceneTransform: (sceneId: string, transform: Partial<GSScene>) => void;
 }
 
 const initialGSMap = gsmDeserializeObjectJSON(testmap);
 
-export const useGSStore = create<SceneState>((set) => ({
-	// gsmap: GSMap.createEmpty(),
-	gsmap: initialGSMap,
-	setGSMap: (gsmap: GSMap) => set({ gsmap }),
-	// updateScene: (sceneId: string, newProperties: Partial<GSScene>) =>
-	// 	set((state) => {
-	// 		const newScenes = state.gsmap.scenes.map((scene) => {
-	// 			if (scene.id === sceneId) {
-	// 				const updatedScene = { ...scene, ...newProperties };
-	// 				// Update the container
-	// 				const container = sceneContainerMap.get(sceneId);
-	// 				if (container) {
-	// 					gssUpdateTransform(updatedScene, container);
-	// 				}
-	// 				return updatedScene;
-	// 			}
-	// 			return scene;
-	// 		});
-	// 		return {
-	// 			gsmap: { ...state.gsmap, scenes: newScenes },
-	// 		};
-	// 	}),
-	// incrementAsync: async () => {
-	//    await new Promise((resolve) => setTimeout(resolve, 1000));
-	//    set((state) => ({ count: state.count + 1 }));
-	// },
-}));
+export const useGSStore = create<SceneState>()(
+	immer((set) => ({
+		gsmap: initialGSMap,
+		setSceneTransform: (sceneId, transform) =>
+			set((state) => {
+				const scene = state.gsmap.scenes[sceneId];
+				if (scene) {
+					Object.assign(scene, transform);
+				}
+			}),
+	}))
+);

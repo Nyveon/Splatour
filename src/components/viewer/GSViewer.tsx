@@ -74,6 +74,7 @@ export default function GSViewer() {
 			}
 
 			sceneContainer.position.copy(scene.position);
+			sceneContainer.scale.copy(scene.scale);
 		});
 	}, [scenes]);
 

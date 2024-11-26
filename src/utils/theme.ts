@@ -14,4 +14,5 @@ export const color = {
 	dangerLight: "#ff505f",
 
 	border: "#ced4da",
+	borderHalf: "#ced4da80",
 };

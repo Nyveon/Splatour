@@ -19,12 +19,12 @@ const s = {
 	`,
 };
 
-export default function EditTranslation({ scene }: { scene: GSScene }) {
+export default function EditScale({ scene }: { scene: GSScene }) {
 	const setSceneTransform = useGSStore((state) => state.setSceneTransform);
 
-	const handlePositionChange = (axis: string, value: number) => {
+	const handleScaleChange = (axis: string, value: number) => {
 		setSceneTransform(scene.id, {
-			position: { ...scene.position, [axis]: value },
+			scale: { ...scene.scale, [axis]: value },
 		});
 	};
 
@@ -36,13 +36,13 @@ export default function EditTranslation({ scene }: { scene: GSScene }) {
 				e.stopPropagation();
 			}}
 		>
-			<Icon icon="move"></Icon>
+			<Icon icon="maximize-2"></Icon>
 			<s.FieldList>
 				{axes.map((axis) => (
 					<li key={axis}>
 						<Stepper
-							value={scene.position[axis]}
-							valueHandler={(value) => handlePositionChange(axis, value)}
+							value={scene.scale[axis]}
+							valueHandler={(value) => handleScaleChange(axis, value)}
 							label={axis}
 						/>
 					</li>

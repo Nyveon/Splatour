@@ -39,10 +39,9 @@ export default function Sidebar() {
 				<s.li
 					key={sceneId}
 					onClick={() => {
-						setSelectedSceneId(sceneId);
-						// setSelectedSceneId((prevId) =>
-						// 	prevId === sceneId ? null : sceneId
-						// );
+						setSelectedSceneId((prevId) =>
+							prevId === sceneId ? null : sceneId
+						);
 					}}
 				>
 					<SceneCard sceneId={sceneId} selected={selectedSceneId === sceneId} />

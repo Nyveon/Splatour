@@ -1,8 +1,9 @@
+import Icon from "@/components/Icon";
+import EditScale from "@/components/editor/inputs/EditScale";
+import EditTranslation from "@/components/editor/inputs/EditTranslation";
+import { useGSStore } from "@/hooks/useGSStore";
+import { color } from "@/utils/theme";
 import styled from "@emotion/styled";
-import Icon from "../../components/Icon";
-import PositionEditor from "../../components/editor/inputs/EditTranslation";
-import { useGSStore } from "../../hooks/useGSStore";
-import { color } from "../../utils/theme";
 
 const s = {
 	SceneDetails: styled.ul`
@@ -15,7 +16,7 @@ const s = {
 		gap: 0.5rem;
 		width: 100%;
 		padding-block: 0.5rem;
-		/* border-bottom: thin solid ${color.border}; */
+		border-bottom: thin solid ${color.borderHalf};
 
 		svg {
 			width: 1rem;
@@ -35,9 +36,6 @@ export default function SceneCard({
 	sceneId: string;
 	selected: boolean;
 }) {
-	// const scene = useGSStore((state) =>
-	// 	state.gsmap.scenes.find((scene) => scene.id === sceneId)
-	// );
 	const scene = useGSStore((state) => state.gsmap.scenes[sceneId]);
 
 	console.log("scenecard" + sceneId);
@@ -58,10 +56,12 @@ export default function SceneCard({
 					<s.Uneditable>{scene.filePath}</s.Uneditable>
 				</s.Item>
 				<s.Item>
-					<PositionEditor scene={scene} />
+					<EditTranslation scene={scene} />
 				</s.Item>
-				<s.Item>Scale</s.Item>
-				<s.Item>Scale</s.Item>
+				<s.Item>
+					<EditScale scene={scene} />
+				</s.Item>
+				<s.Item>Rotation</s.Item>
 			</s.SceneDetails>
 		);
 	} else {

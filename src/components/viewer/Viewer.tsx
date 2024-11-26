@@ -11,24 +11,16 @@ import { Canvas } from "@react-three/fiber";
 import { useRef } from "react";
 import { PointerLockControls as PointerLockControlsImpl } from "three-stdlib";
 
-const s = {
-	ViewerContainer: styled.div`
-		position: relative;
-		width: 100%;
-		height: 100%;
-		max-width: 100vw;
-		max-height: 100vh;
-		margin: 0;
-		padding: 0;
-		overflow: hidden;
-	`,
-
-	JoystickContainer: styled.div`
-		position: absolute;
-		bottom: 24px;
-		left: 24px;
-	`,
-};
+const ViewerContainer = styled.div`
+	position: relative;
+	width: 100%;
+	height: 100%;
+	max-width: 100vw;
+	max-height: 100vh;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+`;
 
 export default function Viewer() {
 	const viewerContainerRef = useRef<HTMLDivElement>(null);
@@ -47,7 +39,7 @@ export default function Viewer() {
 	console.log("viewer");
 
 	return (
-		<s.ViewerContainer ref={viewerContainerRef} id="#viewer">
+		<ViewerContainer ref={viewerContainerRef} id="#viewer">
 			<KeyboardControls map={KeyMap}>
 				<Canvas
 					camera={{ position: [0, 3.5, 10], fov: 75 }}
@@ -63,6 +55,6 @@ export default function Viewer() {
 				</Canvas>
 			</KeyboardControls>
 			<JoystickControls />
-		</s.ViewerContainer>
+		</ViewerContainer>
 	);
 }

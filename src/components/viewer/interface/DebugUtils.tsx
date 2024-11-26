@@ -1,13 +1,15 @@
 import Checkerboard from "@/components/viewer/world/Checkerboard";
 import { useSettingsStore } from "@/hooks/useSettingsStore";
 import styled from "@emotion/styled";
-import { GizmoHelper, GizmoViewport, Stats } from "@react-three/drei";
+import {
+	Stats as BaseStats,
+	GizmoHelper,
+	GizmoViewport,
+} from "@react-three/drei";
 
-const s = {
-	Stats: styled(Stats)`
-		position: absolute !important;
-	`,
-};
+const Stats = styled(BaseStats)`
+	position: absolute !important;
+`;
 
 export default function DebugUtils({
 	viewerContainerRef,
@@ -31,7 +33,7 @@ export default function DebugUtils({
 					disabled={true}
 				/>
 			</GizmoHelper>
-			<s.Stats parent={viewerContainerRef} showPanel={0} />
+			<Stats parent={viewerContainerRef} showPanel={0} />
 		</>
 	);
 }

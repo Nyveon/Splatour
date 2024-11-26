@@ -5,29 +5,27 @@ import { useGSStore } from "@/hooks/useGSStore";
 import { color } from "@/utils/theme";
 import styled from "@emotion/styled";
 
-const s = {
-	SceneDetails: styled.ul`
-		display: flex;
-		flex-direction: column;
-	`,
+const SceneDetails = styled.ul`
+	display: flex;
+	flex-direction: column;
+`;
 
-	Item: styled.li`
-		display: flex;
-		gap: 0.5rem;
-		width: 100%;
-		padding-block: 0.5rem;
-		border-bottom: thin solid ${color.borderHalf};
+const SceneItem = styled.li`
+	display: flex;
+	gap: 0.5rem;
+	width: 100%;
+	padding-block: 0.5rem;
+	border-bottom: thin solid ${color.borderHalf};
 
-		svg {
-			width: 1rem;
-			height: 1rem;
-		}
-	`,
+	svg {
+		width: 1rem;
+		height: 1rem;
+	}
+`;
 
-	Uneditable: styled.span`
-		color: ${color.textDisabled};
-	`,
-};
+const Uneditable = styled.span`
+	color: ${color.textDisabled};
+`;
 
 export default function SceneCard({
 	sceneId,
@@ -46,23 +44,23 @@ export default function SceneCard({
 
 	if (selected) {
 		return (
-			<s.SceneDetails>
-				<s.Item>
+			<SceneDetails>
+				<SceneItem>
 					<span>{scene.name}</span>
 					{/* todo: make this editable */}
-				</s.Item>
-				<s.Item>
+				</SceneItem>
+				<SceneItem>
 					<Icon icon="file" />
-					<s.Uneditable>{scene.filePath}</s.Uneditable>
-				</s.Item>
-				<s.Item>
+					<Uneditable>{scene.filePath}</Uneditable>
+				</SceneItem>
+				<SceneItem>
 					<EditTranslation scene={scene} />
-				</s.Item>
-				<s.Item>
+				</SceneItem>
+				<SceneItem>
 					<EditScale scene={scene} />
-				</s.Item>
-				<s.Item>Rotation</s.Item>
-			</s.SceneDetails>
+				</SceneItem>
+				<SceneItem>Rotation</SceneItem>
+			</SceneDetails>
 		);
 	} else {
 		return <span>{scene.name}</span>;

@@ -30,24 +30,22 @@ const BaseStyledButton = styled(BaseButton)<React.ComponentProps<"button">>`
 	}
 `;
 
-const s = {
-	ButtonPrimary: styled(BaseStyledButton)`
+const variants = {
+	primary: styled(BaseStyledButton)`
 		background-color: ${color.primary};
 
 		&:hover {
 			background-color: ${color.primaryLight};
 		}
 	`,
-
-	ButtonDanger: styled(BaseStyledButton)`
+	danger: styled(BaseStyledButton)`
 		background-color: ${color.danger};
 
 		&:hover {
 			background-color: ${color.dangerLight};
 		}
 	`,
-
-	ButtonSmall: styled(BaseStyledButton)`
+	small: styled(BaseStyledButton)`
 		display: flex;
 		justify-content: center;
 		align-items: center;
@@ -72,7 +70,7 @@ const s = {
 	`,
 };
 
-type Variant = "primary" | "danger" | "small";
+type Variant = keyof typeof variants;
 
 interface ButtonProps {
 	label: string;
@@ -87,21 +85,7 @@ export default function Button({
 	icon,
 	onClick,
 }: ButtonProps) {
-	let ButtonComponent;
-
-	switch (variant) {
-		case "primary":
-			ButtonComponent = s.ButtonPrimary;
-			break;
-		case "danger":
-			ButtonComponent = s.ButtonDanger;
-			break;
-		case "small":
-			ButtonComponent = s.ButtonSmall;
-			break;
-		default:
-			ButtonComponent = BaseStyledButton;
-	}
+	const ButtonComponent = variants[variant] || BaseStyledButton;
 
 	return (
 		<ButtonComponent onClick={onClick}>

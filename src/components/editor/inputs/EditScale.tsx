@@ -4,20 +4,17 @@ import { useGSStore } from "@/hooks/useGSStore";
 import { GSScene } from "@/model/GSScene";
 import styled from "@emotion/styled";
 
-const s = {
-	EditWrapper: styled.div`
-		display: flex;
-		justify-content: space-around;
-		width: 100%;
-		/* align-items: center; */
-	`,
+const EditWrapper = styled.div`
+	display: flex;
+	justify-content: space-around;
+	width: 100%;
+`;
 
-	FieldList: styled.ul`
-		display: flex;
-		flex-direction: column;
-		gap: 0.5rem;
-	`,
-};
+const EditFields = styled.ul`
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+`;
 
 export default function EditScale({ scene }: { scene: GSScene }) {
 	const setSceneTransform = useGSStore((state) => state.setSceneTransform);
@@ -31,13 +28,13 @@ export default function EditScale({ scene }: { scene: GSScene }) {
 	const axes = ["x", "y", "z"] as const;
 
 	return (
-		<s.EditWrapper
+		<EditWrapper
 			onClick={(e) => {
 				e.stopPropagation();
 			}}
 		>
 			<Icon icon="maximize-2"></Icon>
-			<s.FieldList>
+			<EditFields>
 				{axes.map((axis) => (
 					<li key={axis}>
 						<Stepper
@@ -47,7 +44,7 @@ export default function EditScale({ scene }: { scene: GSScene }) {
 						/>
 					</li>
 				))}
-			</s.FieldList>
-		</s.EditWrapper>
+			</EditFields>
+		</EditWrapper>
 	);
 }

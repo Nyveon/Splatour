@@ -1,4 +1,4 @@
-import Checkbox from "@/components/Checkbox";
+import Checkbox from "@/components/input/Checkbox";
 import { useSettingsStore } from "@/hooks/useSettingsStore";
 
 export default function ToogleDebug() {

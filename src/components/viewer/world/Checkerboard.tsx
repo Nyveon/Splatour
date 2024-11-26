@@ -1,7 +1,7 @@
 import * as THREE from "three";
 
 function createCheckerboardTexture(divisions: number) {
-	const canvas = document.createElement("canvas")!;
+	const canvas = document.createElement("canvas");
 	const context = canvas.getContext("2d")!;
 	const size = 1024;
 

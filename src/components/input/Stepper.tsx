@@ -4,43 +4,41 @@ import styled from "@emotion/styled";
 import { Field, Input, Label } from "@headlessui/react";
 import { ReactNode } from "react";
 
-const s = {
-	Field: styled(Field)`
-		display: flex;
-		justify-content: space-around;
-		align-items: center;
-		gap: 0.5rem;
-	`,
+const StepperField = styled(Field)`
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	gap: 0.5rem;
+`;
 
-	Label: styled(Label)`
-		color: ${color.textLight};
-		margin-right: 0.25rem;
-	`,
+const StepperLabel = styled(Label)`
+	color: ${color.textLight};
+	margin-right: 0.25rem;
+`;
 
-	NumberInput: styled(Input)<React.ComponentProps<"input">>`
-		text-align: right;
+const StepperInput = styled(Input)<React.ComponentProps<"input">>`
+	text-align: right;
 
-		width: 2.5rem;
+	width: 2.5rem;
 
-		border: thin solid ${color.border};
-		border-radius: 0.25rem;
+	border: thin solid ${color.border};
+	border-radius: 0.25rem;
 
-		background-color: ${color.backgroundMedium};
-		color: ${color.textLight};
+	background-color: ${color.backgroundMedium};
+	color: ${color.textLight};
 
-		font-family: "Courier New", Courier, monospace;
-		font-size: 0.8rem;
-		line-height: 1.25rem;
+	font-family: "Courier New", Courier, monospace;
+	font-size: 0.8rem;
+	line-height: 1.25rem;
 
-		-moz-appearance: textfield;
-		appearance: textfield;
-		&::-webkit-inner-spin-button,
-		&::-webkit-outer-spin-button {
-			-webkit-appearance: none;
-			margin: 0;
-		}
-	`,
-};
+	-moz-appearance: textfield;
+	appearance: textfield;
+	&::-webkit-inner-spin-button,
+	&::-webkit-outer-spin-button {
+		-webkit-appearance: none;
+		margin: 0;
+	}
+`;
 
 interface StepperProps {
 	min?: number;
@@ -74,8 +72,8 @@ export default function Stepper({
 	};
 
 	return (
-		<s.Field>
-			{label && <s.Label>{label}</s.Label>}
+		<StepperField>
+			{label && <StepperLabel>{label}</StepperLabel>}
 
 			<Button
 				onClick={() => {
@@ -86,7 +84,7 @@ export default function Stepper({
 				label="-"
 				variant="small"
 			/>
-			<s.NumberInput
+			<StepperInput
 				type="number"
 				value={value.toFixed(1)}
 				onChange={handleWrite}
@@ -100,6 +98,6 @@ export default function Stepper({
 				label="+"
 				variant="small"
 			/>
-		</s.Field>
+		</StepperField>
 	);
 }

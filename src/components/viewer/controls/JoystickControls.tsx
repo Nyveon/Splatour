@@ -7,19 +7,18 @@ import { IJoystickUpdateEvent } from "react-joystick-component/build/lib/Joystic
 
 const joystickMargin = 24;
 
-const s = {
-	LeftJoystickContainer: styled.div`
-		position: absolute;
-		bottom: ${joystickMargin + 12}px;
-		left: ${joystickMargin}px;
-	`,
+const JoystickContainer = styled.div`
+	position: absolute;
+	bottom: ${joystickMargin}px;
+`;
 
-	RightJoystickContainer: styled.div`
-		position: absolute;
-		bottom: ${joystickMargin + 12}px;
-		right: ${joystickMargin}px;
-	`,
-};
+const JoystickContainerLeft = styled(JoystickContainer)`
+	left: ${joystickMargin}px;
+`;
+
+const JoystickContainerRight = styled(JoystickContainer)`
+	right: ${joystickMargin}px;
+`;
 
 function BaseJoystick({
 	handleMove,
@@ -51,7 +50,7 @@ export default function JoystickControls() {
 
 	return (
 		<>
-			<s.LeftJoystickContainer>
+			<JoystickContainerLeft>
 				<BaseJoystick
 					handleMove={(update) => {
 						useJoystickControls
@@ -62,8 +61,8 @@ export default function JoystickControls() {
 						useJoystickControls.getState().setMoveJoystickPosition(0, 0);
 					}}
 				/>
-			</s.LeftJoystickContainer>
-			<s.RightJoystickContainer>
+			</JoystickContainerLeft>
+			<JoystickContainerRight>
 				<BaseJoystick
 					handleMove={(update) => {
 						useJoystickControls
@@ -74,7 +73,7 @@ export default function JoystickControls() {
 						useJoystickControls.getState().setCameraJoystickPosition(0, 0);
 					}}
 				/>
-			</s.RightJoystickContainer>
+			</JoystickContainerRight>
 		</>
 	);
 }

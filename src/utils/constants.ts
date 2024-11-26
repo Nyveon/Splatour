@@ -15,3 +15,6 @@ export const KeyMap = [
 	{ name: Controls.up, keys: ["Space", "Q", "q"] },
 	{ name: Controls.down, keys: ["Shift", "E", "e"] },
 ];
+
+export type axis = "x" | "y" | "z";
+export const axes = ["x", "y", "z"] as axis[];

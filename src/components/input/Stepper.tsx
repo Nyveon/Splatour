@@ -88,6 +88,9 @@ export default function Stepper({
 				type="number"
 				value={value.toFixed(1)}
 				onChange={handleWrite}
+				min={min}
+				max={max}
+				step={step}
 			/>
 			<Button
 				onClick={() => {

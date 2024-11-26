@@ -1,5 +1,5 @@
-import { useSettingsStore } from "../../hooks/useSettingsStore";
-import Checkbox from "../Checkbox";
+import Checkbox from "@/components/Checkbox";
+import { useSettingsStore } from "@/hooks/useSettingsStore";
 
 export default function ToogleDebug() {
 	const mobileDebug = useSettingsStore((state) => state.mobileDebug);

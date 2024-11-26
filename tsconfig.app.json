@@ -24,7 +24,12 @@
     "noUncheckedSideEffectImports": true,
     "useUnknownInCatchVariables": false,
 
-    "types": ["vite/client"]
+    "types": ["vite/client"],
+
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
   },
-  "include": ["./src", "./src/decs.d.ts"]
+  "include": ["src", "src/decs.d.ts"]
 }

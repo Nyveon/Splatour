@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { GSMap, gsmDeserializeObjectJSON, SerialGSMap } from "../splats/GSMap";
+import { GSMap, gsmDeserializeObjectJSON, SerialGSMap } from "../model/GSMap";
 
 // todo: integrate this async into gsstore
 

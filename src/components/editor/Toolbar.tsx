@@ -1,7 +1,7 @@
+import ToggleDebug from "@/components/editor/inputs/ToggleDebug";
+import ToggleMobileDebug from "@/components/editor/inputs/ToggleMobileDebug";
 import styled from "@emotion/styled";
 import Button from "../Button";
-import ToggleDebug from "./ToggleDebug";
-import ToggleMobileDebug from "./ToggleMobileDebug";
 import UploadMap from "./UploadMap";
 
 const s = {

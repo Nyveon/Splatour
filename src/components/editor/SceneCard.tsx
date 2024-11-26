@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
+import Icon from "../../components/Icon";
+import PositionEditor from "../../components/editor/inputs/EditTranslation";
 import { useGSStore } from "../../hooks/useGSStore";
 import { color } from "../../utils/theme";
-import Icon from "../Icon";
-import PositionEditor from "./EditTranslation";
 
 const s = {
 	SceneDetails: styled.ul`

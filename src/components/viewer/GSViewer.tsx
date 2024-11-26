@@ -1,9 +1,8 @@
+import { useGSStore } from "@/hooks/useGSStore";
+import { GSScene } from "@/model/GSScene";
 import { DropInViewer, SplatSceneParams } from "@mkkellogg/gaussian-splats-3d";
 import { useEffect, useState } from "react";
-import * as THREE from "three";
 import { useShallow } from "zustand/react/shallow";
-import { useGSStore } from "../hooks/useGSStore";
-import { GSScene, gssGetOptions } from "./GSScene";
 
 export default function GSViewer() {
 	const scenes: GSScene[] = useGSStore(
@@ -12,7 +11,7 @@ export default function GSViewer() {
 
 	console.log("gsviewer");
 
-	const [viewer, setViewer] = useState<DropInViewer>(null);
+	const [viewer, setViewer] = useState<DropInViewer>();
 
 	useEffect(() => {
 		const viewer = new DropInViewer({
@@ -67,11 +66,7 @@ export default function GSViewer() {
 		});
 	}, [scenes]);
 
-	// if (!scenes.length) {
-	// 	return null;
-	// }
-
-	if (!viewer) {
+	if (!viewer || !scenes.length) {
 		return null;
 	}
 

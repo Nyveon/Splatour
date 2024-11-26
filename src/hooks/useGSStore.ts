@@ -1,8 +1,8 @@
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 import testmap from "../assets/maps/test2.json";
-import { GSMap, gsmDeserializeObjectJSON } from "../splats/GSMap";
-import { GSScene } from "../splats/GSScene";
+import { GSMap, gsmDeserializeObjectJSON } from "../model/GSMap";
+import { GSScene } from "../model/GSScene";
 
 interface SceneState {
 	gsmap: GSMap;

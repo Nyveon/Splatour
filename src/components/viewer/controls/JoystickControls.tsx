@@ -1,9 +1,9 @@
+import { useJoystickControls } from "@/hooks/useJoystickControls";
+import { useSettingsStore } from "@/hooks/useSettingsStore";
 import styled from "@emotion/styled";
 import { isMobile } from "react-device-detect";
 import { Joystick } from "react-joystick-component";
 import { IJoystickUpdateEvent } from "react-joystick-component/build/lib/Joystick";
-import { useJoystickControls } from "../hooks/useJoystickControls";
-import { useSettingsStore } from "../hooks/useSettingsStore";
 
 const joystickMargin = 24;
 

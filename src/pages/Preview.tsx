@@ -1,5 +1,5 @@
 import mapUrl from "../assets/maps/test2.json?url";
-import Viewer from "../components/Viewer";
+import Viewer from "../components/viewer/Viewer";
 import useFetchGSMap from "../hooks/useFetchGSMap";
 
 export default function Preview() {
@@ -11,7 +11,7 @@ export default function Preview() {
 
 	if (!gsmap) return <h1>No GSMap loaded?</h1>;
 
-    //todo: fix this
+	//todo: fix this
 	return (
 		<>
 			<Viewer gsmap={gsmap} />

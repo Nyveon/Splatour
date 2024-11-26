@@ -1,8 +1,7 @@
+import Checkerboard from "@/components/viewer/world/Checkerboard";
+import { useSettingsStore } from "@/hooks/useSettingsStore";
 import styled from "@emotion/styled";
 import { GizmoHelper, GizmoViewport, Stats } from "@react-three/drei";
-
-import { useSettingsStore } from "../hooks/useSettingsStore";
-import Checkerboard from "../world/Checkerboard";
 
 const s = {
 	Stats: styled(Stats)`

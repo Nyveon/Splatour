@@ -1,8 +1,8 @@
+import Viewer from "@/components/viewer/Viewer";
 import styled from "@emotion/styled";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Sidebar from "../components/editor/Sidebar";
 import Toolbar from "../components/editor/Toolbar";
-import Viewer from "../components/Viewer";
 import { useGSStore } from "../hooks/useGSStore";
 import { useSettingsStore } from "../hooks/useSettingsStore";
 import { color } from "../utils/theme";
@@ -67,11 +67,6 @@ const s = {
 };
 
 export default function Editor() {
-	// const [debug, setDebug] = useState(true);
-	// const [debugMobile, setDebugMobile] = useState(false);
-	// const gsmap = GSMap.createEmpty();
-	// const gsmap = GSMap.deserializeObjectJSON(testmap); // This wil be loaded from a modal later
-
 	const initializeSettings = useSettingsStore(
 		(state) => state.initializeSettings
 	);

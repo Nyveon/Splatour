@@ -1,7 +1,7 @@
+import Icon from "@/components/Icon";
+import { color } from "@/utils/theme";
 import styled from "@emotion/styled";
 import { FeatherIconNames } from "feather-icons";
-import { color } from "../utils/theme";
-import Icon from "./Icon";
 
 const s = {
 	Button: styled.button<{ variant: Variant }>`

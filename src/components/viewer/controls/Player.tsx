@@ -1,8 +1,8 @@
+import { useJoystickControls } from "@/hooks/useJoystickControls";
+import { Controls } from "@/utils/constants";
 import { useKeyboardControls } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
-import { useJoystickControls } from "../hooks/useJoystickControls";
-import { Controls } from "../utils/constants";
 
 const walkSpeed = 5;
 const rotationSpeed = 1;

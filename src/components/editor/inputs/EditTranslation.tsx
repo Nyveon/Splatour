@@ -1,5 +1,5 @@
-import { useGSStore } from "../../hooks/useGSStore";
-import { GSScene } from "../../splats/GSScene";
+import { useGSStore } from "@/hooks/useGSStore";
+import { GSScene } from "@/model/GSScene";
 
 export default function EditTranslation({ scene }: { scene: GSScene }) {
 	const setSceneTransform = useGSStore((state) => state.setSceneTransform);

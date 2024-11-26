@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-interface SettingsState {
+export interface SettingsState {
 	debug: boolean;
 	setDebug: (debug: boolean) => void;
 	mobileDebug: boolean;

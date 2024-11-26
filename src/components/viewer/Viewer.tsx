@@ -1,16 +1,15 @@
+import JoystickControls from "@/components/viewer/controls/JoystickControls";
+import Player from "@/components/viewer/controls/Player";
+import { PointerLockControls } from "@/components/viewer/controls/PointerLockControls";
+import GSViewer from "@/components/viewer/GSViewer";
+import DebugUtils from "@/components/viewer/interface/DebugUtils";
+import Ambient from "@/components/viewer/world/Ambient";
+import { KeyMap } from "@/utils/constants";
 import styled from "@emotion/styled";
 import { KeyboardControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { useRef } from "react";
 import { PointerLockControls as PointerLockControlsImpl } from "three-stdlib";
-import { useSettingsStore } from "../hooks/useSettingsStore";
-import GSViewer from "../splats/GSViewer";
-import { KeyMap } from "../utils/constants";
-import Ambient from "../world/Ambient";
-import DebugUtils from "../world/DebugUtils";
-import JoystickControls from "../world/JoystickControls";
-import Player from "../world/Player";
-import { PointerLockControls } from "../world/PointerLockControls";
 
 const s = {
 	ViewerContainer: styled.div`

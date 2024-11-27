@@ -1,9 +1,8 @@
+import MapCreate from "@/components/editor/file/MapCreate";
+import MapExport from "@/components/editor/file/MapExport";
+import MapImport from "@/components/editor/file/MapImport";
 import ToggleDebug from "@/components/editor/inputs/ToggleDebug";
 import ToggleMobileDebug from "@/components/editor/inputs/ToggleMobileDebug";
-import UploadMap from "@/components/editor/UploadMap";
-import Button from "@/components/input/Button";
-import { useGSStore } from "@/hooks/useGSStore";
-import { gsmSerialize } from "@/model/GSMap";
 import styled from "@emotion/styled";
 
 const ToolbarContainer = styled.div`
@@ -13,26 +12,12 @@ const ToolbarContainer = styled.div`
 	align-items: center;
 `;
 
-function downloadMap() {
-	const gsmap = useGSStore.getState().gsmap;
-	const serializedMap = JSON.stringify(gsmSerialize(gsmap));
-	const blob = new Blob([serializedMap], { type: "application/json" });
-	const link = document.createElement("a");
-	link.href = URL.createObjectURL(blob);
-	const filename = gsmap.name.replace(/[^a-z0-9]/gi, "_").toLowerCase();
-	link.download = filename + ".json";
-	link.click();
-}
-
 export default function Toolbar() {
-	console.log("toolbar");
-
 	return (
 		<ToolbarContainer role="toolbar">
-			<UploadMap />
-
-			<Button label="Export" icon="download" onClick={downloadMap} />
-			<Button label="Create" icon="file-plus" />
+			<MapImport />
+			<MapExport />
+			<MapCreate />
 
 			<ToggleDebug />
 			<ToggleMobileDebug />

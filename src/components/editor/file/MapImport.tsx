@@ -2,7 +2,7 @@ import Button from "@/components/input/Button";
 import Modal from "@/components/Modal";
 import { useState } from "react";
 
-export default function UploadMap() {
+export default function MapImport() {
 	const [modalOpen, setModalOpen] = useState(false);
 
 	return (

@@ -47,6 +47,16 @@ export function gssDeserialize(scene: SerialGSScene): GSScene {
 	return gssBase;
 }
 
+export function gssSerialize(scene: GSScene): SerialGSScene {
+	return {
+		filePath: scene.filePath,
+		name: scene.name,
+		scale: scene.scale,
+		rotation: scene.rotation,
+		position: scene.position,
+	};
+}
+
 function gssUpdateTransform(container: THREE.Object3D, scene: GSScene) {
 	container.position.set(scene.position.x, scene.position.y, scene.position.z);
 	container.rotation.set(scene.rotation.x, scene.rotation.y, scene.rotation.z);

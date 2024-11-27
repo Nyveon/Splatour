@@ -1,8 +1,15 @@
-import { GSScene, SerialGSScene, gssDeserialize } from "./GSScene";
+import { formatVersion } from "@/utils/constants";
+import {
+	GSScene,
+	SerialGSScene,
+	gssDeserialize,
+	gssSerialize,
+} from "./GSScene";
 
 export interface SerialGSMap {
 	metadata: {
 		name: string;
+		version: number;
 	};
 	scenes: SerialGSScene[];
 }
@@ -28,6 +35,16 @@ export function gsmDeserializeObjectJSON(obj: SerialGSMap): GSMap {
 			},
 			{} as Record<string, GSScene>
 		),
+	};
+}
+
+export function gsmSerialize(map: GSMap): SerialGSMap {
+	return {
+		metadata: {
+			name: map.name,
+			version: formatVersion,
+		},
+		scenes: Object.values(map.scenes).map(gssSerialize),
 	};
 }
 

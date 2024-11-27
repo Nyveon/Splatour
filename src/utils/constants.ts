@@ -18,3 +18,5 @@ export const KeyMap = [
 
 export type axis = "x" | "y" | "z";
 export const axes = ["x", "y", "z"] as axis[];
+
+export const formatVersion = 1;

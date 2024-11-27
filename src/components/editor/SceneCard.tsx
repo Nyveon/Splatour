@@ -1,12 +1,12 @@
 import Icon from "@/components/Icon";
+import DeleteScene from "@/components/editor/inputs/DeleteScene";
+import EditRotation from "@/components/editor/inputs/EditRotation";
 import EditScale from "@/components/editor/inputs/EditScale";
 import EditTranslation from "@/components/editor/inputs/EditTranslation";
+import SceneName from "@/components/editor/inputs/SceneName";
 import { useGSStore } from "@/hooks/useGSStore";
 import { color } from "@/utils/theme";
 import styled from "@emotion/styled";
-import DeleteScene from "./inputs/DeleteScene";
-import EditRotation from "./inputs/EditRotation";
-import EditSceneName from "./inputs/EditSceneName";
 
 const SceneDetails = styled.ul`
 	display: flex;
@@ -52,7 +52,7 @@ export default function SceneCard({
 		return (
 			<SceneDetails>
 				<SceneItem>
-					<EditSceneName sceneId={sceneId} />
+					<SceneName sceneId={sceneId} />
 				</SceneItem>
 				<SceneItem>
 					<Icon icon="file" />

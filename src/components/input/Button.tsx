@@ -67,6 +67,11 @@ const variants = {
 		&:hover {
 			background-color: ${color.primaryLight};
 		}
+
+		svg {
+			width: 0.8rem;
+			height: 0.8rem;
+		}
 	`,
 };
 

@@ -1,9 +1,9 @@
+import MapName from "@/components/editor/inputs/MapName";
 import Viewer from "@/components/viewer/Viewer";
 import styled from "@emotion/styled";
 import { useEffect } from "react";
 import Sidebar from "../components/editor/Sidebar";
 import Toolbar from "../components/editor/Toolbar";
-import { useGSStore } from "../hooks/useGSStore";
 import { useSettingsStore } from "../hooks/useSettingsStore";
 import { color } from "../utils/theme";
 
@@ -59,10 +59,6 @@ const s = {
 		justify-content: center;
 		align-items: center;
 		gap: 1.5rem;
-
-		> span {
-			font-size: 1.25rem;
-		}
 	`,
 };
 
@@ -75,13 +71,11 @@ export default function Editor() {
 		initializeSettings({ debug: true, mobileDebug: false });
 	}, [initializeSettings]);
 
-	const gsmapName = useGSStore((state) => state.gsmap.name);
-
 	return (
 		<>
 			<s.header>
 				<s.left>
-					<span>{gsmapName}</span>
+					<MapName />
 					<Toolbar />
 				</s.left>
 				<span>Placeholder</span>

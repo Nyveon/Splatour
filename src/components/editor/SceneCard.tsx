@@ -1,14 +1,14 @@
 import Icon from "@/components/Icon";
-import EditRotation from "@/components/editor/inputs/EditRotation";
-import EditScale from "@/components/editor/inputs/EditScale";
-import EditTranslation from "@/components/editor/inputs/EditTranslation";
-import SceneDelete from "@/components/editor/inputs/SceneDelete";
-import SceneName from "@/components/editor/inputs/SceneName";
+import EditRotation from "@/components/editor/scenes/EditRotation";
+import EditScale from "@/components/editor/scenes/EditScale";
+import EditTranslation from "@/components/editor/scenes/EditTranslation";
+import SceneDelete from "@/components/editor/scenes/SceneDelete";
+import SceneName from "@/components/editor/scenes/SceneName";
+import SceneReset from "@/components/editor/scenes/SceneReset";
+import Button from "@/components/input/Button";
 import { useGSStore } from "@/hooks/useGSStore";
 import { color } from "@/utils/theme";
 import styled from "@emotion/styled";
-import Button from "../input/Button";
-import SceneReset from "./inputs/SceneReset";
 
 const BaseSceneCard = styled.div`
 	border: thin solid ${color.border};

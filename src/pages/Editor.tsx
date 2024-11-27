@@ -1,12 +1,12 @@
-import MapName from "@/components/editor/inputs/MapName";
+import MapName from "@/components/editor/map/MapName";
+import Sidebar from "@/components/editor/Sidebar";
+import Toolbar from "@/components/editor/Toolbar";
 import Viewer from "@/components/viewer/Viewer";
+import { useSettingsStore } from "@/hooks/useSettingsStore";
+import { color } from "@/utils/theme";
 import styled from "@emotion/styled";
 import { useEffect } from "react";
 import { isFirefox } from "react-device-detect";
-import Sidebar from "../components/editor/Sidebar";
-import Toolbar from "../components/editor/Toolbar";
-import { useSettingsStore } from "../hooks/useSettingsStore";
-import { color } from "../utils/theme";
 
 const s = {
 	header: styled.header`

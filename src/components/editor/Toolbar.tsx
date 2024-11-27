@@ -1,8 +1,8 @@
-import MapCreate from "@/components/editor/file/MapCreate";
-import MapExport from "@/components/editor/file/MapExport";
-import MapImport from "@/components/editor/file/MapImport";
-import ToggleDebug from "@/components/editor/inputs/ToggleDebug";
-import ToggleMobileDebug from "@/components/editor/inputs/ToggleMobileDebug";
+import MapCreate from "@/components/editor/map/MapCreate";
+import MapExport from "@/components/editor/map/MapExport";
+import MapImport from "@/components/editor/map/MapImport";
+import ToggleDebug from "@/components/editor/settings/ToggleDebug";
+import ToggleMobileDebug from "@/components/editor/settings/ToggleMobileDebug";
 import styled from "@emotion/styled";
 
 const ToolbarContainer = styled.div`

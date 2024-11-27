@@ -1,4 +1,4 @@
-import EditTransform from "@/components/editor/inputs/EditTransform";
+import EditTransform from "@/components/editor/scenes/EditTransform";
 
 export default function EditTranslation({ sceneId }: { sceneId: string }) {
 	return (

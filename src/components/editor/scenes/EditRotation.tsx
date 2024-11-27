@@ -1,4 +1,4 @@
-import EditTransform from "@/components/editor/inputs/EditTransform";
+import EditTransform from "@/components/editor/scenes/EditTransform";
 import * as THREE from "three";
 
 export default function EditRotation({ sceneId }: { sceneId: string }) {

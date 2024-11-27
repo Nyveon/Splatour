@@ -1,9 +1,9 @@
 import SceneCard from "@/components/editor/SceneCard";
+import Button from "@/components/input/Button";
 import { useGSStore } from "@/hooks/useGSStore";
 import styled from "@emotion/styled";
 import { useState } from "react";
 import { useShallow } from "zustand/react/shallow";
-import Button from "../input/Button";
 
 const SceneListItem = styled.li`
 	display: flex;

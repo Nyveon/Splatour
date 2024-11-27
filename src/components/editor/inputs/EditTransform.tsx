@@ -10,22 +10,24 @@ import { useState } from "react";
 
 const EditWrapper = styled.div`
 	display: flex;
-	/* justify-content: space-between; */
-	gap: 1rem;
 	align-items: center;
 	width: 100%;
 `;
 
 const EditBar = styled.div`
 	display: flex;
+	justify-content: center;
 	align-items: center;
-	gap: 0.5rem;
-	width: 1rem;
+	width: 2rem;
+	/* margin-left: 1rem;
+	margin-right: 1.5rem; */
 `;
 
 const EditFields = styled.ul`
 	display: flex;
 	flex-direction: column;
+	justify-content: space-evenly;
+	width: 100%;
 	gap: 0.5rem;
 	/* max-width: 7.25rem; */
 `;

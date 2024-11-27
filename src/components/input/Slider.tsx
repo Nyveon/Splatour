@@ -10,15 +10,13 @@ const BubbleWidthCH = 4.5;
 
 const SliderField = styled(Field)`
 	display: flex;
-	justify-content: space-between;
+	justify-content: space-around;
 	align-items: center;
-	gap: 0.5rem;
 `;
 
 const SliderLabel = styled(Label)`
 	color: ${color.textLight};
-	margin-right: 0.25rem;
-	width: 2rem;
+	width: 3rem;
 	text-align: center;
 `;
 
@@ -53,7 +51,6 @@ const ValueBubble = styled.output<{ valuePercent: number }>`
 
 const SliderContainer = styled.div`
 	position: relative;
-	width: 100%;
 
 	&:focus-within {
 		output {

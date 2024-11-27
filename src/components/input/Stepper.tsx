@@ -6,15 +6,13 @@ import { ReactNode } from "react";
 
 const StepperField = styled(Field)`
 	display: flex;
-	justify-content: space-between;
+	justify-content: space-around;
 	align-items: center;
-	gap: 0.5rem;
 `;
 
 const StepperLabel = styled(Label)`
 	color: ${color.textLight};
-	margin-right: 0.25rem;
-	width: 1.5rem;
+	width: 2rem;
 	text-align: center;
 `;
 

@@ -6,6 +6,7 @@ import { color } from "@/utils/theme";
 import styled from "@emotion/styled";
 import DeleteScene from "./inputs/DeleteScene";
 import EditRotation from "./inputs/EditRotation";
+import EditSceneName from "./inputs/EditSceneName";
 
 const SceneDetails = styled.ul`
 	display: flex;
@@ -51,8 +52,7 @@ export default function SceneCard({
 		return (
 			<SceneDetails>
 				<SceneItem>
-					<span>{sceneName}</span>
-					{/* todo: make this editable */}
+					<EditSceneName sceneId={sceneId} />
 				</SceneItem>
 				<SceneItem>
 					<Icon icon="file" />

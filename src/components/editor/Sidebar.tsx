@@ -1,9 +1,9 @@
 import SceneCard from "@/components/editor/SceneCard";
 import { useGSStore } from "@/hooks/useGSStore";
-import { color } from "@/utils/theme";
 import styled from "@emotion/styled";
 import { useState } from "react";
 import { useShallow } from "zustand/react/shallow";
+import Button from "../input/Button";
 
 const SceneListItem = styled.li`
 	display: flex;
@@ -11,14 +11,6 @@ const SceneListItem = styled.li`
 	gap: 1rem;
 
 	margin: 1rem;
-	padding: 10px;
-
-	border: thin solid ${color.border};
-
-	&:hover {
-		cursor: pointer;
-		background-color: ${color.backgroundMedium};
-	}
 `;
 
 export default function Sidebar() {
@@ -30,19 +22,26 @@ export default function Sidebar() {
 	console.log("sidebar");
 
 	return (
-		<ul>
-			{sceneIds.map((sceneId) => (
-				<SceneListItem
-					key={sceneId}
-					onClick={() => {
-						setSelectedSceneId((prevId) =>
-							prevId === sceneId ? null : sceneId
-						);
-					}}
-				>
-					<SceneCard sceneId={sceneId} selected={selectedSceneId === sceneId} />
+		<>
+			<ul>
+				{sceneIds.map((sceneId) => (
+					<SceneListItem
+						key={sceneId}
+					>
+						<SceneCard
+							sceneId={sceneId}
+							selected={selectedSceneId === sceneId}
+                            handleSelected={
+                                setSelectedSceneId
+    }
+						/>
+					</SceneListItem>
+				))}
+
+				<SceneListItem>
+					<Button label="test" />
 				</SceneListItem>
-			))}
-		</ul>
+			</ul>
+		</>
 	);
 }

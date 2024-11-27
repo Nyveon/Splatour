@@ -1,7 +1,7 @@
 import Button from "@/components/input/Button";
 import { useGSStore } from "@/hooks/useGSStore";
 
-export default function DeleteScene({ sceneId }: { sceneId: string }) {
+export default function SceneDelete({ sceneId }: { sceneId: string }) {
 	const setDeleteScene = useGSStore((state) => state.setDeleteScene);
 	return (
 		<Button

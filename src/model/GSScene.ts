@@ -19,6 +19,12 @@ export interface GSScene {
 	container: THREE.Group;
 }
 
+export const gssResetTransform = {
+	scale: { x: 1, y: 1, z: 1 },
+	rotation: { x: 0, y: 0, z: 0 },
+	position: { x: 0, y: 0, z: 0 },
+};
+
 export function gssCreate(filePath: string, name: string): GSScene {
 	return {
 		id: crypto.randomUUID(),

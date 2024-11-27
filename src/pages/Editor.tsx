@@ -2,6 +2,7 @@ import MapName from "@/components/editor/inputs/MapName";
 import Viewer from "@/components/viewer/Viewer";
 import styled from "@emotion/styled";
 import { useEffect } from "react";
+import { isFirefox } from "react-device-detect";
 import Sidebar from "../components/editor/Sidebar";
 import Toolbar from "../components/editor/Toolbar";
 import { useSettingsStore } from "../hooks/useSettingsStore";
@@ -73,6 +74,18 @@ export default function Editor() {
 
 	return (
 		<>
+			{isFirefox && (
+				<span
+					style={{
+						backgroundColor: "red",
+						position: "fixed",
+						top: 0,
+						zIndex: 100,
+					}}
+				>
+					Warning: Firefox filesystem support has potential issues
+				</span>
+			)}
 			<s.header>
 				<s.left>
 					<MapName />

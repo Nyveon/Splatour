@@ -4,6 +4,7 @@ import EditTranslation from "@/components/editor/inputs/EditTranslation";
 import { useGSStore } from "@/hooks/useGSStore";
 import { color } from "@/utils/theme";
 import styled from "@emotion/styled";
+import DeleteScene from "./inputs/DeleteScene";
 import EditRotation from "./inputs/EditRotation";
 
 const SceneDetails = styled.ul`
@@ -22,6 +23,12 @@ const SceneItem = styled.li`
 		width: 1rem;
 		height: 1rem;
 	}
+`;
+
+const BottomBar = styled(SceneItem)`
+	border-bottom: none;
+	justify-content: space-around;
+	padding-bottom: 0;
 `;
 
 const Uneditable = styled.span`
@@ -60,6 +67,9 @@ export default function SceneCard({
 				<SceneItem>
 					<EditRotation sceneId={sceneId} />
 				</SceneItem>
+				<BottomBar>
+					<DeleteScene sceneId={sceneId} />
+				</BottomBar>
 			</SceneDetails>
 		);
 	} else {

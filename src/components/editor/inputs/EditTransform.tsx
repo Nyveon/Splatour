@@ -1,22 +1,33 @@
 import Icon from "@/components/Icon";
+import Button from "@/components/input/Button";
 import Slider from "@/components/input/Slider";
 import Stepper from "@/components/input/Stepper";
 import { useGSStore } from "@/hooks/useGSStore";
 import { axes, axis } from "@/utils/constants";
 import styled from "@emotion/styled";
 import { FeatherIconNames } from "feather-icons";
+import { useState } from "react";
 
 const EditWrapper = styled.div`
 	display: flex;
-	justify-content: space-around;
+	/* justify-content: space-between; */
+	gap: 1rem;
+	align-items: center;
 	width: 100%;
+`;
+
+const EditBar = styled.div`
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	width: 1rem;
 `;
 
 const EditFields = styled.ul`
 	display: flex;
 	flex-direction: column;
 	gap: 0.5rem;
-	max-width: 7.25rem;
+	/* max-width: 7.25rem; */
 `;
 
 interface EditTransformProps {
@@ -27,6 +38,7 @@ interface EditTransformProps {
 	max: number;
 	step: number;
 	slider?: boolean;
+	linkable?: boolean;
 	convertTo?: (value: number) => number;
 	convertFrom?: (value: number) => number;
 }
@@ -39,9 +51,11 @@ export default function EditTransform({
 	max,
 	step,
 	slider = false,
+	linkable = false,
 	convertTo = (value) => value,
 	convertFrom = (value) => value,
 }: EditTransformProps) {
+	const [linked, setLinked] = useState(linkable);
 	const setSceneTransform = useGSStore((state) => state.setSceneTransform);
 	const sceneTransformValue = useGSStore(
 		(state) => state.gsmap.scenes[sceneId][type]
@@ -49,12 +63,24 @@ export default function EditTransform({
 
 	const handleChange = (axis: axis, value: number) => {
 		const newValue = convertTo(value);
-		setSceneTransform(sceneId, {
-			[type]: { ...sceneTransformValue, [axis]: newValue },
-		});
+		if (linked) {
+			setSceneTransform(sceneId, {
+				[type]: {
+					[axes[0]]: newValue,
+					[axes[1]]: newValue,
+					[axes[2]]: newValue,
+				},
+			});
+		} else {
+			setSceneTransform(sceneId, {
+				[type]: { ...sceneTransformValue, [axis]: newValue },
+			});
+		}
 	};
 
 	const InputComponent = slider ? Slider : Stepper;
+
+	const inputs = linked ? [axes[0]] : axes;
 
 	return (
 		<EditWrapper
@@ -62,14 +88,26 @@ export default function EditTransform({
 				e.stopPropagation();
 			}}
 		>
-			<Icon icon={icon}></Icon>
+			<EditBar>
+				{linkable ? (
+					<Button
+						variant="small"
+						icon={icon}
+						onClick={() => {
+							setLinked(!linked);
+						}}
+					></Button>
+				) : (
+					<Icon icon={icon}></Icon>
+				)}
+			</EditBar>
 			<EditFields>
-				{axes.map((axis) => (
+				{inputs.map((axis) => (
 					<li key={axis}>
 						<InputComponent
 							value={convertFrom(sceneTransformValue[axis])}
 							valueHandler={(value) => handleChange(axis, value)}
-							label={axis}
+							label={linked ? <Icon icon="link" /> : axis}
 							min={min}
 							max={max}
 							step={step}

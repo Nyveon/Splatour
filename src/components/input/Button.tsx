@@ -73,14 +73,14 @@ const variants = {
 type Variant = keyof typeof variants;
 
 interface ButtonProps {
-	label: string;
+	label?: string;
 	variant?: Variant;
 	icon?: FeatherIconNames;
 	onClick?: () => void;
 }
 
 export default function Button({
-	label,
+	label = "",
 	variant = "primary",
 	icon,
 	onClick,

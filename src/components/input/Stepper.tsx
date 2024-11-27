@@ -6,7 +6,7 @@ import { ReactNode } from "react";
 
 const StepperField = styled(Field)`
 	display: flex;
-	justify-content: space-around;
+	justify-content: space-between;
 	align-items: center;
 	gap: 0.5rem;
 `;
@@ -14,6 +14,8 @@ const StepperField = styled(Field)`
 const StepperLabel = styled(Label)`
 	color: ${color.textLight};
 	margin-right: 0.25rem;
+	width: 1.5rem;
+	text-align: center;
 `;
 
 const StepperInput = styled(Input)<React.ComponentProps<"input">>`

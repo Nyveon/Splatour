@@ -7,6 +7,7 @@ export default function SceneReset({ sceneId }: { sceneId: string }) {
 
 	return (
 		<Button
+			title="Reset the translation, rotation, and scale of the scene"
 			icon="refresh-cw"
 			variant="danger"
 			onClick={() => {

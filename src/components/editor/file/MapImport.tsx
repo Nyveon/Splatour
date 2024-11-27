@@ -7,7 +7,12 @@ export default function MapImport() {
 
 	return (
 		<>
-			<Button label="Upload" icon="upload" onClick={() => setModalOpen(true)} />
+			<Button
+				title="Import a map file"
+				label="Upload"
+				icon="upload"
+				onClick={() => setModalOpen(true)}
+			/>
 			<Modal
 				open={modalOpen}
 				handleClose={() => setModalOpen(false)}
@@ -15,7 +20,7 @@ export default function MapImport() {
 				description="Upload a GS3DMap JSON file to start editing"
 			>
 				<input type="file" id="fileInput" accept=".json" x-ref="fileInput" />
-				<Button label="Upload" />
+				<Button title="Confirm and upload" label="Upload" />
 			</Modal>
 		</>
 	);

@@ -76,6 +76,7 @@ export default function Stepper({
 			{label && <StepperLabel>{label}</StepperLabel>}
 
 			<Button
+				title="Decrement"
 				onClick={() => {
 					if (value - step >= min) {
 						valueHandler(value - step);
@@ -93,6 +94,7 @@ export default function Stepper({
 				step={step}
 			/>
 			<Button
+				title="Increment"
 				onClick={() => {
 					if (value + step <= max) {
 						valueHandler(value + step);

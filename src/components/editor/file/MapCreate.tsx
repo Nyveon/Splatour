@@ -8,5 +8,12 @@ function createBlankMap() {
 }
 
 export default function MapCreate() {
-	return <Button label="Create" icon="file-plus" onClick={createBlankMap} />;
+	return (
+		<Button
+			title="Create a new (blank) map"
+			label="Create"
+			icon="file-plus"
+			onClick={createBlankMap}
+		/>
+	);
 }

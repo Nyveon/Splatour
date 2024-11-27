@@ -78,6 +78,7 @@ const variants = {
 type Variant = keyof typeof variants;
 
 interface ButtonProps {
+	title: string;
 	label?: string;
 	variant?: Variant;
 	icon?: FeatherIconNames;
@@ -85,6 +86,7 @@ interface ButtonProps {
 }
 
 export default function Button({
+	title,
 	label = "",
 	variant = "primary",
 	icon,
@@ -93,7 +95,7 @@ export default function Button({
 	const ButtonComponent = variants[variant] || BaseStyledButton;
 
 	return (
-		<ButtonComponent onClick={onClick}>
+		<ButtonComponent onClick={onClick} title={title}>
 			{icon && <Icon icon={icon} />}
 			{label}
 		</ButtonComponent>

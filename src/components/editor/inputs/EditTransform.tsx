@@ -93,6 +93,7 @@ export default function EditTransform({
 			<EditBar>
 				{linkable ? (
 					<Button
+						title={`${linked ? "Unlink" : "Link"} axes`}
 						variant="small"
 						icon={icon}
 						onClick={() => {

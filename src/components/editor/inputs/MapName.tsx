@@ -34,6 +34,7 @@ export default function MapName() {
 				<NameHeader>{gsmapName}</NameHeader>
 			)}
 			<Button
+				title="Edit map name"
 				icon={editing ? "check" : "edit-3"}
 				variant="small"
 				onClick={() => setEditing(!editing)}

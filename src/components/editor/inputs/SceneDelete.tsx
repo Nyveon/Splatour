@@ -5,6 +5,7 @@ export default function SceneDelete({ sceneId }: { sceneId: string }) {
 	const setDeleteScene = useGSStore((state) => state.setDeleteScene);
 	return (
 		<Button
+			title="Delete the scene from the map"
 			icon="trash"
 			variant="danger"
 			onClick={() => {

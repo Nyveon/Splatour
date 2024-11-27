@@ -91,6 +91,7 @@ export default function SceneCard({
 						<SceneDelete sceneId={sceneId} />
 						<SceneReset sceneId={sceneId} />
 						<Button
+							title="Minimize scene details"
 							icon="minimize-2"
 							variant="primary"
 							onClick={() => handleSelected(null)}

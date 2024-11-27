@@ -14,5 +14,12 @@ function downloadMap() {
 }
 
 export default function MapExport() {
-	return <Button label="Export" icon="download" onClick={downloadMap} />;
+	return (
+		<Button
+			title="Export the map as a .json file"
+			label="Export"
+			icon="download"
+			onClick={downloadMap}
+		/>
+	);
 }

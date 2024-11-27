@@ -25,21 +25,17 @@ export default function Sidebar() {
 		<>
 			<ul>
 				{sceneIds.map((sceneId) => (
-					<SceneListItem
-						key={sceneId}
-					>
+					<SceneListItem key={sceneId}>
 						<SceneCard
 							sceneId={sceneId}
 							selected={selectedSceneId === sceneId}
-                            handleSelected={
-                                setSelectedSceneId
-    }
+							handleSelected={setSelectedSceneId}
 						/>
 					</SceneListItem>
 				))}
 
 				<SceneListItem>
-					<Button label="test" />
+					<Button title="Add new scene" label="test" />
 				</SceneListItem>
 			</ul>
 		</>

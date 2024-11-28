@@ -14,19 +14,36 @@ const ModalWrapper = styled(Dialog)`
 const ModalOverlay = styled.div`
 	display: grid;
 	place-items: center;
+	z-index: 10000000;
 
 	min-height: 100vh;
 	height: 100%;
 	position: fixed;
 	inset: 0;
 
-	background-color: rgba(0, 0, 0, 0.1);
+	background-color: rgba(0, 0, 0, 0.5);
+	backdrop-filter: blur(2px);
 `;
 
 const ModalPanel = styled(DialogPanel)`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 1rem;
+
 	background-color: ${color.backgroundLight};
 	padding: 1rem;
 	border-radius: 0.5rem;
+`;
+
+const ModalTitle = styled(DialogTitle)`
+	padding: 0;
+	margin: 0;
+`;
+
+const ModalDescription = styled(Description)`
+	padding: 0;
+	margin: 0;
 `;
 
 interface ModalProps {
@@ -48,8 +65,8 @@ export default function Modal({
 		<ModalWrapper open={open} onClose={handleClose}>
 			<ModalOverlay>
 				<ModalPanel>
-					<DialogTitle>{title}</DialogTitle>
-					<Description>{description}</Description>
+					<ModalTitle>{title}</ModalTitle>
+					<ModalDescription>{description}</ModalDescription>
 					{children}
 				</ModalPanel>
 			</ModalOverlay>

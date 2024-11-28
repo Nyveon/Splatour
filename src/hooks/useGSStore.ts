@@ -9,6 +9,7 @@ interface SceneState {
 	setGSMap: (transform: Partial<GSMap>) => void;
 	setSceneTransform: (sceneId: string, transform: Partial<GSScene>) => void;
 	setDeleteScene: (sceneId: string) => void;
+	setAddScene: (scene: GSScene) => void;
 }
 
 const initialGSMap = gsmDeserializeObjectJSON(testmap);
@@ -30,6 +31,10 @@ export const useGSStore = create<SceneState>()(
 		setDeleteScene: (sceneId) =>
 			set((state) => {
 				delete state.gsmap.scenes[sceneId];
+			}),
+		setAddScene: (scene: GSScene) =>
+			set((state) => {
+				state.gsmap.scenes[scene.id] = scene;
 			}),
 	}))
 );

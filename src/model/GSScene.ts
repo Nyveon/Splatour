@@ -1,22 +1,28 @@
-import { DropInViewer } from "@mkkellogg/gaussian-splats-3d";
+import { DropInViewer, SplatBuffer } from "@mkkellogg/gaussian-splats-3d";
 import * as THREE from "three";
+
+interface Vec3 {
+	x: number;
+	y: number;
+	z: number;
+}
 
 export interface SerialGSScene {
 	filePath: string;
 	name: string;
-	scale: { x: number; y: number; z: number };
-	rotation: { x: number; y: number; z: number };
-	position: { x: number; y: number; z: number };
+	scale: Vec3;
+	rotation: Vec3;
+	position: Vec3;
 }
 
 export interface GSScene {
 	id: string;
 	filePath: string;
 	name: string;
-	scale: { x: number; y: number; z: number };
-	rotation: { x: number; y: number; z: number };
-	position: { x: number; y: number; z: number };
-	container: THREE.Group;
+	scale: Vec3;
+	rotation: Vec3;
+	position: Vec3;
+	buffer?: SplatBuffer;
 }
 
 export const gssResetTransform = {
@@ -33,16 +39,16 @@ export function gssCreate(filePath: string, name: string): GSScene {
 		scale: { x: 1, y: 1, z: 1 },
 		rotation: { x: 0, y: 0, z: 0 },
 		position: { x: 0, y: 0, z: 0 },
-		container: new THREE.Group(),
 	};
 }
 
-export function gssGetOptions(scene: GSScene) {
-	return {
-		scale: [scene.scale.x, scene.scale.y, scene.scale.z],
-		rotation: [scene.rotation.x, scene.rotation.y, scene.rotation.z],
-		position: [scene.position.x, scene.position.y, scene.position.z],
-	};
+export function gssCreateBuffer(
+	fileName: string,
+	buffer: SplatBuffer
+): GSScene {
+	const scene = gssCreate(fileName, fileName);
+	scene.buffer = buffer;
+	return scene;
 }
 
 export function gssDeserialize(scene: SerialGSScene): GSScene {
@@ -64,14 +70,19 @@ export function gssSerialize(scene: GSScene): SerialGSScene {
 }
 
 function gssUpdateTransform(container: THREE.Object3D, scene: GSScene) {
+	console.log("updating transform", container, scene);
 	container.position.set(scene.position.x, scene.position.y, scene.position.z);
 	container.rotation.set(scene.rotation.x, scene.rotation.y, scene.rotation.z);
 	container.scale.set(scene.scale.x, scene.scale.y, scene.scale.z);
+	container.updateMatrix();
+	container.updateMatrixWorld(true);
 }
 
 export function gssUpdateTransforms(viewer: DropInViewer, scenes: GSScene[]) {
+	console.log("GSS: Update Transforms", scenes);
 	scenes.forEach((scene, index) => {
-		const sceneContainer = viewer.getSplatScene(index).parent;
+		const sceneContainer = viewer.getSplatScene(index);
+		console.log(sceneContainer);
 
 		if (!sceneContainer) {
 			console.error("sceneContainer is null");
@@ -79,5 +90,6 @@ export function gssUpdateTransforms(viewer: DropInViewer, scenes: GSScene[]) {
 		}
 
 		gssUpdateTransform(sceneContainer, scene);
+		gssUpdateTransform(sceneContainer.parent, scene);
 	});
 }

@@ -1,7 +1,7 @@
 import JoystickControls from "@/components/viewer/controls/JoystickControls";
 import Player from "@/components/viewer/controls/Player";
 import { PointerLockControls } from "@/components/viewer/controls/PointerLockControls";
-import GSViewer from "@/components/viewer/GSViewer";
+import GS3DViewer from "@/components/viewer/GS3DViewer";
 import DebugUtils from "@/components/viewer/interface/DebugUtils";
 import Ambient from "@/components/viewer/world/Ambient";
 import { KeyMap } from "@/utils/constants";
@@ -10,6 +10,7 @@ import { KeyboardControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { useRef } from "react";
 import { PointerLockControls as PointerLockControlsImpl } from "three-stdlib";
+import GSM from "./GSM";
 
 const ViewerContainer = styled.div`
 	position: relative;
@@ -36,8 +37,6 @@ export default function Viewer() {
 		}
 	}
 
-	console.log("viewer");
-
 	return (
 		<ViewerContainer ref={viewerContainerRef} id="#viewer">
 			<KeyboardControls map={KeyMap}>
@@ -51,7 +50,7 @@ export default function Viewer() {
 
 					<Ambient />
 					<DebugUtils viewerContainerRef={viewerContainerRef} />
-					<GSViewer />
+					<GS3DViewer />
 				</Canvas>
 			</KeyboardControls>
 			<JoystickControls />

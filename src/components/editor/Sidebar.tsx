@@ -1,5 +1,5 @@
+import NewScene from "@/components/editor/NewScene";
 import SceneCard from "@/components/editor/SceneCard";
-import Button from "@/components/input/Button";
 import { useGSStore } from "@/hooks/useGSStore";
 import styled from "@emotion/styled";
 import { useState } from "react";
@@ -8,8 +8,9 @@ import { useShallow } from "zustand/react/shallow";
 const SceneListItem = styled.li`
 	display: flex;
 	flex-direction: column;
-	gap: 1rem;
+	align-items: center;
 
+	gap: 1rem;
 	margin: 1rem;
 `;
 
@@ -18,8 +19,6 @@ export default function Sidebar() {
 	const sceneIds = useGSStore(
 		useShallow((state) => Object.keys(state.gsmap.scenes))
 	);
-
-	console.log("sidebar");
 
 	return (
 		<>
@@ -35,7 +34,7 @@ export default function Sidebar() {
 				))}
 
 				<SceneListItem>
-					<Button title="Add new scene" label="test" />
+					<NewScene />
 				</SceneListItem>
 			</ul>
 		</>

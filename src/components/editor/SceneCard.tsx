@@ -16,6 +16,8 @@ const BaseSceneCard = styled.div`
 `;
 
 const ClosedSceneCard = styled(BaseSceneCard)`
+	width: 100%;
+
 	border: thin solid ${color.borderHalf};
 
 	&:hover {
@@ -31,6 +33,7 @@ const SceneDetails = styled.ul`
 
 const SceneItem = styled.li`
 	display: flex;
+	align-items: center;
 	gap: 0.5rem;
 	width: 100%;
 	padding-block: 0.5rem;
@@ -45,6 +48,7 @@ const SceneItem = styled.li`
 const BottomBar = styled(SceneItem)`
 	border-bottom: none;
 	justify-content: space-around;
+	align-items: space-around;
 	padding-bottom: 0;
 	padding-inline: 2rem;
 `;
@@ -64,8 +68,6 @@ export default function SceneCard({
 }) {
 	const sceneName = useGSStore((state) => state.gsmap.scenes[sceneId].name);
 	const sceneFile = useGSStore((state) => state.gsmap.scenes[sceneId].filePath);
-
-	console.log("scenecard" + sceneId);
 
 	if (selected) {
 		return (

@@ -20,7 +20,7 @@ export default function MapImport() {
 				description="Upload a GS3DMap JSON file to start editing"
 			>
 				<input type="file" id="fileInput" accept=".json" x-ref="fileInput" />
-				<Button title="Confirm and upload" label="Upload" />
+				<Button title="Confirm and upload" icon="upload" label="Upload" />
 			</Modal>
 		</>
 	);

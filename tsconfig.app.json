@@ -24,7 +24,7 @@
     "noUncheckedSideEffectImports": true,
     "useUnknownInCatchVariables": false,
 
-    "types": ["vite/client"],
+    "types": ["vite/client", "@types/wicg-file-system-access"],
 
     "baseUrl": ".",
     "paths": {

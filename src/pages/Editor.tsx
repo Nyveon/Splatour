@@ -29,6 +29,7 @@ const s = {
 		gap: 1rem;
 
 		width: 16rem;
+		min-width: 16rem;
 		height: 100%;
 
 		border: 1px solid black;

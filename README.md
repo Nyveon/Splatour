@@ -33,16 +33,16 @@
 
 Currently deployed at: <https://thesis.eri.cl>
 
-Install:
+1. Install
+2. Run local
+3. Build
+4. Run preview
 
 ```bash
 npm install
-```
-
-Run:
-
-```bash
 npm run dev
+npm run build
+npm run preview
 ```
 
 ## Other Resources

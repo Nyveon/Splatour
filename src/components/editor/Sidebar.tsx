@@ -1,4 +1,4 @@
-import NewScene from "@/components/editor/scenes/NewScene";
+import NewScene from "@/components/editor/scenes/manage/NewScene";
 import SceneCard from "@/components/editor/scenes/SceneCard";
 import { useGSStore } from "@/hooks/useGSStore";
 import styled from "@emotion/styled";

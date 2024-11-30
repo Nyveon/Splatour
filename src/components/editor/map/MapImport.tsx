@@ -4,6 +4,7 @@ import Modal from "@/components/Modal";
 import { useGSStore } from "@/hooks/useGSStore";
 import { gsmDeserializeStringJSON } from "@/model/GSMap";
 import { fileToSplatBuffer } from "@/model/GSScene";
+import { getAllFiles } from "@/utils/filesystem";
 import { useState } from "react";
 
 /*
@@ -22,15 +23,8 @@ export default function MapImport() {
 	const handleDirectorySelect = async (
 		directoryHandle: FileSystemDirectoryHandle
 	) => {
-		const promises = [];
-		for await (const entry of directoryHandle.values()) {
-			if (entry.kind !== "file") {
-				continue;
-			}
-			promises.push(entry.getFile());
-		}
+		const files = await getAllFiles(directoryHandle);
 
-		const files = await Promise.all(promises);
 		const jsonFiles = files.filter((file) => file.name.endsWith(".json"));
 
 		if (jsonFiles.length < 1) {
@@ -81,8 +75,9 @@ export default function MapImport() {
 			}
 		}
 
-		console.log("Loaded GSMap");
+		gsmap.directoryHandle = directoryHandle;
 		setGSMap(gsmap);
+		console.log("Loaded GSMap");
 
 		setModalOpen(false);
 	};

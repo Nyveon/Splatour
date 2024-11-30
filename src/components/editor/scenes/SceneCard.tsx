@@ -1,9 +1,9 @@
+import SceneDelete from "@/components/editor/scenes/manage/SceneDelete";
 import EditRotation from "@/components/editor/scenes/properties/EditRotation";
 import EditScale from "@/components/editor/scenes/properties/EditScale";
 import EditTranslation from "@/components/editor/scenes/properties/EditTranslation";
 import SceneName from "@/components/editor/scenes/properties/SceneName";
-import SceneDelete from "@/components/editor/scenes/SceneDelete";
-import SceneReset from "@/components/editor/scenes/SceneReset";
+import SceneReset from "@/components/editor/scenes/properties/SceneReset";
 import Icon from "@/components/Icon";
 import Button from "@/components/input/Button";
 import { useGSStore } from "@/hooks/useGSStore";
@@ -109,7 +109,7 @@ export default function SceneCard({
 						<EditRotation sceneId={sceneId} />
 					</SceneItem>
 					<SceneItem>
-						<ChildList sceneId={sceneId} />
+						<ChildList />
 					</SceneItem>
 				</SceneDetails>
 			</BaseSceneCard>

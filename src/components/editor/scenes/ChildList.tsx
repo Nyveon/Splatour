@@ -14,6 +14,7 @@ const ListItem = styled.li`
 	gap: 0.5rem;
 `;
 
+//todo: sceneId Prop
 export default function ChildList() {
 	return (
 		<List>

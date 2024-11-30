@@ -1,9 +1,8 @@
 import { useGSStore } from "@/hooks/useGSStore";
 import * as GaussianSplats3D from "@mkkellogg/gaussian-splats-3d";
 import { useEffect, useState } from "react";
-import { useShallow } from "zustand/shallow";
 
-function Scene({ sceneId }: { sceneId: string }) {
+export default function GSViewer({ sceneId }: { sceneId: string }) {
 	const [viewer, setViewer] = useState<GaussianSplats3D.DropInViewer | null>();
 	const scenePosition = useGSStore(
 		(state) => state.gsmap.scenes[sceneId].position
@@ -17,22 +16,18 @@ function Scene({ sceneId }: { sceneId: string }) {
 
 	useEffect(() => {
 		const viewer = new GaussianSplats3D.DropInViewer({
-			// gpuAcceleratedSort: true,
 			sharedMemoryForWorkers: true,
-			renderMode: 1,
-			dynamicScene: false, //todo: should not be dynamic for exported viewer
-			splatSortDistanceMapPrecision: 4,
-			halfPrecisionCovariancesOnGPU: true,
+			// todo: https://github.com/mkkellogg/GaussianSplats3D/issues/380
+			dynamicScene: false,
+			sceneFadeInRateMultiplier: 100,
 		});
 		console.log("Vh1: Viewer created");
 		setViewer(viewer);
 
 		const scene = useGSStore.getState().gsmap.scenes[sceneId];
 
-		console.log(scene);
-
 		const defaultOptions = {
-			showLoadingUI: false,
+			showLoadingUI: true,
 			splatAlphaRemovalThreshold: 20,
 		};
 
@@ -47,14 +42,6 @@ function Scene({ sceneId }: { sceneId: string }) {
 			.catch((err) => {
 				console.error(err);
 			});
-
-		// if (scene.buffer) {
-		// 	viewer.viewer.addSplatBuffers([scene.buffer], [defaultOptions]).catch((err)=> {console.error(err)});
-		// } else {
-		// 	viewer.addSplatScene(scene.filePath, defaultOptions).catch((err)=> {console.error(err)});
-		// }
-
-		console.log(viewer);
 
 		return () => {
 			console.log("Vh1: Viewer disposal begin");
@@ -78,21 +65,5 @@ function Scene({ sceneId }: { sceneId: string }) {
 		>
 			{viewer && <primitive object={viewer} />}
 		</group>
-	);
-}
-
-export default function GSM() {
-	console.log("M: RE");
-
-	const sceneIds = useGSStore(
-		useShallow((state) => Object.keys(state.gsmap.scenes))
-	);
-
-	return (
-		<>
-			{sceneIds.map((sceneId) => {
-				return <Scene key={sceneId} sceneId={sceneId} />;
-			})}
-		</>
 	);
 }

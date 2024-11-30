@@ -7,41 +7,36 @@ import { useState } from "react";
 import FileSelector from "../input/FileSelector";
 
 function fileBufferToSplatBuffer(
-	fileBufferData,
-	format,
-	alphaRemovalThreshold,
-	compressionLevel,
-	sectionSize,
-	sceneCenter,
-	blockSize,
-	bucketSize,
-	outSphericalHarmonicsDegree = 0
+	fileBufferData: ArrayBuffer,
+	format: GaussianSplats3D.SceneFormat
 ): Promise<GaussianSplats3D.SplatBuffer> {
 	if (format === GaussianSplats3D.SceneFormat.Ply) {
-		return GaussianSplats3D.PlyLoader.loadFromFileData(
-			fileBufferData.data,
-			alphaRemovalThreshold,
-			compressionLevel,
-			true,
-			outSphericalHarmonicsDegree,
-			sectionSize,
-			sceneCenter,
-			blockSize,
-			bucketSize
-		);
+		throw new Error("Not yet implement, try with .ksplat");
+		// return GaussianSplats3D.PlyLoader.loadFromFileData(
+		// 	fileBufferData.data,
+		// 	alphaRemovalThreshold,
+		// 	compressionLevel,
+		// 	true,
+		// 	outSphericalHarmonicsDegree,
+		// 	sectionSize,
+		// 	sceneCenter,
+		// 	blockSize,
+		// 	bucketSize
+		// );
 	} else if (format === GaussianSplats3D.SceneFormat.Splat) {
-		return GaussianSplats3D.SplatLoader.loadFromFileData(
-			fileBufferData.data,
-			alphaRemovalThreshold,
-			compressionLevel,
-			true,
-			sectionSize,
-			sceneCenter,
-			blockSize,
-			bucketSize
-		);
+		throw new Error("Not yet implement, try with .ksplat");
+		// return GaussianSplats3D.SplatLoader.loadFromFileData(
+		// 	fileBufferData.data,
+		// 	alphaRemovalThreshold,
+		// 	compressionLevel,
+		// 	true,
+		// 	sectionSize,
+		// 	sceneCenter,
+		// 	blockSize,
+		// 	bucketSize
+		// );
 	} else if (format === GaussianSplats3D.SceneFormat.KSplat) {
-		return GaussianSplats3D.KSplatLoader.loadFromFileData(fileBufferData.data);
+		return GaussianSplats3D.KSplatLoader.loadFromFileData(fileBufferData);
 	}
 	throw new Error("Invalid format");
 }
@@ -61,21 +56,9 @@ export default function NewScene() {
 				return;
 			}
 
-			const alphaRemovalThreshold = 20;
-
 			const fileData = await file.arrayBuffer();
 
-			const splatBufferPromise = fileBufferToSplatBuffer(
-				{ data: fileData },
-				format,
-				alphaRemovalThreshold,
-				0,
-				undefined,
-				undefined,
-				undefined,
-				undefined,
-				0
-			);
+			const splatBufferPromise = fileBufferToSplatBuffer(fileData, format);
 
 			const splatBuffer = await splatBufferPromise;
 
@@ -122,7 +105,6 @@ export default function NewScene() {
 						],
 					}}
 				/>
-				<Button title="Confirm and upload" icon="upload" label="Upload" />
 			</Modal>
 		</>
 	);

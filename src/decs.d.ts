@@ -34,6 +34,7 @@ declare module "@mkkellogg/gaussian-splats-3d" {
 		sharedMemoryForWorkers?: boolean;
 		logLevel?: number;
 		dynamicScene?: boolean;
+		sceneFadeInRateMultiplier?: number;
 	}
 
 	export enum SceneFormat {
@@ -49,4 +50,24 @@ declare module "@mkkellogg/gaussian-splats-3d" {
 	}
 
 	export class SplatBuffer {}
+
+
+    // static loadFromFileData(splatFileData, minimumAlpha, compressionLevel, optimizeSplatData,
+    // sectionSize, sceneCenter, blockSize, bucketSize)
+    export class SplatLoader {
+        static loadFromFileData(
+            splatFileData: ArrayBuffer,
+            minimumAlpha: number,
+            compressionLevel: number,
+            optimizeSplatData: boolean,
+            sectionSize: number,
+            sceneCenter: THREE.Vector3,
+            blockSize: number,
+            bucketSize: number
+        ): Promise<SplatBuffer>;
+    }
+
+    export class KSplatLoader {
+        static loadFromFileData(data: ArrayBuffer): Promise<SplatBuffer>;
+    }
 }

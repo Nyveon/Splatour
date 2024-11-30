@@ -13,7 +13,7 @@ export interface SettingsState {
 }
 
 export const useSettingsStore = create<SettingsState>((set) => ({
-	debug: true, //todo: change this to default to false
+	debug: false,
 	setDebug: (debug) => set({ debug }),
 	mobileDebug: false,
 	setMobileDebug: (mobileDebug) => set({ mobileDebug }),

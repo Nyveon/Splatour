@@ -1,5 +1,4 @@
-import testmap from "@/assets/maps/test2.json";
-import { GSMap, gsmDeserializeObjectJSON } from "@/model/GSMap";
+import { GSMap, gsmCreateEmpty } from "@/model/GSMap";
 import { GSScene } from "@/model/GSScene";
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
@@ -12,7 +11,7 @@ interface SceneState {
 	setAddScene: (scene: GSScene) => void;
 }
 
-const initialGSMap = gsmDeserializeObjectJSON(testmap);
+const initialGSMap = gsmCreateEmpty();
 
 export const useGSStore = create<SceneState>()(
 	immer((set) => ({

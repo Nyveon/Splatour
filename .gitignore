@@ -28,3 +28,4 @@ dist-ssr
 *.splat
 *.ksplat
 !garden.ksplat
+!converted_file.ksplat

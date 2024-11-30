@@ -1,4 +1,4 @@
-import EditTransform from "@/components/editor/scenes/EditTransform";
+import EditTransform from "@/components/editor/scenes/properties/EditTransform";
 
 export default function EditScale({ sceneId }: { sceneId: string }) {
 	return (

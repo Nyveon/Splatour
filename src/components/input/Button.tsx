@@ -38,6 +38,7 @@ const variants = {
 			background-color: ${color.primaryLight};
 		}
 	`,
+
 	danger: styled(BaseStyledButton)`
 		background-color: ${color.danger};
 
@@ -45,6 +46,13 @@ const variants = {
 			background-color: ${color.dangerLight};
 		}
 	`,
+
+	disabled: styled(BaseStyledButton)`
+		background-color: ${color.backgroundMedium};
+		color: ${color.textDisabled};
+		cursor: not-allowed;
+	`,
+
 	small: styled(BaseStyledButton)`
 		display: flex;
 		justify-content: center;

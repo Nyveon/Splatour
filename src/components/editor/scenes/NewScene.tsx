@@ -1,10 +1,10 @@
 import Button from "@/components/input/Button";
+import FileSelector from "@/components/input/FileSelector";
 import Modal from "@/components/Modal";
 import { useGSStore } from "@/hooks/useGSStore";
 import { gssCreateBuffer } from "@/model/GSScene";
 import * as GaussianSplats3D from "@mkkellogg/gaussian-splats-3d";
 import { useState } from "react";
-import FileSelector from "../input/FileSelector";
 
 function fileBufferToSplatBuffer(
 	fileBufferData: ArrayBuffer,

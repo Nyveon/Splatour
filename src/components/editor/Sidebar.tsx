@@ -1,5 +1,5 @@
-import NewScene from "@/components/editor/NewScene";
-import SceneCard from "@/components/editor/SceneCard";
+import NewScene from "@/components/editor/scenes/NewScene";
+import SceneCard from "@/components/editor/scenes/SceneCard";
 import { useGSStore } from "@/hooks/useGSStore";
 import styled from "@emotion/styled";
 import { useState } from "react";

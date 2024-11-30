@@ -1,14 +1,15 @@
-import Icon from "@/components/Icon";
-import EditRotation from "@/components/editor/scenes/EditRotation";
-import EditScale from "@/components/editor/scenes/EditScale";
-import EditTranslation from "@/components/editor/scenes/EditTranslation";
+import EditRotation from "@/components/editor/scenes/properties/EditRotation";
+import EditScale from "@/components/editor/scenes/properties/EditScale";
+import EditTranslation from "@/components/editor/scenes/properties/EditTranslation";
+import SceneName from "@/components/editor/scenes/properties/SceneName";
 import SceneDelete from "@/components/editor/scenes/SceneDelete";
-import SceneName from "@/components/editor/scenes/SceneName";
 import SceneReset from "@/components/editor/scenes/SceneReset";
+import Icon from "@/components/Icon";
 import Button from "@/components/input/Button";
 import { useGSStore } from "@/hooks/useGSStore";
 import { color } from "@/utils/theme";
 import styled from "@emotion/styled";
+import ChildList from "./ChildList";
 
 const BaseSceneCard = styled.div`
 	border: thin solid ${color.border};
@@ -43,14 +44,16 @@ const SceneItem = styled.li`
 		width: 1rem;
 		height: 1rem;
 	}
+
+	&:last-child {
+		border-bottom: none;
+		padding-bottom: 0;
+	}
 `;
 
-const BottomBar = styled(SceneItem)`
-	border-bottom: none;
+const ButtonBar = styled(SceneItem)`
 	justify-content: space-around;
 	align-items: space-around;
-	padding-bottom: 0;
-	padding-inline: 2rem;
 `;
 
 const Uneditable = styled.span`
@@ -76,6 +79,22 @@ export default function SceneCard({
 					<SceneItem>
 						<SceneName sceneId={sceneId} />
 					</SceneItem>
+					<ButtonBar>
+						<SceneDelete sceneId={sceneId} />
+						<SceneReset sceneId={sceneId} />
+						<Button
+							title="Teleport to center"
+							icon="target"
+							variant="disabled"
+						/>
+						<Button title="Toggle visibility" icon="eye" variant="disabled" />
+						<Button
+							title="Minimize scene details"
+							icon="minimize-2"
+							variant="primary"
+							onClick={() => handleSelected(null)}
+						/>
+					</ButtonBar>
 					<SceneItem>
 						<Icon icon="file" />
 						<Uneditable>{sceneFile}</Uneditable>
@@ -89,16 +108,9 @@ export default function SceneCard({
 					<SceneItem>
 						<EditRotation sceneId={sceneId} />
 					</SceneItem>
-					<BottomBar>
-						<SceneDelete sceneId={sceneId} />
-						<SceneReset sceneId={sceneId} />
-						<Button
-							title="Minimize scene details"
-							icon="minimize-2"
-							variant="primary"
-							onClick={() => handleSelected(null)}
-						/>
-					</BottomBar>
+					<SceneItem>
+						<ChildList sceneId={sceneId} />
+					</SceneItem>
 				</SceneDetails>
 			</BaseSceneCard>
 		);

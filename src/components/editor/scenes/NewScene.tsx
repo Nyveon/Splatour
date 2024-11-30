@@ -2,44 +2,8 @@ import Button from "@/components/input/Button";
 import FileSelector from "@/components/input/FileSelector";
 import Modal from "@/components/Modal";
 import { useGSStore } from "@/hooks/useGSStore";
-import { gssCreateBuffer } from "@/model/GSScene";
-import * as GaussianSplats3D from "@mkkellogg/gaussian-splats-3d";
+import { fileToSplatBuffer, gssCreateBuffer } from "@/model/GSScene";
 import { useState } from "react";
-
-function fileBufferToSplatBuffer(
-	fileBufferData: ArrayBuffer,
-	format: GaussianSplats3D.SceneFormat
-): Promise<GaussianSplats3D.SplatBuffer> {
-	if (format === GaussianSplats3D.SceneFormat.Ply) {
-		throw new Error("Not yet implement, try with .ksplat");
-		// return GaussianSplats3D.PlyLoader.loadFromFileData(
-		// 	fileBufferData.data,
-		// 	alphaRemovalThreshold,
-		// 	compressionLevel,
-		// 	true,
-		// 	outSphericalHarmonicsDegree,
-		// 	sectionSize,
-		// 	sceneCenter,
-		// 	blockSize,
-		// 	bucketSize
-		// );
-	} else if (format === GaussianSplats3D.SceneFormat.Splat) {
-		throw new Error("Not yet implement, try with .ksplat");
-		// return GaussianSplats3D.SplatLoader.loadFromFileData(
-		// 	fileBufferData.data,
-		// 	alphaRemovalThreshold,
-		// 	compressionLevel,
-		// 	true,
-		// 	sectionSize,
-		// 	sceneCenter,
-		// 	blockSize,
-		// 	bucketSize
-		// );
-	} else if (format === GaussianSplats3D.SceneFormat.KSplat) {
-		return GaussianSplats3D.KSplatLoader.loadFromFileData(fileBufferData);
-	}
-	throw new Error("Invalid format");
-}
 
 export default function NewScene() {
 	const [modalOpen, setModalOpen] = useState(false);
@@ -47,22 +11,9 @@ export default function NewScene() {
 
 	const handleSplatSelect = async (file: File) => {
 		try {
-			const fileName = file.name;
-			const format = GaussianSplats3D.LoaderUtils.sceneFormatFromPath(fileName);
+			const splatBuffer = await fileToSplatBuffer(file);
 
-			if (!format) {
-				//todo: toast
-				console.error("Invalid file format");
-				return;
-			}
-
-			const fileData = await file.arrayBuffer();
-
-			const splatBufferPromise = fileBufferToSplatBuffer(fileData, format);
-
-			const splatBuffer = await splatBufferPromise;
-
-			const newGss = gssCreateBuffer(fileName, splatBuffer);
+			const newGss = gssCreateBuffer(file.name, splatBuffer);
 
 			setAddScene(newGss);
 

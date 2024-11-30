@@ -1,5 +1,4 @@
-import { DropInViewer, SplatBuffer } from "@mkkellogg/gaussian-splats-3d";
-import * as THREE from "three";
+import * as GaussianSplats3D from "@mkkellogg/gaussian-splats-3d";
 
 interface Vec3 {
 	x: number;
@@ -22,7 +21,7 @@ export interface GSScene {
 	scale: Vec3;
 	rotation: Vec3;
 	position: Vec3;
-	buffer?: SplatBuffer;
+	buffer?: GaussianSplats3D.SplatBuffer;
 }
 
 export const gssResetTransform = {
@@ -44,7 +43,7 @@ export function gssCreate(filePath: string, name: string): GSScene {
 
 export function gssCreateBuffer(
 	fileName: string,
-	buffer: SplatBuffer
+	buffer: GaussianSplats3D.SplatBuffer
 ): GSScene {
 	const scene = gssCreate(fileName, fileName);
 	scene.buffer = buffer;
@@ -69,27 +68,56 @@ export function gssSerialize(scene: GSScene): SerialGSScene {
 	};
 }
 
-function gssUpdateTransform(container: THREE.Object3D, scene: GSScene) {
-	console.log("updating transform", container, scene);
-	container.position.set(scene.position.x, scene.position.y, scene.position.z);
-	container.rotation.set(scene.rotation.x, scene.rotation.y, scene.rotation.z);
-	container.scale.set(scene.scale.x, scene.scale.y, scene.scale.z);
-	container.updateMatrix();
-	container.updateMatrixWorld(true);
+/**
+ * Turns a ply/splat/ksplat file into a loaded splat buffer
+ * ! .ply and .splat are currently disabled
+ * @param fileBufferData of the file
+ * @param format GS3D format of the file
+ * @returns Promise of the loaded splat buffer
+ */
+export async function fileToSplatBuffer(file: File) {
+	const fileName = file.name;
+	const format = GaussianSplats3D.LoaderUtils.sceneFormatFromPath(fileName);
+
+	if (!format) {
+		throw new Error("Invalid file format");
+	}
+
+	const fileData = await file.arrayBuffer();
+	return fileBufferToSplatBuffer(fileData, format);
 }
 
-export function gssUpdateTransforms(viewer: DropInViewer, scenes: GSScene[]) {
-	console.log("GSS: Update Transforms", scenes);
-	scenes.forEach((scene, index) => {
-		const sceneContainer = viewer.getSplatScene(index);
-		console.log(sceneContainer);
-
-		if (!sceneContainer) {
-			console.error("sceneContainer is null");
-			return;
-		}
-
-		gssUpdateTransform(sceneContainer, scene);
-		gssUpdateTransform(sceneContainer.parent, scene);
-	});
+function fileBufferToSplatBuffer(
+	fileBufferData: ArrayBuffer,
+	format: GaussianSplats3D.SceneFormatType
+): Promise<GaussianSplats3D.SplatBuffer> {
+	if (format === GaussianSplats3D.SceneFormat.Ply) {
+		throw new Error("Not yet implement, try with .ksplat");
+		// return GaussianSplats3D.PlyLoader.loadFromFileData(
+		// 	fileBufferData.data,
+		// 	alphaRemovalThreshold,
+		// 	compressionLevel,
+		// 	true,
+		// 	outSphericalHarmonicsDegree,
+		// 	sectionSize,
+		// 	sceneCenter,
+		// 	blockSize,
+		// 	bucketSize
+		// );
+	} else if (format === GaussianSplats3D.SceneFormat.Splat) {
+		throw new Error("Not yet implement, try with .ksplat");
+		// return GaussianSplats3D.SplatLoader.loadFromFileData(
+		// 	fileBufferData.data,
+		// 	alphaRemovalThreshold,
+		// 	compressionLevel,
+		// 	true,
+		// 	sectionSize,
+		// 	sceneCenter,
+		// 	blockSize,
+		// 	bucketSize
+		// );
+	} else if (format === GaussianSplats3D.SceneFormat.KSplat) {
+		return GaussianSplats3D.KSplatLoader.loadFromFileData(fileBufferData);
+	}
+	throw new Error("Invalid file format");
 }

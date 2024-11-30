@@ -17,6 +17,7 @@ export interface SerialGSMap {
 export interface GSMap {
 	name: string;
 	scenes: Record<string, GSScene>;
+	local?: boolean;
 }
 
 export function gsmDeserializeStringJSON(jsonString: string): GSMap {

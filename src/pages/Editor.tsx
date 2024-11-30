@@ -84,7 +84,7 @@ export default function Editor() {
 						zIndex: 100,
 					}}
 				>
-					Warning: Firefox filesystem support has potential issues
+					Warning: Firefox not supported for directory operations
 				</span>
 			)}
 			<s.header>

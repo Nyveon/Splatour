@@ -7,12 +7,14 @@ function createBlankMap() {
 	useGSStore.setState({ gsmap: newMap });
 }
 
+//todo: re-do this to require a folder
 export default function MapCreate() {
 	return (
 		<Button
 			title="Create a new (blank) map"
 			label="Create"
 			icon="file-plus"
+			variant="disabled"
 			onClick={createBlankMap}
 		/>
 	);

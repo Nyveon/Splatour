@@ -103,7 +103,11 @@ export default function Button({
 	const ButtonComponent = variants[variant] || BaseStyledButton;
 
 	return (
-		<ButtonComponent onClick={onClick} title={title}>
+		<ButtonComponent
+			onClick={onClick}
+			title={title}
+			disabled={variant === "disabled"}
+		>
 			{icon && <Icon icon={icon} />}
 			{label}
 		</ButtonComponent>

@@ -87,7 +87,7 @@ export default function MapImport() {
 			<Button
 				title="Import a map file"
 				icon="upload"
-				label="Upload"
+				label="Import"
 				onClick={() => setModalOpen(true)}
 			/>
 			<Modal

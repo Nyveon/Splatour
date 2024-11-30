@@ -25,9 +25,11 @@ export default function App() {
 
 					body {
 						margin: 0;
+						padding: 0;
+
 						width: 100vw;
 						max-width: 100%;
-						height: 100vh;
+						height: 100dvh;
 						max-height: 100%;
 
 						text-align: center;

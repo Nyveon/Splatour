@@ -1,4 +1,4 @@
-import mapUrl from "../assets/maps/test3.json?url";
+import mapUrl from "../assets/maps/mobile.json?url";
 import Viewer from "../components/viewer/Viewer";
 import useFetchGSMap from "../hooks/useFetchGSMap";
 
@@ -9,7 +9,6 @@ export default function Preview() {
 
 	if (error) return <h1>Error: {error.message}</h1>;
 
-	//todo: fix this
 	return (
 		<>
 			<Viewer />

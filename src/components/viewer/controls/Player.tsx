@@ -5,7 +5,7 @@ import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 
 const walkSpeed = 5;
-const rotationSpeed = 1;
+const rotationSpeed = 1.5;
 
 export default function Player() {
 	const [, getControls] = useKeyboardControls();

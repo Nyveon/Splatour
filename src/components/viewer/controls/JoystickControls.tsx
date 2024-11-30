@@ -5,7 +5,7 @@ import { isMobile } from "react-device-detect";
 import { Joystick } from "react-joystick-component";
 import { IJoystickUpdateEvent } from "react-joystick-component/build/lib/Joystick";
 
-const joystickMargin = 24;
+const joystickMargin = 32;
 
 const JoystickContainer = styled.div`
 	position: absolute;

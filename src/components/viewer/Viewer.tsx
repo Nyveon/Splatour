@@ -1,15 +1,14 @@
 import JoystickControls from "@/components/viewer/controls/JoystickControls";
 import Player from "@/components/viewer/controls/Player";
 import { PointerLockControls } from "@/components/viewer/controls/PointerLockControls";
-import DebugUtils from "@/components/viewer/interface/DebugUtils";
 import Ambient from "@/components/viewer/world/Ambient";
+import useViewerStore from "@/hooks/useViewerContext";
 import { KeyMap } from "@/utils/constants";
 import styled from "@emotion/styled";
 import { KeyboardControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
-import { useRef } from "react";
+import { ReactNode, useEffect, useRef } from "react";
 import { PointerLockControls as PointerLockControlsImpl } from "three-stdlib";
-import GSMap from "./GSMap";
 
 const ViewerContainer = styled.div`
 	position: relative;
@@ -22,9 +21,18 @@ const ViewerContainer = styled.div`
 	overflow: hidden;
 `;
 
-export default function Viewer() {
+export default function Viewer({ children }: { children: ReactNode }) {
 	const viewerContainerRef = useRef<HTMLDivElement>(null);
 	const pointerLockControlsRef = useRef<PointerLockControlsImpl>(null);
+	const setViewerContainerRef = useViewerStore(
+		(state) => state.setViewerContainerRef
+	);
+
+	useEffect(() => {
+		if (viewerContainerRef.current) {
+			setViewerContainerRef(viewerContainerRef);
+		}
+	}, [setViewerContainerRef]);
 
 	function handleClick() {
 		if (!pointerLockControlsRef.current || !viewerContainerRef.current) {
@@ -44,15 +52,13 @@ export default function Viewer() {
 					gl={{
 						antialias: false,
 					}}
-					dpr={1} // this can be lowered even more for better performance
+					dpr={1} //? this can be lowered even more for better performance
 					onClick={handleClick}
 				>
 					<PointerLockControls ref={pointerLockControlsRef} />
 					<Player />
-
 					<Ambient />
-					<DebugUtils viewerContainerRef={viewerContainerRef} />
-					<GSMap />
+					{children}
 				</Canvas>
 			</KeyboardControls>
 			<JoystickControls />

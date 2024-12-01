@@ -1,68 +1,64 @@
 import MapName from "@/components/editor/map/MapName";
 import Sidebar from "@/components/editor/Sidebar";
 import Toolbar from "@/components/editor/Toolbar";
-import Viewer from "@/components/viewer/Viewer";
+import Icon from "@/components/Icon";
+import EditorViewer from "@/components/viewer/EditorView";
 import { useSettingsStore } from "@/hooks/useSettingsStore";
 import { color } from "@/utils/theme";
 import styled from "@emotion/styled";
 import { useEffect } from "react";
 import { isFirefox } from "react-device-detect";
 
-const s = {
-	header: styled.header`
-		display: flex;
-		flex-direction: row;
-		justify-content: space-between;
-		align-items: center;
+const EditorHeader = styled.header`
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
 
-		padding-inline: 2rem;
-		height: 4rem;
-		width: 100%;
+	padding-inline: 2rem;
+	height: 4rem;
+	width: 100%;
 
-		background-color: ${color.backgroundDark};
-		color: ${color.textLight};
-	`,
+	background-color: ${color.backgroundDark};
+	color: ${color.textLight};
+`;
 
-	aside: styled.aside`
-		display: flex;
-		flex-direction: column;
-		gap: 1rem;
+const EditorSidebar = styled(Sidebar)`
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
 
-		width: 16rem;
-		min-width: 16rem;
-		height: 100%;
+	width: 16rem;
+	min-width: 16rem;
+	height: 100%;
 
-		border: 1px solid black;
-		background-color: ${color.backgroundDark};
-		color: ${color.textLight};
+	border: 1px solid black;
+	background-color: ${color.backgroundDark};
+	color: ${color.textLight};
 
-		text-align: left;
-	`,
+	text-align: left;
+`;
 
-	main: styled.main`
-		display: flex;
-		width: 100%;
-		height: 100%;
-		max-width: 100%;
-	`,
+const EditorBody = styled.main`
+	display: flex;
+	width: 100%;
+	height: 100%;
+	max-width: 100%;
+`;
 
-	preview: styled.section`
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
+const HeaderLeft = styled.div`
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 1.5rem;
+`;
 
-		width: 100%;
-		height: 100%;
-	`,
-
-	left: styled.div`
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		gap: 1.5rem;
-	`,
-};
+const FirefoxWarning = styled.div`
+	color: black;
+	padding: 1rem;
+	border-radius: 0.5rem;
+	border: 1rem solid red;
+`;
 
 export default function Editor() {
 	const initializeSettings = useSettingsStore(
@@ -73,36 +69,32 @@ export default function Editor() {
 		initializeSettings({ debug: true, mobileDebug: false });
 	}, [initializeSettings]);
 
+	if (isFirefox) {
+		return (
+			<FirefoxWarning>
+				<Icon icon="alert-triangle" />
+				<h1>Editor is not supported on Firefox, sorry :(</h1>
+				<a href="https://developer.mozilla.org/en-US/docs/Web/API/File_System_API#browser_compatibility">
+					https://developer.mozilla.org/en-US/docs/Web/API/File_System_API#browser_compatibility
+				</a>
+			</FirefoxWarning>
+		);
+	}
+
 	return (
 		<>
-			{isFirefox && (
-				<span
-					style={{
-						backgroundColor: "red",
-						position: "fixed",
-						top: 0,
-						zIndex: 100,
-					}}
-				>
-					Warning: Firefox not supported for directory operations
-				</span>
-			)}
-			<s.header>
-				<s.left>
+			<EditorHeader>
+				<HeaderLeft>
 					<MapName />
 					<Toolbar />
-				</s.left>
+				</HeaderLeft>
 				<span>Placeholder</span>
-			</s.header>
+			</EditorHeader>
 
-			<s.main>
-				<s.aside>
-					<Sidebar />
-				</s.aside>
-				<s.preview>
-					<Viewer />
-				</s.preview>
-			</s.main>
+			<EditorBody>
+				<EditorSidebar />
+				<EditorViewer />
+			</EditorBody>
 		</>
 	);
 }

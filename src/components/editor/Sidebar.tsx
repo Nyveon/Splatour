@@ -14,14 +14,14 @@ const SceneListItem = styled.li`
 	margin: 1rem;
 `;
 
-export default function Sidebar() {
+export default function Sidebar({ className }: { className?: string }) {
 	const [selectedSceneId, setSelectedSceneId] = useState<string | null>(null);
 	const sceneIds = useGSStore(
 		useShallow((state) => Object.keys(state.gsmap.scenes))
 	);
 
 	return (
-		<>
+		<aside className={className}>
 			<ul>
 				{sceneIds.map((sceneId) => (
 					<SceneListItem key={sceneId}>
@@ -37,6 +37,6 @@ export default function Sidebar() {
 					<NewScene />
 				</SceneListItem>
 			</ul>
-		</>
+		</aside>
 	);
 }

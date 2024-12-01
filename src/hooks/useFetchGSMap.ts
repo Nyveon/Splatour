@@ -1,11 +1,8 @@
+import { GSMap, gsmDeserializeObjectJSON, SerialGSMap } from "@/model/GSMap";
 import { useEffect, useState } from "react";
-import { gsmDeserializeObjectJSON, SerialGSMap } from "../model/GSMap";
-import { useGSStore } from "./useGSStore";
-
-// todo: integrate this async into gsstore
 
 export default function useFetchGSMap(url: string) {
-	const setGSMap = useGSStore((state) => state.setGSMap);
+	const [gsmap, setGSMap] = useState<GSMap | null>(null);
 	const [error, setError] = useState<Error | null>(null);
 	const [loading, setLoading] = useState<boolean>(true);
 
@@ -31,7 +28,7 @@ export default function useFetchGSMap(url: string) {
 			.finally(() => {
 				setLoading(false);
 			});
-	}, [url, setGSMap]);
+	}, [url]);
 
-	return { error, loading };
+	return { gsmap, error, loading };
 }

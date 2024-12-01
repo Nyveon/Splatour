@@ -1,17 +1,6 @@
-import mapUrl from "../assets/maps/mobile.json?url";
-import Viewer from "../components/viewer/Viewer";
-import useFetchGSMap from "../hooks/useFetchGSMap";
+import mapURL from "@/assets/maps/mobile.json?url";
+import ExportedViewer from "@/components/viewer/ExportedView";
 
 export default function Preview() {
-	const { error, loading } = useFetchGSMap(mapUrl);
-
-	if (loading) return <h1>Loading...</h1>;
-
-	if (error) return <h1>Error: {error.message}</h1>;
-
-	return (
-		<>
-			<Viewer />
-		</>
-	);
+	return <ExportedViewer mapURL={mapURL} />;
 }

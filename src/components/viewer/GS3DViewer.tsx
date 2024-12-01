@@ -1,18 +1,27 @@
-import { useGSStore } from "@/hooks/useGSStore";
 import * as GaussianSplats3D from "@mkkellogg/gaussian-splats-3d";
 import { useEffect, useState } from "react";
 
-export default function GSViewer({ sceneId }: { sceneId: string }) {
-	const [viewer, setViewer] = useState<GaussianSplats3D.DropInViewer | null>();
-	const scenePosition = useGSStore(
-		(state) => state.gsmap.scenes[sceneId].position
-	);
-	const sceneRotation = useGSStore(
-		(state) => state.gsmap.scenes[sceneId].rotation
-	);
-	const sceneScale = useGSStore((state) => state.gsmap.scenes[sceneId].scale);
+interface SceneData {
+	buffer?: GaussianSplats3D.SplatBuffer;
+	filePath: string;
+}
 
-	console.log("Vh1");
+interface GS3DViewerProps {
+	sceneData: SceneData;
+	scenePosition: { x: number; y: number; z: number };
+	sceneRotation: { x: number; y: number; z: number };
+	sceneScale: { x: number; y: number; z: number };
+}
+
+export default function GS3DViewer({
+	sceneData,
+	scenePosition,
+	sceneRotation,
+	sceneScale,
+}: GS3DViewerProps) {
+	const [viewer, setViewer] = useState<GaussianSplats3D.DropInViewer | null>();
+
+	console.log("Scene re-render");
 
 	useEffect(() => {
 		const viewer = new GaussianSplats3D.DropInViewer({
@@ -21,41 +30,39 @@ export default function GSViewer({ sceneId }: { sceneId: string }) {
 			dynamicScene: false,
 			sceneFadeInRateMultiplier: 100,
 		});
-		console.log("Vh1: Viewer created");
+		console.log("Scene viewer created");
 		setViewer(viewer);
-
-		const scene = useGSStore.getState().gsmap.scenes[sceneId];
 
 		const defaultOptions = {
 			showLoadingUI: true,
 			splatAlphaRemovalThreshold: 20,
 		};
 
-		const loadScene = scene.buffer
-			? viewer.viewer.addSplatBuffers([scene.buffer], [defaultOptions])
-			: viewer.addSplatScene(scene.filePath, defaultOptions);
+		const loadScene = sceneData.buffer
+			? viewer.viewer.addSplatBuffers([sceneData.buffer], [defaultOptions])
+			: viewer.addSplatScene(sceneData.filePath, defaultOptions);
 
 		loadScene
 			.then(() => {
-				console.log("Vh1: scene loaded");
+				console.log("Splat Scene loaded");
 			})
 			.catch((err) => {
 				console.error(err);
 			});
 
 		return () => {
-			console.log("Vh1: Viewer disposal begin");
+			console.log("Scene Viewer disposal started");
 			setViewer(null);
 			viewer
 				.dispose()
 				.then(() => {
-					console.log("Vh1: Viewer disposed");
+					console.log("Scene Viewer disposal completed");
 				})
 				.catch((err: unknown) => {
-					console.log("Vh1: Viewer disposal error:", err);
+					console.log("Scene Viewer disposal error:", err);
 				});
 		};
-	}, [sceneId]);
+	}, [sceneData.filePath, sceneData.buffer]);
 
 	return (
 		<group

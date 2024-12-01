@@ -1,8 +1,8 @@
 import { useGSStore } from "@/hooks/useGSStore";
 import { useShallow } from "zustand/shallow";
-import GSViewer from "./GSViewer";
+import GSSceneEditable from "./GSSceneEditable";
 
-export default function GSMap() {
+export default function GSMapEditable() {
 	const sceneIds = useGSStore(
 		useShallow((state) => Object.keys(state.gsmap.scenes))
 	);
@@ -10,7 +10,7 @@ export default function GSMap() {
 	return (
 		<>
 			{sceneIds.map((sceneId) => {
-				return <GSViewer key={sceneId} sceneId={sceneId} />;
+				return <GSSceneEditable key={sceneId} sceneId={sceneId} />;
 			})}
 		</>
 	);

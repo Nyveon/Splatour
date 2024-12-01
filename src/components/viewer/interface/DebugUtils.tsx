@@ -1,22 +1,29 @@
 import Checkerboard from "@/components/viewer/world/Checkerboard";
 import { useSettingsStore } from "@/hooks/useSettingsStore";
+import useViewerStore from "@/hooks/useViewerContext";
 import styled from "@emotion/styled";
 import {
 	Stats as BaseStats,
 	GizmoHelper,
 	GizmoViewport,
 } from "@react-three/drei";
+import { useEffect } from "react";
 
 const Stats = styled(BaseStats)`
 	position: absolute !important;
 `;
 
-export default function DebugUtils({
-	viewerContainerRef,
-}: {
-	viewerContainerRef: React.RefObject<HTMLElement>;
-}) {
+export default function DebugUtils() {
+	const viewerContainerRef = useViewerStore(
+		(state) => state.viewerContainerRef
+	);
 	const debug = useSettingsStore((state) => state.debug);
+
+	useEffect(() => {
+		if (viewerContainerRef?.current) {
+			console.log("Viewer container is available:", viewerContainerRef.current);
+		}
+	}, [viewerContainerRef]);
 
 	if (!debug) {
 		return null;
@@ -33,7 +40,9 @@ export default function DebugUtils({
 					disabled={true}
 				/>
 			</GizmoHelper>
-			<Stats parent={viewerContainerRef} showPanel={0} />
+			{viewerContainerRef && (
+				<Stats parent={viewerContainerRef} showPanel={0} />
+			)}
 		</>
 	);
 }

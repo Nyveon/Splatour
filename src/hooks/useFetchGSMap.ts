@@ -1,8 +1,8 @@
-import { GSMap, gsmDeserializeObjectJSON, SerialGSMap } from "@/model/GSMap";
+import { SerialGSMap } from "@/model/GSMap";
 import { useEffect, useState } from "react";
 
 export default function useFetchGSMap(url: string) {
-	const [gsmap, setGSMap] = useState<GSMap | null>(null);
+	const [serialMap, setSerialMap] = useState<SerialGSMap | null>(null);
 	const [error, setError] = useState<Error | null>(null);
 	const [loading, setLoading] = useState<boolean>(true);
 
@@ -16,7 +16,7 @@ export default function useFetchGSMap(url: string) {
 				return response.json();
 			})
 			.then((data: SerialGSMap) => {
-				setGSMap(gsmDeserializeObjectJSON(data));
+				setSerialMap(data);
 			})
 			.catch((error: unknown) => {
 				if (error instanceof Error) {
@@ -30,5 +30,5 @@ export default function useFetchGSMap(url: string) {
 			});
 	}, [url]);
 
-	return { gsmap, error, loading };
+	return { serialMap, error, loading };
 }

@@ -29,3 +29,5 @@ dist-ssr
 *.ksplat
 !garden.ksplat
 !converted_file.ksplat
+
+bundle-visualization.html

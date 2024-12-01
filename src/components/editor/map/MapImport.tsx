@@ -69,8 +69,8 @@ export default function MapImport() {
 
 				const splatBuffer = await fileToSplatBuffer(file);
 				gsmap.scenes[sceneId].buffer = splatBuffer;
-			} catch {
-				console.error(`Failed to load scene buffer: ${filePath}`);
+			} catch (err) {
+				console.error(`Failed to load scene buffer: ${filePath}, ${err}`);
 				return;
 			}
 		}

@@ -1,4 +1,9 @@
-import * as GaussianSplats3D from "@mkkellogg/gaussian-splats-3d";
+import type {
+	SceneFormatType,
+	SplatBuffer,
+} from "@mkkellogg/gaussian-splats-3d";
+
+import { KSplatLoader, LoaderUtils } from "@mkkellogg/gaussian-splats-3d";
 
 interface Vec3 {
 	x: number;
@@ -21,7 +26,7 @@ export interface GSScene {
 	scale: Vec3;
 	rotation: Vec3;
 	position: Vec3;
-	buffer?: GaussianSplats3D.SplatBuffer;
+	buffer?: SplatBuffer;
 }
 
 export const gssResetTransform = {
@@ -43,7 +48,7 @@ export function gssCreate(filePath: string, name: string): GSScene {
 
 export function gssCreateBuffer(
 	fileName: string,
-	buffer: GaussianSplats3D.SplatBuffer
+	buffer: SplatBuffer
 ): GSScene {
 	const scene = gssCreate(fileName, fileName);
 	scene.buffer = buffer;
@@ -77,7 +82,7 @@ export function gssSerialize(scene: GSScene): SerialGSScene {
  */
 export async function fileToSplatBuffer(file: File) {
 	const fileName = file.name;
-	const format = GaussianSplats3D.LoaderUtils.sceneFormatFromPath(fileName);
+	const format = LoaderUtils.sceneFormatFromPath(fileName);
 
 	if (!format) {
 		throw new Error("Invalid file format");
@@ -89,9 +94,10 @@ export async function fileToSplatBuffer(file: File) {
 
 function fileBufferToSplatBuffer(
 	fileBufferData: ArrayBuffer,
-	format: GaussianSplats3D.SceneFormatType
-): Promise<GaussianSplats3D.SplatBuffer> {
-	if (format === GaussianSplats3D.SceneFormat.Ply) {
+	format: SceneFormatType
+): Promise<SplatBuffer> {
+	if (format === 0) {
+		// splat
 		throw new Error("Not yet implement, try with .ksplat");
 		// return GaussianSplats3D.PlyLoader.loadFromFileData(
 		// 	fileBufferData.data,
@@ -104,7 +110,8 @@ function fileBufferToSplatBuffer(
 		// 	blockSize,
 		// 	bucketSize
 		// );
-	} else if (format === GaussianSplats3D.SceneFormat.Splat) {
+	} else if (format === 2) {
+		//ply
 		throw new Error("Not yet implement, try with .ksplat");
 		// return GaussianSplats3D.SplatLoader.loadFromFileData(
 		// 	fileBufferData.data,
@@ -116,8 +123,9 @@ function fileBufferToSplatBuffer(
 		// 	blockSize,
 		// 	bucketSize
 		// );
-	} else if (format === GaussianSplats3D.SceneFormat.KSplat) {
-		return GaussianSplats3D.KSplatLoader.loadFromFileData(fileBufferData);
+	} else if (format === 1) {
+		//ksplat
+		return KSplatLoader.loadFromFileData(fileBufferData);
 	}
 	throw new Error("Invalid file format");
 }

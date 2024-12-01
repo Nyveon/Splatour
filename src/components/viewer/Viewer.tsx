@@ -5,10 +5,11 @@ import Ambient from "@/components/viewer/world/Ambient";
 import useViewerStore from "@/hooks/useViewerContext";
 import { KeyMap } from "@/utils/constants";
 import styled from "@emotion/styled";
-import { KeyboardControls } from "@react-three/drei";
+import { KeyboardControls } from "@react-three/drei/web/KeyboardControls";
 import { Canvas } from "@react-three/fiber";
-import { ReactNode, useEffect, useRef } from "react";
-import { PointerLockControls as PointerLockControlsImpl } from "three-stdlib";
+import type { ReactNode } from "react";
+import { useEffect, useRef } from "react";
+import type { PointerLockControls as PointerLockControlsImpl } from "three-stdlib";
 
 const ViewerContainer = styled.div`
 	position: relative;

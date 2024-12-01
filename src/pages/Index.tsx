@@ -1,6 +1,4 @@
-import Viewer from "@/components/viewer/Viewer";
 import styled from "@emotion/styled";
-import { renderToString } from "react-dom/server";
 import { Link as BaseLink } from "react-router";
 import { color } from "../utils/theme";
 
@@ -43,16 +41,6 @@ export default function App() {
 				</LinkListItem>
 				<LinkListItem>
 					<Link to="editor">Editor</Link>
-				</LinkListItem>
-				<LinkListItem>
-					<button
-						onClick={() => {
-							const html = renderToString(<Viewer />);
-							alert(html);
-						}}
-					>
-						test
-					</button>
 				</LinkListItem>
 			</LinkList>
 		</>

@@ -1,8 +1,8 @@
-import * as GaussianSplats3D from "@mkkellogg/gaussian-splats-3d";
+import { SplatBuffer, DropInViewer } from "@mkkellogg/gaussian-splats-3d";
 import { useEffect, useState } from "react";
 
 interface SceneData {
-	buffer?: GaussianSplats3D.SplatBuffer;
+	buffer?: SplatBuffer;
 	filePath: string;
 }
 
@@ -19,12 +19,12 @@ export default function GS3DViewer({
 	sceneRotation,
 	sceneScale,
 }: GS3DViewerProps) {
-	const [viewer, setViewer] = useState<GaussianSplats3D.DropInViewer | null>();
+	const [viewer, setViewer] = useState<DropInViewer | null>();
 
 	console.log("Scene re-render");
 
 	useEffect(() => {
-		const viewer = new GaussianSplats3D.DropInViewer({
+		const viewer = new DropInViewer({
 			sharedMemoryForWorkers: true,
 			// todo: https://github.com/mkkellogg/GaussianSplats3D/issues/380
 			dynamicScene: false,

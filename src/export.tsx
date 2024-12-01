@@ -1,17 +1,17 @@
+import ExportedView from "@/components/viewer/ExportedView";
+import { color } from "@/utils/theme";
 import { css, Global } from "@emotion/react";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { HashRouter, Route, Routes } from "react-router";
-import Editor from "./pages/Editor";
-import Index from "./pages/Index";
-import Preview from "./pages/Preview";
-import { color } from "./utils/theme";
+import { gsmCreateEmpty, gsmSerialize } from "./model/GSMap";
 
 const root = document.getElementById("root");
 
 if (root === null) {
 	throw new Error("Root element not found");
 }
+
+const placeholder = gsmSerialize(gsmCreateEmpty());
 
 createRoot(root).render(
 	<StrictMode>
@@ -23,12 +23,6 @@ createRoot(root).render(
 				}
 			`}
 		/>
-		<HashRouter>
-			<Routes>
-				<Route path="/" element={<Index />} />
-				<Route path="viewer" element={<Preview />} />
-				<Route path="editor" element={<Editor />} />
-			</Routes>
-		</HashRouter>
+		<ExportedView serialMap={placeholder} />
 	</StrictMode>
 );

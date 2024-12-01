@@ -1,15 +1,13 @@
 import Viewer from "@/components/viewer/Viewer";
-import useFetchGSMap from "@/hooks/useFetchGSMap";
+import { gsmDeserializeObjectJSON, SerialGSMap } from "@/model/GSMap";
 import GSViewer from "./GS3DViewer";
 
-export default function ExportedView({ mapURL }: { mapURL: string }) {
-	const { gsmap, error, loading } = useFetchGSMap(mapURL);
-
-	if (loading) return <h1>Loading...</h1>;
-
-	if (error) return <h1>Error: {error.message}</h1>;
-
-	if (!gsmap) return <h1>No data?</h1>;
+export default function ExportedView({
+	serialMap,
+}: {
+	serialMap: SerialGSMap;
+}) {
+	const gsmap = gsmDeserializeObjectJSON(serialMap);
 
 	return (
 		<>

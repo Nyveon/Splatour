@@ -2,9 +2,12 @@ import Button from "@/components/input/Button";
 import DirectorySelector from "@/components/input/DirectorySelector";
 import Modal from "@/components/Modal";
 import { useGSStore } from "@/hooks/useGSStore";
-import { gsmDeserializeStringJSON } from "@/model/GSMap";
 import { fileToSplatBuffer } from "@/model/GSScene";
-import { getAllFiles } from "@/utils/filesystem";
+import {
+	findAndReadMapFile,
+	getAllFiles,
+	verifySceneFilePresence,
+} from "@/utils/filesystem";
 import { useState } from "react";
 
 /*
@@ -24,38 +27,8 @@ export default function MapImport() {
 		directoryHandle: FileSystemDirectoryHandle
 	) => {
 		const files = await getAllFiles(directoryHandle);
-
-		const jsonFiles = files.filter((file) => file.name.endsWith(".json"));
-
-		if (jsonFiles.length < 1) {
-			console.error("No JSON files found in directory");
-			return;
-		} else if (jsonFiles.length > 1) {
-			console.error("Multiple JSON files found in directory");
-			return;
-		}
-
-		const mapFile = jsonFiles[0];
-		const mapData = await mapFile.text();
-
-		let gsmap;
-
-		try {
-			gsmap = gsmDeserializeStringJSON(mapData);
-			console.log(gsmap);
-		} catch {
-			console.error("Invalid or corrupted GSMap JSON file format");
-			return;
-		}
-
-		// Check that all scene files are present
-		for (const scene of Object.values(gsmap.scenes)) {
-			const filePath = scene.filePath;
-			if (!files.find((file) => file.name === filePath)) {
-				console.error(`Scene file not found: ${filePath}`);
-				return;
-			}
-		}
+		const gsmap = await findAndReadMapFile(files);
+		verifySceneFilePresence(files, gsmap);
 
 		// Buffer all scenes
 		for (const sceneId of Object.keys(gsmap.scenes)) {
@@ -85,9 +58,9 @@ export default function MapImport() {
 	return (
 		<>
 			<Button
-				title="Import a map file"
+				title="Select and import a project directory"
 				icon="upload"
-				label="Import"
+				label="Load"
 				onClick={() => setModalOpen(true)}
 			/>
 			<Modal

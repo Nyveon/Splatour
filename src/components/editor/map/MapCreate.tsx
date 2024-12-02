@@ -8,6 +8,8 @@ function createBlankMap() {
 }
 
 //todo: re-do this to require a folder
+//1. select a folder on computer
+//2. check folder is empty
 export default function MapCreate() {
 	return (
 		<Button

@@ -14,11 +14,19 @@ function downloadMap() {
 }
 
 export default function MapExport() {
+	const directoryHandle = useGSStore((state) => state.gsmap.directoryHandle);
+
 	return (
 		<Button
-			title="Export the map as a .json file"
+			title={
+				directoryHandle
+					? "Export the project as a website .zip file"
+					: "Can't export without a project directory"
+			}
 			label="Export"
 			icon="download"
+			// variant={directoryHandle ? "primary" : "disabled"}
+			variant="disabled" //todo proper map exporting
 			onClick={downloadMap}
 		/>
 	);

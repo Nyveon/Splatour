@@ -1,6 +1,6 @@
 import Viewer from "@/components/viewer/Viewer";
 import { gsmDeserializeObjectJSON, SerialGSMap } from "@/model/GSMap";
-import GSViewer from "./GS3DViewer";
+import SceneStatic from "./gsplats/SceneStatic";
 
 export default function ExportedView({
 	serialMap,
@@ -13,15 +13,7 @@ export default function ExportedView({
 		<>
 			<Viewer>
 				{Object.entries(gsmap.scenes).map(([sceneId, scene]) => {
-					return (
-						<GSViewer
-							key={sceneId}
-							sceneData={{ filePath: scene.filePath }}
-							scenePosition={scene.position}
-							sceneRotation={scene.rotation}
-							sceneScale={scene.scale}
-						/>
-					);
+					return <SceneStatic key={sceneId} scene={scene} />;
 				})}
 			</Viewer>
 		</>

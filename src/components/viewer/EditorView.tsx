@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import GSMapEditable from "./GSMapEditable";
+import GSMapEditable from "./MapDynamic";
 import Viewer from "./Viewer";
 import DebugUtils from "./interface/DebugUtils";
 

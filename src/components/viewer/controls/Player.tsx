@@ -1,3 +1,4 @@
+import useInteractions from "@/hooks/useInteractions";
 import { useJoystickControls } from "@/hooks/useJoystickControls";
 import { useSettingsStore } from "@/hooks/useSettingsStore";
 import { Controls } from "@/utils/constants";
@@ -8,14 +9,20 @@ import { Vector3 } from "three";
 const walkSpeed = 5;
 const rotationSpeed = 1.5;
 
-export default function Player({ inControl }: { inControl: boolean }) {
+export default function Player() {
 	const [, getControls] = useKeyboardControls();
-	const joystickState = useJoystickControls();
-	const debug = useSettingsStore((state) => state.debug);
+	const forward = new Vector3();
+	const right = new Vector3();
+	const move = new Vector3();
 
-	useFrame((state: RootState, delta) => {
-		// Get inputs
+	console.log("Player");
+
+	useFrame((state: RootState, delta: number) => {
+		// Get inputs and state
+		const inControl = useInteractions.getState().isLocked;
+		const debug = useSettingsStore.getState().debug;
 		const controls = inControl ? getControls() : {};
+		const joystickState = useJoystickControls.getState();
 		const { moveX, moveY, cameraX, cameraY } = joystickState;
 		const camera = state.camera;
 
@@ -47,13 +54,11 @@ export default function Player({ inControl }: { inControl: boolean }) {
 		}
 
 		// Calculate movement
-		const forward = new Vector3();
 		camera.getWorldDirection(forward);
 		forward.y = 0;
 		forward.normalize();
-		const right = new Vector3();
 		right.crossVectors(camera.up, forward).normalize();
-		const move = new Vector3();
+		move.set(0, 0, 0);
 		move.add(forward.multiplyScalar(straightDirection));
 		move.add(right.multiplyScalar(strafeDirection));
 		move.y += debug ? verticalDirection : 0;

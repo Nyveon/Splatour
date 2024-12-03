@@ -1,4 +1,4 @@
-import { useInteractable } from "@/hooks/useInteractable";
+import useInteractions from "@/hooks/useInteractions";
 import styled from "@emotion/styled";
 
 const CrosshairContainer = styled.div`
@@ -59,7 +59,7 @@ const InteractionCircle = styled(CrosshairElement)`
 `;
 
 export default function Crosshair() {
-	const interactable = useInteractable((state) => state.interactable);
+	const interactable = useInteractions((state) => state.interactable);
 
 	return (
 		<CrosshairContainer>

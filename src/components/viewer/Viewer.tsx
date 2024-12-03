@@ -2,13 +2,14 @@ import JoystickControls from "@/components/viewer/controls/JoystickControls";
 import Player from "@/components/viewer/controls/Player";
 import { PointerLockControls } from "@/components/viewer/controls/PointerLockControls";
 import Ambient from "@/components/viewer/world/Ambient";
+import useInteractions from "@/hooks/useInteractions";
 import useViewerStore from "@/hooks/useViewerContext";
 import { KeyMap } from "@/utils/constants";
 import styled from "@emotion/styled";
 import { KeyboardControls } from "@react-three/drei/web/KeyboardControls";
 import { Canvas } from "@react-three/fiber";
 import type { ReactNode } from "react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import type { PointerLockControls as PointerLockControlsImpl } from "three-stdlib";
 import CylinderPlacer from "../editor/scenes/elements/CyllinderPlacer";
 import Crosshair from "./interface/Crosshair";
@@ -27,7 +28,8 @@ const ViewerContainer = styled.div`
 export default function Viewer({ children }: { children: ReactNode }) {
 	const viewerContainerRef = useRef<HTMLDivElement>(null);
 	const pointerLockControlsRef = useRef<PointerLockControlsImpl>(null);
-	const [isPointerLocked, setIsPointerLocked] = useState<boolean>(false);
+	const lockIn = useInteractions((state) => state.lockIn);
+	const unlock = useInteractions((state) => state.unlock);
 	const setViewerContainerRef = useViewerStore(
 		(state) => state.setViewerContainerRef
 	);
@@ -61,10 +63,10 @@ export default function Viewer({ children }: { children: ReactNode }) {
 				>
 					<PointerLockControls
 						ref={pointerLockControlsRef}
-						onLock={() => setIsPointerLocked(true)}
-						onUnlock={() => setIsPointerLocked(false)}
+						onLock={() => lockIn()}
+						onUnlock={() => unlock()}
 					/>
-					<Player inControl={isPointerLocked} />
+					<Player />
 					<Ambient />
 					<CylinderPlacer />
 					{children}

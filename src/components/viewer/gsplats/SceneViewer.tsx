@@ -1,24 +1,20 @@
-import { SplatBuffer, DropInViewer } from "@mkkellogg/gaussian-splats-3d";
-import { useEffect, useState } from "react";
+import { DropInViewer, SplatBuffer } from "@mkkellogg/gaussian-splats-3d";
+import { forwardRef, useEffect, useState } from "react";
+import type { Group } from "three";
 
 interface SceneData {
 	buffer?: SplatBuffer;
 	filePath: string;
 }
 
-interface GS3DViewerProps {
+interface SceneViewer {
 	sceneData: SceneData;
-	scenePosition: { x: number; y: number; z: number };
-	sceneRotation: { x: number; y: number; z: number };
-	sceneScale: { x: number; y: number; z: number };
 }
 
-export default function GS3DViewer({
-	sceneData,
-	scenePosition,
-	sceneRotation,
-	sceneScale,
-}: GS3DViewerProps) {
+const SceneViewer = forwardRef<Group, SceneViewer>(function GS3DViewer(
+	{ sceneData }: SceneViewer,
+	ref
+) {
 	const [viewer, setViewer] = useState<DropInViewer | null>();
 
 	console.log("Scene re-render");
@@ -64,13 +60,7 @@ export default function GS3DViewer({
 		};
 	}, [sceneData.filePath, sceneData.buffer]);
 
-	return (
-		<group
-			position={[scenePosition.x, scenePosition.y, scenePosition.z]}
-			scale={[sceneScale.x, sceneScale.y, sceneScale.z]}
-			rotation={[sceneRotation.x, sceneRotation.y, sceneRotation.z]}
-		>
-			{viewer && <primitive object={viewer} />}
-		</group>
-	);
-}
+	return <group ref={ref}>{viewer && <primitive object={viewer} />}</group>;
+});
+
+export default SceneViewer;

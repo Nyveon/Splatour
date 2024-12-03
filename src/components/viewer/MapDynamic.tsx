@@ -1,8 +1,8 @@
 import { useGSStore } from "@/hooks/useGSStore";
 import { useShallow } from "zustand/shallow";
-import GSSceneEditable from "./GSSceneEditable";
+import SceneDynamic from "./gsplats/SceneDynamic";
 
-export default function GSMapEditable() {
+export default function MapDynamic() {
 	const sceneIds = useGSStore(
 		useShallow((state) => Object.keys(state.gsmap.scenes))
 	);
@@ -10,7 +10,7 @@ export default function GSMapEditable() {
 	return (
 		<>
 			{sceneIds.map((sceneId) => {
-				return <GSSceneEditable key={sceneId} sceneId={sceneId} />;
+				return <SceneDynamic key={sceneId} sceneId={sceneId} />;
 			})}
 		</>
 	);

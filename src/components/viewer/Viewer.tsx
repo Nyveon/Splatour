@@ -11,6 +11,7 @@ import type { ReactNode } from "react";
 import { useEffect, useRef, useState } from "react";
 import type { PointerLockControls as PointerLockControlsImpl } from "three-stdlib";
 import CylinderPlacer from "../editor/scenes/elements/CyllinderPlacer";
+import Crosshair from "./interface/Crosshair";
 
 const ViewerContainer = styled.div`
 	position: relative;
@@ -70,6 +71,7 @@ export default function Viewer({ children }: { children: ReactNode }) {
 				</Canvas>
 			</KeyboardControls>
 			<JoystickControls />
+			<Crosshair />
 		</ViewerContainer>
 	);
 }

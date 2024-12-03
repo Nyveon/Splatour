@@ -4,7 +4,7 @@ import { PointerLockControls } from "@/components/viewer/controls/PointerLockCon
 import Ambient from "@/components/viewer/world/Ambient";
 import useInteractions from "@/hooks/useInteractions";
 import useViewerStore from "@/hooks/useViewerContext";
-import { KeyMap } from "@/utils/constants";
+import { KeyMap, playerHeight } from "@/utils/constants";
 import styled from "@emotion/styled";
 import { KeyboardControls } from "@react-three/drei/web/KeyboardControls";
 import { Canvas } from "@react-three/fiber";
@@ -54,7 +54,7 @@ export default function Viewer({ children }: { children: ReactNode }) {
 		<ViewerContainer ref={viewerContainerRef} id="#viewer">
 			<KeyboardControls map={KeyMap}>
 				<Canvas
-					camera={{ position: [0, 3.5, 10], fov: 90 }}
+					camera={{ position: [0, playerHeight, 10], fov: 90 }}
 					gl={{
 						antialias: false,
 					}}

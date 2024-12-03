@@ -21,4 +21,6 @@ export const axes = ["x", "y", "z"] as axis[];
 
 export const formatVersion = 1;
 
-export const mapAssetsSubfolder = "gsmap"
+export const mapAssetsSubfolder = "gsmap";
+
+export const playerHeight = 3.5;

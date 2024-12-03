@@ -10,11 +10,11 @@ export default function CylinderPlacer() {
 	return (
 		<mesh
 			position={[0, 2, 0]}
-			onPointerEnter={() => {
+			onPointerOver={() => {
 				setIsActive(true);
 				setInteractable(true);
 			}}
-			onPointerLeave={() => {
+			onPointerOut={() => {
 				setIsActive(false);
 				setInteractable(false);
 			}}

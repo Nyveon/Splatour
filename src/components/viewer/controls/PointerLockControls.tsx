@@ -5,11 +5,13 @@ import {
 	useThree,
 } from "@react-three/fiber";
 import { DomEvent } from "@react-three/fiber/dist/declarations/src/core/events";
-import * as React from "react";
 import {
+	forwardRef,
 	ForwardRefExoticComponent,
 	PropsWithoutRef,
 	RefAttributes,
+	useEffect,
+	useMemo,
 } from "react";
 import * as THREE from "three";
 import { PointerLockControls as PointerLockControlsImpl } from "three-stdlib";
@@ -35,7 +37,7 @@ export type PointerLockControlsProps = ReactThreeFiber.Object3DNode<
 export const PointerLockControls: ForwardRefComponent<
 	PointerLockControlsProps,
 	PointerLockControlsImpl
-> = /* @__PURE__ */ React.forwardRef<
+> = /* @__PURE__ */ forwardRef<
 	PointerLockControlsImpl,
 	PointerLockControlsProps
 >(function PointerLockControls(
@@ -62,12 +64,12 @@ export const PointerLockControls: ForwardRefComponent<
 	const explCamera = camera ?? defaultCamera;
 	const explDomElement = domElement ?? events.connected ?? gl.domElement;
 
-	const controls = React.useMemo(
+	const controls = useMemo(
 		() => new PointerLockControlsImpl(explCamera),
 		[explCamera]
 	);
 
-	React.useEffect(() => {
+	useEffect(() => {
 		if (enabled) {
 			controls.connect(explDomElement);
 			// Force events to be centered while PLC is active
@@ -90,7 +92,7 @@ export const PointerLockControls: ForwardRefComponent<
 		}
 	}, [enabled, controls, explDomElement, get, setEvents]);
 
-	React.useEffect(() => {
+	useEffect(() => {
 		const callback = (e: THREE.Event) => {
 			invalidate();
 			if (onChange) onChange(e);
@@ -114,7 +116,7 @@ export const PointerLockControls: ForwardRefComponent<
 		};
 	}, [onChange, onLock, onUnlock, selector, controls, invalidate]);
 
-	React.useEffect(() => {
+	useEffect(() => {
 		if (makeDefault) {
 			const old = get().controls;
 			set({ controls });

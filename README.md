@@ -11,6 +11,7 @@ Static site with React + Typescript and Three.js.
 - Github Pages - Hosting
 - [Vite](https://vite.dev/guide/) - Build tool
 - [COI Serviceworker](https://github.com/gzuidhof/coi-serviceworker) - Workaround for CORS headers
+- [fflate](https://github.com/101arrowz/fflate) - Client-side zip compression
 
 ### React
 
@@ -32,7 +33,7 @@ Static site with React + Typescript and Three.js.
 ### Resources
 
 - [Feather Icons](https://github.com/feathericons/react-feather) - Icon images
-- [Robot](https://fonts.google.com/specimen/Roboto) - Font
+- [Roboto](https://fonts.google.com/specimen/Roboto) - Font
 
 
 ## Instructions
@@ -80,3 +81,4 @@ npm run preview
 - How scenes should be structured
 - Native vs Local vs Full stack for files
 - Web for crossplatform
+- Packaging template + project

@@ -8,8 +8,9 @@ import styled from "@emotion/styled";
 import { KeyboardControls } from "@react-three/drei/web/KeyboardControls";
 import { Canvas } from "@react-three/fiber";
 import type { ReactNode } from "react";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { PointerLockControls as PointerLockControlsImpl } from "three-stdlib";
+import CylinderPlacer from "../editor/scenes/elements/CyllinderPlacer";
 
 const ViewerContainer = styled.div`
 	position: relative;
@@ -25,6 +26,7 @@ const ViewerContainer = styled.div`
 export default function Viewer({ children }: { children: ReactNode }) {
 	const viewerContainerRef = useRef<HTMLDivElement>(null);
 	const pointerLockControlsRef = useRef<PointerLockControlsImpl>(null);
+	const [isPointerLocked, setIsPointerLocked] = useState<boolean>(false);
 	const setViewerContainerRef = useViewerStore(
 		(state) => state.setViewerContainerRef
 	);
@@ -56,9 +58,14 @@ export default function Viewer({ children }: { children: ReactNode }) {
 					dpr={1} //? this can be lowered even more for better performance
 					onClick={handleClick}
 				>
-					<PointerLockControls ref={pointerLockControlsRef} />
-					<Player />
+					<PointerLockControls
+						ref={pointerLockControlsRef}
+						onLock={() => setIsPointerLocked(true)}
+						onUnlock={() => setIsPointerLocked(false)}
+					/>
+					<Player inControl={isPointerLocked} />
 					<Ambient />
+					<CylinderPlacer />
 					{children}
 				</Canvas>
 			</KeyboardControls>

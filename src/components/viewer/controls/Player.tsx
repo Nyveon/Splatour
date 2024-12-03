@@ -1,4 +1,5 @@
 import { useJoystickControls } from "@/hooks/useJoystickControls";
+import { useSettingsStore } from "@/hooks/useSettingsStore";
 import { Controls } from "@/utils/constants";
 import { useKeyboardControls } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
@@ -7,12 +8,13 @@ import * as THREE from "three";
 const walkSpeed = 5;
 const rotationSpeed = 1.5;
 
-export default function Player() {
+export default function Player({ inControl }: { inControl: boolean }) {
 	const [, getControls] = useKeyboardControls();
 	const joystickState = useJoystickControls();
+	const debug = useSettingsStore((state) => state.debug);
 
 	useFrame((state, delta) => {
-		const controls = getControls();
+		const controls = inControl ? getControls() : {};
 		const { moveX, moveY, cameraX, cameraY } = joystickState;
 		const camera = state.camera;
 
@@ -44,7 +46,7 @@ export default function Player() {
 		const move = new THREE.Vector3();
 		move.add(forward.multiplyScalar(straightDirection));
 		move.add(right.multiplyScalar(strafeDirection));
-		move.y += verticalDirection;
+		move.y += debug ? verticalDirection : 0;
 
 		if (move.length() > 0) {
 			move.normalize();

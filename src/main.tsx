@@ -1,3 +1,4 @@
+import mapURL from "@/assets/maps/mobile.json?url";
 import { css, Global } from "@emotion/react";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
@@ -26,7 +27,7 @@ createRoot(root).render(
 		<HashRouter>
 			<Routes>
 				<Route path="/" element={<Index />} />
-				<Route path="viewer" element={<Preview />} />
+				<Route path="viewer" element={<Preview mapURL={mapURL} />} />
 				<Route path="editor" element={<Editor />} />
 			</Routes>
 		</HashRouter>

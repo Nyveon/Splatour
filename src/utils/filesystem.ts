@@ -72,3 +72,26 @@ export function verifySceneFilePresence(files: File[], gsmap: GSMap) {
 		);
 	}
 }
+
+export function downloadFile(
+	fileData: string | Uint8Array,
+	filename: string,
+	filetype: string
+) {
+	const blob = new Blob([fileData], { type: filetype });
+	const link = document.createElement("a");
+	link.href = URL.createObjectURL(blob);
+	link.download = filename;
+	link.click();
+	link.remove();
+}
+
+export async function fetchAsUint8Array(url: string) {
+	const fileBuffer = await fetch(url).then((res) => res.arrayBuffer());
+	return new Uint8Array(fileBuffer);
+}
+
+export async function fileAsUint8Array(file: File) {
+	const fileData = await file.arrayBuffer();
+	return new Uint8Array(fileData);
+}

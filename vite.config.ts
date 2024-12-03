@@ -1,7 +1,7 @@
 import basicSsl from "@vitejs/plugin-basic-ssl";
 import react from "@vitejs/plugin-react-swc";
 import { visualizer } from "rollup-plugin-visualizer";
-import { defineConfig } from "vite";
+import { defineConfig, Rollup } from "vite";
 import { createHtmlPlugin } from "vite-plugin-html";
 import { viteStaticCopy } from "vite-plugin-static-copy";
 import tsconfigPaths from "vite-tsconfig-paths";
@@ -9,9 +9,9 @@ import tsconfigPaths from "vite-tsconfig-paths";
 export default defineConfig(({ mode }) => {
 	const isViewer = mode === "viewer";
 
-	const staticFiles = [
-		{ src: "./public/coi-serviceworker.min.js", dest: "./" },
-	];
+	// coi-serviceworker
+	const staticFiles = [{ src: "./public/coi.js", dest: "./" }];
+	const rollupOutputOptions: Rollup.OutputOptions = {};
 
 	if (!isViewer) {
 		staticFiles.push({ src: "./public/CNAME", dest: "./" });
@@ -19,6 +19,10 @@ export default defineConfig(({ mode }) => {
 		// mobile.json
 		staticFiles.push({ src: "./public/converted_file.ksplat", dest: "./" });
 		staticFiles.push({ src: "./public/test.ksplat", dest: "./" });
+	} else {
+		rollupOutputOptions.entryFileNames = `assets/[name].js`;
+		rollupOutputOptions.chunkFileNames = `assets/[name].js`;
+		rollupOutputOptions.assetFileNames = `assets/[name].[ext]`;
 	}
 
 	return {
@@ -46,6 +50,9 @@ export default defineConfig(({ mode }) => {
 		build: {
 			outDir: isViewer ? "docs/export" : "docs",
 			emptyOutDir: true,
+			rollupOptions: {
+				output: rollupOutputOptions,
+			},
 		},
 		server: {
 			port: 8080,

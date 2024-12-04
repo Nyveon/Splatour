@@ -15,8 +15,8 @@ const SliderField = styled(Field)`
 `;
 
 const SliderLabel = styled(Label)`
+	flex-grow: 2;
 	color: ${color.textLight};
-	width: 3rem;
 	text-align: center;
 `;
 
@@ -51,6 +51,8 @@ const ValueBubble = styled.output<{ valuePercent: number }>`
 
 const SliderContainer = styled.div`
 	position: relative;
+	margin-inline: 8px;
+	max-width: 7rem;
 
 	&:focus-within {
 		output {
@@ -178,6 +180,8 @@ const cssSliderFirefox = css`
 `;
 
 const SliderInput = styled(SliderInputReset)`
+	flex-shrink: 1;
+
 	${cssSliderWebkit}
 	${cssSliderFirefox}
 `;

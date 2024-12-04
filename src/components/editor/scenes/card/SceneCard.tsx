@@ -120,10 +120,6 @@ export default function SceneCard({
 				</CardItem>
 
 				<CardItem>
-					<PanelPlacement sceneId={sceneId} />
-				</CardItem>
-
-				<CardItem>
 					<PanelArtifacts sceneId={sceneId} />
 				</CardItem>
 

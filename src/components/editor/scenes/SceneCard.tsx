@@ -6,6 +6,7 @@ import Button from "@/components/input/Button";
 import { useGSStore } from "@/hooks/useGSStore";
 import { color } from "@/utils/theme";
 import styled from "@emotion/styled";
+import MinimizeCard from "./misc/MinimizeCard";
 import SceneTeleporter from "./misc/SceneTeleporter";
 import Transformations from "./properties/Transformations";
 
@@ -101,14 +102,7 @@ export default function SceneCard({
 		>
 			<CardItem>
 				<SceneName sceneId={sceneId} editing={selected} />
-				{selected && (
-					<Button
-						title="Minimize scene details"
-						icon="minimize-2"
-						variant="primary"
-						onClick={() => handleSelected(null)}
-					/>
-				)}
+				<MinimizeCard selected={selected} handleSelected={handleSelected} />
 			</CardItem>
 
 			<Collapsible data-open={selected}>

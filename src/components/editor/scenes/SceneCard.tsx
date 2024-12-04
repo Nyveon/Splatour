@@ -6,6 +6,7 @@ import Button from "@/components/input/Button";
 import { useGSStore } from "@/hooks/useGSStore";
 import { color } from "@/utils/theme";
 import styled from "@emotion/styled";
+import SceneTeleporter from "./misc/SceneTeleporter";
 import Transformations from "./properties/Transformations";
 
 const SceneCardContainer = styled.div`
@@ -119,7 +120,7 @@ export default function SceneCard({
 				<ButtonBarItem>
 					<SceneDelete sceneId={sceneId} />
 					<SceneReset sceneId={sceneId} />
-					<Button title="Teleport to center" icon="target" variant="disabled" />
+					<SceneTeleporter sceneId={sceneId} />
 					<Button title="Toggle visibility" icon="eye" variant="disabled" />
 				</ButtonBarItem>
 

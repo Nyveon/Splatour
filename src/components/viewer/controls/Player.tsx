@@ -18,6 +18,20 @@ export default function Player() {
 	console.log("Player");
 
 	useFrame((state: RootState, delta: number) => {
+		// Handle teleportation
+		const teleportPending = useInteractions.getState().teleportPending;
+		const setTeleportPending = useInteractions.getState().setTeleportPending;
+
+		if (teleportPending) {
+			console.log(teleportPending);
+			state.camera.position.set(
+				teleportPending.x,
+				teleportPending.y,
+				teleportPending.z
+			);
+			setTeleportPending(null);
+		}
+
 		// Get inputs and state
 		const inControl = useInteractions.getState().isLocked;
 		const debug = useSettingsStore.getState().debug;

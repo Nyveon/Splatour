@@ -15,7 +15,7 @@
         "@emotion/react": "^11.13.3",
         "@emotion/styled": "^11.13.0",
         "@headlessui/react": "^2.2.0",
-        "@mkkellogg/gaussian-splats-3d": "^0.4.5",
+        "@mkkellogg/gaussian-splats-3d": "^0.4.6",
         "@react-three/drei": "^9.116.1",
         "@react-three/fiber": "^8.17.10",
         "@types/feather-icons": "^4.29.4",

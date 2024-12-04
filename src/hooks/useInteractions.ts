@@ -4,12 +4,12 @@ import { create } from "zustand";
 
 //todo: maybe some day add different type of interactables
 
-// Player modes:
-// - Free fly
-// - Placing info
-// - Drawing walls
-
-export type ActionTarget = "none" | "info" | "wall";
+export enum UserState {
+	None,
+	Artifacts,
+	Barriers,
+	Portals,
+}
 
 export interface InteractableState {
 	interactable: boolean;
@@ -23,9 +23,12 @@ export interface InteractableState {
 	setTeleportPending: (
 		target: null | { x: number; y: number; z: number }
 	) => void;
+
+	userState: UserState;
+	setUserState: (state: UserState) => void;
 }
 
-const useInteractions = create<InteractableState>((set) => ({
+export const useInteractions = create<InteractableState>((set) => ({
 	interactable: false,
 	setInteractable: (interactable: boolean) => set({ interactable }),
 
@@ -36,6 +39,7 @@ const useInteractions = create<InteractableState>((set) => ({
 	teleportPending: null,
 	setTeleportPending: (target: null | { x: number; y: number; z: number }) =>
 		set({ teleportPending: target }),
-}));
 
-export default useInteractions;
+	userState: UserState.None,
+	setUserState: (userState: UserState) => set({ userState }),
+}));

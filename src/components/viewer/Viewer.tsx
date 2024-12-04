@@ -2,7 +2,7 @@ import JoystickControls from "@/components/viewer/controls/JoystickControls";
 import Player from "@/components/viewer/controls/Player";
 import { PointerLockControls } from "@/components/viewer/controls/PointerLockControls";
 import Ambient from "@/components/viewer/world/Ambient";
-import useInteractions from "@/hooks/useInteractions";
+import { useInteractions } from "@/hooks/useInteractions";
 import useViewerStore from "@/hooks/useViewerContext";
 import { KeyMap, playerHeight } from "@/utils/constants";
 import styled from "@emotion/styled";

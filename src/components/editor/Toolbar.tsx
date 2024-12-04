@@ -1,28 +1,26 @@
-import MapCreate from "@/components/editor/map/MapCreate";
-import MapExport from "@/components/editor/map/MapExport";
-import MapImport from "@/components/editor/map/MapImport";
-import ToggleDebug from "@/components/editor/settings/ToggleDebug";
-import ToggleMobileDebug from "@/components/editor/settings/ToggleMobileDebug";
 import styled from "@emotion/styled";
-import MapSave from "./map/MapSave";
+import MapToolbar from "./map/MapToolbar";
+import ModeSelector from "./ModeSelector";
+import SettingsToolbar from "./settings/SettingsToolbar";
 
-const ToolbarContainer = styled.div`
+const ToolbarSide = styled.div`
 	display: flex;
-	gap: 1rem;
 	justify-content: center;
 	align-items: center;
+	gap: 1.5rem;
 `;
 
 export default function Toolbar() {
 	return (
-		<ToolbarContainer role="toolbar">
-			<MapSave />
-			<MapExport />
-			<MapImport />
-			<MapCreate />
+		<>
+			<ToolbarSide role="toolbar">
+				<MapToolbar />
+				<SettingsToolbar />
+			</ToolbarSide>
 
-			<ToggleDebug />
-			<ToggleMobileDebug />
-		</ToolbarContainer>
+			<ToolbarSide role="toolbar">
+				<ModeSelector />
+			</ToolbarSide>
+		</>
 	);
 }

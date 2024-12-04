@@ -1,4 +1,3 @@
-import MapName from "@/components/editor/map/MapName";
 import Sidebar from "@/components/editor/Sidebar";
 import Toolbar from "@/components/editor/Toolbar";
 import Icon from "@/components/Icon";
@@ -46,13 +45,6 @@ const EditorBody = styled.main`
 	max-width: 100%;
 `;
 
-const HeaderSection = styled.div`
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	gap: 1.5rem;
-`;
-
 const FirefoxWarning = styled.div`
 	color: black;
 	padding: 1rem;
@@ -84,11 +76,7 @@ export default function Editor() {
 	return (
 		<>
 			<EditorHeader>
-				<HeaderSection>
-					<MapName />
-					<Toolbar />
-				</HeaderSection>
-				<HeaderSection></HeaderSection>
+				<Toolbar />
 			</EditorHeader>
 
 			<EditorBody>

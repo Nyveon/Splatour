@@ -6,7 +6,7 @@ import SceneName from "@/components/editor/scenes/properties/SceneName";
 import SceneReset from "@/components/editor/scenes/properties/SceneReset";
 import Icon from "@/components/Icon";
 import { useGSStore } from "@/hooks/useGSStore";
-import { color } from "@/utils/theme";
+import { AppIcons, color } from "@/utils/theme";
 import styled from "@emotion/styled";
 import MinimizeCard from "./misc/MinimizeCard";
 import SceneTeleporter from "./misc/SceneTeleporter";
@@ -117,7 +117,7 @@ export default function SceneCard({
 				</ButtonBarItem>
 
 				<CardItem>
-					<SceneSubcard label="Placement" icon="move">
+					<SceneSubcard label="Placement" icon={AppIcons.Placement}>
 						<EditTranslation sceneId={sceneId} />
 						<EditScale sceneId={sceneId} />
 						<EditRotation sceneId={sceneId} />
@@ -125,19 +125,19 @@ export default function SceneCard({
 				</CardItem>
 
 				<CardItem>
-					<SceneSubcard label="Artifacts" icon="info">
+					<SceneSubcard label="Artifacts" icon={AppIcons.Artifact}>
 						Placeholder
 					</SceneSubcard>
 				</CardItem>
 
 				<CardItem>
-					<SceneSubcard label="Portals" icon="crosshair">
+					<SceneSubcard label="Portals" icon={AppIcons.Portal}>
 						Placeholder
 					</SceneSubcard>
 				</CardItem>
 
 				<CardItem>
-					<SceneSubcard label="Barriers" icon="shield">
+					<SceneSubcard label="Barriers" icon={AppIcons.Barrier}>
 						Placeholder
 					</SceneSubcard>
 				</CardItem>

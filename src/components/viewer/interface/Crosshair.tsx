@@ -1,4 +1,4 @@
-import useInteractions from "@/hooks/useInteractions";
+import { useInteractions } from "@/hooks/useInteractions";
 import styled from "@emotion/styled";
 
 const CrosshairContainer = styled.div`

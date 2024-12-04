@@ -1,4 +1,4 @@
-import useInteractions from "@/hooks/useInteractions";
+import { useInteractions } from "@/hooks/useInteractions";
 import { useState } from "react";
 
 export default function WIP() {

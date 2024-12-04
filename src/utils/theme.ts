@@ -80,3 +80,10 @@ export const UnstyledButton = styled(Button)<{ onClick: () => void }>`
 		outline: 2px solid ${color.primaryLight};
 	}
 `;
+
+export enum AppIcons {
+	Placement = "move",
+	Artifact = "info",
+	Barrier = "shield",
+	Portal = "crosshair",
+}

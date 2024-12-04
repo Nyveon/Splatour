@@ -1,4 +1,4 @@
-import useInteractions from "@/hooks/useInteractions";
+import { useInteractions } from "@/hooks/useInteractions";
 import { useJoystickControls } from "@/hooks/useJoystickControls";
 import { useSettingsStore } from "@/hooks/useSettingsStore";
 import { Controls } from "@/utils/constants";

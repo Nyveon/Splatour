@@ -1,6 +1,6 @@
 import Button from "@/components/input/Button";
 import { useGSStore } from "@/hooks/useGSStore";
-import useInteractions from "@/hooks/useInteractions";
+import { useInteractions } from "@/hooks/useInteractions";
 import { playerHeight } from "@/utils/constants";
 
 export default function SceneTeleporter({ sceneId }: { sceneId: string }) {

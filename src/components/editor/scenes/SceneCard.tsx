@@ -1,4 +1,7 @@
 import SceneDelete from "@/components/editor/scenes/manage/SceneDelete";
+import EditRotation from "@/components/editor/scenes/properties/EditRotation";
+import EditScale from "@/components/editor/scenes/properties/EditScale";
+import EditTranslation from "@/components/editor/scenes/properties/EditTranslation";
 import SceneName from "@/components/editor/scenes/properties/SceneName";
 import SceneReset from "@/components/editor/scenes/properties/SceneReset";
 import Icon from "@/components/Icon";
@@ -8,7 +11,7 @@ import styled from "@emotion/styled";
 import MinimizeCard from "./misc/MinimizeCard";
 import SceneTeleporter from "./misc/SceneTeleporter";
 import SceneVisibility from "./properties/SceneVisibility";
-import Transformations from "./properties/Transformations";
+import SceneSubcard from "./SceneSubcard";
 
 const SceneCardContainer = styled.div`
 	display: flex;
@@ -65,18 +68,13 @@ const CardItem = styled.div`
 	}
 `;
 
-const EditItem = styled(CardItem)`
-	transition: height 0.2s ease;
-	overflow: hidden;
-`;
-
-const ButtonBarItem = styled(EditItem)`
+const ButtonBarItem = styled(CardItem)`
 	justify-content: space-around;
 	align-items: space-around;
 	padding-inline: 1rem;
 `;
 
-const UneditableItem = styled(EditItem)`
+const UneditableItem = styled(CardItem)`
 	color: ${color.textDisabled};
 `;
 
@@ -118,9 +116,31 @@ export default function SceneCard({
 					<SceneVisibility sceneId={sceneId} />
 				</ButtonBarItem>
 
-				<EditItem>
-					<Transformations sceneId={sceneId} />
-				</EditItem>
+				<CardItem>
+					<SceneSubcard label="Placement" icon="move">
+						<EditTranslation sceneId={sceneId} />
+						<EditScale sceneId={sceneId} />
+						<EditRotation sceneId={sceneId} />
+					</SceneSubcard>
+				</CardItem>
+
+				<CardItem>
+					<SceneSubcard label="Artifacts" icon="info">
+						Placeholder
+					</SceneSubcard>
+				</CardItem>
+
+				<CardItem>
+					<SceneSubcard label="Portals" icon="crosshair">
+						Placeholder
+					</SceneSubcard>
+				</CardItem>
+
+				<CardItem>
+					<SceneSubcard label="Barriers" icon="shield">
+						Placeholder
+					</SceneSubcard>
+				</CardItem>
 			</Collapsible>
 		</SceneCardContainer>
 	);

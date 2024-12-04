@@ -7,10 +7,6 @@ const CrosshairContainer = styled.div`
 	left: 50%;
 	transform: translate(-50%, -50%);
 
-	width: 2px;
-	height: 2px;
-
-	background-color: black;
 	mix-blend-mode: difference;
 
 	pointer-events: none;

@@ -20,8 +20,8 @@ const IconSvg = styled.svg`
 
 export default function Icon({ icon }: { icon: FeatherIconNames }) {
 	return (
-		<IconContainer>
-			<IconSvg>
+		<IconContainer className={`icon-${icon}`}>
+			<IconSvg className={`svg-${icon}`}>
 				<use href={`${icons}#${icon}`}></use>
 			</IconSvg>
 		</IconContainer>

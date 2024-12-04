@@ -1,9 +1,9 @@
-import { useInteractable } from "@/hooks/useInteractions";
+import useInteractions from "@/hooks/useInteractions";
 import { useState } from "react";
 
-export default function CylinderPlacer() {
+export default function WIP() {
 	const [isActive, setIsActive] = useState<boolean>(false);
-	const setInteractable = useInteractable((state) => state.setInteractable);
+	const setInteractable = useInteractions((state) => state.setInteractable);
 
 	console.log("redraw");
 

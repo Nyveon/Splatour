@@ -4,6 +4,13 @@ import { create } from "zustand";
 
 //todo: maybe some day add different type of interactables
 
+// Player modes:
+// - Free fly
+// - Placing info
+// - Drawing walls
+
+export type ActionTarget = "none" | "info" | "wall";
+
 export interface InteractableState {
 	interactable: boolean;
 	setInteractable: (interactable: boolean) => void;

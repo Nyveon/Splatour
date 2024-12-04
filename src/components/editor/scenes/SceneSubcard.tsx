@@ -1,6 +1,3 @@
-import EditRotation from "@/components/editor/scenes/properties/EditRotation";
-import EditScale from "@/components/editor/scenes/properties/EditScale";
-import EditTranslation from "@/components/editor/scenes/properties/EditTranslation";
 import Icon from "@/components/Icon";
 import { color, unstyledButtonCSS } from "@/utils/theme";
 import styled from "@emotion/styled";
@@ -9,8 +6,10 @@ import {
 	DisclosurePanel as BaseDisclosurePanel,
 	Disclosure,
 } from "@headlessui/react";
+import { FeatherIconNames } from "feather-icons";
+import type { ReactNode } from "react";
 
-const TransformationsSection = styled.div`
+const DisclosureWrapper = styled.div`
 	width: 100%;
 	padding: 0.25rem;
 	border-radius: 0.25rem;
@@ -24,7 +23,7 @@ const DisclosureButton = styled(BaseDisclosureButton)`
 	display: flex;
 	width: 100%;
 	align-items: center;
-	gap: 0.5rem;
+	gap: 0.75rem;
 	border-radius: 0.25rem;
 
 	svg {
@@ -33,11 +32,19 @@ const DisclosureButton = styled(BaseDisclosureButton)`
 
 	&[data-open] {
 		svg {
+			color: ${color.textLight};
+		}
+
+		.svg-chevron-right {
 			transform: rotate(90deg);
 		}
 	}
 
 	&[data-hover] {
+		svg {
+			color: ${color.textLight};
+		}
+
 		background-color: ${color.backgroundMedium};
 	}
 `;
@@ -66,18 +73,39 @@ const DisclosurePanel = styled(BaseDisclosurePanel)`
 	}
 `;
 
-export default function Transformations({ sceneId }: { sceneId: string }) {
+const DisclosureLabel = styled.span`
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 100%;
+	margin-right: 0.5rem;
+
+	svg {
+		color: ${color.textDisabled};
+	}
+`;
+
+interface SceneSubcardProps {
+	label: string;
+	children: ReactNode;
+	icon: FeatherIconNames;
+}
+
+export default function SceneSubcard({
+	label,
+	children,
+	icon,
+}: SceneSubcardProps) {
 	return (
-		<Disclosure as={TransformationsSection}>
+		<Disclosure as={DisclosureWrapper}>
 			<DisclosureButton>
 				<Icon icon="chevron-right" />
-				Transform
+				<DisclosureLabel>
+					{label}
+					<Icon icon={icon} />
+				</DisclosureLabel>
 			</DisclosureButton>
-			<DisclosurePanel transition>
-				<EditTranslation sceneId={sceneId} />
-				<EditScale sceneId={sceneId} />
-				<EditRotation sceneId={sceneId} />
-			</DisclosurePanel>
+			<DisclosurePanel transition>{children}</DisclosurePanel>
 		</Disclosure>
 	);
 }

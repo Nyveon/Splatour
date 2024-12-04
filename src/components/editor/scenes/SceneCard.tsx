@@ -2,12 +2,12 @@ import SceneDelete from "@/components/editor/scenes/manage/SceneDelete";
 import SceneName from "@/components/editor/scenes/properties/SceneName";
 import SceneReset from "@/components/editor/scenes/properties/SceneReset";
 import Icon from "@/components/Icon";
-import Button from "@/components/input/Button";
 import { useGSStore } from "@/hooks/useGSStore";
 import { color } from "@/utils/theme";
 import styled from "@emotion/styled";
 import MinimizeCard from "./misc/MinimizeCard";
 import SceneTeleporter from "./misc/SceneTeleporter";
+import SceneVisibility from "./properties/SceneVisibility";
 import Transformations from "./properties/Transformations";
 
 const SceneCardContainer = styled.div`
@@ -115,7 +115,7 @@ export default function SceneCard({
 					<SceneDelete sceneId={sceneId} />
 					<SceneReset sceneId={sceneId} />
 					<SceneTeleporter sceneId={sceneId} />
-					<Button title="Toggle visibility" icon="eye" variant="disabled" />
+					<SceneVisibility sceneId={sceneId} />
 				</ButtonBarItem>
 
 				<EditItem>

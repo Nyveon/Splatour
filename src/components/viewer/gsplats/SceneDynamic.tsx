@@ -12,6 +12,9 @@ export default function SceneDynamic({ sceneId }: { sceneId: string }) {
 	useFrame(() => {
 		if (!sceneRef.current) return;
 
+		const sceneVisible = !useGSStore.getState().gsmap.scenes[sceneId].hidden;
+		sceneRef.current.visible = sceneVisible;
+
 		const scenePosition = useGSStore.getState().gsmap.scenes[sceneId].position;
 		const sceneScale = useGSStore.getState().gsmap.scenes[sceneId].scale;
 		const sceneRotation = useGSStore.getState().gsmap.scenes[sceneId].rotation;

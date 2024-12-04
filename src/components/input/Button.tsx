@@ -39,6 +39,14 @@ const variants = {
 		}
 	`,
 
+	pending: styled(BaseStyledButton)`
+		background-color: ${color.pending};
+
+		&:hover {
+			background-color: ${color.pendingLight};
+		}
+	`,
+
 	danger: styled(BaseStyledButton)`
 		background-color: ${color.danger};
 

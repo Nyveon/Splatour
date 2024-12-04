@@ -18,6 +18,9 @@ export const color = {
 	danger: "#dc3545",
 	dangerLight: "#ff505f",
 
+	pending: "#d68e00",
+	pendingLight: "#dba700",
+
 	border: "#ced4da",
 	borderHalf: "#ced4da80",
 };

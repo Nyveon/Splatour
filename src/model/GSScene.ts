@@ -27,6 +27,7 @@ export interface GSScene {
 	rotation: Vec3;
 	position: Vec3;
 	buffer?: SplatBuffer;
+	hidden?: boolean;
 }
 
 export const gssResetTransform = {

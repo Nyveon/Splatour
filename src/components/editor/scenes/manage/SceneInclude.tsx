@@ -1,9 +1,8 @@
 import Icon from "@/components/Icon";
 import Modal from "@/components/Modal";
 import { getAllFiles } from "@/utils/filesystem";
-import { color } from "@/utils/theme";
+import { color, UnstyledButton } from "@/utils/theme";
 import styled from "@emotion/styled";
-import { Button as BaseButton } from "@headlessui/react";
 import { useEffect, useState } from "react";
 
 const FileList = styled.ul`
@@ -13,41 +12,21 @@ const FileList = styled.ul`
 `;
 
 const FileListItem = styled.li`
-	width: 100%;
-`;
-
-const FileButton = styled(BaseButton)<{ onClick: () => void }>`
-	display: flex;
-	align-items: center;
-	width: 100%;
-	gap: 0.5rem;
-	padding: 0.5rem;
-	margin: 0;
-
-	border-left: none;
-	border-right: none;
-	border-bottom: none;
 	border-top: thin solid ${color.borderHalf};
-	border-radius: 0.25rem;
-
-	font-family: inherit;
-	font-size: inherit;
-	font-style: inherit;
-	font-weight: inherit;
-	line-height: inherit;
-
-	background-color: transparent;
-
-	-webkit-appearance: none;
-	-moz-appearance: none;
-	appearance: none;
 
 	&:last-child {
 		border-bottom: thin solid ${color.borderHalf};
 	}
+`;
 
-	&:hover {
-		cursor: pointer;
+const FileItem = styled(UnstyledButton)`
+	display: flex;
+	gap: 0.5rem;
+	padding: 0.5rem;
+	width: 100%;
+	border-radius: 0.25rem;
+
+	&[data-hover] {
 		color: ${color.textLight};
 		background-color: ${color.primaryLight};
 	}
@@ -117,7 +96,7 @@ export default function SceneInclude({
 					<FileList>
 						{files.map((file, index) => (
 							<FileListItem key={index}>
-								<FileButton
+								<FileItem
 									onClick={() => {
 										handleSplatSelect(file);
 										close();
@@ -125,7 +104,7 @@ export default function SceneInclude({
 								>
 									<Icon icon="file" />
 									{file.name}
-								</FileButton>
+								</FileItem>
 							</FileListItem>
 						))}
 					</FileList>

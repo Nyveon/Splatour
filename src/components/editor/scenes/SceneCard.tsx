@@ -1,7 +1,4 @@
 import SceneDelete from "@/components/editor/scenes/manage/SceneDelete";
-import EditRotation from "@/components/editor/scenes/properties/EditRotation";
-import EditScale from "@/components/editor/scenes/properties/EditScale";
-import EditTranslation from "@/components/editor/scenes/properties/EditTranslation";
 import SceneName from "@/components/editor/scenes/properties/SceneName";
 import SceneReset from "@/components/editor/scenes/properties/SceneReset";
 import Icon from "@/components/Icon";
@@ -9,54 +6,75 @@ import Button from "@/components/input/Button";
 import { useGSStore } from "@/hooks/useGSStore";
 import { color } from "@/utils/theme";
 import styled from "@emotion/styled";
-import ChildList from "./ChildList";
+import Transformations from "./properties/Transformations";
 
-const BaseSceneCard = styled.div`
-	border: thin solid ${color.border};
-	padding: 10px;
-`;
+const SceneCardContainer = styled.div`
+	display: flex;
+	flex-direction: column;
 
-const ClosedSceneCard = styled(BaseSceneCard)`
 	width: 100%;
+	padding: 0.5rem;
 
+	border-radius: 0.5rem;
 	border: thin solid ${color.borderHalf};
 
-	&:hover {
-		cursor: pointer;
-		background-color: ${color.backgroundMedium};
+	&[data-open="false"] {
+		&:hover {
+			cursor: pointer;
+			background-color: ${color.backgroundMedium};
+		}
 	}
 `;
 
-const SceneDetails = styled.ul`
+const Collapsible = styled.div`
 	display: flex;
 	flex-direction: column;
+	width: 100%;
+
+	transition: height 0.2s ease;
+	overflow: hidden;
+
+	&[data-open="false"] {
+		height: 0;
+	}
+
+	&[data-open="true"] {
+		height: max-content;
+		border-color: ${color.border};
+	}
 `;
 
-const SceneItem = styled.li`
+const CardItem = styled.div`
 	display: flex;
 	align-items: center;
+
 	gap: 0.5rem;
 	width: 100%;
-	padding-block: 0.5rem;
-	border-bottom: thin solid ${color.borderHalf};
+
+	padding: 0.25rem;
 
 	svg {
 		width: 1rem;
 		height: 1rem;
 	}
 
-	&:last-child {
-		border-bottom: none;
+	&:first-of-type {
 		padding-bottom: 0;
 	}
 `;
 
-const ButtonBar = styled(SceneItem)`
-	justify-content: space-around;
-	align-items: space-around;
+const EditItem = styled(CardItem)`
+	transition: height 0.2s ease;
+	overflow: hidden;
 `;
 
-const Uneditable = styled.span`
+const ButtonBarItem = styled(EditItem)`
+	justify-content: space-around;
+	align-items: space-around;
+	padding-inline: 1rem;
+`;
+
+const UneditableItem = styled(EditItem)`
 	color: ${color.textDisabled};
 `;
 
@@ -69,56 +87,46 @@ export default function SceneCard({
 	selected: boolean;
 	handleSelected: (sceneId: string | null) => void;
 }) {
-	const sceneName = useGSStore((state) => state.gsmap.scenes[sceneId].name);
 	const sceneFile = useGSStore((state) => state.gsmap.scenes[sceneId].filePath);
 
-	if (selected) {
-		return (
-			<BaseSceneCard>
-				<SceneDetails>
-					<SceneItem>
-						<SceneName sceneId={sceneId} />
-					</SceneItem>
-					<ButtonBar>
-						<SceneDelete sceneId={sceneId} />
-						<SceneReset sceneId={sceneId} />
-						<Button
-							title="Teleport to center"
-							icon="target"
-							variant="disabled"
-						/>
-						<Button title="Toggle visibility" icon="eye" variant="disabled" />
-						<Button
-							title="Minimize scene details"
-							icon="minimize-2"
-							variant="primary"
-							onClick={() => handleSelected(null)}
-						/>
-					</ButtonBar>
-					<SceneItem>
-						<Icon icon="file" />
-						<Uneditable>{sceneFile}</Uneditable>
-					</SceneItem>
-					<SceneItem>
-						<EditTranslation sceneId={sceneId} />
-					</SceneItem>
-					<SceneItem>
-						<EditScale sceneId={sceneId} />
-					</SceneItem>
-					<SceneItem>
-						<EditRotation sceneId={sceneId} />
-					</SceneItem>
-					<SceneItem>
-						<ChildList />
-					</SceneItem>
-				</SceneDetails>
-			</BaseSceneCard>
-		);
-	} else {
-		return (
-			<ClosedSceneCard onClick={() => handleSelected(sceneId)}>
-				{sceneName}
-			</ClosedSceneCard>
-		);
-	}
+	return (
+		<SceneCardContainer
+			data-open={selected}
+			onClick={() => {
+				if (!selected) {
+					handleSelected(sceneId);
+				}
+			}}
+		>
+			<CardItem>
+				<SceneName sceneId={sceneId} editing={selected} />
+				{selected && (
+					<Button
+						title="Minimize scene details"
+						icon="minimize-2"
+						variant="primary"
+						onClick={() => handleSelected(null)}
+					/>
+				)}
+			</CardItem>
+
+			<Collapsible data-open={selected}>
+				<UneditableItem>
+					<Icon icon="file" />
+					{sceneFile}
+				</UneditableItem>
+
+				<ButtonBarItem>
+					<SceneDelete sceneId={sceneId} />
+					<SceneReset sceneId={sceneId} />
+					<Button title="Teleport to center" icon="target" variant="disabled" />
+					<Button title="Toggle visibility" icon="eye" variant="disabled" />
+				</ButtonBarItem>
+
+				<EditItem>
+					<Transformations sceneId={sceneId} />
+				</EditItem>
+			</Collapsible>
+		</SceneCardContainer>
+	);
 }

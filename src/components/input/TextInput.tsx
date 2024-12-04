@@ -9,6 +9,7 @@ const Input = styled(BaseInput)<React.ComponentProps<"input">>`
 	line-height: inherit;
 	border: 1px solid ${color.borderHalf};
 	border-radius: 3px;
+	width: 100%;
 `;
 
 interface TextInputProps {

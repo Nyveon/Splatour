@@ -46,7 +46,7 @@ const EditorBody = styled.main`
 	max-width: 100%;
 `;
 
-const HeaderLeft = styled.div`
+const HeaderSection = styled.div`
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -84,11 +84,11 @@ export default function Editor() {
 	return (
 		<>
 			<EditorHeader>
-				<HeaderLeft>
+				<HeaderSection>
 					<MapName />
 					<Toolbar />
-				</HeaderLeft>
-				<span>Placeholder</span>
+				</HeaderSection>
+				<HeaderSection></HeaderSection>
 			</EditorHeader>
 
 			<EditorBody>

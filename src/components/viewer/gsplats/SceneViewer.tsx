@@ -7,12 +7,12 @@ interface SceneData {
 	filePath: string;
 }
 
-interface SceneViewer {
+interface SceneViewerProps {
 	sceneData: SceneData;
 }
 
-const SceneViewer = forwardRef<Group, SceneViewer>(function GS3DViewer(
-	{ sceneData }: SceneViewer,
+const SceneViewer = forwardRef<Group, SceneViewerProps>(function GS3DViewer(
+	{ sceneData }: SceneViewerProps,
 	ref
 ) {
 	const [viewer, setViewer] = useState<DropInViewer | null>();

@@ -51,7 +51,7 @@ export default function CylinderPlacer() {
 	return (
 		<mesh ref={ref} position={[0, 2, 0]}>
 			<cylinderGeometry args={[1, 1, height, 32]} />
-			<meshBasicMaterial color="blue" opacity={0.7} transparent />
+			<meshBasicMaterial color="blue" />
 		</mesh>
 	);
 }

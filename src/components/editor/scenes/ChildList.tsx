@@ -20,27 +20,19 @@ export default function ChildList() {
 		<List>
 			<ListItem>
 				<Icon icon="box" />
-				Placeholder solid
+				Collision
 			</ListItem>
 			<ListItem>
 				<Icon icon="x-octagon" />
-				Placeholder boundary
+				Boundary nodes
 			</ListItem>
 			<ListItem>
 				<Icon icon="info" />
-				Placeholder info
-			</ListItem>
-			<ListItem>
-				<Icon icon="crosshair" />
-				Placeholder portal
-			</ListItem>
-			<ListItem>
-				<Icon icon="external-link" />
-				Placeholder portal
+				Info nodes
 			</ListItem>
 			<ListItem>
 				<Icon icon="log-in" />
-				Placeholder portal
+				Portal nodes
 			</ListItem>
 		</List>
 	);

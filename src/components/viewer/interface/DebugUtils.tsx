@@ -11,6 +11,8 @@ import { useEffect } from "react";
 
 const Stats = styled(BaseStats)`
 	position: absolute !important;
+	left: unset !important;
+	right: 0 !important;
 `;
 
 export default function DebugUtils() {
@@ -33,7 +35,7 @@ export default function DebugUtils() {
 		<>
 			<axesHelper args={[50]} />
 			<Checkerboard />
-			<GizmoHelper alignment="top-right" margin={[80, 80]}>
+			<GizmoHelper alignment="top-left" margin={[90, 70]}>
 				<GizmoViewport
 					axisColors={["red", "green", "blue"]}
 					labelColor="black"

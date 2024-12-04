@@ -10,7 +10,9 @@ export default function SceneDynamic({ sceneId }: { sceneId: string }) {
 	const sceneBuffer = useGSStore((state) => state.gsmap.scenes[sceneId].buffer);
 
 	useFrame(() => {
-		if (!sceneRef.current) return;
+		if (!sceneRef.current || !useGSStore.getState().gsmap.scenes[sceneId]) {
+			return;
+		}
 
 		const sceneVisible = !useGSStore.getState().gsmap.scenes[sceneId].hidden;
 		sceneRef.current.visible = sceneVisible;

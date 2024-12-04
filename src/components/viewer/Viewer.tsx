@@ -18,11 +18,8 @@ const ViewerContainer = styled.div`
 	position: relative;
 	width: 100%;
 	height: 100%;
-	max-width: 100vw;
-	max-height: 100vh;
 	margin: 0;
 	padding: 0;
-	overflow: hidden;
 `;
 
 export default function Viewer({ children }: { children: ReactNode }) {
@@ -51,8 +48,8 @@ export default function Viewer({ children }: { children: ReactNode }) {
 	}
 
 	return (
-		<ViewerContainer ref={viewerContainerRef} id="#viewer">
-			<KeyboardControls map={KeyMap}>
+		<KeyboardControls map={KeyMap}>
+			<ViewerContainer ref={viewerContainerRef} id="#viewer">
 				<Canvas
 					camera={{ position: [0, playerHeight, 10], fov: 90 }}
 					gl={{
@@ -71,9 +68,9 @@ export default function Viewer({ children }: { children: ReactNode }) {
 					<CylinderPlacer />
 					{children}
 				</Canvas>
-			</KeyboardControls>
-			<JoystickControls />
-			<Crosshair />
-		</ViewerContainer>
+				<JoystickControls />
+				<Crosshair />
+			</ViewerContainer>
+		</KeyboardControls>
 	);
 }

@@ -1,28 +1,63 @@
+import SceneCard from "@/components/editor/scenes/card/SceneCard";
 import NewScene from "@/components/editor/scenes/manage/NewScene";
-import SceneCard from "@/components/editor/scenes/SceneCard";
 import { useGSStore } from "@/hooks/useGSStore";
+import { color, headerHeightREM } from "@/utils/theme";
 import styled from "@emotion/styled";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useShallow } from "zustand/react/shallow";
 
-const SceneListItem = styled.li`
+const scrollbarWidthREM = 1;
+
+const Aside = styled.aside`
+	z-index: 1;
+
+	height: calc(100vh - ${headerHeightREM}rem);
+	margin-right: calc(${-scrollbarWidthREM}rem - 1px);
+
+	scrollbar-gutter: stable;
+	scrollbar-width: ${scrollbarWidthREM}rem;
+	scrollbar-color: ${color.borderHalf} ${color.backgroundDark};
+
+	overflow-y: auto;
+`;
+
+const SceneList = styled.ul`
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+
+	width: 16rem;
+	min-height: 100%;
+
+	margin: 0;
+	padding: 0.5rem;
+
+	background-color: ${color.backgroundDark};
+	color: ${color.textLight};
+	text-align: left;
+`;
+
+const SceneListItem = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-
 	gap: 1rem;
-	margin: 1rem;
 `;
 
 export default function Sidebar({ className }: { className?: string }) {
+	const ref = useRef(null);
 	const [selectedSceneId, setSelectedSceneId] = useState<string | null>(null);
 	const sceneIds = useGSStore(
 		useShallow((state) => Object.keys(state.gsmap.scenes))
 	);
 
 	return (
-		<aside className={className}>
-			<ul>
+		<Aside>
+			<SceneList
+				className={className}
+				ref={ref}
+				onScroll={() => console.log("hi")}
+			>
 				{sceneIds.map((sceneId) => (
 					<SceneListItem key={sceneId}>
 						<SceneCard
@@ -36,7 +71,7 @@ export default function Sidebar({ className }: { className?: string }) {
 				<SceneListItem>
 					<NewScene />
 				</SceneListItem>
-			</ul>
-		</aside>
+			</SceneList>
+		</Aside>
 	);
 }

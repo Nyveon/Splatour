@@ -4,13 +4,10 @@ import Viewer from "./Viewer";
 import DebugUtils from "./interface/DebugUtils";
 
 const Preview = styled.section`
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-
-	width: 100%;
-	height: 100%;
+	position: relative;
+	flex-grow: 1;
+	flex-shrink: 1;
+	overflow: hidden;
 `;
 
 export default function EditorView() {

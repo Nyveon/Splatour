@@ -87,3 +87,5 @@ export enum AppIcons {
 	Barrier = "shield",
 	Portal = "crosshair",
 }
+
+export const headerHeightREM = 4;

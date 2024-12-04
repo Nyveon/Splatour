@@ -1,17 +1,16 @@
+import SceneCardSection from "@/components/editor/scenes/card/SceneCardPanel";
 import SceneDelete from "@/components/editor/scenes/manage/SceneDelete";
-import EditRotation from "@/components/editor/scenes/properties/EditRotation";
-import EditScale from "@/components/editor/scenes/properties/EditScale";
-import EditTranslation from "@/components/editor/scenes/properties/EditTranslation";
+import MinimizeCard from "@/components/editor/scenes/misc/MinimizeCard";
+import SceneTeleporter from "@/components/editor/scenes/misc/SceneTeleporter";
 import SceneName from "@/components/editor/scenes/properties/SceneName";
 import SceneReset from "@/components/editor/scenes/properties/SceneReset";
+import SceneVisibility from "@/components/editor/scenes/properties/SceneVisibility";
 import Icon from "@/components/Icon";
 import { useGSStore } from "@/hooks/useGSStore";
 import { AppIcons, color } from "@/utils/theme";
 import styled from "@emotion/styled";
-import MinimizeCard from "./misc/MinimizeCard";
-import SceneTeleporter from "./misc/SceneTeleporter";
-import SceneVisibility from "./properties/SceneVisibility";
-import SceneSubcard from "./SceneSubcard";
+import PanelArtifacts from "./PanelArtifacts";
+import PanelPlacement from "./PanelPlacement";
 
 const SceneCardContainer = styled.div`
 	display: flex;
@@ -117,29 +116,27 @@ export default function SceneCard({
 				</ButtonBarItem>
 
 				<CardItem>
-					<SceneSubcard label="Placement" icon={AppIcons.Placement}>
-						<EditTranslation sceneId={sceneId} />
-						<EditScale sceneId={sceneId} />
-						<EditRotation sceneId={sceneId} />
-					</SceneSubcard>
+					<PanelPlacement sceneId={sceneId} />
 				</CardItem>
 
 				<CardItem>
-					<SceneSubcard label="Artifacts" icon={AppIcons.Artifact}>
-						Placeholder
-					</SceneSubcard>
+					<PanelPlacement sceneId={sceneId} />
 				</CardItem>
 
 				<CardItem>
-					<SceneSubcard label="Portals" icon={AppIcons.Portal}>
-						Placeholder
-					</SceneSubcard>
+					<PanelArtifacts sceneId={sceneId} />
 				</CardItem>
 
 				<CardItem>
-					<SceneSubcard label="Barriers" icon={AppIcons.Barrier}>
+					<SceneCardSection label="Portals" icon={AppIcons.Portal}>
 						Placeholder
-					</SceneSubcard>
+					</SceneCardSection>
+				</CardItem>
+
+				<CardItem>
+					<SceneCardSection label="Barriers" icon={AppIcons.Barrier}>
+						Placeholder
+					</SceneCardSection>
 				</CardItem>
 			</Collapsible>
 		</SceneCardContainer>

@@ -91,7 +91,7 @@ interface SceneSubcardProps {
 	icon: FeatherIconNames;
 }
 
-export default function SceneSubcard({
+export default function SceneCardPanel({
 	label,
 	children,
 	icon,

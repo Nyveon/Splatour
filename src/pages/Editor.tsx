@@ -3,7 +3,7 @@ import Toolbar from "@/components/editor/Toolbar";
 import Icon from "@/components/Icon";
 import EditorViewer from "@/components/viewer/EditorView";
 import { useSettingsStore } from "@/hooks/useSettingsStore";
-import { color } from "@/utils/theme";
+import { color, headerHeightREM } from "@/utils/theme";
 import styled from "@emotion/styled";
 import { useEffect } from "react";
 import { isFirefox } from "react-device-detect";
@@ -15,34 +15,19 @@ const EditorHeader = styled.header`
 	align-items: center;
 
 	padding-inline: 2rem;
-	height: 4rem;
+	height: ${headerHeightREM}rem;
 	width: 100%;
 
 	background-color: ${color.backgroundDark};
 	color: ${color.textLight};
-`;
-
-const EditorSidebar = styled(Sidebar)`
-	display: flex;
-	flex-direction: column;
-	gap: 1rem;
-
-	width: 16rem;
-	min-width: 16rem;
-	height: 100%;
-
-	border: 1px solid black;
-	background-color: ${color.backgroundDark};
-	color: ${color.textLight};
-
-	text-align: left;
 `;
 
 const EditorBody = styled.main`
+	flex-grow: 1;
 	display: flex;
-	width: 100%;
-	height: 100%;
-	max-width: 100%;
+	width: 100vw;
+	padding: 0;
+	margin: 0;
 `;
 
 const FirefoxWarning = styled.div`
@@ -80,7 +65,7 @@ export default function Editor() {
 			</EditorHeader>
 
 			<EditorBody>
-				<EditorSidebar />
+				<Sidebar />
 				<EditorViewer />
 			</EditorBody>
 		</>

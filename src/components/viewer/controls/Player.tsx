@@ -4,10 +4,13 @@ import { useSettingsStore } from "@/hooks/useSettingsStore";
 import { Controls } from "@/utils/constants";
 import { useKeyboardControls } from "@react-three/drei";
 import { RootState, useFrame } from "@react-three/fiber";
+import { useRef } from "react";
 import { Vector3 } from "three";
 
 const walkSpeed = 5;
 const rotationSpeed = 1.5;
+const bobbingSpeed = 15;
+const bobbingAmplitude = 0.025;
 
 export default function Player() {
 	const [, getControls] = useKeyboardControls();
@@ -15,7 +18,8 @@ export default function Player() {
 	const right = new Vector3();
 	const move = new Vector3();
 
-	console.log("Player");
+	const bobbingPhase = useRef(0);
+	const bobbingOffset = useRef(0);
 
 	useFrame((state: RootState, delta: number) => {
 		// Handle teleportation
@@ -77,11 +81,21 @@ export default function Player() {
 		move.add(right.multiplyScalar(strafeDirection));
 		move.y += debug ? verticalDirection : 0;
 
+		const prevBobbingOffset = bobbingOffset.current;
+
 		if (move.length() > 0) {
 			move.normalize();
+
+			bobbingPhase.current += delta * bobbingSpeed;
+			bobbingOffset.current = Math.sin(bobbingPhase.current) * bobbingAmplitude;
+		} else {
+			bobbingPhase.current = 0;
+			bobbingOffset.current = 0;
 		}
 
 		move.multiplyScalar(walkSpeed * delta);
+
+		camera.position.y += bobbingOffset.current - prevBobbingOffset;
 
 		// Update camera
 		state.events.update?.();

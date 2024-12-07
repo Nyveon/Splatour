@@ -53,6 +53,7 @@ const DisclosurePanel = styled(BaseDisclosurePanel)`
 	display: flex;
 	flex-direction: column;
 
+	margin: 0.5rem;
 	margin-top: 0.25rem;
 
 	& > div {

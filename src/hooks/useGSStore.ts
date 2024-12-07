@@ -1,5 +1,6 @@
 import { GSMap, gsmCreateEmpty } from "@/model/GSMap";
 import { GSScene } from "@/model/GSScene";
+import { GSSceneArtifact } from "@/model/GSSceneArtifact";
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 
@@ -9,6 +10,7 @@ interface SceneState {
 	setSceneTransform: (sceneId: string, transform: Partial<GSScene>) => void;
 	setDeleteScene: (sceneId: string) => void;
 	setAddScene: (scene: GSScene) => void;
+	setAddArtifact: (sceneId: string, artifact: GSSceneArtifact) => void;
 }
 
 const initialGSMap = gsmCreateEmpty();
@@ -34,6 +36,13 @@ export const useGSStore = create<SceneState>()(
 		setAddScene: (scene: GSScene) =>
 			set((state) => {
 				state.gsmap.scenes[scene.id] = scene;
+			}),
+		setAddArtifact: (sceneId, artifact) =>
+			set((state) => {
+				const scene = state.gsmap.scenes[sceneId];
+				if (scene) {
+					scene.artifacts[artifact.id] = artifact;
+				}
 			}),
 	}))
 );

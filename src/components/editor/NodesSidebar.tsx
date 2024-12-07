@@ -1,0 +1,37 @@
+import { useInteractions } from "@/hooks/useInteractions";
+import { color, sidebarWidthREM } from "@/utils/theme";
+import styled from "@emotion/styled";
+import NodeArtifact from "./tools/artifacts/NodeArtifact";
+
+const Aside = styled.aside`
+	position: absolute;
+	top: 0;
+	right: 0;
+	z-index: 3;
+
+	width: ${sidebarWidthREM}rem;
+	padding: 1rem;
+
+	border-bottom-left-radius: 1rem;
+
+	color: ${color.textLight};
+	background-color: ${color.backgroundDark};
+`;
+
+export default function NodesSidebar() {
+    const currentSceneId = useInteractions((state) => state.currentSceneId);
+	const currentNodeId = useInteractions((state) => state.currentNodeId);
+	const currentNodeType = useInteractions((state) => state.currentNodeType);
+
+	if (!currentNodeId) {
+		return null;
+	}
+
+	return (
+		<Aside>
+			{currentNodeType === "artifact" && (
+				<NodeArtifact nodeId={currentNodeId} sceneId={currentSceneId} />
+			)}
+		</Aside>
+	);
+}

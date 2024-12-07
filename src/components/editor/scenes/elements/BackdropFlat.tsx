@@ -1,7 +1,7 @@
 import ColorPicker from "@/components/input/ColorPicker";
 import { useGSStore } from "@/hooks/useGSStore";
 import { GSSkyFlat } from "@/model/GSSky";
-import { isHexColor } from "@/utils/theme";
+import { isHexColor } from "@/utils/data";
 
 export default function BackdropFlat({ sceneId }: { sceneId: string }) {
 	const setSceneTransform = useGSStore((state) => state.setSceneTransform);

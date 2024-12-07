@@ -13,6 +13,7 @@ const Stats = styled(BaseStats)`
 	position: absolute !important;
 	left: unset !important;
 	right: 0 !important;
+	z-index: 2 !important;
 `;
 
 export default function DebugUtils() {

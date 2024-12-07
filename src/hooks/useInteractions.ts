@@ -2,14 +2,14 @@ import { create } from "zustand";
 
 // User->Player<->world interactions are handled here
 
-//todo: maybe some day add different type of interactables
-
 export enum UserState {
 	None,
 	Artifacts,
 	Barriers,
 	Portals,
 }
+
+export type NodeType = "artifact" | "barrier" | "portal";
 
 export interface InteractableState {
 	interactable: boolean;
@@ -27,10 +27,16 @@ export interface InteractableState {
 	userState: UserState;
 	setUserState: (state: UserState) => void;
 
-	//Editor: closest scene
-	//Viewer: current scene
+	//Editor: selected scene
+	//Viewer: current vieweing scene
 	currentSceneId: string;
 	setCurrentSceneId: (sceneId: string) => void;
+
+	//Selected for editing
+	currentNodeId: string;
+	currentNodeType: NodeType | null;
+	setCurrentNode: (nodeId: string, nodeType: NodeType) => void;
+	resetCurrentNode: () => void;
 }
 
 export const useInteractions = create<InteractableState>((set) => ({
@@ -50,4 +56,10 @@ export const useInteractions = create<InteractableState>((set) => ({
 
 	currentSceneId: "",
 	setCurrentSceneId: (sceneId: string) => set({ currentSceneId: sceneId }),
+
+	currentNodeId: "",
+	currentNodeType: null,
+	setCurrentNode: (nodeId: string, nodeType: NodeType) =>
+		set({ currentNodeId: nodeId, currentNodeType: nodeType }),
+	resetCurrentNode: () => set({ currentNodeId: "", currentNodeType: null }),
 }));

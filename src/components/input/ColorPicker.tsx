@@ -40,13 +40,15 @@ export default function ColorPicker({
 	label,
 	value,
 	onChange,
+	className = "",
 }: {
 	label: string;
 	value: string;
 	onChange: (value: string) => void;
+	className?: string;
 }) {
 	return (
-		<Field>
+		<Field className={className}>
 			<Label>{label}</Label>
 			<ColorInput
 				type="color"

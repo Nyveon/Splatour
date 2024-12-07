@@ -6,20 +6,29 @@ import SceneViewer from "./SceneViewer";
 
 export default function SceneDynamic({ sceneId }: { sceneId: string }) {
 	const sceneRef = useRef<Group>(null);
+	const splatSceneRef = useRef<Group>(null);
 	const sceneFile = useGSStore((state) => state.gsmap.scenes[sceneId].filePath);
 	const sceneBuffer = useGSStore((state) => state.gsmap.scenes[sceneId].buffer);
 
-	useFrame(() => {
-		if (!sceneRef.current || !useGSStore.getState().gsmap.scenes[sceneId]) {
+	function updateSplatScene() {
+		if (!splatSceneRef.current) {
 			return;
 		}
 
 		const sceneVisible = !useGSStore.getState().gsmap.scenes[sceneId].hidden;
-		sceneRef.current.visible = sceneVisible;
+		splatSceneRef.current.visible = sceneVisible;
+	}
 
-		const scenePosition = useGSStore.getState().gsmap.scenes[sceneId].position;
-		const sceneScale = useGSStore.getState().gsmap.scenes[sceneId].scale;
-		const sceneRotation = useGSStore.getState().gsmap.scenes[sceneId].rotation;
+	function updateScene() {
+		const gsmapScene = useGSStore.getState().gsmap.scenes[sceneId];
+
+		if (!sceneRef.current || !gsmapScene) {
+			return;
+		}
+
+		const scenePosition = gsmapScene.position;
+		const sceneScale = gsmapScene.scale;
+		const sceneRotation = gsmapScene.rotation;
 
 		sceneRef.current.position.set(
 			scenePosition.x,
@@ -32,6 +41,11 @@ export default function SceneDynamic({ sceneId }: { sceneId: string }) {
 			sceneRotation.y,
 			sceneRotation.z
 		);
+	}
+
+	useFrame(() => {
+		updateSplatScene();
+		updateScene();
 	});
 
 	const sceneData = {
@@ -39,5 +53,9 @@ export default function SceneDynamic({ sceneId }: { sceneId: string }) {
 		buffer: sceneBuffer,
 	};
 
-	return <SceneViewer ref={sceneRef} sceneData={sceneData} />;
+	return (
+		<group ref={sceneRef}>
+			<SceneViewer ref={splatSceneRef} sceneData={sceneData} />
+		</group>
+	);
 }

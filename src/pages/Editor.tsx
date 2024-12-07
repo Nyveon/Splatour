@@ -1,4 +1,5 @@
-import Sidebar from "@/components/editor/Sidebar";
+import NodesSidebar from "@/components/editor/NodesSidebar";
+import ScenesSidebar from "@/components/editor/ScenesSidebar";
 import Toolbar from "@/components/editor/Toolbar";
 import Icon from "@/components/Icon";
 import EditorViewer from "@/components/viewer/EditorView";
@@ -18,6 +19,7 @@ const EditorHeader = styled.header`
 `;
 
 const EditorBody = styled.main`
+	position: relative;
 	flex-grow: 1;
 	display: flex;
 	width: 100vw;
@@ -60,8 +62,9 @@ export default function Editor() {
 			</EditorHeader>
 
 			<EditorBody>
-				<Sidebar />
+				<ScenesSidebar />
 				<EditorViewer />
+				<NodesSidebar />
 			</EditorBody>
 		</>
 	);

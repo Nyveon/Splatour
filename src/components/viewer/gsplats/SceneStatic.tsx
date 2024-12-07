@@ -23,6 +23,8 @@ export default function SceneStatic({ scene }: { scene: GSScene }) {
 	}, [scene, sceneRef]);
 
 	return (
-		<SceneViewer ref={sceneRef} sceneData={{ filePath: scene.filePath }} />
+		<group ref={sceneRef}>
+			<SceneViewer sceneData={{ filePath: scene.filePath }} />
+		</group>
 	);
 }

@@ -26,10 +26,10 @@ const modeMap = {
 	[UserState.None]: { icon: AppIcons.Placement, label: "Editing" },
 	[UserState.Artifacts]: {
 		icon: AppIcons.Artifact,
-		label: "Placing Artifacts",
+		label: "Placing Artifact",
 	},
 	[UserState.Barriers]: { icon: AppIcons.Barrier, label: "Placing Barriers" },
-	[UserState.Portals]: { icon: AppIcons.Portal, label: "Placing Portals" },
+	[UserState.Portals]: { icon: AppIcons.Portal, label: "Placing Portal" },
 };
 
 export default function ModeSelector() {

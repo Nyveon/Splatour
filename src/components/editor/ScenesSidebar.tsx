@@ -2,7 +2,7 @@ import SceneCard from "@/components/editor/scenes/card/SceneCard";
 import NewScene from "@/components/editor/scenes/manage/NewScene";
 import { useGSStore } from "@/hooks/useGSStore";
 import { useInteractions } from "@/hooks/useInteractions";
-import { color, headerHeightREM } from "@/utils/theme";
+import { color, headerHeightREM, sidebarWidthREM } from "@/utils/theme";
 import styled from "@emotion/styled";
 import { useRef, useState } from "react";
 import { useShallow } from "zustand/react/shallow";
@@ -27,7 +27,7 @@ const SceneList = styled.ul`
 	flex-direction: column;
 	gap: 1rem;
 
-	width: 16rem;
+	width: ${sidebarWidthREM}rem;
 	min-height: 100%;
 
 	margin: 0;
@@ -52,12 +52,17 @@ export default function Sidebar({ className }: { className?: string }) {
 		useShallow((state) => Object.keys(state.gsmap.scenes))
 	);
 	const setCurrentSceneId = useInteractions((state) => state.setCurrentSceneId);
+	const resetCurrentNode = useInteractions((state) => state.resetCurrentNode);
 
 	function handleSelectScene(sceneId: string | null) {
 		setSelectedSceneId(sceneId);
 
 		if (sceneId) {
 			setCurrentSceneId(sceneId);
+		}
+
+		if (sceneId !== selectedSceneId) {
+			resetCurrentNode();
 		}
 	}
 

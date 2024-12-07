@@ -131,7 +131,7 @@ export default function SceneCard({
 				</CardItem>
 
 				<CardItem>
-					<SceneCardSection label="Barriers" icon={AppIcons.Barrier}>
+                <SceneCardSection label="Barriers" icon={AppIcons.Barrier}>
 						Placeholder
 					</SceneCardSection>
 				</CardItem>

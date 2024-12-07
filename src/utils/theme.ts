@@ -23,6 +23,7 @@ export const color = {
 
 	border: "#ced4da",
 	borderHalf: "#ced4da80",
+	borderQuarter: "#ced4da40",
 };
 
 export const unstyledButtonCSS = css`
@@ -89,14 +90,4 @@ export enum AppIcons {
 }
 
 export const headerHeightREM = 4;
-
-export type HEX = `#${string}`;
-
-export function isHexColor(hex: string): hex is HEX {
-	return (
-		typeof hex === "string" &&
-		hex.length === 7 && // Ensure it includes the '#' symbol and has the correct length
-		hex.startsWith("#") &&
-		!isNaN(Number("0x" + hex.slice(1))) // Validate hexadecimal value
-	);
-}
+export const sidebarWidthREM = 16;

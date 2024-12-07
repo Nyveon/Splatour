@@ -1,4 +1,4 @@
-import { HEX } from "@/utils/theme";
+import { HEX } from "@/utils/data";
 
 export type GSSkyType = "flat" | "hemi";
 export type GSSkyValue = GSSkyFlat | GSSkyHemi;

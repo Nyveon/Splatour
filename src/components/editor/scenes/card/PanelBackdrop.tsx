@@ -1,16 +1,11 @@
 import { useGSStore } from "@/hooks/useGSStore";
 import { defaultSkyFlat, defaultSkyHemi } from "@/model/GSSky";
 import { color } from "@/utils/theme";
-import styled from "@emotion/styled";
 import { useState } from "react";
 import Select from "react-select";
 import BackdropFlat from "../elements/BackdropFlat";
 import BackdropHemi from "../elements/BackdropHemi";
 import SceneCardPanel from "./SceneCardPanel";
-
-const SubPanel = styled.div`
-	margin: 0.5rem;
-`;
 
 type BackdropStyle = "sky" | "flat" | "hemi";
 
@@ -99,12 +94,8 @@ export default function PanelBackdrop({ sceneId }: { sceneId: string }) {
 				}}
 			/>
 
-			{backdrop.value !== "sky" && (
-				<SubPanel>
-					{backdrop.value === "flat" && <BackdropFlat sceneId={sceneId} />}
-					{backdrop.value === "hemi" && <BackdropHemi sceneId={sceneId} />}
-				</SubPanel>
-			)}
+			{backdrop.value === "flat" && <BackdropFlat sceneId={sceneId} />}
+			{backdrop.value === "hemi" && <BackdropHemi sceneId={sceneId} />}
 		</SceneCardPanel>
 	);
 }

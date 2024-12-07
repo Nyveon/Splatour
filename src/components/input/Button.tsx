@@ -99,6 +99,7 @@ interface ButtonProps {
 	variant?: Variant;
 	icon?: FeatherIconNames;
 	onClick?: () => void;
+	className?: string;
 }
 
 export default function Button({
@@ -107,6 +108,7 @@ export default function Button({
 	variant = "primary",
 	icon,
 	onClick,
+	className = "",
 }: ButtonProps) {
 	const ButtonComponent = variants[variant] || BaseStyledButton;
 
@@ -115,6 +117,7 @@ export default function Button({
 			onClick={onClick}
 			title={title}
 			disabled={variant === "disabled"}
+			className={className}
 		>
 			{icon && <Icon icon={icon} />}
 			{label}

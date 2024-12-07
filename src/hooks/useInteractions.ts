@@ -26,6 +26,11 @@ export interface InteractableState {
 
 	userState: UserState;
 	setUserState: (state: UserState) => void;
+
+	//Editor: closest scene
+	//Viewer: current scene
+	currentSceneId: string;
+	setCurrentSceneId: (sceneId: string) => void;
 }
 
 export const useInteractions = create<InteractableState>((set) => ({
@@ -42,4 +47,7 @@ export const useInteractions = create<InteractableState>((set) => ({
 
 	userState: UserState.None,
 	setUserState: (userState: UserState) => set({ userState }),
+
+	currentSceneId: "",
+	setCurrentSceneId: (sceneId: string) => set({ currentSceneId: sceneId }),
 }));

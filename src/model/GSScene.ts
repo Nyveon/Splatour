@@ -4,6 +4,7 @@ import type {
 } from "@mkkellogg/gaussian-splats-3d";
 
 import { KSplatLoader, LoaderUtils } from "@mkkellogg/gaussian-splats-3d";
+import { GSSky } from "./GSSky";
 
 interface Vec3 {
 	x: number;
@@ -17,17 +18,26 @@ export interface SerialGSScene {
 	scale: Vec3;
 	rotation: Vec3;
 	position: Vec3;
+	sky: GSSky | null;
 }
 
 export interface GSScene {
+	// Metadata
 	id: string;
 	filePath: string;
 	name: string;
+
+	// Transforms
 	scale: Vec3;
 	rotation: Vec3;
 	position: Vec3;
+
+	// Rendering
 	buffer?: SplatBuffer;
 	hidden?: boolean;
+
+	// Skybox
+	sky?: GSSky;
 }
 
 export const gssResetTransform = {
@@ -61,6 +71,11 @@ export function gssDeserialize(scene: SerialGSScene): GSScene {
 	gssBase.scale = scene.scale;
 	gssBase.rotation = scene.rotation;
 	gssBase.position = scene.position;
+
+	if (scene.sky) {
+		gssBase.sky = scene.sky;
+	}
+
 	return gssBase;
 }
 
@@ -68,9 +83,12 @@ export function gssSerialize(scene: GSScene): SerialGSScene {
 	return {
 		filePath: scene.filePath,
 		name: scene.name,
+
 		scale: scene.scale,
 		rotation: scene.rotation,
 		position: scene.position,
+
+		sky: scene.sky ?? null,
 	};
 }
 

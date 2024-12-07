@@ -1,4 +1,3 @@
-import Checkerboard from "@/components/viewer/world/Checkerboard";
 import { useSettingsStore } from "@/hooks/useSettingsStore";
 import useViewerStore from "@/hooks/useViewerContext";
 import styled from "@emotion/styled";
@@ -6,6 +5,7 @@ import {
 	Stats as BaseStats,
 	GizmoHelper,
 	GizmoViewport,
+	Grid,
 } from "@react-three/drei";
 import { useEffect } from "react";
 
@@ -34,7 +34,8 @@ export default function DebugUtils() {
 	return (
 		<>
 			<axesHelper args={[50]} />
-			<Checkerboard />
+			<Grid infiniteGrid={true} sectionColor="white" fadeStrength={10} />
+
 			<GizmoHelper alignment="top-left" margin={[90, 70]}>
 				<GizmoViewport
 					axisColors={["red", "green", "blue"]}

@@ -3,7 +3,7 @@ import * as THREE from "three";
 function createCheckerboardTexture(divisions: number) {
 	const canvas = document.createElement("canvas");
 	const context = canvas.getContext("2d")!;
-	const size = 1024;
+	const size = 1000;
 
 	canvas.width = size;
 	canvas.height = size;
@@ -27,7 +27,7 @@ function createCheckerboardTexture(divisions: number) {
 }
 
 export default function Checkerboard() {
-	const size = 5000;
+	const size = 1000;
 	const divisions = 100;
 	const texture = createCheckerboardTexture(divisions);
 

@@ -21,6 +21,11 @@
                 "x": 0,
                 "y": 4,
                 "z": 12
+            },
+            "sky": {
+                "type": "hemi",
+                "topColor": "#FFFFFF",
+                "bottomColor": "#000000"
             }
         },
         {
@@ -40,6 +45,10 @@
                 "x": 19,
                 "y": 7,
                 "z": 0
+            },
+            "sky": {
+                "type": "flat",
+                "color": "#0000FF"
             }
         }
     ]

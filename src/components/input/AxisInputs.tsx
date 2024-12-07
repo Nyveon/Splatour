@@ -6,7 +6,6 @@ import Stepper from "./Stepper";
 const InputFields = styled.div`
 	display: flex;
 	flex-direction: column;
-    padding-right: 0.5rem;
 	gap: 0.5rem;
 `;
 

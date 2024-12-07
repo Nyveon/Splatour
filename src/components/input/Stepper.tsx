@@ -7,7 +7,7 @@ import { ReactNode } from "react";
 const StepperField = styled(Field)`
 	display: flex;
 	align-items: center;
-    justify-content: center;
+	justify-content: center;
 	gap: 0.5rem;
 `;
 
@@ -48,6 +48,7 @@ interface StepperProps {
 	label?: ReactNode;
 	value: number;
 	valueHandler: (value: number) => void;
+	className?: string;
 }
 
 export default function Stepper({
@@ -57,6 +58,7 @@ export default function Stepper({
 	label = "",
 	value,
 	valueHandler,
+	className = "",
 }: StepperProps) {
 	const handleWrite = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const inputValue = e.target.value;
@@ -73,7 +75,7 @@ export default function Stepper({
 	};
 
 	return (
-		<StepperField>
+		<StepperField className={className}>
 			{label && <StepperLabel>{label}</StepperLabel>}
 
 			<Button

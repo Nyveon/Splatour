@@ -3,12 +3,13 @@ import TextInput from "@/components/input/TextInput";
 import { useGSStore } from "@/hooks/useGSStore";
 import { AppIcons, color } from "@/utils/theme";
 import styled from "@emotion/styled";
+import NodePanel from "../NodePanel";
+import ArtifactSize from "./ArtifactSize";
 import ArtifactTranslation from "./ArtifactTranslation";
 
 const NodeContainer = styled.div`
 	display: flex;
 	flex-direction: column;
-	gap: 0.5rem;
 `;
 
 const NodeLabel = styled.div`
@@ -26,15 +27,7 @@ const NodeLabel = styled.div`
 const LabelBelongsTo = styled.div`
 	color: ${color.textDisabled};
 	font-style: italic;
-`;
-
-const NodePanel = styled.div`
-	display: flex;
-	flex-direction: column;
-
-	gap: 0.5rem;
-	border-top: 1px solid ${color.border};
-	padding-top: 0.5rem;
+    padding-block: 0.5rem;
 `;
 
 export default function NodeArtifact({
@@ -65,8 +58,16 @@ export default function NodeArtifact({
 			</NodeLabel>
 			<LabelBelongsTo>Belongs to: {sceneName}</LabelBelongsTo>
 
-			<NodePanel>
+			<NodePanel label="Offset" icon="move">
 				<ArtifactTranslation nodeId={nodeId} sceneId={sceneId} />
+			</NodePanel>
+
+			<NodePanel label="Size" icon="maximize-2">
+				<ArtifactSize nodeId={nodeId} sceneId={sceneId} />
+			</NodePanel>
+
+			<NodePanel label="Content" icon="file-text">
+				Placeholder
 			</NodePanel>
 		</NodeContainer>
 	);

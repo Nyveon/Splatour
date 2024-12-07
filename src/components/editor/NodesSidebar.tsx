@@ -1,7 +1,7 @@
 import { useInteractions } from "@/hooks/useInteractions";
 import { color, sidebarWidthREM } from "@/utils/theme";
 import styled from "@emotion/styled";
-import NodeArtifact from "./tools/artifacts/NodeArtifact";
+import NodeArtifact from "./nodes/artifacts/NodeArtifact";
 
 const Aside = styled.aside`
 	position: absolute;

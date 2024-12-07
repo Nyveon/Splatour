@@ -11,6 +11,7 @@ const EditWrapper = styled.div`
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	padding-right: 0.5rem;
 `;
 
 const EditBar = styled.div`

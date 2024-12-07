@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import ArtifactPlacer from "../editor/tools/artifacts/ArtifactPlacer";
+import ArtifactPlacer from "../editor/nodes/artifacts/ArtifactPlacer";
 import GSMapEditable from "./MapDynamic";
 import Viewer from "./Viewer";
 import DebugUtils from "./interface/DebugUtils";

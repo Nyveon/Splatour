@@ -11,7 +11,6 @@ import { Canvas } from "@react-three/fiber";
 import type { ReactNode } from "react";
 import { useEffect, useRef } from "react";
 import type { PointerLockControls as PointerLockControlsImpl } from "three-stdlib";
-import CylinderPlacer from "../editor/scenes/elements/CyllinderPlacer";
 import Crosshair from "./interface/Crosshair";
 
 const ViewerContainer = styled.div`
@@ -51,7 +50,11 @@ export default function Viewer({ children }: { children: ReactNode }) {
 		<KeyboardControls map={KeyMap}>
 			<ViewerContainer ref={viewerContainerRef} id="#viewer">
 				<Canvas
-					camera={{ position: [0, playerHeight, 10], fov: 90 }}
+					camera={{
+						position: [0, playerHeight, 0],
+						fov: 90,
+						rotation: [0, 0, 0],
+					}}
 					gl={{
 						antialias: false,
 					}}
@@ -65,7 +68,6 @@ export default function Viewer({ children }: { children: ReactNode }) {
 					/>
 					<Player />
 					<Ambient />
-					{/* <CylinderPlacer /> */}
 					{children}
 				</Canvas>
 				<JoystickControls />

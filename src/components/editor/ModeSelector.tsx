@@ -1,3 +1,4 @@
+import { useGSStore } from "@/hooks/useGSStore";
 import { useInteractions, UserState } from "@/hooks/useInteractions";
 import { AppIcons } from "@/utils/theme";
 import styled from "@emotion/styled";
@@ -15,24 +16,29 @@ const ModeLabel = styled.div`
 	align-items: center;
 	gap: 0.2rem;
 
-	font-style: italic;
-
 	svg {
 		width: 1rem;
 		height: 1rem;
-		transform: skewX(-15deg);
 	}
 `;
 
 const modeMap = {
-	[UserState.None]: { icon: AppIcons.Placement, label: "None" },
-	[UserState.Artifacts]: { icon: AppIcons.Artifact, label: "Artifacts" },
-	[UserState.Barriers]: { icon: AppIcons.Barrier, label: "Barriers" },
-	[UserState.Portals]: { icon: AppIcons.Portal, label: "Portals" },
+	[UserState.None]: { icon: AppIcons.Placement, label: "Editing" },
+	[UserState.Artifacts]: {
+		icon: AppIcons.Artifact,
+		label: "Placing Artifacts",
+	},
+	[UserState.Barriers]: { icon: AppIcons.Barrier, label: "Placing Barriers" },
+	[UserState.Portals]: { icon: AppIcons.Portal, label: "Placing Portals" },
 };
 
 export default function ModeSelector() {
 	const userState = useInteractions((state) => state.userState);
+	const currentSceneId = useInteractions((state) => state.currentSceneId);
+	const currentSceneName = useGSStore(
+		(state) => state.gsmap.scenes[currentSceneId]?.name
+	);
+
 	const { icon, label } = modeMap[userState] || {
 		icon: "help-circle",
 		label: "Unknown",
@@ -40,11 +46,20 @@ export default function ModeSelector() {
 
 	return (
 		<Mode>
-			Mode
-			<ModeLabel>
-				<Icon icon={icon} />
-				{label}
-			</ModeLabel>
+			{currentSceneName ? (
+				<>
+					<ModeLabel>
+						<Icon icon={icon} />
+						{label}:
+					</ModeLabel>
+					<ModeLabel>
+						<Icon icon="box" />
+						{currentSceneName}
+					</ModeLabel>
+				</>
+			) : (
+				<ModeLabel>None</ModeLabel>
+			)}
 		</Mode>
 	);
 }

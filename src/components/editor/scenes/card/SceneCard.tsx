@@ -10,6 +10,7 @@ import { useGSStore } from "@/hooks/useGSStore";
 import { AppIcons, color } from "@/utils/theme";
 import styled from "@emotion/styled";
 import PanelArtifacts from "./PanelArtifacts";
+import PanelBackdrop from "./PanelBackdrop";
 import PanelPlacement from "./PanelPlacement";
 
 const SceneCardContainer = styled.div`
@@ -133,6 +134,10 @@ export default function SceneCard({
 					<SceneCardSection label="Barriers" icon={AppIcons.Barrier}>
 						Placeholder
 					</SceneCardSection>
+				</CardItem>
+
+				<CardItem>
+					<PanelBackdrop sceneId={sceneId} />
 				</CardItem>
 			</Collapsible>
 		</SceneCardContainer>

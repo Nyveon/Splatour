@@ -24,8 +24,8 @@
             },
             "sky": {
                 "type": "hemi",
-                "topColor": "#FFFFFF",
-                "bottomColor": "#000000"
+                "primary": "#FFFFFF",
+                "secondary": "#000000"
             }
         },
         {
@@ -48,7 +48,7 @@
             },
             "sky": {
                 "type": "flat",
-                "color": "#0000FF"
+                "primary": "#0000FF"
             }
         }
     ]

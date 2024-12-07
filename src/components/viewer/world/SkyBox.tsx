@@ -7,22 +7,25 @@ import { BackSide } from "three";
 
 export default function SkyBox() {
 	const currentSceneId = useInteractions((state) => state.currentSceneId);
+	const currentSceneSky = useGSStore(
+		(state) => state.gsmap.scenes[currentSceneId]?.sky
+	);
 	const [skyboxGradient, setSkyboxGradient] = useState<SkyboxGradient | null>(
 		null
 	);
 
+	console.log("skybox render");
+
 	useEffect(() => {
-		console.log(currentSceneId);
+		console.log("scene sky change");
 
-		const scene = useGSStore.getState().gsmap.scenes[currentSceneId];
-
-		if (!scene) {
+		if (!currentSceneSky) {
 			setSkyboxGradient(null);
 			return;
 		}
 
-		setSkyboxGradient(gssSkyGradient(scene.sky));
-	}, [currentSceneId]);
+		setSkyboxGradient(gssSkyGradient(currentSceneSky));
+	}, [currentSceneSky]);
 
 	return (
 		<Environment background near={0.1} far={1000} resolution={256}>

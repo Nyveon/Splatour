@@ -17,7 +17,7 @@ const placementClose = 2;
 const placementFar = 10;
 const radius = playerHeight * 0.3;
 
-export default function CylinderPlacer() {
+export default function ArtifactPlacer() {
 	const ref = useRef<Mesh>(null);
 
 	useFrame(({ raycaster }) => {
@@ -62,8 +62,6 @@ export default function CylinderPlacer() {
 
 		intersectPoint.y = 0;
 		ref.current.position.copy(intersectPoint);
-
-		console.log("CylinderPlacer", ref.current.position);
 	});
 
 	function handleClick() {

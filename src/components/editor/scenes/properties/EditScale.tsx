@@ -6,9 +6,9 @@ export default function EditScale({ sceneId }: { sceneId: string }) {
 			sceneId={sceneId}
 			type="scale"
 			icon="maximize-2"
-			min={-Infinity}
+			min={0.1}
 			max={Infinity}
-			step={0.5}
+			step={0.1}
 			linkable={true}
 		/>
 	);

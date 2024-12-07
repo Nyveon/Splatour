@@ -36,6 +36,7 @@ const SceneList = styled.ul`
 	background-color: ${color.backgroundDark};
 	color: ${color.textLight};
 	text-align: left;
+	border-right: 1px solid ${color.borderHalf};
 `;
 
 const SceneListItem = styled.div`

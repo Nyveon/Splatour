@@ -16,10 +16,16 @@ const Aside = styled.aside`
 
 	color: ${color.textLight};
 	background-color: ${color.backgroundDark};
+
+	border-style: solid;
+	border-color: ${color.borderHalf};
+	border-width: 1px;
+	border-top: none;
+	border-right: none;
 `;
 
 export default function NodesSidebar() {
-    const currentSceneId = useInteractions((state) => state.currentSceneId);
+	const currentSceneId = useInteractions((state) => state.currentSceneId);
 	const currentNodeId = useInteractions((state) => state.currentNodeId);
 	const currentNodeType = useInteractions((state) => state.currentNodeType);
 

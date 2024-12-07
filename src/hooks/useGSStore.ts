@@ -11,6 +11,11 @@ interface SceneState {
 	setDeleteScene: (sceneId: string) => void;
 	setAddScene: (scene: GSScene) => void;
 	setAddArtifact: (sceneId: string, artifact: GSSceneArtifact) => void;
+	setArtifactTransform: (
+		sceneId: string,
+		artifactId: string,
+		transform: Partial<GSSceneArtifact>
+	) => void;
 }
 
 const initialGSMap = gsmCreateEmpty();
@@ -42,6 +47,16 @@ export const useGSStore = create<SceneState>()(
 				const scene = state.gsmap.scenes[sceneId];
 				if (scene) {
 					scene.artifacts[artifact.id] = artifact;
+				}
+			}),
+		setArtifactTransform: (sceneId, artifactId, transform) =>
+			set((state) => {
+				const scene = state.gsmap.scenes[sceneId];
+				if (scene) {
+					const artifact = scene.artifacts[artifactId];
+					if (artifact) {
+						Object.assign(artifact, transform);
+					}
 				}
 			}),
 	}))

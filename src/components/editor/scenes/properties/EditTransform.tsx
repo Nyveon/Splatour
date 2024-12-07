@@ -1,7 +1,6 @@
 import Icon from "@/components/Icon";
+import AxisInputs from "@/components/input/AxisInputs";
 import Button from "@/components/input/Button";
-import Slider from "@/components/input/Slider";
-import Stepper from "@/components/input/Stepper";
 import { useGSStore } from "@/hooks/useGSStore";
 import { axes, axis } from "@/utils/constants";
 import styled from "@emotion/styled";
@@ -10,26 +9,15 @@ import { useState } from "react";
 
 const EditWrapper = styled.div`
 	display: flex;
+	justify-content: space-between;
 	align-items: center;
-	width: 100%;
 `;
 
 const EditBar = styled.div`
+	flex-grow: 1;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	width: 2rem;
-	/* margin-left: 1rem;
-	margin-right: 1.5rem; */
-`;
-
-const EditFields = styled.ul`
-	display: flex;
-	flex-direction: column;
-	justify-content: space-evenly;
-	width: 100%;
-	gap: 0.5rem;
-	/* max-width: 7.25rem; */
 `;
 
 interface EditTransformProps {
@@ -63,7 +51,7 @@ export default function EditTransform({
 		(state) => state.gsmap.scenes[sceneId][type]
 	);
 
-	const handleChange = (axis: axis, value: number) => {
+	const handleChange = (ax: axis, value: number) => {
 		const newValue = convertTo(value);
 		if (linked) {
 			setSceneTransform(sceneId, {
@@ -75,14 +63,10 @@ export default function EditTransform({
 			});
 		} else {
 			setSceneTransform(sceneId, {
-				[type]: { ...sceneTransformValue, [axis]: newValue },
+				[type]: { ...sceneTransformValue, [ax]: newValue },
 			});
 		}
 	};
-
-	const InputComponent = slider ? Slider : Stepper;
-
-	const inputs = linked ? [axes[0]] : axes;
 
 	return (
 		<EditWrapper
@@ -104,20 +88,16 @@ export default function EditTransform({
 					<Icon icon={icon}></Icon>
 				)}
 			</EditBar>
-			<EditFields>
-				{inputs.map((axis) => (
-					<li key={axis}>
-						<InputComponent
-							value={convertFrom(sceneTransformValue[axis])}
-							valueHandler={(value) => handleChange(axis, value)}
-							label={linked ? <Icon icon="link" /> : axis}
-							min={min}
-							max={max}
-							step={step}
-						/>
-					</li>
-				))}
-			</EditFields>
+			<AxisInputs
+				values={sceneTransformValue}
+				handleChange={handleChange}
+				min={min}
+				max={max}
+				step={step}
+				convertFrom={convertFrom}
+				linked={linked}
+				slider={slider}
+			/>
 		</EditWrapper>
 	);
 }

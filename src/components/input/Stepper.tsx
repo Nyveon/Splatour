@@ -6,8 +6,9 @@ import { ReactNode } from "react";
 
 const StepperField = styled(Field)`
 	display: flex;
-	justify-content: space-around;
 	align-items: center;
+    justify-content: center;
+	gap: 0.5rem;
 `;
 
 const StepperLabel = styled(Label)`
@@ -80,6 +81,8 @@ export default function Stepper({
 				onClick={() => {
 					if (value - step >= min) {
 						valueHandler(value - step);
+					} else {
+						valueHandler(min);
 					}
 				}}
 				label="-"
@@ -98,6 +101,8 @@ export default function Stepper({
 				onClick={() => {
 					if (value + step <= max) {
 						valueHandler(value + step);
+					} else {
+						valueHandler(max);
 					}
 				}}
 				label="+"

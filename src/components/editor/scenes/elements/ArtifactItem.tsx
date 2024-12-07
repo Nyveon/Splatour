@@ -13,9 +13,12 @@ const Clickable = styled(UnstyledButton)`
 	padding-block: 0.2rem;
 	width: 100%;
 
+	border: 1px solid transparent;
+
 	&[data-hover] {
 		color: ${color.textLight};
-		background-color: ${color.primaryLight};
+		background-color: ${color.backgroundMedium};
+		border: 1px solid ${color.borderHalf};
 	}
 
 	svg {
@@ -24,6 +27,7 @@ const Clickable = styled(UnstyledButton)`
 
 	&[data-active="true"] {
 		background-color: ${color.primary};
+		border: 1px solid ${color.border};
 
 		svg {
 			color: ${color.textLight};
@@ -38,8 +42,6 @@ export default function ArtifactItem({
 }) {
 	const setCurrentNode = useInteractions((state) => state.setCurrentNode);
 	const currentNodeId = useInteractions((state) => state.currentNodeId);
-
-	console.log(artifact);
 
 	return (
 		<Clickable

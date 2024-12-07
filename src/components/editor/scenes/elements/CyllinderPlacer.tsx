@@ -11,6 +11,7 @@ const placementClose = 4;
 const placementFar = 15;
 const height = 4;
 
+//todo: this probably belongs in a different folder
 export default function CylinderPlacer() {
 	const ref = useRef<Mesh>(null);
 

@@ -65,7 +65,7 @@ export default function Viewer({ children }: { children: ReactNode }) {
 					/>
 					<Player />
 					<Ambient />
-					<CylinderPlacer />
+					{/* <CylinderPlacer /> */}
 					{children}
 				</Canvas>
 				<JoystickControls />

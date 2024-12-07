@@ -23,4 +23,5 @@ export const formatVersion = 1;
 
 export const mapAssetsSubfolder = "gsmap";
 
-export const playerHeight = 3.5;
+//* 1 unit = 100cm
+export const playerHeight = 1.7;

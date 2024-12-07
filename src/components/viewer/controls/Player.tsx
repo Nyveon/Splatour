@@ -7,10 +7,13 @@ import { RootState, useFrame } from "@react-three/fiber";
 import { useRef } from "react";
 import { Vector3 } from "three";
 
-const walkSpeed = 5;
 const rotationSpeed = 1.5;
-const bobbingSpeed = 15;
-const bobbingAmplitude = 0.025;
+
+const walkingSpeed = 1.4; // meters per second
+const walkingCadence = 115; // steps per minute
+const stepsPerSecond = walkingCadence / 60;
+const bobbingSpeed = stepsPerSecond * Math.PI * 2;
+const bobbingAmplitude = 0.02;
 
 export default function Player() {
 	const [, getControls] = useKeyboardControls();
@@ -93,7 +96,7 @@ export default function Player() {
 			bobbingOffset.current = 0;
 		}
 
-		move.multiplyScalar(walkSpeed * delta);
+		move.multiplyScalar(walkingSpeed * delta);
 
 		camera.position.y += bobbingOffset.current - prevBobbingOffset;
 

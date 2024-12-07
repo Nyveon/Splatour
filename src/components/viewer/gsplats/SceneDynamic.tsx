@@ -3,6 +3,7 @@ import { useFrame } from "@react-three/fiber";
 import { useRef } from "react";
 import type { Group } from "three";
 import SceneViewer from "./SceneViewer";
+import SceneArtifacts from "../nodes/SceneArtifacts";
 
 export default function SceneDynamic({ sceneId }: { sceneId: string }) {
 	const sceneRef = useRef<Group>(null);
@@ -56,6 +57,7 @@ export default function SceneDynamic({ sceneId }: { sceneId: string }) {
 	return (
 		<group ref={sceneRef}>
 			<SceneViewer ref={splatSceneRef} sceneData={sceneData} />
+            <SceneArtifacts sceneId={sceneId} />
 		</group>
 	);
 }

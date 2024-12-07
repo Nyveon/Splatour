@@ -5,15 +5,16 @@ import { playerHeight } from "@/utils/constants";
 import { useFrame } from "@react-three/fiber";
 import { useRef } from "react";
 import type { Mesh } from "three";
-import { Plane, Vector3 } from "three";
+import { Euler, Matrix4, Plane, Quaternion, Vector3 } from "three";
 
 const plane = new Plane(new Vector3(0, 1, 0), 0);
 const intersectPoint = new Vector3();
 const shadowPoint = new Vector3();
 const lookDirection = new Vector3();
+const rotationQuaternion = new Quaternion();
+const transformMatrix = new Matrix4();
 const placementClose = 2;
 const placementFar = 10;
-const height = playerHeight * 1.2;
 const radius = playerHeight * 0.3;
 
 export default function CylinderPlacer() {
@@ -59,8 +60,10 @@ export default function CylinderPlacer() {
 			raycaster.ray.intersectPlane(plane, intersectPoint);
 		}
 
-		intersectPoint.y = height / 2;
+		intersectPoint.y = 0;
 		ref.current.position.copy(intersectPoint);
+
+		console.log("CylinderPlacer", ref.current.position);
 	});
 
 	function handleClick() {
@@ -80,13 +83,37 @@ export default function CylinderPlacer() {
 
 		const currentScene = useGSStore.getState().gsmap.scenes[currentSceneId];
 
+		rotationQuaternion.setFromEuler(
+			new Euler(
+				currentScene.rotation.x,
+				currentScene.rotation.y,
+				currentScene.rotation.z
+			)
+		);
+		transformMatrix.compose(
+			new Vector3(
+				currentScene.position.x,
+				currentScene.position.y,
+				currentScene.position.z
+			),
+			rotationQuaternion,
+			new Vector3(
+				currentScene.scale.x,
+				currentScene.scale.y,
+				currentScene.scale.z
+			)
+		);
+		transformMatrix.invert();
+
+		placer.position.applyMatrix4(transformMatrix);
+
 		const relativePosition = {
-			x: placer.position.x - currentScene.position.x,
-			y: placer.position.y - currentScene.position.y,
-			z: placer.position.z - currentScene.position.z,
+			x: placer.position.x,
+			y: placer.position.y,
+			z: placer.position.z,
 		};
 
-		const newArtifact = gssArtifactCreate(relativePosition, radius, height);
+		const newArtifact = gssArtifactCreate(relativePosition, radius);
 		useGSStore.getState().setAddArtifact(currentSceneId, newArtifact);
 		useInteractions.getState().setUserState(UserState.None);
 		useInteractions.getState().setCurrentNode(newArtifact.id, "artifact");
@@ -94,7 +121,7 @@ export default function CylinderPlacer() {
 
 	return (
 		<mesh ref={ref} position={[0, 0, 0]} visible={false} onClick={handleClick}>
-			<cylinderGeometry args={[radius, radius, height, 16]} />
+			<sphereGeometry args={[radius, 16]} />
 			<meshBasicMaterial color="blue" />
 		</mesh>
 	);

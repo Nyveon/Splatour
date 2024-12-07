@@ -7,14 +7,12 @@ export interface GSSceneArtifact {
 
 	position: Vec3;
 	radius: number;
-	height: number;
-	//todo: shapes - cyllinder, cube, sphere
+	//todo: box shape
 }
 
 export function gssArtifactCreate(
 	position: Vec3,
-	radius: number,
-	height: number
+	radius: number
 ): GSSceneArtifact {
 	return {
 		id: crypto.randomUUID(),
@@ -22,6 +20,5 @@ export function gssArtifactCreate(
 		content: "",
 		position: position,
 		radius: radius,
-		height: height,
 	};
 }

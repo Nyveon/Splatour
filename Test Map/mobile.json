@@ -1,52 +1,57 @@
 {
-	"metadata": { "name": "Test Map", "version": 1 },
-	"scenes": [
-		{
-			"filePath": "converted_file.ksplat",
-			"name": "Living Room",
-			"scale": { "x": 1, "y": 1, "z": 1 },
-			"rotation": { "x": 3.141592653589793, "y": 0, "z": 0 },
-			"position": { "x": 0, "y": 2, "z": 0 },
-			"sky": { "type": "flat", "primary": "#722727" },
-			"artifacts": {
-				"a0021d21-72c9-4f26-ac4b-08fdc2a1c536": {
-					"id": "a0021d21-72c9-4f26-ac4b-08fdc2a1c536",
-					"name": "New Artifact",
-					"content": "",
-					"position": {
-						"x": 1.0315356352108216,
-						"y": -0.98,
-						"z": -2.157432245481293
-					},
-					"radius": 0.51,
-					"height": 2.04
-				},
-				"3d95ed01-e005-41c2-83c8-59acd8597856": {
-					"id": "3d95ed01-e005-41c2-83c8-59acd8597856",
-					"name": "New Artifact",
-					"content": "",
-					"position": {
-						"x": 0.8130705567300935,
-						"y": -0.98,
-						"z": -3.1523218472923773
-					},
-					"radius": 0.51,
-					"height": 2.04
-				}
-			}
-		},
-		{
-			"filePath": "test.ksplat",
-			"name": "test.ksplat",
-			"scale": { "x": 17.5, "y": 17.5, "z": 17.5 },
-			"rotation": {
-				"x": 3.141592653589793,
-				"y": 2.0245819323134224,
-				"z": 1.0995574287564276
-			},
-			"position": { "x": 19, "y": 7, "z": 0 },
-			"sky": { "type": "hemi", "primary": "#FFFFFF", "secondary": "#000000" },
-			"artifacts": {}
-		}
-	]
+    "metadata": {
+        "name": "Test Map",
+        "version": 1
+    },
+    "scenes": [
+        {
+            "filePath": "converted_file.ksplat",
+            "name": "Living Room",
+            "scale": {
+                "x": 1,
+                "y": 1,
+                "z": 1
+            },
+            "rotation": {
+                "x": 3.141592653589793,
+                "y": 0,
+                "z": 0
+            },
+            "position": {
+                "x": 0,
+                "y": 2,
+                "z": 0
+            },
+            "sky": {
+                "type": "flat",
+                "primary": "#722727"
+            },
+            "artifacts": {}
+        },
+        {
+            "filePath": "test.ksplat",
+            "name": "test.ksplat",
+            "scale": {
+                "x": 17.5,
+                "y": 17.5,
+                "z": 17.5
+            },
+            "rotation": {
+                "x": 3.141592653589793,
+                "y": 2.0245819323134224,
+                "z": 1.0995574287564276
+            },
+            "position": {
+                "x": 19,
+                "y": 7,
+                "z": 0
+            },
+            "sky": {
+                "type": "hemi",
+                "primary": "#FFFFFF",
+                "secondary": "#000000"
+            },
+            "artifacts": {}
+        }
+    ]
 }

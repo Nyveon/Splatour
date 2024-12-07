@@ -54,6 +54,7 @@ export default function Viewer({ children }: { children: ReactNode }) {
 						position: [0, playerHeight, 0],
 						fov: 90,
 						rotation: [0, 0, 0],
+						up: [0, 1, 0],
 					}}
 					gl={{
 						antialias: false,

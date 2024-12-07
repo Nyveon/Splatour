@@ -25,6 +25,7 @@ export default function SceneStatic({ scene }: { scene: GSScene }) {
 	return (
 		<group ref={sceneRef}>
 			<SceneViewer sceneData={{ filePath: scene.filePath }} />
+			{/* //todo: artifacts */}
 		</group>
 	);
 }

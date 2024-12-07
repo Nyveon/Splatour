@@ -1,6 +1,7 @@
 import SceneCard from "@/components/editor/scenes/card/SceneCard";
 import NewScene from "@/components/editor/scenes/manage/NewScene";
 import { useGSStore } from "@/hooks/useGSStore";
+import { useInteractions } from "@/hooks/useInteractions";
 import { color, headerHeightREM } from "@/utils/theme";
 import styled from "@emotion/styled";
 import { useRef, useState } from "react";
@@ -50,6 +51,15 @@ export default function Sidebar({ className }: { className?: string }) {
 	const sceneIds = useGSStore(
 		useShallow((state) => Object.keys(state.gsmap.scenes))
 	);
+	const setCurrentSceneId = useInteractions((state) => state.setCurrentSceneId);
+
+	function handleSelectScene(sceneId: string | null) {
+		setSelectedSceneId(sceneId);
+
+		if (sceneId) {
+			setCurrentSceneId(sceneId);
+		}
+	}
 
 	return (
 		<Aside>
@@ -63,7 +73,7 @@ export default function Sidebar({ className }: { className?: string }) {
 						<SceneCard
 							sceneId={sceneId}
 							selected={selectedSceneId === sceneId}
-							handleSelected={setSelectedSceneId}
+							handleSelected={handleSelectScene}
 						/>
 					</SceneListItem>
 				))}

@@ -1,26 +1,43 @@
+import { color } from "@/utils/theme";
 import styled from "@emotion/styled";
 import MapToolbar from "./map/MapToolbar";
 import ModeSelector from "./ModeSelector";
 import SettingsToolbar from "./settings/SettingsToolbar";
 
-const ToolbarSide = styled.div`
+const ToolbarContainer = styled.div`
 	display: flex;
-	justify-content: center;
+	justify-content: flex-start;
 	align-items: center;
+	height: 100%;
 	gap: 1.5rem;
+`;
+
+const Separator = styled.div`
+	width: 2px;
+	align-self: stretch;
+	background-color: ${color.borderHalf};
+	margin: 0.5rem;
+`;
+
+const Space = styled.div`
+	flex-grow: 1;
 `;
 
 export default function Toolbar() {
 	return (
-		<>
-			<ToolbarSide role="toolbar">
-				<MapToolbar />
-				<SettingsToolbar />
-			</ToolbarSide>
+		<ToolbarContainer role="toolbar">
+			<MapToolbar />
 
-			<ToolbarSide role="toolbar">
-				<ModeSelector />
-			</ToolbarSide>
-		</>
+			<Separator />
+
+			<SettingsToolbar />
+
+			<Separator />
+
+			<Space />
+			<Separator />
+
+			<ModeSelector />
+		</ToolbarContainer>
 	);
 }

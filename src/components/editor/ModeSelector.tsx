@@ -5,9 +5,14 @@ import Icon from "../Icon";
 
 const Mode = styled.div`
 	display: flex;
+	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+`;
 
+const ModeLabel = styled.div`
+	display: flex;
+	align-items: center;
 	gap: 0.2rem;
 
 	font-style: italic;
@@ -35,8 +40,11 @@ export default function ModeSelector() {
 
 	return (
 		<Mode>
-			<Icon icon={icon} />
-			{label}
+			Mode
+			<ModeLabel>
+				<Icon icon={icon} />
+				{label}
+			</ModeLabel>
 		</Mode>
 	);
 }

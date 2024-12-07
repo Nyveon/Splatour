@@ -9,11 +9,6 @@ import { useEffect } from "react";
 import { isFirefox } from "react-device-detect";
 
 const EditorHeader = styled.header`
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	align-items: center;
-
 	padding-inline: 2rem;
 	height: ${headerHeightREM}rem;
 	width: 100%;

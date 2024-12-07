@@ -5,6 +5,7 @@ import styled from "@emotion/styled";
 import { useState } from "react";
 import Select from "react-select";
 import BackdropFlat from "../elements/BackdropFlat";
+import BackdropHemi from "../elements/BackdropHemi";
 import SceneCardPanel from "./SceneCardPanel";
 
 const SubPanel = styled.div`
@@ -25,7 +26,6 @@ const options: Option[] = [
 ];
 
 function getInitialValue(sceneId: string) {
-	console.log(useGSStore.getState().gsmap.scenes[sceneId].sky);
 	const sky = useGSStore.getState().gsmap.scenes[sceneId].sky;
 	const value = sky ? sky.type : "sky";
 	return options.find((option) => option.value === value) ?? options[0];
@@ -37,8 +37,6 @@ export default function PanelBackdrop({ sceneId }: { sceneId: string }) {
 
 	function handleChange(option: Option) {
 		setBackdrop(option);
-
-		console.log(option);
 
 		switch (option.value) {
 			case "sky":
@@ -60,8 +58,6 @@ export default function PanelBackdrop({ sceneId }: { sceneId: string }) {
 				return option.value satisfies never;
 		}
 	}
-
-	console.log("BACKDROP", backdrop);
 
 	return (
 		<SceneCardPanel label="Backdrop" icon="sun">
@@ -103,9 +99,10 @@ export default function PanelBackdrop({ sceneId }: { sceneId: string }) {
 				}}
 			/>
 
-			{backdrop.value === "flat" && (
+			{backdrop.value !== "sky" && (
 				<SubPanel>
-					<BackdropFlat sceneId={sceneId} />
+					{backdrop.value === "flat" && <BackdropFlat sceneId={sceneId} />}
+					{backdrop.value === "hemi" && <BackdropHemi sceneId={sceneId} />}
 				</SubPanel>
 			)}
 		</SceneCardPanel>

@@ -1,8 +1,9 @@
-type HEX = `#${string}`;
+import { HEX } from "@/utils/theme";
+
 export type GSSkyType = "flat" | "hemi";
 export type GSSkyValue = GSSkyFlat | GSSkyHemi;
 
-interface GSSkyFlat {
+export interface GSSkyFlat {
 	type: "flat";
 	primary: HEX;
 }
@@ -12,7 +13,7 @@ export const defaultSkyFlat: GSSkyFlat = {
 	primary: "#FFFFFF",
 };
 
-interface GSSkyHemi {
+export interface GSSkyHemi {
 	type: "hemi";
 	primary: HEX;
 	secondary: HEX;

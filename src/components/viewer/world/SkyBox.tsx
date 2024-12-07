@@ -14,11 +14,7 @@ export default function SkyBox() {
 		null
 	);
 
-	console.log("skybox render");
-
 	useEffect(() => {
-		console.log("scene sky change");
-
 		if (!currentSceneSky) {
 			setSkyboxGradient(null);
 			return;

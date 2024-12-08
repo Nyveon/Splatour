@@ -19,6 +19,7 @@ export default defineConfig(({ mode }) => {
 		// mobile.json
 		staticFiles.push({ src: "./public/converted_file.ksplat", dest: "./" });
 		staticFiles.push({ src: "./public/test.ksplat", dest: "./" });
+		staticFiles.push({ src: "./public/SalitaFinal.ksplat", dest: "./" });
 	} else {
 		rollupOutputOptions.entryFileNames = `assets/[name].js`;
 		rollupOutputOptions.chunkFileNames = `assets/[name].js`;

@@ -1,4 +1,4 @@
-import mapURL from "@/assets/maps/mobile.json?url";
+import mapURL from "@/assets/maps/salita.json?url";
 import { css, Global } from "@emotion/react";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";

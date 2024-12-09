@@ -13,7 +13,11 @@ const Panel = styled.div`
 	border-top: 1px solid ${color.borderHalf};
 	/* padding-top: 0.5rem; */
 	padding-inline: 0.5rem;
-    padding-block: 0.75rem;
+	padding-block: 0.75rem;
+
+	&[data-vertical="true"] {
+		flex-direction: column;
+	}
 `;
 
 const Label = styled.div`
@@ -32,13 +36,15 @@ export default function NodePanel({
 	icon,
 	label,
 	children,
+	vertical = false,
 }: {
 	icon: FeatherIconNames;
 	label: string;
 	children: ReactNode;
+	vertical?: boolean;
 }) {
 	return (
-		<Panel>
+		<Panel data-vertical={vertical}>
 			<Label>
 				<Icon icon={icon} />
 				{label}

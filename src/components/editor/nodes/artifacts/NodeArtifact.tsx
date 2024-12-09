@@ -4,6 +4,7 @@ import { useGSStore } from "@/hooks/useGSStore";
 import { AppIcons, color } from "@/utils/theme";
 import styled from "@emotion/styled";
 import NodePanel from "../NodePanel";
+import ArtifactContent from "./ArtifactContent";
 import ArtifactSize from "./ArtifactSize";
 import ArtifactTranslation from "./ArtifactTranslation";
 
@@ -27,7 +28,7 @@ const NodeLabel = styled.div`
 const LabelBelongsTo = styled.div`
 	color: ${color.textDisabled};
 	font-style: italic;
-    padding-block: 0.5rem;
+	padding-block: 0.5rem;
 `;
 
 export default function NodeArtifact({
@@ -66,8 +67,8 @@ export default function NodeArtifact({
 				<ArtifactSize nodeId={nodeId} sceneId={sceneId} />
 			</NodePanel>
 
-			<NodePanel label="Content" icon="file-text">
-				Placeholder
+			<NodePanel label="Content" icon="file-text" vertical={true}>
+				<ArtifactContent nodeId={nodeId} sceneId={sceneId} />
 			</NodePanel>
 		</NodeContainer>
 	);

@@ -1,6 +1,8 @@
 import { useGSStore } from "@/hooks/useGSStore";
 import { useInteractions } from "@/hooks/useInteractions";
 import { useSettingsStore } from "@/hooks/useSettingsStore";
+import { useState } from "react";
+import ArtifactContentView from "./ArtifactContentView";
 
 //todo: activation range
 //todo: left click to interact
@@ -13,6 +15,7 @@ export default function Artifact({
 	sceneId: string;
 	artifactId: string;
 }) {
+	const [isActive, setIsActive] = useState(false);
 	const setInteractable = useInteractions((state) => state.setInteractable);
 	const artifactPosition = useGSStore(
 		(state) => state.gsmap.scenes[sceneId].artifacts[artifactId].position
@@ -23,18 +26,27 @@ export default function Artifact({
 	const debug = useSettingsStore((state) => state.debug);
 
 	return (
-		<mesh
+		<group
 			position={[artifactPosition.x, artifactPosition.y, artifactPosition.z]}
-			onPointerOver={() => {
-				setInteractable(true);
-			}}
-			onPointerOut={() => {
-				setInteractable(false);
-			}}
-			visible={debug}
 		>
-			<sphereGeometry args={[artifactRadius, 16]} />
-			<meshBasicMaterial color="green" opacity={0.7} transparent />
-		</mesh>
+			{isActive && (
+				<ArtifactContentView sceneId={sceneId} artifactId={artifactId} />
+			)}
+
+			<mesh
+				onPointerOver={() => {
+					setInteractable(true);
+					setIsActive(true);
+				}}
+				onPointerOut={() => {
+					setInteractable(false);
+					setIsActive(false);
+				}}
+				visible={debug}
+			>
+				<sphereGeometry args={[artifactRadius, 16]} />
+				<meshBasicMaterial color="green" opacity={0.7} transparent />
+			</mesh>
+		</group>
 	);
 }

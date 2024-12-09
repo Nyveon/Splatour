@@ -1,5 +1,6 @@
 import { useGSStore } from "@/hooks/useGSStore";
 import { useInteractions } from "@/hooks/useInteractions";
+import { useSettingsStore } from "@/hooks/useSettingsStore";
 
 //todo: activation range
 //todo: left click to interact
@@ -19,6 +20,7 @@ export default function Artifact({
 	const artifactRadius = useGSStore(
 		(state) => state.gsmap.scenes[sceneId].artifacts[artifactId].radius
 	);
+	const debug = useSettingsStore((state) => state.debug);
 
 	return (
 		<mesh
@@ -29,6 +31,7 @@ export default function Artifact({
 			onPointerOut={() => {
 				setInteractable(false);
 			}}
+			visible={debug}
 		>
 			<sphereGeometry args={[artifactRadius, 16]} />
 			<meshBasicMaterial color="green" opacity={0.7} transparent />

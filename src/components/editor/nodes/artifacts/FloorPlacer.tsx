@@ -1,22 +1,26 @@
 import { useGSStore } from "@/hooks/useGSStore";
 import { useInteractions, UserState } from "@/hooks/useInteractions";
 import { gssArtifactCreate } from "@/model/GSSceneArtifact";
+import { playerHeight } from "@/utils/constants";
 import { useFrame } from "@react-three/fiber";
 import { useRef } from "react";
-import { Euler, Matrix4, Quaternion, Vector3, type Mesh } from "three";
+import type { Mesh } from "three";
+import { Euler, Matrix4, Plane, Quaternion, Vector3 } from "three";
 
+const plane = new Plane(new Vector3(0, 1, 0), 0);
+const intersectPoint = new Vector3();
+const shadowPoint = new Vector3();
+const lookDirection = new Vector3();
 const rotationQuaternion = new Quaternion();
 const transformMatrix = new Matrix4();
-const radius = 0.5;
-const placementMinDistance = 1.5;
-const placementMaxDistance = 10;
-const placementScrollSpeed = 0.005;
+const placementClose = 2;
+const placementFar = 10;
+const radius = playerHeight * 0.3;
 
 export default function ArtifactPlacer() {
 	const ref = useRef<Mesh>(null);
-	const placementDistance = useRef(4);
 
-	useFrame(({ camera }) => {
+	useFrame(({ raycaster }) => {
 		const placer = ref.current;
 
 		if (!placer) {
@@ -31,19 +35,33 @@ export default function ArtifactPlacer() {
 			return;
 		}
 
+		const distance = raycaster.ray.distanceToPlane(plane);
+
+		//todo: make it clear why it is not visible (too close or too far) (maybe make it red or show a message?)
+		if (!distance || distance < placementClose) {
+			ref.current.visible = false;
+			return;
+		}
 		ref.current.visible = true;
 
-		// Place at placementDistance away from the camera in the look direction
+		raycaster.ray.intersectPlane(plane, intersectPoint);
 
-		const lookDirection = new Vector3();
-		camera.getWorldDirection(lookDirection);
-		lookDirection.normalize();
-		lookDirection.multiplyScalar(placementDistance.current);
-		const position = new Vector3();
-		camera.getWorldPosition(position);
-		position.add(lookDirection);
+		shadowPoint.copy(raycaster.ray.origin);
+		shadowPoint.y = 0;
+		const flatDistance = shadowPoint.distanceTo(intersectPoint);
 
-		ref.current.position.copy(position);
+		if (flatDistance > placementFar) {
+			lookDirection.copy(raycaster.ray.direction);
+			lookDirection.y = 0;
+			lookDirection.normalize();
+			shadowPoint.addScaledVector(lookDirection, placementFar);
+			intersectPoint.copy(shadowPoint);
+		} else {
+			raycaster.ray.intersectPlane(plane, intersectPoint);
+		}
+
+		intersectPoint.y = 0;
+		ref.current.position.copy(intersectPoint);
 	});
 
 	function handleClick() {
@@ -100,19 +118,7 @@ export default function ArtifactPlacer() {
 	}
 
 	return (
-		<mesh
-			ref={ref}
-			position={[0, 0, 0]}
-			visible={false}
-			onClick={handleClick}
-			onWheel={(e) => {
-				placementDistance.current -= e.deltaY * placementScrollSpeed;
-				placementDistance.current = Math.min(
-					placementMaxDistance,
-					Math.max(placementMinDistance, placementDistance.current)
-				);
-			}}
-		>
+		<mesh ref={ref} position={[0, 0, 0]} visible={false} onClick={handleClick}>
 			<sphereGeometry args={[radius, 16]} />
 			<meshBasicMaterial color="blue" />
 		</mesh>

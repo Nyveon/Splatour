@@ -8,8 +8,8 @@ import { Euler, Matrix4, Quaternion, Vector3, type Mesh } from "three";
 const rotationQuaternion = new Quaternion();
 const transformMatrix = new Matrix4();
 const radius = 0.5;
-const placementMinDistance = 1.5;
-const placementMaxDistance = 10;
+const placementMinDistance = 1;
+const placementMaxDistance = 5;
 const placementScrollSpeed = 0.005;
 
 export default function ArtifactPlacer() {
@@ -93,7 +93,9 @@ export default function ArtifactPlacer() {
 			z: placer.position.z,
 		};
 
-		const newArtifact = gssArtifactCreate(relativePosition, radius);
+		const transformedRadius = radius / currentScene.scale.x;
+
+		const newArtifact = gssArtifactCreate(relativePosition, transformedRadius);
 		useGSStore.getState().setAddArtifact(currentSceneId, newArtifact);
 		useInteractions.getState().setUserState(UserState.None);
 		useInteractions.getState().setCurrentNode(newArtifact.id, "artifact");

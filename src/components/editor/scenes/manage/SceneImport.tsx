@@ -19,7 +19,10 @@ export default function SceneImport({
 				description="Upload a gaussian splat scene file to start editing"
 			>
 				<FileSelector
-					onFileSelect={(file: File) => void handleSplatSelect(file)}
+					onFileSelect={(file: File) => {
+						handleSplatSelect(file);
+						console.log("test");
+					}}
 					options={{
 						//todo: could add "startIn" when working in a directory
 						multiple: false,

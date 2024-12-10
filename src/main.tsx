@@ -3,6 +3,8 @@ import { css, Global } from "@emotion/react";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { HashRouter, Route, Routes } from "react-router";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Editor from "./pages/Editor";
 import Index from "./pages/Index";
 import Preview from "./pages/Preview";
@@ -23,6 +25,12 @@ createRoot(root).render(
 					background-color: ${color.backgroundLight};
 				}
 			`}
+		/>
+		<ToastContainer
+			style={{
+				zIndex: 10000,
+			}}
+			position="bottom-right"
 		/>
 		<HashRouter>
 			<Routes>

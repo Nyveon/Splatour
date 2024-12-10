@@ -8,6 +8,7 @@ import {
 	getAllFiles,
 	verifySceneFilePresence,
 } from "@/utils/filesystem";
+import { toastError, toastSuccess, toastUnknownError } from "@/utils/toasts";
 import { useState } from "react";
 
 /*
@@ -26,33 +27,42 @@ export default function MapImport() {
 	const handleDirectorySelect = async (
 		directoryHandle: FileSystemDirectoryHandle
 	) => {
-		const files = await getAllFiles(directoryHandle);
-		const gsmap = await findAndReadMapFile(files);
-		verifySceneFilePresence(files, gsmap);
+		try {
+			const files = await getAllFiles(directoryHandle);
+			const gsmap = await findAndReadMapFile(files);
+			verifySceneFilePresence(files, gsmap);
 
-		// Buffer all scenes
-		for (const sceneId of Object.keys(gsmap.scenes)) {
-			const filePath = gsmap.scenes[sceneId].filePath;
+			// Buffer all scenes
+			for (const sceneId of Object.keys(gsmap.scenes)) {
+				const filePath = gsmap.scenes[sceneId].filePath;
 
-			try {
-				const file = files.find((file) => file.name === filePath);
-				if (!file) {
-					throw new Error(`Scene file not found: ${filePath}`);
+				try {
+					const file = files.find((file) => file.name === filePath);
+					if (!file) {
+						throw new Error(`Scene file not found: ${filePath}`);
+					}
+
+					const splatBuffer = await fileToSplatBuffer(file);
+					gsmap.scenes[sceneId].buffer = splatBuffer;
+				} catch (err) {
+					throw new Error(`Failed to load scene buffer: ${filePath}, ${err}`);
 				}
+			}
 
-				const splatBuffer = await fileToSplatBuffer(file);
-				gsmap.scenes[sceneId].buffer = splatBuffer;
-			} catch (err) {
-				console.error(`Failed to load scene buffer: ${filePath}, ${err}`);
+			gsmap.directoryHandle = directoryHandle;
+			setGSMap(gsmap);
+			console.log("Loaded GSMap");
+
+			setModalOpen(false);
+            toastSuccess("GSMap loaded successfully");
+		} catch (error) {
+			if (!(error instanceof Error)) {
+				toastUnknownError();
 				return;
 			}
+
+			toastError(`Error loading GSMap: ${error.message}`);
 		}
-
-		gsmap.directoryHandle = directoryHandle;
-		setGSMap(gsmap);
-		console.log("Loaded GSMap");
-
-		setModalOpen(false);
 	};
 
 	return (

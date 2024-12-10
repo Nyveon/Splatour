@@ -1,6 +1,11 @@
 import Button from "@/components/input/Button";
 import { useGSStore } from "@/hooks/useGSStore";
-import { fileToSplatBuffer, gssCreateBuffer } from "@/model/GSScene";
+import {
+	fileToSplatBuffer,
+	gssCreateBuffer,
+	SplatFormatError,
+} from "@/model/GSScene";
+import { toastError, toastSuccess, toastUnknownError } from "@/utils/toasts";
 import { useState } from "react";
 import SceneImport from "./SceneImport";
 import SceneInclude from "./SceneInclude";
@@ -16,10 +21,14 @@ export default function NewScene() {
 			const newGss = gssCreateBuffer(file.name, splatBuffer);
 			setAddScene(newGss);
 			setModalOpen(false);
-			console.log("Done loading buffer");
+			toastSuccess("Scene loaded successfully");
 		} catch (error) {
-			//todo: toast
-			console.error("File selection canceled or failed:", error);
+			if (!(error instanceof Error)) {
+				toastUnknownError();
+				return;
+			}
+
+			toastError(`Error loading scene: ${error.message}`);
 		}
 	};
 

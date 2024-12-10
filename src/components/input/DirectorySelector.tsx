@@ -1,3 +1,4 @@
+import { toastError, toastUnknownError } from "@/utils/toasts";
 import styled from "@emotion/styled";
 import Button from "./Button";
 
@@ -19,8 +20,26 @@ export default function FileSelector({
 
 			onDirectorySelect(directoryHandle);
 		} catch (error) {
-			//todo: toast
-			console.error("File selection canceled or failed:", error);
+			if (!(error instanceof Error)) {
+				toastUnknownError();
+				return;
+			}
+
+			switch (error?.name) {
+				case "AbortError":
+					toastError("Directory selection cancelled");
+					break;
+				case "NotAllowedError":
+					toastError("Directory permission denied");
+					break;
+				case "NotFoundError":
+					toastError("Directory not found");
+					break;
+				default:
+					toastError(`Error selecting directory: ${error.message}`);
+					break;
+			}
+			console.error("Directory selection canceled or failed:", error);
 		}
 	};
 

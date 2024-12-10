@@ -57,7 +57,6 @@ export default function ArtifactPlacer() {
 		const currentSceneId = useInteractions.getState().currentSceneId;
 
 		if (!placer || !currentSceneId) {
-			//todo: error toast
 			return;
 		}
 

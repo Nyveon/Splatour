@@ -1,3 +1,4 @@
+import { toastError, toastUnknownError } from "@/utils/toasts";
 import styled from "@emotion/styled";
 import Button from "./Button";
 
@@ -19,8 +20,27 @@ export default function FileSelector({
 			const file = await fileHandle.getFile();
 			onFileSelect(file);
 		} catch (error) {
-			//todo: toast
-			console.error("File selection canceled or failed:", error);
+			if (!(error instanceof Error)) {
+				toastUnknownError();
+				return;
+			}
+
+			switch (error?.name) {
+				case "AbortError":
+					toastError("File selection cancelled");
+					break;
+				case "NotAllowedError":
+					toastError("File permission denied");
+					break;
+				case "NotFoundError":
+					toastError("File not found");
+					break;
+				default:
+					toastError(`Error selecting file: ${error.message}`);
+					break;
+			}
+
+            console.error("File selection canceled or failed:", error);
 		}
 	};
 

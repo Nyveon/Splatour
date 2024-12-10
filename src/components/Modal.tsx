@@ -14,7 +14,7 @@ const ModalWrapper = styled(Dialog)`
 const ModalOverlay = styled.div`
 	display: grid;
 	place-items: center;
-	z-index: 10000000;
+	z-index: 1000;
 
 	min-height: 100vh;
 	height: 100%;

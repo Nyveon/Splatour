@@ -9,7 +9,7 @@ const ButtonBar = styled.div`
 	justify-content: center;
 	gap: 1rem;
 
-    padding-bottom: 0.75rem;
+	padding-bottom: 0.75rem;
 `;
 
 export default function NodeUtils({
@@ -26,6 +26,7 @@ export default function NodeUtils({
 				variant="danger"
 				icon="trash"
 				onClick={() => {
+					resetCurrentNode();
 					handleDeletion();
 					toastSuccess("Node deleted");
 				}}

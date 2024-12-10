@@ -1,6 +1,7 @@
 import { useGSStore } from "@/hooks/useGSStore";
 import { useInteractions, UserState } from "@/hooks/useInteractions";
 import { gssArtifactCreate } from "@/model/GSSceneArtifact";
+import { toastSuccess } from "@/utils/toasts";
 import { useFrame } from "@react-three/fiber";
 import { useRef } from "react";
 import { Euler, Matrix4, Quaternion, Vector3, type Mesh } from "three";
@@ -98,6 +99,7 @@ export default function ArtifactPlacer() {
 		useGSStore.getState().setAddArtifact(currentSceneId, newArtifact);
 		useInteractions.getState().setUserState(UserState.None);
 		useInteractions.getState().setCurrentNode(newArtifact.id, "artifact");
+        toastSuccess("Artifact created");
 	}
 
 	return (

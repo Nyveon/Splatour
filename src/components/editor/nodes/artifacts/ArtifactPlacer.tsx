@@ -7,10 +7,10 @@ import { Euler, Matrix4, Quaternion, Vector3, type Mesh } from "three";
 
 const rotationQuaternion = new Quaternion();
 const transformMatrix = new Matrix4();
-const radius = 0.5;
-const placementMinDistance = 1;
-const placementMaxDistance = 5;
-const placementScrollSpeed = 0.005;
+const radius = 0.25;
+const placementMinDistance = 0.5;
+const placementMaxDistance = 1.5;
+const placementScrollSpeed = 0.001;
 
 export default function ArtifactPlacer() {
 	const ref = useRef<Mesh>(null);
@@ -115,7 +115,7 @@ export default function ArtifactPlacer() {
 			}}
 		>
 			<sphereGeometry args={[radius, 16]} />
-			<meshBasicMaterial color="blue" />
+			<meshBasicMaterial color="blue" opacity={0.5} transparent={true} />
 		</mesh>
 	);
 }

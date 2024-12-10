@@ -1,7 +1,7 @@
 import { useInteractions } from "@/hooks/useInteractions";
 import { color, sidebarWidthREM } from "@/utils/theme";
 import styled from "@emotion/styled";
-import NodeArtifact from "./nodes/artifacts/NodeArtifact";
+import ArtifactNode from "./nodes/artifacts/ArtifactNode";
 
 const Aside = styled.aside`
 	position: absolute;
@@ -36,7 +36,7 @@ export default function NodesSidebar() {
 	return (
 		<Aside>
 			{currentNodeType === "artifact" && (
-				<NodeArtifact nodeId={currentNodeId} sceneId={currentSceneId} />
+				<ArtifactNode nodeId={currentNodeId} sceneId={currentSceneId} />
 			)}
 		</Aside>
 	);

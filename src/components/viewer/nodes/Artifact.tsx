@@ -70,8 +70,6 @@ export default function Artifact({
 		}
 	});
 
-	console.log("redraw");
-
 	return (
 		<group
 			position={[artifactPosition.x, artifactPosition.y, artifactPosition.z]}

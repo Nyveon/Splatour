@@ -4,6 +4,7 @@ import { useGSStore } from "@/hooks/useGSStore";
 import { AppIcons, color } from "@/utils/theme";
 import styled from "@emotion/styled";
 import NodePanel from "../NodePanel";
+import NodeUtils from "../NodeUtils";
 import ArtifactContent from "./ArtifactContent";
 import ArtifactSize from "./ArtifactSize";
 import ArtifactTranslation from "./ArtifactTranslation";
@@ -26,6 +27,9 @@ const NodeLabel = styled.div`
 `;
 
 const LabelBelongsTo = styled.div`
+	display: flex;
+	justify-content: space-around;
+
 	color: ${color.textDisabled};
 	font-style: italic;
 	padding-block: 0.5rem;
@@ -45,6 +49,7 @@ export default function NodeArtifact({
 	const setArtifactTransform = useGSStore(
 		(state) => state.setArtifactTransform
 	);
+	const setDeleteArtifact = useGSStore((state) => state.setDeleteArtifact);
 
 	return (
 		<NodeContainer>
@@ -57,7 +62,10 @@ export default function NodeArtifact({
 					}
 				/>
 			</NodeLabel>
+
 			<LabelBelongsTo>Belongs to: {sceneName}</LabelBelongsTo>
+
+			<NodeUtils handleDeletion={() => setDeleteArtifact(sceneId, nodeId)} />
 
 			<NodePanel label="Offset" icon="move">
 				<ArtifactTranslation nodeId={nodeId} sceneId={sceneId} />

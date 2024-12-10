@@ -10,7 +10,11 @@ interface SceneState {
 	setSceneTransform: (sceneId: string, transform: Partial<GSScene>) => void;
 	setDeleteScene: (sceneId: string) => void;
 	setAddScene: (scene: GSScene) => void;
+
+	//todo: refactor these to just a single nodes dict/array
+	// with a type parameter
 	setAddArtifact: (sceneId: string, artifact: GSSceneArtifact) => void;
+	setDeleteArtifact: (sceneId: string, artifactId: string) => void;
 	setArtifactTransform: (
 		sceneId: string,
 		artifactId: string,
@@ -47,6 +51,13 @@ export const useGSStore = create<SceneState>()(
 				const scene = state.gsmap.scenes[sceneId];
 				if (scene) {
 					scene.artifacts[artifact.id] = artifact;
+				}
+			}),
+		setDeleteArtifact: (sceneId, artifactId) =>
+			set((state) => {
+				const scene = state.gsmap.scenes[sceneId];
+				if (scene) {
+					delete scene.artifacts[artifactId];
 				}
 			}),
 		setArtifactTransform: (sceneId, artifactId, transform) =>

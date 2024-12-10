@@ -9,7 +9,8 @@
         "build:viewer": "vite build --mode viewer",
         "build": "tsc -b && npm run build:main && npm run build:viewer",
         "lint": "eslint .",
-        "preview": "vite preview"
+        "preview": "vite preview",
+        "postinstall": "patch-package"
     },
     "dependencies": {
         "@emotion/react": "^11.13.3",
@@ -24,6 +25,7 @@
         "feather-icons": "^4.29.2",
         "fflate": "^0.8.2",
         "immer": "^10.1.1",
+        "patch-package": "^8.0.0",
         "react": "^18.3.1",
         "react-device-detect": "^2.2.3",
         "react-dom": "^18.3.1",

@@ -91,6 +91,13 @@ export function gssSerialize(scene: GSScene): SerialGSScene {
 	};
 }
 
+export class SplatFormatError extends Error {
+	constructor() {
+		super("Invalid file format");
+		this.name = "SplatFormatError";
+	}
+}
+
 /**
  * Turns a ply/splat/ksplat file into a loaded splat buffer
  * ! .ply and .splat are currently disabled
@@ -103,7 +110,7 @@ export async function fileToSplatBuffer(file: File) {
 	const format = LoaderUtils.sceneFormatFromPath(fileName);
 
 	if (!format) {
-		throw new Error("Invalid file format");
+		throw new SplatFormatError();
 	}
 
 	const fileData = await file.arrayBuffer();

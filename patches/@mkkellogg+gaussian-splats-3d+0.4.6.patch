@@ -1,0 +1,23 @@
+diff --git a/node_modules/@mkkellogg/gaussian-splats-3d/build/gaussian-splats-3d.module.js b/node_modules/@mkkellogg/gaussian-splats-3d/build/gaussian-splats-3d.module.js
+index 01ded4f..e93b9e8 100644
+--- a/node_modules/@mkkellogg/gaussian-splats-3d/build/gaussian-splats-3d.module.js
++++ b/node_modules/@mkkellogg/gaussian-splats-3d/build/gaussian-splats-3d.module.js
+@@ -229,10 +229,16 @@ const disposeAllMeshes = (object3D) => {
+     }
+ };
+ 
++//! Patched
+ const delayedExecute = (func, fast) => {
+-    return new Promise((resolve) => {
++    return new Promise((resolve, reject) => {
+         window.setTimeout(() => {
+-            resolve(func());
++            try {
++                const result = func();
++                resolve(result);
++            } catch (e) {
++                reject(e);
++            }
+         }, fast ? 1 : 50);
+     });
+ };

@@ -66,7 +66,7 @@ export default function Stepper({
 
 		if (
 			inputValue &&
-			isNaN(parsedValue) &&
+			!isNaN(parsedValue) &&
 			parsedValue >= min &&
 			parsedValue <= max
 		) {

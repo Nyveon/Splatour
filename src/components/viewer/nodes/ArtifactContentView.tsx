@@ -38,7 +38,6 @@ export default function ArtifactContentView({
 	const content = useGSStore(
 		(state) => state.gsmap.scenes[sceneId].artifacts[artifactId].content
 	);
-
 	const currentNodeId = useInteractions((state) => state.currentNodeId);
 
 	if (!active && currentNodeId !== artifactId) return null;

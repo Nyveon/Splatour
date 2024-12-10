@@ -15,7 +15,7 @@ const ArtifactContentHint = forwardRef<HTMLDivElement>(
 		return (
 			<Html
 				center
-				distanceFactor={4}
+				distanceFactor={8}
 				ref={ref}
 				style={{ transition: "opacity 0.5s ease" }}
 			>

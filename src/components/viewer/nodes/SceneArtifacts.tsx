@@ -1,11 +1,13 @@
 import { useGSStore } from "@/hooks/useGSStore";
-import Artifact from "./Artifact";
 import { useShallow } from "zustand/shallow";
+import Artifact from "./Artifact";
 
 export default function SceneArtifacts({ sceneId }: { sceneId: string }) {
-    const artifactIds = useGSStore(
-        useShallow((state) => Object.keys(state.gsmap.scenes[sceneId].artifacts))
-    );
+	console.log(useGSStore.getState());
+
+	const artifactIds = useGSStore(
+		useShallow((state) => Object.keys(state.gsmap.scenes[sceneId].artifacts))
+	);
 
 	if (!artifactIds) {
 		return null;
@@ -14,7 +16,13 @@ export default function SceneArtifacts({ sceneId }: { sceneId: string }) {
 	return (
 		<>
 			{artifactIds.map((artifactId) => {
-				return <Artifact key={artifactId} sceneId={sceneId} artifactId={artifactId} />;
+				return (
+					<Artifact
+						key={artifactId}
+						sceneId={sceneId}
+						artifactId={artifactId}
+					/>
+				);
 			})}
 		</>
 	);

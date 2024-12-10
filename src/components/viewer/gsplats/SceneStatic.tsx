@@ -1,6 +1,7 @@
 import type { GSScene } from "@/model/GSScene";
 import { useEffect, useRef } from "react";
 import type { Group } from "three";
+import SceneArtifacts from "../nodes/SceneArtifacts";
 import SceneViewer from "./SceneViewer";
 
 export default function SceneStatic({ scene }: { scene: GSScene }) {
@@ -22,10 +23,12 @@ export default function SceneStatic({ scene }: { scene: GSScene }) {
 		);
 	}, [scene, sceneRef]);
 
+	console.log(scene);
+
 	return (
 		<group ref={sceneRef}>
 			<SceneViewer sceneData={{ filePath: scene.filePath }} />
-			{/* //todo: artifacts */}
+			<SceneArtifacts sceneId={scene.id} />
 		</group>
 	);
 }

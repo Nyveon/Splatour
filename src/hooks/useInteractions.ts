@@ -1,3 +1,4 @@
+import { NodeType } from "@/model/GSNode";
 import { create } from "zustand";
 
 // User->Player<->world interactions are handled here
@@ -5,11 +6,10 @@ import { create } from "zustand";
 export enum UserState {
 	None,
 	Artifacts,
-	Barriers,
+	Walls,
+	Columns,
 	Portals,
 }
-
-export type NodeType = "artifact" | "barrier" | "portal";
 
 export interface InteractableState {
 	interactable: boolean;

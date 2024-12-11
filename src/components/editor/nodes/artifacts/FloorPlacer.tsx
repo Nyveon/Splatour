@@ -1,6 +1,6 @@
 import { useGSStore } from "@/hooks/useGSStore";
 import { useInteractions, UserState } from "@/hooks/useInteractions";
-import { gssArtifactCreate } from "@/model/GSSceneArtifact";
+import { gsnArtifactCreate, NodeType } from "@/model/GSNode";
 import { playerHeight } from "@/utils/constants";
 import { useFrame } from "@react-three/fiber";
 import { useRef } from "react";
@@ -110,10 +110,12 @@ export default function ArtifactPlacer() {
 			z: placer.position.z,
 		};
 
-		const newArtifact = gssArtifactCreate(relativePosition, radius);
-		useGSStore.getState().setAddArtifact(currentSceneId, newArtifact);
+		const newArtifact = gsnArtifactCreate(relativePosition, radius);
+		useGSStore.getState().setAddNode(currentSceneId, newArtifact);
 		useInteractions.getState().setUserState(UserState.None);
-		useInteractions.getState().setCurrentNode(newArtifact.id, "artifact");
+		useInteractions
+			.getState()
+			.setCurrentNode(newArtifact.id, NodeType.Artifact);
 	}
 
 	return (

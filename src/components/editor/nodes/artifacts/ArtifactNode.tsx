@@ -35,7 +35,7 @@ const LabelBelongsTo = styled.div`
 	padding-block: 0.5rem;
 `;
 
-export default function NodeArtifact({
+export default function ArtifactNode({
 	nodeId,
 	sceneId,
 }: {
@@ -46,10 +46,12 @@ export default function NodeArtifact({
 		(state) => state.gsmap.scenes[sceneId].artifacts[nodeId]
 	);
 	const sceneName = useGSStore((state) => state.gsmap.scenes[sceneId].name);
-	const setArtifactTransform = useGSStore(
-		(state) => state.setArtifactTransform
-	);
-	const setDeleteArtifact = useGSStore((state) => state.setDeleteArtifact);
+	const setNodeTransform = useGSStore((state) => state.setNodeTransform);
+	const setDeleteNode = useGSStore((state) => state.setDeleteNode);
+
+	if (!artifact) {
+		return null;
+	}
 
 	return (
 		<NodeContainer>
@@ -58,14 +60,15 @@ export default function NodeArtifact({
 				<TextInput
 					value={artifact.name}
 					valueHandler={(value: string) =>
-						setArtifactTransform(sceneId, nodeId, { name: value })
+						setNodeTransform(sceneId, nodeId, { name: value })
 					}
 				/>
 			</NodeLabel>
 
 			<LabelBelongsTo>Belongs to: {sceneName}</LabelBelongsTo>
 
-			<NodeUtils handleDeletion={() => setDeleteArtifact(sceneId, nodeId)} />
+			{/* todo: setDeleteNode can probably me moved into nodeutil */}
+			<NodeUtils handleDeletion={() => setDeleteNode(sceneId, nodeId)} />
 
 			<NodePanel label="Offset" icon="move">
 				<ArtifactTranslation nodeId={nodeId} sceneId={sceneId} />

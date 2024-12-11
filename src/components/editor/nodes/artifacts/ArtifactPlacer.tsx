@@ -1,6 +1,6 @@
 import { useGSStore } from "@/hooks/useGSStore";
 import { useInteractions, UserState } from "@/hooks/useInteractions";
-import { gssArtifactCreate } from "@/model/GSSceneArtifact";
+import { gsnArtifactCreate, NodeType } from "@/model/GSNode";
 import { toastSuccess } from "@/utils/toasts";
 import { ThreeEvent, useFrame } from "@react-three/fiber";
 import { useRef } from "react";
@@ -100,10 +100,12 @@ export default function ArtifactPlacer() {
 
 		const transformedRadius = radius / currentScene.scale.x;
 
-		const newArtifact = gssArtifactCreate(relativePosition, transformedRadius);
-		useGSStore.getState().setAddArtifact(currentSceneId, newArtifact);
+		const newArtifact = gsnArtifactCreate(relativePosition, transformedRadius);
+		useGSStore.getState().setAddNode(currentSceneId, newArtifact);
 		useInteractions.getState().setUserState(UserState.None);
-		useInteractions.getState().setCurrentNode(newArtifact.id, "artifact");
+		useInteractions
+			.getState()
+			.setCurrentNode(newArtifact.id, NodeType.Artifact);
 		toastSuccess("Artifact created");
 	}
 

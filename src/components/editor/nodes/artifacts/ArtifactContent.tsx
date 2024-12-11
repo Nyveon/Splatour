@@ -22,12 +22,12 @@ export default function ArtifactContent({
 	const artifactContent = useGSStore(
 		(state) => state.gsmap.scenes[sceneId].artifacts[nodeId].content
 	);
-	const setArtifactTransform = useGSStore(
-		(state) => state.setArtifactTransform
+	const setNodeTransform = useGSStore(
+		(state) => state.setNodeTransform
 	);
 
 	const handleChange = (value: string) => {
-		setArtifactTransform(sceneId, nodeId, {
+		setNodeTransform(sceneId, nodeId, {
 			content: value,
 		});
 	};

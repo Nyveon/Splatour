@@ -12,12 +12,12 @@ export default function ArtifactTranslation({
 	const artifactPosition = useGSStore(
 		(state) => state.gsmap.scenes[sceneId].artifacts[nodeId].position
 	);
-	const setArtifactTransform = useGSStore(
-		(state) => state.setArtifactTransform
+	const setNodeTransform = useGSStore(
+		(state) => state.setNodeTransform
 	);
 
 	const handleChange = (ax: axis, value: number) => {
-		setArtifactTransform(sceneId, nodeId, {
+		setNodeTransform(sceneId, nodeId, {
 			position: { ...artifactPosition, [ax]: value },
 		});
 	};

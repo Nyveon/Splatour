@@ -1,7 +1,8 @@
 import Icon from "@/components/Icon";
+import { useGSStore } from "@/hooks/useGSStore";
 import { useInteractions } from "@/hooks/useInteractions";
-import { GSSceneArtifact } from "@/model/GSSceneArtifact";
-import { AppIcons, color, UnstyledButton } from "@/utils/theme";
+import { NodeIconMap, NodeType } from "@/model/GSNode";
+import { color, UnstyledButton } from "@/utils/theme";
 import styled from "@emotion/styled";
 
 const Clickable = styled(UnstyledButton)`
@@ -35,21 +36,28 @@ const Clickable = styled(UnstyledButton)`
 	}
 `;
 
-export default function ArtifactItem({
-	artifact,
+export default function NodeItem({
+	sceneId,
+	nodeId,
+	nodeType,
 }: {
-	artifact: GSSceneArtifact;
+	sceneId: string;
+	nodeId: string;
+	nodeType: NodeType;
 }) {
 	const setCurrentNode = useInteractions((state) => state.setCurrentNode);
 	const currentNodeId = useInteractions((state) => state.currentNodeId);
+	const nodeName = useGSStore(
+		(state) => state.gsmap.scenes[sceneId].nodes[nodeId].name
+	);
 
 	return (
 		<Clickable
-			onClick={() => setCurrentNode(artifact.id, "artifact")}
-			data-active={currentNodeId === artifact.id}
+			onClick={() => setCurrentNode(nodeId, nodeType)}
+			data-active={currentNodeId === nodeId}
 		>
-			<Icon icon={AppIcons.Artifact} />
-			{artifact.name}
+			<Icon icon={NodeIconMap[nodeType]} />
+			{nodeName}
 		</Clickable>
 	);
 }

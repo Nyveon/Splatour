@@ -1,6 +1,6 @@
 import { GSMap, gsmCreateEmpty } from "@/model/GSMap";
+import { GSNode, GSNodeArtifact, nodeIsArtifact } from "@/model/GSNode";
 import { GSScene } from "@/model/GSScene";
-import { GSSceneArtifact } from "@/model/GSSceneArtifact";
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 
@@ -13,12 +13,12 @@ interface SceneState {
 
 	//todo: refactor these to just a single nodes dict/array
 	// with a type parameter
-	setAddArtifact: (sceneId: string, artifact: GSSceneArtifact) => void;
-	setDeleteArtifact: (sceneId: string, artifactId: string) => void;
-	setArtifactTransform: (
+	setAddNode: (sceneId: string, node: GSNode) => void;
+	setDeleteNode: (sceneId: string, nodeId: string) => void;
+	setNodeTransform: (
 		sceneId: string,
-		artifactId: string,
-		transform: Partial<GSSceneArtifact>
+		nodeId: string,
+		transform: Partial<GSNodeArtifact>
 	) => void;
 }
 
@@ -46,29 +46,54 @@ export const useGSStore = create<SceneState>()(
 			set((state) => {
 				state.gsmap.scenes[scene.id] = scene;
 			}),
-		setAddArtifact: (sceneId, artifact) =>
+		setAddNode: (sceneId, node) =>
 			set((state) => {
 				const scene = state.gsmap.scenes[sceneId];
 				if (scene) {
-					scene.artifacts[artifact.id] = artifact;
-				}
-			}),
-		setDeleteArtifact: (sceneId, artifactId) =>
-			set((state) => {
-				const scene = state.gsmap.scenes[sceneId];
-				if (scene) {
-					delete scene.artifacts[artifactId];
-				}
-			}),
-		setArtifactTransform: (sceneId, artifactId, transform) =>
-			set((state) => {
-				const scene = state.gsmap.scenes[sceneId];
-				if (scene) {
-					const artifact = scene.artifacts[artifactId];
-					if (artifact) {
-						Object.assign(artifact, transform);
+					scene.nodes[node.id] = node;
+
+					if (nodeIsArtifact(node)) {
+						scene.artifacts[node.id] = node;
+					} else {
+						console.error("Unknown node type", node);
 					}
 				}
+			}),
+		setDeleteNode: (sceneId, nodeId) =>
+			set((state) => {
+				const scene = state.gsmap.scenes[sceneId];
+				if (scene) {
+					const node = scene.nodes[nodeId];
+
+					if (nodeIsArtifact(node)) {
+						delete scene.artifacts[nodeId];
+					} else {
+						console.error("Unknown node type", node);
+					}
+
+					delete scene.nodes[nodeId];
+				}
+			}),
+		setNodeTransform: (sceneId, nodeId, transform) =>
+			set((state) => {
+				const scene = state.gsmap.scenes[sceneId];
+				console.log("here", transform);
+				if (scene) {
+					const node = scene.nodes[nodeId];
+					Object.assign(node, transform);
+					console.log(nodeId, sceneId, scene);
+
+					if (nodeIsArtifact(node)) {
+						const artifact = scene.artifacts[nodeId];
+						if (artifact) {
+							Object.assign(artifact, transform);
+						}
+					} else {
+						console.error("Unknown node type", node);
+					}
+				}
+
+				console.log(useGSStore.getState());
 			}),
 	}))
 );

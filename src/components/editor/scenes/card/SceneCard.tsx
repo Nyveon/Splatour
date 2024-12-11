@@ -11,6 +11,7 @@ import { AppIcons, color } from "@/utils/theme";
 import styled from "@emotion/styled";
 import PanelArtifacts from "./PanelArtifacts";
 import PanelBackdrop from "./PanelBackdrop";
+import PanelBarriers from "./PanelBarriers";
 import PanelPlacement from "./PanelPlacement";
 
 const SceneCardContainer = styled.div`
@@ -131,9 +132,7 @@ export default function SceneCard({
 				</CardItem>
 
 				<CardItem>
-                <SceneCardSection label="Barriers" icon={AppIcons.Barrier}>
-						Placeholder
-					</SceneCardSection>
+					<PanelBarriers sceneId={sceneId} />
 				</CardItem>
 
 				<CardItem>

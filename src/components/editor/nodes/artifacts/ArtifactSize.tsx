@@ -11,12 +11,10 @@ export default function ArtifactSize({
 	const artifactSize = useGSStore(
 		(state) => state.gsmap.scenes[sceneId].artifacts[nodeId].radius
 	);
-	const setArtifactTransform = useGSStore(
-		(state) => state.setArtifactTransform
-	);
+	const setNodeTransform = useGSStore((state) => state.setNodeTransform);
 
 	const handleChange = (value: number) => {
-		setArtifactTransform(sceneId, nodeId, {
+		setNodeTransform(sceneId, nodeId, {
 			radius: value,
 		});
 	};

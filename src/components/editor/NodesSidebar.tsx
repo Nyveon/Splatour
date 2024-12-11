@@ -1,4 +1,5 @@
 import { useInteractions } from "@/hooks/useInteractions";
+import { NodeType } from "@/model/GSNode";
 import { color, sidebarWidthREM } from "@/utils/theme";
 import styled from "@emotion/styled";
 import ArtifactNode from "./nodes/artifacts/ArtifactNode";
@@ -35,7 +36,7 @@ export default function NodesSidebar() {
 
 	return (
 		<Aside>
-			{currentNodeType === "artifact" && (
+			{currentNodeType === NodeType.Artifact && (
 				<ArtifactNode nodeId={currentNodeId} sceneId={currentSceneId} />
 			)}
 		</Aside>

@@ -39,7 +39,6 @@ export default function BarrierWall({
 	endPosition.set(wallEndPosition.x, 0, wallEndPosition.z);
 	centerPosition.copy(startPosition).add(endPosition).multiplyScalar(0.5);
 	direction.copy(endPosition).sub(startPosition).normalize();
-
 	const width = startPosition.distanceTo(endPosition);
 
 	return (
@@ -49,6 +48,7 @@ export default function BarrierWall({
 			radius={wallThickness / 2}
 			rotation={[0, -Math.atan2(direction.z, direction.x), 0]}
 			visible={visible}
+			userData={{ collidable: true }}
 		>
 			<meshStandardMaterial
 				color={color.barrierNode}

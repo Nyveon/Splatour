@@ -3,6 +3,7 @@ import { useSettingsStore } from "@/hooks/useSettingsStore";
 import { assertNodeIsSolid } from "@/model/GSNode";
 import { barrierHeight } from "@/utils/constants";
 import { color } from "@/utils/theme";
+import { Cylinder } from "@react-three/drei";
 
 export default function BarrierSolid({
 	sceneId,
@@ -24,17 +25,13 @@ export default function BarrierSolid({
 	});
 
 	return (
-		<group position={[solidPosition.x, barrierHeight / 2, solidPosition.z]}>
-			<mesh visible={visible}>
-				<cylinderGeometry
-					args={[solidRadius, solidRadius, barrierHeight, 16]}
-				/>
-				<meshBasicMaterial
-					color={color.barrierNode}
-					opacity={0.7}
-					transparent
-				/>
-			</mesh>
-		</group>
+		<Cylinder
+			args={[solidRadius, solidRadius, barrierHeight, 24]}
+			position={[solidPosition.x, barrierHeight / 2, solidPosition.z]}
+			visible={visible}
+			userData={{ collidable: true }}
+		>
+			<meshBasicMaterial color={color.barrierNode} opacity={0.7} transparent />
+		</Cylinder>
 	);
 }

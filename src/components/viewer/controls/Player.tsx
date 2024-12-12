@@ -5,22 +5,108 @@ import { Controls } from "@/utils/constants";
 import { useKeyboardControls } from "@react-three/drei";
 import { RootState, useFrame } from "@react-three/fiber";
 import { useRef } from "react";
-import { Vector3 } from "three";
+import { Matrix3, type Object3D, Raycaster, Vector3 } from "three";
 
-const rotationSpeed = 1.5;
-
+const rotationSpeed = 1.5; // for joystick
 const walkingSpeed = 1.4; // meters per second
 const walkingCadence = 115; // steps per minute
 const stepsPerSecond = walkingCadence / 60;
 const bobbingSpeed = stepsPerSecond * Math.PI * 2;
 const bobbingAmplitude = 0.02;
 
+const forward = new Vector3();
+const right = new Vector3();
+const move = new Vector3();
+
+const collisionDirection = new Vector3();
+const collisionRaycaster = new Raycaster();
+const collisionNormal = new Vector3();
+const collidables: Object3D[] = [];
+const remainingMovement = new Vector3();
+const proposedPosition = new Vector3();
+const normalMatrix = new Matrix3();
+
+//todo: make this a cache and only invalidate it when adding/removing collidables
+function findCollidablesRecursively(object: Object3D) {
+	if (object.userData.collidable) {
+		collidables.push(object);
+		return;
+	}
+
+	if (object.userData.hasCollidables) {
+		object.children.forEach(findCollidablesRecursively);
+	}
+}
+
+function checkCollisions(
+	scene: Object3D,
+	currentPosition: Vector3,
+	proposedPosition: Vector3
+): Vector3 | null {
+	collidables.length = 0;
+	scene.children.forEach(findCollidablesRecursively);
+
+	collisionDirection.subVectors(proposedPosition, currentPosition).normalize();
+	const distance = currentPosition.distanceTo(proposedPosition);
+
+	collisionRaycaster.near = 0;
+	collisionRaycaster.far = distance;
+	collisionRaycaster.set(currentPosition, collisionDirection);
+
+	const intersects = collisionRaycaster.intersectObjects(collidables, false);
+
+	if (intersects.length > 0) {
+		if (intersects[0].face) {
+			normalMatrix.getNormalMatrix(intersects[0].object.matrixWorld);
+			collisionNormal
+				.copy(intersects[0].face.normal)
+				.applyNormalMatrix(normalMatrix)
+				.normalize();
+		} else {
+			collisionNormal.set(0, 1, 0);
+		}
+
+		return collisionNormal;
+	}
+
+	return null;
+}
+
+function applyCollisionResponse(
+	scene: Object3D,
+	currentPosition: Vector3,
+	movementVector: Vector3
+): void {
+	const maxIterations = 3;
+	let iteration = 0;
+	remainingMovement.copy(movementVector);
+
+	while (iteration < maxIterations && remainingMovement.lengthSq() > 0) {
+		proposedPosition.copy(currentPosition).add(remainingMovement);
+
+		const collisionResult = checkCollisions(
+			scene,
+			currentPosition,
+			proposedPosition
+		);
+
+		if (!collisionResult) {
+			break;
+		}
+
+		const collisionNormal = collisionResult;
+		const pushBack =
+			remainingMovement.dot(collisionNormal) / collisionNormal.lengthSq();
+		const adjustment = collisionNormal.clone().multiplyScalar(pushBack);
+		remainingMovement.sub(adjustment);
+		iteration++;
+	}
+
+	movementVector.copy(remainingMovement);
+}
+
 export default function Player() {
 	const [, getControls] = useKeyboardControls();
-	const forward = new Vector3();
-	const right = new Vector3();
-	const move = new Vector3();
-
 	const bobbingPhase = useRef(0);
 	const bobbingOffset = useRef(0);
 
@@ -86,17 +172,21 @@ export default function Player() {
 
 		const prevBobbingOffset = bobbingOffset.current;
 
-		if (move.length() > 0) {
-			move.normalize();
+		move.normalize();
+		const instantSpeed = walkingSpeed * delta;
+		move.multiplyScalar(instantSpeed);
+
+		// Collisions
+		applyCollisionResponse(state.scene, camera.position, move);
+
+		// View bobbing
+		if (move.length() > instantSpeed / 2) {
 			bobbingPhase.current += delta * bobbingSpeed;
 			bobbingOffset.current = Math.sin(bobbingPhase.current) * bobbingAmplitude;
 		} else {
 			bobbingPhase.current = 0;
 			bobbingOffset.current = 0;
 		}
-
-		move.multiplyScalar(walkingSpeed * delta);
-
 		camera.position.y += bobbingOffset.current - prevBobbingOffset;
 
 		// Update camera

@@ -34,4 +34,5 @@ export default function SceneStatic({ scene }: { scene: GSScene }) {
 			</group>
 		</group>
 	);
+	//todo: barriers
 }

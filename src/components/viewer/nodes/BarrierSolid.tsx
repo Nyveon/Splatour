@@ -10,7 +10,7 @@ export default function BarrierSolid({
 	sceneId: string;
 	barrierId: string;
 }) {
-	const debug = useSettingsStore((state) => state.debug);
+	const visible = useSettingsStore((state) => state.debug && state.debugNodes);
 	const solidPosition = useGSStore((state) => {
 		const barrier = state.gsmap.scenes[sceneId].barriers[barrierId];
 		assertNodeIsSolid(barrier);
@@ -23,13 +23,9 @@ export default function BarrierSolid({
 		return barrier.radius;
 	});
 
-	// todo: double check the selector here is working and not rerendering on all changes
-
-	console.log("re-rendering barrier");
-
 	return (
 		<group position={[solidPosition.x, 0, solidPosition.z]}>
-			<mesh visible={debug}>
+			<mesh visible={visible}>
 				<cylinderGeometry
 					args={[solidRadius, solidRadius, barrierHeight, 16]}
 				/>

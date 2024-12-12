@@ -54,14 +54,14 @@ export default function MapImport() {
 			console.log("Loaded GSMap");
 
 			setModalOpen(false);
-            toastSuccess("GSMap loaded successfully");
+			toastSuccess("Map loaded successfully");
 		} catch (error) {
 			if (!(error instanceof Error)) {
 				toastUnknownError();
 				return;
 			}
 
-			toastError(`Error loading GSMap: ${error.message}`);
+			toastError(`Error loading Map: ${error.message}`);
 		}
 	};
 

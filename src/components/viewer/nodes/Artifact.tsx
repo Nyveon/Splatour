@@ -31,7 +31,7 @@ export default function Artifact({
 	const artifactRadius = useGSStore(
 		(state) => state.gsmap.scenes[sceneId].artifacts[artifactId].radius
 	);
-	const debug = useSettingsStore((state) => state.debug);
+	const visible = useSettingsStore((state) => state.debug && state.debugNodes);
 
 	function deactivate() {
 		if (!isActive) {
@@ -107,7 +107,7 @@ export default function Artifact({
 			/>
 			<ArtifactContentHint ref={artifactHint} />
 
-			<mesh ref={artifactMesh} visible={debug}>
+			<mesh ref={artifactMesh} visible={visible}>
 				<sphereGeometry args={[artifactRadius, 16]} />
 				<meshBasicMaterial color="green" opacity={0.7} transparent />
 			</mesh>

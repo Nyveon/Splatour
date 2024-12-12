@@ -16,7 +16,7 @@ const EditorHeader = styled.header`
 
 	background-color: ${color.backgroundDark};
 	color: ${color.textLight};
-    border-bottom: 1px solid ${color.borderHalf};
+	border-bottom: 1px solid ${color.borderHalf};
 `;
 
 const EditorBody = styled.main`
@@ -41,7 +41,7 @@ export default function Editor() {
 	);
 
 	useEffect(() => {
-		initializeSettings({ debug: true, mobileDebug: false });
+		initializeSettings({ debug: true, mobileDebug: false, debugNodes: true });
 	}, [initializeSettings]);
 
 	if (isFirefox) {

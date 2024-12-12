@@ -13,7 +13,11 @@ export default function BarrierSolidNode({
 	sceneId: string;
 }) {
 	return (
-		<NodeContainer sceneId={sceneId} nodeId={nodeId} icon={AppIcons.Barrier}>
+		<NodeContainer
+			sceneId={sceneId}
+			nodeId={nodeId}
+			icon={AppIcons.BarrierSolid}
+		>
 			<NodePanel label="Offset" icon="move">
 				<BarrierSolidTranslation nodeId={nodeId} sceneId={sceneId} />
 			</NodePanel>

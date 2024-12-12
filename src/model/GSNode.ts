@@ -22,7 +22,7 @@ export interface GSNodeBarrier extends GSNodeBase {
 }
 
 export type Barrier = NodeType.BarrierWall | NodeType.BarrierSolid;
-export function nodeIsBarrier(node: GSNode): node is GSNodeBarrier {
+export function nodeIsBarrier(node: GSNodeBase): node is GSNodeBarrier {
 	return (
 		node.type === NodeType.BarrierSolid || node.type === NodeType.BarrierWall
 	);
@@ -35,11 +35,11 @@ export interface GSNodeWall extends GSNodeBarrier {
 	thickness: number;
 }
 
-export function nodeIsWall(node: GSNode): node is GSNodeWall {
+export function nodeIsWall(node: GSNodeBase): node is GSNodeWall {
 	return node.type === NodeType.BarrierWall;
 }
 
-export function assertNodeIsWall(node: GSNode): asserts node is GSNodeWall {
+export function assertNodeIsWall(node: GSNodeBase): asserts node is GSNodeWall {
 	if (!nodeIsWall(node)) {
 		throw new Error("Type error: Node is not a wall barrier");
 	}
@@ -66,11 +66,13 @@ export interface GSNodeSolid extends GSNodeBarrier {
 	radius: number;
 }
 
-export function nodeIsSolid(node: GSNode): node is GSNodeSolid {
+export function nodeIsSolid(node: GSNodeBase): node is GSNodeSolid {
 	return node.type === NodeType.BarrierSolid;
 }
 
-export function assertNodeIsSolid(node: GSNode): asserts node is GSNodeSolid {
+export function assertNodeIsSolid(
+	node: GSNodeBase
+): asserts node is GSNodeSolid {
 	if (!nodeIsSolid(node)) {
 		throw new Error("Type error: Node is not a solid barrier");
 	}
@@ -98,7 +100,7 @@ export interface GSNodeArtifact extends GSNodeBase {
 	//todo: box shape?
 }
 
-export function nodeIsArtifact(node: GSNode): node is GSNodeArtifact {
+export function nodeIsArtifact(node: GSNodeBase): node is GSNodeArtifact {
 	return node.type === NodeType.Artifact;
 }
 
@@ -117,7 +119,7 @@ export function gsnArtifactCreate(
 }
 //#endregion
 
-export type GSNode = GSNodeArtifact | GSNodeBarrier;
+export type GSNode = GSNodeArtifact | GSNodeSolid | GSNodeWall;
 
 export const NodeIconMap: Record<NodeType, FeatherIconNames> = {
 	[NodeType.None]: "alert-circle",

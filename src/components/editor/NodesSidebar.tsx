@@ -4,6 +4,7 @@ import { color, sidebarWidthREM } from "@/utils/theme";
 import styled from "@emotion/styled";
 import ArtifactNode from "./nodes/artifacts/ArtifactNode";
 import BarrierSolidNode from "./nodes/barriers/BarrierSolidNode";
+import BarrierWallNode from "./nodes/barriers/BarrierWallNode";
 
 const Aside = styled.aside`
 	position: absolute;
@@ -42,6 +43,9 @@ export default function NodesSidebar() {
 			)}
 			{currentNodeType === NodeType.BarrierSolid && (
 				<BarrierSolidNode sceneId={currentSceneId} nodeId={currentNodeId} />
+			)}
+			{currentNodeType === NodeType.BarrierWall && (
+				<BarrierWallNode sceneId={currentSceneId} nodeId={currentNodeId} />
 			)}
 		</Aside>
 	);

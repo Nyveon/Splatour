@@ -7,11 +7,14 @@ export interface SettingsState {
 	setMobileDebug: (mobileDebug: boolean) => void;
 	debugNodes: boolean;
 	setDebugNodes: (debugNodes: boolean) => void;
+	noclip: boolean;
+	setNoclip: (noclip: boolean) => void;
 
 	initializeSettings: (defaults: {
 		debug: boolean;
 		mobileDebug: boolean;
 		debugNodes: boolean;
+		noclip: boolean;
 	}) => void;
 }
 
@@ -22,6 +25,8 @@ export const useSettingsStore = create<SettingsState>((set) => ({
 	setMobileDebug: (mobileDebug) => set({ mobileDebug }),
 	debugNodes: false,
 	setDebugNodes: (debugNodes) => set({ debugNodes }),
+	noclip: false,
+	setNoclip: (noclip) => set({ noclip }),
 
 	initializeSettings: (defaults) => set(defaults),
 }));

@@ -1,9 +1,9 @@
 import Checkbox from "@/components/input/Checkbox";
 import { useSettingsStore } from "@/hooks/useSettingsStore";
 
-export default function ToogleNodeVisibility() {
-	const debugNodes = useSettingsStore((state) => state.debugNodes);
-	const setDebugNodes = useSettingsStore((state) => state.setDebugNodes);
+export default function ToggleNoclip() {
+	const noclip = useSettingsStore((state) => state.noclip);
+	const setNoclip = useSettingsStore((state) => state.setNoclip);
 	const debug = useSettingsStore((state) => state.debug);
 
 	if (!debug) {
@@ -12,10 +12,10 @@ export default function ToogleNodeVisibility() {
 
 	return (
 		<Checkbox
-			label="Nodes"
-			value={debugNodes}
+			label="Noclip"
+			value={noclip}
 			onChange={(e: boolean) => {
-				setDebugNodes(e);
+				setNoclip(e);
 			}}
 		/>
 	);

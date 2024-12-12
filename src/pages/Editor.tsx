@@ -41,7 +41,12 @@ export default function Editor() {
 	);
 
 	useEffect(() => {
-		initializeSettings({ debug: true, mobileDebug: false, debugNodes: true });
+		initializeSettings({
+			debug: true,
+			mobileDebug: false,
+			debugNodes: true,
+			noclip: true,
+		});
 	}, [initializeSettings]);
 
 	if (isFirefox) {

@@ -77,6 +77,10 @@ function applyCollisionResponse(
 	currentPosition: Vector3,
 	movementVector: Vector3
 ): void {
+	if (useSettingsStore.getState().noclip) {
+		return;
+	}
+
 	const maxIterations = 3;
 	let iteration = 0;
 	remainingMovement.copy(movementVector);

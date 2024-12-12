@@ -15,7 +15,7 @@ interface GSNodeBase {
 }
 
 //#region Barriers
-enum BarrierShape {
+export enum BarrierShape {
 	Wall,
 	Solid,
 }

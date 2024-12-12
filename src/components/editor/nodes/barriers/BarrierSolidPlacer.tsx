@@ -1,7 +1,7 @@
 import { useGSStore } from "@/hooks/useGSStore";
 import { useInteractions, UserState } from "@/hooks/useInteractions";
 import { gsnSolidCreate, NodeType } from "@/model/GSNode";
-import { playerHeight } from "@/utils/constants";
+import { barrierHeight } from "@/utils/constants";
 import { toastError, toastSuccess, toastUnknownError } from "@/utils/toasts";
 import { ThreeEvent, useFrame } from "@react-three/fiber";
 import { useRef } from "react";
@@ -24,7 +24,6 @@ const transformMatrix = new Matrix4();
 const radius = 0.5;
 const placementClose = 0;
 const placementFar = 10;
-const height = playerHeight * 1.5;
 
 export default function BarrierSolidPlacer() {
 	const ref = useRef<Mesh>(null);
@@ -66,7 +65,7 @@ export default function BarrierSolidPlacer() {
 			raycaster.ray.intersectPlane(plane, intersectPoint);
 		}
 
-		intersectPoint.y = height / 2;
+		intersectPoint.y = barrierHeight / 2;
 		placer.position.copy(intersectPoint);
 	});
 
@@ -118,7 +117,7 @@ export default function BarrierSolidPlacer() {
 
 			const relativePosition = {
 				x: placer.position.x,
-				y: placer.position.y,
+				y: 0,
 				z: placer.position.z,
 			};
 
@@ -150,7 +149,7 @@ export default function BarrierSolidPlacer() {
 			visible={false}
 			onClick={(e) => handleClick(e)}
 		>
-			<cylinderGeometry args={[radius, radius, height, 16]} />
+			<cylinderGeometry args={[radius, radius, barrierHeight, 16]} />
 			<meshBasicMaterial
 				color="blue"
 				transparent={true}

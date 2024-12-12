@@ -32,15 +32,23 @@ export interface GSNodeWall extends GSNodeBarrier {
 	type: NodeType.BarrierWall;
 	startPosition: Vec3;
 	endPosition: Vec3;
+	thickness: number;
 }
 
 export function nodeIsWall(node: GSNode): node is GSNodeWall {
 	return node.type === NodeType.BarrierWall;
 }
 
+export function assertNodeIsWall(node: GSNode): asserts node is GSNodeWall {
+	if (!nodeIsWall(node)) {
+		throw new Error("Type error: Node is not a wall barrier");
+	}
+}
+
 export function gsnWallCreate(
 	startPosition: Vec3,
-	endPosition: Vec3
+	endPosition: Vec3,
+	thickness: number
 ): GSNodeWall {
 	return {
 		type: NodeType.BarrierWall,
@@ -48,6 +56,7 @@ export function gsnWallCreate(
 		name: "Wall",
 		startPosition: startPosition,
 		endPosition: endPosition,
+		thickness: thickness,
 	};
 }
 

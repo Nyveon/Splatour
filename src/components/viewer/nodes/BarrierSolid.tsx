@@ -17,7 +17,6 @@ export default function BarrierSolid({
 		assertNodeIsSolid(barrier);
 		return barrier.position;
 	});
-
 	const solidRadius = useGSStore((state) => {
 		const barrier = state.gsmap.scenes[sceneId].barriers[barrierId];
 		assertNodeIsSolid(barrier);

@@ -27,28 +27,32 @@ const transformMatrix = new Matrix4();
 const placementFar = 10;
 
 export default function BarrierWallPlacer() {
-	const ref = useRef<Mesh>(null);
+	const previewRef = useRef<Mesh>(null);
+	const placerRef = useRef<Mesh>(null);
 	const startPosition = useRef<Vector3>();
 
 	function reset() {
 		startPosition.current = undefined;
-		const placer = ref.current;
+		const preview = previewRef.current;
 
-		if (!placer) return;
+		if (!preview) return;
 
-		placer.scale.set(1, 1, 1);
+		preview.scale.set(1, 1, 1);
+		preview.rotation.set(0, 0, 0);
 	}
 
 	useFrame(({ raycaster }) => {
-		const placer = ref.current;
+		const placer = placerRef.current;
+		const preview = previewRef.current;
 
-		if (!placer) return;
+		if (!placer || !preview) return;
 
 		const userState = useInteractions.getState().userState;
 		const currentSceneId = useInteractions.getState().currentSceneId;
 
 		if (userState !== UserState.BarrierWalls || !currentSceneId) {
 			placer.visible = false;
+			preview.visible = false;
 			return;
 		}
 
@@ -56,6 +60,7 @@ export default function BarrierWallPlacer() {
 
 		if (!distance) {
 			placer.visible = false;
+			preview.visible = false;
 			return;
 		}
 		placer.visible = true;
@@ -77,19 +82,25 @@ export default function BarrierWallPlacer() {
 		}
 
 		intersectPoint.y = -0.1 + barrierHeight / 2;
+		placer.position.copy(intersectPoint);
 
 		if (startPosition.current) {
-			const distance = startPosition.current.distanceTo(intersectPoint);
-			const currentWidth = barrierWallThickness;
-			placer.scale.x = 1 + distance / currentWidth;
-			placer.position
+			preview.visible = true;
+
+			preview.position.copy(startPosition.current);
+
+			intersectPoint.sub(startPosition.current);
+			const distance = intersectPoint.length();
+			const angle = -Math.atan2(intersectPoint.z, intersectPoint.x);
+
+			preview.scale.x = 1 + distance / barrierWallThickness;
+
+			preview.position
 				.copy(startPosition.current)
-				.add(intersectPoint)
+				.add(placer.position)
 				.divideScalar(2);
-			placer.lookAt(intersectPoint);
-			placer.rotateOnAxis(new Vector3(0, 1, 0), Math.PI / 2);
-		} else {
-			placer.position.copy(intersectPoint);
+
+			preview.rotation.set(0, angle, 0);
 		}
 	});
 
@@ -101,7 +112,7 @@ export default function BarrierWallPlacer() {
 				return;
 			}
 
-			const placer = ref.current;
+			const placer = placerRef.current;
 			const currentSceneId = useInteractions.getState().currentSceneId;
 			const userState = useInteractions.getState().userState;
 
@@ -162,7 +173,13 @@ export default function BarrierWallPlacer() {
 				z: placer.position.z,
 			};
 
-			const newWall = gsnWallCreate(relativeStartPosition, relativeEndPosition);
+			const transformedThickness = barrierWallThickness / currentScene.scale.x;
+
+			const newWall = gsnWallCreate(
+				relativeStartPosition,
+				relativeEndPosition,
+				transformedThickness
+			);
 			useGSStore.getState().setAddNode(currentSceneId, newWall);
 			useInteractions.getState().setUserState(UserState.None);
 			useInteractions
@@ -183,19 +200,35 @@ export default function BarrierWallPlacer() {
 	}
 
 	return (
-		<RoundedBox
-			args={[barrierWallThickness, barrierHeight, barrierWallThickness]}
-			radius={barrierWallThickness / 2}
-			ref={ref}
-			visible={false}
-			onClick={(e) => handleClick(e)}
-		>
-			<meshStandardMaterial
-				color={color.barrierNode}
-				side={DoubleSide}
-				transparent
-				opacity={0.5}
-			/>
-		</RoundedBox>
+		<>
+			<RoundedBox
+				args={[barrierWallThickness, barrierHeight, barrierWallThickness]}
+				radius={barrierWallThickness / 2}
+				ref={previewRef}
+			>
+				<meshStandardMaterial
+					color={color.barrierNode}
+					side={DoubleSide}
+					transparent
+					opacity={0.25}
+				/>
+			</RoundedBox>
+			<mesh ref={placerRef} onClick={(e) => handleClick(e)}>
+				<cylinderGeometry
+					args={[
+						barrierWallThickness / 2,
+						barrierWallThickness / 2,
+						barrierHeight,
+						8,
+					]}
+				/>
+				<meshStandardMaterial
+					color={color.barrierNode}
+					side={DoubleSide}
+					transparent
+					opacity={0.5}
+				/>
+			</mesh>
+		</>
 	);
 }

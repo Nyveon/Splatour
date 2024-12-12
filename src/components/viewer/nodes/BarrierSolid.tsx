@@ -2,6 +2,7 @@ import { useGSStore } from "@/hooks/useGSStore";
 import { useSettingsStore } from "@/hooks/useSettingsStore";
 import { assertNodeIsSolid } from "@/model/GSNode";
 import { barrierHeight } from "@/utils/constants";
+import { color } from "@/utils/theme";
 
 export default function BarrierSolid({
 	sceneId,
@@ -24,12 +25,16 @@ export default function BarrierSolid({
 	});
 
 	return (
-		<group position={[solidPosition.x, 0, solidPosition.z]}>
+		<group position={[solidPosition.x, barrierHeight / 2, solidPosition.z]}>
 			<mesh visible={visible}>
 				<cylinderGeometry
 					args={[solidRadius, solidRadius, barrierHeight, 16]}
 				/>
-				<meshBasicMaterial color="red" opacity={0.7} transparent />
+				<meshBasicMaterial
+					color={color.barrierNode}
+					opacity={0.7}
+					transparent
+				/>
 			</mesh>
 		</group>
 	);

@@ -6,6 +6,7 @@ import { useRef, useState } from "react";
 import { Mesh, Vector3 } from "three";
 import ArtifactContentHint from "./ArtifactContentHint";
 import ArtifactContentView from "./ArtifactContentView";
+import { color } from "@/utils/theme";
 
 const activationRangeBase = 0.75; // 75cm average arm length
 const artifactWorldPosition = new Vector3();
@@ -109,7 +110,7 @@ export default function Artifact({
 
 			<mesh ref={artifactMesh} visible={visible}>
 				<sphereGeometry args={[artifactRadius, 16]} />
-				<meshBasicMaterial color="green" opacity={0.7} transparent />
+				<meshBasicMaterial color={color.artifactNode} opacity={0.7} transparent />
 			</mesh>
 		</group>
 	);

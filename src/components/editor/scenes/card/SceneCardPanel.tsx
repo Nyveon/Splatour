@@ -63,6 +63,11 @@ const DisclosurePanel = styled(BaseDisclosurePanel)`
 		&:last-child {
 			padding-bottom: 0;
 		}
+
+		&:only-of-type {
+			padding-block: 0rem;
+			border-top: none;
+		}
 	}
 
 	transition: height 0.2s ease;

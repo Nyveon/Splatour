@@ -35,6 +35,10 @@ export default function NodeList({
 		})
 	);
 
+	if (nodeIds.length === 0) {
+		return null;
+	}
+
 	return (
 		<List>
 			{nodeIds.map((nodeId) => (

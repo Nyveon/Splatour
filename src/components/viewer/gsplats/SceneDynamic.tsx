@@ -27,8 +27,8 @@ export default function SceneDynamic({ sceneId }: { sceneId: string }) {
 		const gsmapScene = useGSStore.getState().gsmap.scenes[sceneId];
 
 		if (
-			!sceneRef.current ||
 			!gsmapScene ||
+			!sceneRef.current ||
 			!relativeGroupRef.current ||
 			!floorGroupRef.current
 		) {
@@ -44,17 +44,20 @@ export default function SceneDynamic({ sceneId }: { sceneId: string }) {
 			scenePosition.y,
 			scenePosition.z
 		);
-		sceneRef.current.scale.set(sceneScale.x, sceneScale.y, sceneScale.z);
 
-		// Fully linked rotation
+		relativeGroupRef.current.scale.set(
+			sceneScale.x,
+			sceneScale.y,
+			sceneScale.z
+		);
 		relativeGroupRef.current.rotation.set(
 			sceneRotation.x,
 			sceneRotation.y,
 			sceneRotation.z
 		);
 
-		// Floor snapped rotation
 		floorGroupRef.current.rotation.set(0, sceneRotation.y, 0);
+		floorGroupRef.current.scale.set(sceneScale.x, 1, sceneScale.z);
 	}
 
 	useFrame(() => {

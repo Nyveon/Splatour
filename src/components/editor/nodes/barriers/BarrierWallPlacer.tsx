@@ -1,9 +1,10 @@
 import { useGSStore } from "@/hooks/useGSStore";
 import { useInteractions, UserState } from "@/hooks/useInteractions";
-import { gsnSolidCreate, NodeType } from "@/model/GSNode";
-import { barrierHeight } from "@/utils/constants";
+import { gsnWallCreate, NodeType } from "@/model/GSNode";
+import { barrierHeight, barrierWallThickness } from "@/utils/constants";
 import { color } from "@/utils/theme";
 import { toastError, toastSuccess, toastUnknownError } from "@/utils/toasts";
+import { RoundedBox } from "@react-three/drei";
 import { ThreeEvent, useFrame } from "@react-three/fiber";
 import { useRef } from "react";
 import {
@@ -20,14 +21,23 @@ const plane = new Plane(new Vector3(0, 1, 0), 0);
 const intersectPoint = new Vector3();
 const shadowPoint = new Vector3();
 const lookDirection = new Vector3();
+const startPositionVector = new Vector3();
 const rotationQuaternion = new Quaternion();
 const transformMatrix = new Matrix4();
-const radius = 0.5;
-const placementClose = 0;
 const placementFar = 10;
 
-export default function BarrierSolidPlacer() {
+export default function BarrierWallPlacer() {
 	const ref = useRef<Mesh>(null);
+	const startPosition = useRef<Vector3>();
+
+	function reset() {
+		startPosition.current = undefined;
+		const placer = ref.current;
+
+		if (!placer) return;
+
+		placer.scale.set(1, 1, 1);
+	}
 
 	useFrame(({ raycaster }) => {
 		const placer = ref.current;
@@ -37,14 +47,14 @@ export default function BarrierSolidPlacer() {
 		const userState = useInteractions.getState().userState;
 		const currentSceneId = useInteractions.getState().currentSceneId;
 
-		if (userState !== UserState.BarrierSolids || !currentSceneId) {
+		if (userState !== UserState.BarrierWalls || !currentSceneId) {
 			placer.visible = false;
 			return;
 		}
 
 		const distance = raycaster.ray.distanceToPlane(plane);
 
-		if (!distance || distance < placementClose) {
+		if (!distance) {
 			placer.visible = false;
 			return;
 		}
@@ -66,8 +76,21 @@ export default function BarrierSolidPlacer() {
 			raycaster.ray.intersectPlane(plane, intersectPoint);
 		}
 
-		intersectPoint.y = barrierHeight / 2;
-		placer.position.copy(intersectPoint);
+		intersectPoint.y = -0.1 + barrierHeight / 2;
+
+		if (startPosition.current) {
+			const distance = startPosition.current.distanceTo(intersectPoint);
+			const currentWidth = barrierWallThickness;
+			placer.scale.x = 1 + distance / currentWidth;
+			placer.position
+				.copy(startPosition.current)
+				.add(intersectPoint)
+				.divideScalar(2);
+			placer.lookAt(intersectPoint);
+			placer.rotateOnAxis(new Vector3(0, 1, 0), Math.PI / 2);
+		} else {
+			placer.position.copy(intersectPoint);
+		}
 	});
 
 	function handleClick(event: ThreeEvent<MouseEvent>) {
@@ -79,18 +102,27 @@ export default function BarrierSolidPlacer() {
 			}
 
 			const placer = ref.current;
-			const userState = useInteractions.getState().userState;
 			const currentSceneId = useInteractions.getState().currentSceneId;
+			const userState = useInteractions.getState().userState;
 
-			if (userState !== UserState.BarrierSolids || !placer || !currentSceneId) {
+			if (userState !== UserState.BarrierWalls || !placer || !currentSceneId) {
 				return;
 			}
 
 			if (event.button === 2) {
 				useInteractions.getState().setUserState(UserState.None);
+				reset();
 				return;
 			}
 
+			// Start wall draw
+			if (!startPosition.current) {
+				startPositionVector.copy(placer.position);
+				startPosition.current = startPositionVector;
+				return;
+			}
+
+			// End wall draw
 			const currentScene = useGSStore.getState().gsmap.scenes[currentSceneId];
 
 			rotationQuaternion.setFromEuler(
@@ -115,23 +147,29 @@ export default function BarrierSolidPlacer() {
 			);
 			transformMatrix.invert();
 
+			startPosition.current.applyMatrix4(transformMatrix);
 			placer.position.applyMatrix4(transformMatrix);
 
-			const relativePosition = {
+			const relativeStartPosition = {
+				x: startPosition.current.x,
+				y: 0,
+				z: startPosition.current.z,
+			};
+
+			const relativeEndPosition = {
 				x: placer.position.x,
 				y: 0,
 				z: placer.position.z,
 			};
 
-			const transformedRadius = radius / currentScene.scale.x;
-
-			const newSolid = gsnSolidCreate(relativePosition, transformedRadius);
-			useGSStore.getState().setAddNode(currentSceneId, newSolid);
+			const newWall = gsnWallCreate(relativeStartPosition, relativeEndPosition);
+			useGSStore.getState().setAddNode(currentSceneId, newWall);
 			useInteractions.getState().setUserState(UserState.None);
 			useInteractions
 				.getState()
-				.setCurrentNode(newSolid.id, NodeType.BarrierSolid);
-			toastSuccess("Solid barrier created");
+				.setCurrentNode(newWall.id, NodeType.BarrierWall);
+			reset();
+			toastSuccess("Wall barrier created");
 		} catch (error) {
 			console.error(error);
 
@@ -140,26 +178,24 @@ export default function BarrierSolidPlacer() {
 				return;
 			}
 
-			toastError(`Solid creation failed: ${error.message}`);
+			toastError(`Wall creation failed: ${error.message}`);
 		}
 	}
 
-	//todo: scroll wheel radius
-
 	return (
-		<mesh
+		<RoundedBox
+			args={[barrierWallThickness, barrierHeight, barrierWallThickness]}
+			radius={barrierWallThickness / 2}
 			ref={ref}
-			position={[0, 0, 0]}
 			visible={false}
 			onClick={(e) => handleClick(e)}
 		>
-			<cylinderGeometry args={[radius, radius, barrierHeight, 16]} />
-			<meshBasicMaterial
+			<meshStandardMaterial
 				color={color.barrierNode}
-				transparent={true}
-				opacity={0.5}
 				side={DoubleSide}
+				transparent
+				opacity={0.5}
 			/>
-		</mesh>
+		</RoundedBox>
 	);
 }

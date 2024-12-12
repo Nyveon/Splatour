@@ -88,7 +88,6 @@ export default function Player() {
 
 		if (move.length() > 0) {
 			move.normalize();
-
 			bobbingPhase.current += delta * bobbingSpeed;
 			bobbingOffset.current = Math.sin(bobbingPhase.current) * bobbingAmplitude;
 		} else {

@@ -4,6 +4,7 @@ import BarrierSolidPlacer from "../editor/nodes/barriers/BarrierSolidPlacer";
 import GSMapEditable from "./MapDynamic";
 import Viewer from "./Viewer";
 import DebugUtils from "./interface/DebugUtils";
+import BarrierWallPlacer from "../editor/nodes/barriers/BarrierWallPlacer";
 
 const Preview = styled.section`
 	position: relative;
@@ -20,6 +21,7 @@ export default function EditorView() {
 				<GSMapEditable />
 				<ArtifactPlacer />
 				<BarrierSolidPlacer />
+                <BarrierWallPlacer />
 			</Viewer>
 		</Preview>
 	);

@@ -24,6 +24,9 @@ export const color = {
 	border: "#ced4da",
 	borderHalf: "#ced4da80",
 	borderQuarter: "#ced4da40",
+
+    artifactNode: "#ff00ff",
+    barrierNode: "#ffaa00",
 };
 
 export const unstyledButtonCSS = css`

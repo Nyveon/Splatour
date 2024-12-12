@@ -1,6 +1,7 @@
 import { useGSStore } from "@/hooks/useGSStore";
 import { useInteractions, UserState } from "@/hooks/useInteractions";
 import { gsnArtifactCreate, NodeType } from "@/model/GSNode";
+import { color } from "@/utils/theme";
 import { toastError, toastSuccess, toastUnknownError } from "@/utils/toasts";
 import { ThreeEvent, useFrame } from "@react-three/fiber";
 import { useRef } from "react";
@@ -54,8 +55,9 @@ export default function ArtifactPlacer() {
 
 			const placer = ref.current;
 			const currentSceneId = useInteractions.getState().currentSceneId;
+			const userState = useInteractions.getState().userState;
 
-			if (!placer || !currentSceneId) {
+			if (userState !== UserState.Artifacts || !placer || !currentSceneId) {
 				return;
 			}
 
@@ -135,7 +137,11 @@ export default function ArtifactPlacer() {
 			}}
 		>
 			<sphereGeometry args={[radius, 16]} />
-			<meshBasicMaterial color="blue" opacity={0.5} transparent={true} />
+			<meshBasicMaterial
+				color={color.artifactNode}
+				opacity={0.5}
+				transparent={true}
+			/>
 		</mesh>
 	);
 }

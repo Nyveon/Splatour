@@ -1,0 +1,28 @@
+import { AppIcons } from "@/utils/theme";
+import NodeContainer from "../NodeContainer";
+import NodePanel from "../NodePanel";
+import BarrierFloorSnap from "./BarrierFloorSnap";
+import BarrierSolidRadius from "./BarrierSolidRadius";
+import BarrierSolidTranslation from "./BarrierSolidTranslation";
+
+export default function BarrierSolidNode({
+	nodeId,
+	sceneId,
+}: {
+	nodeId: string;
+	sceneId: string;
+}) {
+	return (
+		<NodeContainer sceneId={sceneId} nodeId={nodeId} icon={AppIcons.Barrier}>
+			<NodePanel label="Offset" icon="move">
+				<BarrierSolidTranslation nodeId={nodeId} sceneId={sceneId} />
+			</NodePanel>
+
+			<NodePanel label="Radius" icon="maximize-2">
+				<BarrierSolidRadius nodeId={nodeId} sceneId={sceneId} />
+			</NodePanel>
+
+			<BarrierFloorSnap />
+		</NodeContainer>
+	);
+}

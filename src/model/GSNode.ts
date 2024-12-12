@@ -5,7 +5,8 @@ import { FeatherIconNames } from "feather-icons";
 export enum NodeType {
 	None,
 	Artifact,
-	Barrier,
+	BarrierSolid,
+	BarrierWall,
 }
 
 interface GSNodeBase {
@@ -15,24 +16,26 @@ interface GSNodeBase {
 }
 
 //#region Barriers
-export enum BarrierShape {
-	Wall,
-	Solid,
-}
 
 export interface GSNodeBarrier extends GSNodeBase {
-	type: NodeType.Barrier;
-	shape: BarrierShape;
+	type: Barrier;
+}
+
+export type Barrier = NodeType.BarrierWall | NodeType.BarrierSolid;
+export function nodeIsBarrier(node: GSNode): node is GSNodeBarrier {
+	return (
+		node.type === NodeType.BarrierSolid || node.type === NodeType.BarrierWall
+	);
 }
 
 export interface GSNodeWall extends GSNodeBarrier {
-	shape: BarrierShape.Wall;
+	type: NodeType.BarrierWall;
 	startPosition: Vec3;
 	endPosition: Vec3;
 }
 
 export function nodeIsWall(node: GSNode): node is GSNodeWall {
-	return node.type === NodeType.Barrier && node.shape === BarrierShape.Wall;
+	return node.type === NodeType.BarrierWall;
 }
 
 export function gsnWallCreate(
@@ -40,8 +43,7 @@ export function gsnWallCreate(
 	endPosition: Vec3
 ): GSNodeWall {
 	return {
-		type: NodeType.Barrier,
-		shape: BarrierShape.Wall,
+		type: NodeType.BarrierWall,
 		id: crypto.randomUUID(),
 		name: "Wall",
 		startPosition: startPosition,
@@ -50,19 +52,24 @@ export function gsnWallCreate(
 }
 
 export interface GSNodeSolid extends GSNodeBarrier {
-	shape: BarrierShape.Solid;
+	type: NodeType.BarrierSolid;
 	position: Vec3;
 	radius: number;
 }
 
 export function nodeIsSolid(node: GSNode): node is GSNodeSolid {
-	return node.type === NodeType.Barrier && node.shape === BarrierShape.Solid;
+	return node.type === NodeType.BarrierSolid;
+}
+
+export function assertNodeIsSolid(node: GSNode): asserts node is GSNodeSolid {
+	if (!nodeIsSolid(node)) {
+		throw new Error("Type error: Node is not a solid barrier");
+	}
 }
 
 export function gsnSolidCreate(position: Vec3, radius: number): GSNodeSolid {
 	return {
-		type: NodeType.Barrier,
-		shape: BarrierShape.Solid,
+		type: NodeType.BarrierSolid,
 		id: crypto.randomUUID(),
 		name: "Solid",
 		position: position,
@@ -106,5 +113,6 @@ export type GSNode = GSNodeArtifact | GSNodeBarrier;
 export const NodeIconMap: Record<NodeType, FeatherIconNames> = {
 	[NodeType.None]: "alert-circle",
 	[NodeType.Artifact]: AppIcons.Artifact,
-	[NodeType.Barrier]: AppIcons.Barrier,
+	[NodeType.BarrierWall]: AppIcons.BarrierWall,
+	[NodeType.BarrierSolid]: AppIcons.BarrierSolid,
 };

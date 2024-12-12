@@ -1,6 +1,6 @@
 import { useGSStore } from "@/hooks/useGSStore";
 import { useSettingsStore } from "@/hooks/useSettingsStore";
-import { nodeIsSolid } from "@/model/GSNode";
+import { assertNodeIsSolid } from "@/model/GSNode";
 import { barrierHeight } from "@/utils/constants";
 
 export default function BarrierSolid({
@@ -13,23 +13,13 @@ export default function BarrierSolid({
 	const debug = useSettingsStore((state) => state.debug);
 	const solidPosition = useGSStore((state) => {
 		const barrier = state.gsmap.scenes[sceneId].barriers[barrierId];
-
-		if (!nodeIsSolid(barrier)) {
-			throw new Error(
-				"Expected a GSNodeSolid barrier, but got something else."
-			);
-		}
-
+		assertNodeIsSolid(barrier);
 		return barrier.position;
 	});
 
 	const solidRadius = useGSStore((state) => {
 		const barrier = state.gsmap.scenes[sceneId].barriers[barrierId];
-		if (!nodeIsSolid(barrier)) {
-			throw new Error(
-				"Expected a GSNodeSolid barrier, but got something else."
-			);
-		}
+		assertNodeIsSolid(barrier);
 		return barrier.radius;
 	});
 

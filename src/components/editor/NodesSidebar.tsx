@@ -3,6 +3,7 @@ import { NodeType } from "@/model/GSNode";
 import { color, sidebarWidthREM } from "@/utils/theme";
 import styled from "@emotion/styled";
 import ArtifactNode from "./nodes/artifacts/ArtifactNode";
+import BarrierSolidNode from "./nodes/barriers/BarrierSolidNode";
 
 const Aside = styled.aside`
 	position: absolute;
@@ -37,7 +38,10 @@ export default function NodesSidebar() {
 	return (
 		<Aside>
 			{currentNodeType === NodeType.Artifact && (
-				<ArtifactNode nodeId={currentNodeId} sceneId={currentSceneId} />
+				<ArtifactNode sceneId={currentSceneId} nodeId={currentNodeId} />
+			)}
+			{currentNodeType === NodeType.BarrierSolid && (
+				<BarrierSolidNode sceneId={currentSceneId} nodeId={currentNodeId} />
 			)}
 		</Aside>
 	);

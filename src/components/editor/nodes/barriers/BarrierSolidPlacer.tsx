@@ -126,7 +126,9 @@ export default function BarrierSolidPlacer() {
 			const newSolid = gsnSolidCreate(relativePosition, transformedRadius);
 			useGSStore.getState().setAddNode(currentSceneId, newSolid);
 			useInteractions.getState().setUserState(UserState.None);
-			useInteractions.getState().setCurrentNode(newSolid.id, NodeType.Barrier);
+			useInteractions
+				.getState()
+				.setCurrentNode(newSolid.id, NodeType.BarrierSolid);
 			toastSuccess("Solid barrier created");
 		} catch (error) {
 			console.error(error);

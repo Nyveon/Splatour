@@ -24,6 +24,7 @@ export default function MapSave() {
 		await writeable.write(serializedMap);
 		await writeable.close();
 		console.log("Map file saved.");
+		//todo: success toast
 	}
 
 	return (

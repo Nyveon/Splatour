@@ -1,10 +1,6 @@
 import Button from "@/components/input/Button";
 import { useGSStore } from "@/hooks/useGSStore";
-import {
-	fileToSplatBuffer,
-	gssCreateBuffer,
-	SplatFormatError,
-} from "@/model/GSScene";
+import { fileToSplatBuffer, gssCreateBuffer } from "@/model/GSScene";
 import { toastError, toastSuccess, toastUnknownError } from "@/utils/toasts";
 import { useState } from "react";
 import SceneImport from "./SceneImport";

@@ -18,6 +18,7 @@ export interface AxisInputsProps {
 	convertFrom?: (value: number) => number;
 	linked?: boolean;
 	slider?: boolean;
+	exclude?: axis[];
 }
 
 export default function AxisInputs({
@@ -29,8 +30,12 @@ export default function AxisInputs({
 	convertFrom = (value) => value,
 	linked = false,
 	slider = false,
+	exclude = [],
 }: AxisInputsProps) {
-	const inputs = linked ? [axes[0]] : axes;
+	// const inputs = linked ? [axes[0]] : axes;
+	const inputs = linked
+		? [axes[0]]
+		: axes.filter((axis) => !exclude.includes(axis));
 	const InputComponent = slider ? Slider : Stepper;
 
 	return (
@@ -40,7 +45,7 @@ export default function AxisInputs({
 					<InputComponent
 						value={convertFrom(values[axis])}
 						valueHandler={(value) => handleChange(axis, value)}
-						label={axis}
+						label={linked ? "s" : axis}
 						min={min}
 						max={max}
 						step={step}

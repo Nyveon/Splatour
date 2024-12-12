@@ -1,5 +1,5 @@
 import { GSMap, gsmCreateEmpty } from "@/model/GSMap";
-import { GSNode, GSNodeArtifact, nodeIsArtifact, nodeIsSolid } from "@/model/GSNode";
+import { GSNode, nodeIsArtifact, nodeIsBarrier } from "@/model/GSNode";
 import { GSScene } from "@/model/GSScene";
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
@@ -10,15 +10,12 @@ interface SceneState {
 	setSceneTransform: (sceneId: string, transform: Partial<GSScene>) => void;
 	setDeleteScene: (sceneId: string) => void;
 	setAddScene: (scene: GSScene) => void;
-
-	//todo: refactor these to just a single nodes dict/array
-	// with a type parameter
 	setAddNode: (sceneId: string, node: GSNode) => void;
 	setDeleteNode: (sceneId: string, nodeId: string) => void;
 	setNodeTransform: (
 		sceneId: string,
 		nodeId: string,
-		transform: Partial<GSNodeArtifact>
+		transform: Partial<GSNode>
 	) => void;
 }
 
@@ -52,9 +49,9 @@ export const useGSStore = create<SceneState>()(
 				if (scene) {
 					if (nodeIsArtifact(node)) {
 						scene.artifacts[node.id] = node;
-					} else if (nodeIsSolid(node)) {
-                        scene.barriers[node.id] = node;
-                    } else {
+					} else if (nodeIsBarrier(node)) {
+						scene.barriers[node.id] = node;
+					} else {
 						throw new Error("Unknown node type");
 					}
 
@@ -71,6 +68,8 @@ export const useGSStore = create<SceneState>()(
 
 					if (nodeIsArtifact(node)) {
 						delete scene.artifacts[nodeId];
+					} else if (nodeIsBarrier(node)) {
+						delete scene.barriers[nodeId];
 					} else {
 						throw new Error("Unknown node type");
 					}
@@ -86,9 +85,10 @@ export const useGSStore = create<SceneState>()(
 
 					if (nodeIsArtifact(node)) {
 						const artifact = scene.artifacts[nodeId];
-						if (artifact) {
-							Object.assign(artifact, transform);
-						}
+						Object.assign(artifact, transform);
+					} else if (nodeIsBarrier(node)) {
+						const barrier = scene.barriers[nodeId];
+						Object.assign(barrier, transform);
 					} else {
 						throw new Error("Unknown node type");
 					}

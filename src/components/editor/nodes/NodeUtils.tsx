@@ -1,4 +1,5 @@
 import Button from "@/components/input/Button";
+import { useGSStore } from "@/hooks/useGSStore";
 import { useInteractions } from "@/hooks/useInteractions";
 import { toastSuccess } from "@/utils/toasts";
 import styled from "@emotion/styled";
@@ -13,11 +14,13 @@ const ButtonBar = styled.div`
 `;
 
 export default function NodeUtils({
-	handleDeletion,
+	sceneId, nodeId,
 }: {
-	handleDeletion: () => void;
+	sceneId: string;
+    nodeId: string;
 }) {
 	const resetCurrentNode = useInteractions((state) => state.resetCurrentNode);
+    const setDeleteNode = useGSStore((state) => state.setDeleteNode);
 
 	return (
 		<ButtonBar>
@@ -27,7 +30,7 @@ export default function NodeUtils({
 				icon="trash"
 				onClick={() => {
 					resetCurrentNode();
-					handleDeletion();
+					setDeleteNode(sceneId, nodeId);
 					toastSuccess("Node deleted");
 				}}
 			/>

@@ -1,10 +1,11 @@
 import styled from "@emotion/styled";
 import ArtifactPlacer from "../editor/nodes/artifacts/ArtifactPlacer";
 import BarrierSolidPlacer from "../editor/nodes/barriers/BarrierSolidPlacer";
+import BarrierWallPlacer from "../editor/nodes/barriers/BarrierWallPlacer";
 import GSMapEditable from "./MapDynamic";
 import Viewer from "./Viewer";
 import DebugUtils from "./interface/DebugUtils";
-import BarrierWallPlacer from "../editor/nodes/barriers/BarrierWallPlacer";
+import Hotkeys from "./interface/Hotkeys";
 
 const Preview = styled.section`
 	position: relative;
@@ -17,11 +18,12 @@ export default function EditorView() {
 	return (
 		<Preview>
 			<Viewer>
+				<Hotkeys />
 				<DebugUtils />
 				<GSMapEditable />
 				<ArtifactPlacer />
 				<BarrierSolidPlacer />
-                <BarrierWallPlacer />
+				<BarrierWallPlacer />
 			</Viewer>
 		</Preview>
 	);

@@ -9,6 +9,8 @@ export interface SettingsState {
 	setDebugNodes: (debugNodes: boolean) => void;
 	noclip: boolean;
 	setNoclip: (noclip: boolean) => void;
+    flySpeed: number;
+    setFlySpeed: (flySpeed: number) => void;
 
 	initializeSettings: (defaults: {
 		debug: boolean;
@@ -27,6 +29,8 @@ export const useSettingsStore = create<SettingsState>((set) => ({
 	setDebugNodes: (debugNodes) => set({ debugNodes }),
 	noclip: false,
 	setNoclip: (noclip) => set({ noclip }),
+    flySpeed: 1,
+    setFlySpeed: (flySpeed) => set({ flySpeed }),
 
 	initializeSettings: (defaults) => set(defaults),
 }));

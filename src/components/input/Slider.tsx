@@ -16,7 +16,7 @@ const SliderField = styled(Field)`
 
 const SliderLabel = styled(Label)`
 	color: ${color.textLight};
-	width: 2rem;
+	min-width: 2rem;
 	text-align: center;
 `;
 
@@ -52,7 +52,7 @@ const ValueBubble = styled.output<{ valuePercent: number }>`
 const SliderContainer = styled.div`
 	position: relative;
 	width: 6rem;
-    flex-grow: 0;
+	flex-grow: 0;
 
 	&:focus-within {
 		output {
@@ -191,6 +191,7 @@ interface SliderProps {
 	label?: ReactNode;
 	value: number;
 	valueHandler: (value: number) => void;
+	className?: string;
 }
 
 export default function Slider({
@@ -200,11 +201,12 @@ export default function Slider({
 	label = "",
 	value,
 	valueHandler,
+	className = "",
 }: SliderProps) {
 	const valuePercent = ((value - min) / (max - min)) * 100;
 
 	return (
-		<SliderField>
+		<SliderField className={className}>
 			{label && <SliderLabel>{label}</SliderLabel>}
 			<SliderContainer>
 				<ValueBubble valuePercent={valuePercent}>

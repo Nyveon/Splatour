@@ -77,7 +77,7 @@ function applyCollisionResponse(
 	currentPosition: Vector3,
 	movementVector: Vector3
 ): void {
-	if (useSettingsStore.getState().noclip) {
+	if (useSettingsStore.getState().noclip && useSettingsStore.getState().debug) {
 		return;
 	}
 
@@ -177,7 +177,8 @@ export default function Player() {
 		const prevBobbingOffset = bobbingOffset.current;
 
 		move.normalize();
-		const instantSpeed = walkingSpeed * delta;
+		const instantSpeed =
+			useSettingsStore.getState().flySpeed * walkingSpeed * delta;
 		move.multiplyScalar(instantSpeed);
 
 		// Collisions

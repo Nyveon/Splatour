@@ -21,11 +21,8 @@ export default function DebugUtils() {
 		(state) => state.viewerContainerRef
 	);
 	const debug = useSettingsStore((state) => state.debug);
-
 	useEffect(() => {
-		if (viewerContainerRef?.current) {
-			console.log("Viewer container is available:", viewerContainerRef.current);
-		}
+		return;
 	}, [viewerContainerRef]);
 
 	if (!debug) {

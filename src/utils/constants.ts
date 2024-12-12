@@ -5,6 +5,23 @@ export enum Controls {
 	right = "right",
 	up = "up",
 	down = "down",
+
+	//toggles
+	togglePreview = "togglePreview",
+	toggleMobile = "toggleMobile",
+	toggleNoclip = "toggleNoclip",
+	toggleNodeVisibility = "toggleNodeVisibility",
+
+	//current scene
+	newWall = "newWall",
+	newSolid = "newSolid",
+	newArtifact = "newArtifact",
+	closeReturn = "closeReturn",
+
+	//other
+	speedUp = "speedUp",
+	speedDown = "speedDown",
+	speedReset = "speedReset",
 }
 
 export const KeyMap = [
@@ -14,6 +31,20 @@ export const KeyMap = [
 	{ name: Controls.right, keys: ["ArrowRight", "d", "D"] },
 	{ name: Controls.up, keys: ["Space", "Q", "q"] },
 	{ name: Controls.down, keys: ["Shift", "E", "e"] },
+
+	{ name: Controls.closeReturn, keys: ["x"] },
+	{ name: Controls.newWall, keys: ["1"] },
+	{ name: Controls.newSolid, keys: ["2"] },
+	{ name: Controls.newArtifact, keys: ["3"] },
+
+	{ name: Controls.togglePreview, keys: ["v"] },
+	{ name: Controls.toggleMobile, keys: ["m"] },
+	{ name: Controls.toggleNoclip, keys: ["b"] },
+	{ name: Controls.toggleNodeVisibility, keys: ["n"] },
+
+	{ name: Controls.speedUp, keys: ["r", "R"] },
+	{ name: Controls.speedDown, keys: ["f", "F"] },
+	{ name: Controls.speedReset, keys: ["c", "C"] },
 ];
 
 export type axis = "x" | "y" | "z";

@@ -2,6 +2,7 @@ import { color } from "@/utils/theme";
 import styled from "@emotion/styled";
 import MapToolbar from "./map/MapToolbar";
 import ModeSelector from "./ModeSelector";
+import FlySpeed from "./settings/FlySpeed";
 import SettingsToolbar from "./settings/SettingsToolbar";
 
 const ToolbarContainer = styled.div`
@@ -33,6 +34,7 @@ export default function Toolbar() {
 			<SettingsToolbar />
 
 			<Separator />
+			<FlySpeed />
 
 			<Space />
 			<Separator />

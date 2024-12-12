@@ -4,7 +4,7 @@ import type {
 	SplatBuffer,
 } from "@mkkellogg/gaussian-splats-3d";
 import { KSplatLoader, LoaderUtils } from "@mkkellogg/gaussian-splats-3d";
-import { GSNode, GSNodeArtifact } from "./GSNode";
+import { GSNode, GSNodeArtifact, GSNodeBarrier } from "./GSNode";
 import { GSSky } from "./GSSky";
 
 export interface SerialGSScene {
@@ -15,6 +15,7 @@ export interface SerialGSScene {
 	position: Vec3;
 	sky: GSSky | null;
 	artifacts: Record<string, GSNodeArtifact>;
+	barriers: Record<string, GSNodeBarrier>;
 }
 
 export interface GSScene {
@@ -38,6 +39,7 @@ export interface GSScene {
 	// Elements
 	nodes: Record<string, GSNode>;
 	artifacts: Record<string, GSNodeArtifact>;
+	barriers: Record<string, GSNodeBarrier>;
 }
 
 export const gssResetTransform = {
@@ -56,6 +58,7 @@ export function gssCreate(filePath: string, name: string): GSScene {
 		position: { x: 0, y: 0, z: 0 },
 		nodes: {},
 		artifacts: {},
+		barriers: {},
 	};
 }
 
@@ -74,11 +77,14 @@ export function gssDeserialize(scene: SerialGSScene): GSScene {
 	gssBase.rotation = scene.rotation;
 	gssBase.position = scene.position;
 	if (scene.sky) gssBase.sky = scene.sky;
-	gssBase.artifacts = scene.artifacts;
 
+	gssBase.artifacts = scene.artifacts ?? {};
+	gssBase.barriers = scene.barriers ?? {};
 	gssBase.nodes = {
 		...gssBase.artifacts,
+		...gssBase.barriers,
 	};
+
 	return gssBase;
 }
 
@@ -94,6 +100,7 @@ export function gssSerialize(scene: GSScene): SerialGSScene {
 		sky: scene.sky ?? null,
 
 		artifacts: scene.artifacts ?? {},
+		barriers: scene.barriers ?? {},
 	};
 }
 

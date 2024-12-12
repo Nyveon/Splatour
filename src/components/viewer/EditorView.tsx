@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import ArtifactPlacer from "../editor/nodes/artifacts/ArtifactPlacer";
+import BarrierSolidPlacer from "../editor/nodes/barriers/BarrierSolidPlacer";
 import GSMapEditable from "./MapDynamic";
 import Viewer from "./Viewer";
 import DebugUtils from "./interface/DebugUtils";
@@ -18,6 +19,7 @@ export default function EditorView() {
 				<DebugUtils />
 				<GSMapEditable />
 				<ArtifactPlacer />
+				<BarrierSolidPlacer />
 			</Viewer>
 		</Preview>
 	);

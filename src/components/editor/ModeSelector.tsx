@@ -28,7 +28,14 @@ const modeMap = {
 		icon: AppIcons.Artifact,
 		label: "Placing Artifact",
 	},
-	[UserState.Barriers]: { icon: AppIcons.Barrier, label: "Placing Barriers" },
+	[UserState.BarrierWalls]: {
+		icon: AppIcons.BarrierWall,
+		label: "Placing Wall",
+	},
+	[UserState.BarrierSolids]: {
+		icon: AppIcons.BarrierSolid,
+		label: "Placing Solid",
+	},
 	[UserState.Portals]: { icon: AppIcons.Portal, label: "Placing Portal" },
 };
 

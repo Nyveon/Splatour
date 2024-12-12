@@ -1,7 +1,7 @@
 import { useGSStore } from "@/hooks/useGSStore";
 import { useInteractions, UserState } from "@/hooks/useInteractions";
 import { gsnArtifactCreate, NodeType } from "@/model/GSNode";
-import { toastSuccess } from "@/utils/toasts";
+import { toastError, toastSuccess, toastUnknownError } from "@/utils/toasts";
 import { ThreeEvent, useFrame } from "@react-three/fiber";
 import { useRef } from "react";
 import { Euler, Matrix4, Quaternion, Vector3, type Mesh } from "three";
@@ -32,9 +32,7 @@ export default function ArtifactPlacer() {
 			return;
 		}
 
-		ref.current.visible = true;
-
-		// Place at placementDistance away from the camera in the look direction
+		placer.visible = true;
 
 		const lookDirection = new Vector3();
 		camera.getWorldDirection(lookDirection);
@@ -43,70 +41,83 @@ export default function ArtifactPlacer() {
 		const position = new Vector3();
 		camera.getWorldPosition(position);
 		position.add(lookDirection);
-
-		ref.current.position.copy(position);
+		placer.position.copy(position);
 	});
 
 	function handleClick(event: ThreeEvent<MouseEvent>) {
-		const isLocked = useInteractions.getState().isLocked;
+		try {
+			const isLocked = useInteractions.getState().isLocked;
 
-		if (!isLocked) {
-			return;
-		}
+			if (!isLocked) {
+				return;
+			}
 
-		const placer = ref.current;
-		const currentSceneId = useInteractions.getState().currentSceneId;
+			const placer = ref.current;
+			const currentSceneId = useInteractions.getState().currentSceneId;
 
-		if (!placer || !currentSceneId) {
-			return;
-		}
+			if (!placer || !currentSceneId) {
+				return;
+			}
 
-		if (event.button === 2) {
+			if (event.button === 2) {
+				useInteractions.getState().setUserState(UserState.None);
+				return;
+			}
+
+			const currentScene = useGSStore.getState().gsmap.scenes[currentSceneId];
+
+			rotationQuaternion.setFromEuler(
+				new Euler(
+					currentScene.rotation.x,
+					currentScene.rotation.y,
+					currentScene.rotation.z
+				)
+			);
+			transformMatrix.compose(
+				new Vector3(
+					currentScene.position.x,
+					currentScene.position.y,
+					currentScene.position.z
+				),
+				rotationQuaternion,
+				new Vector3(
+					currentScene.scale.x,
+					currentScene.scale.y,
+					currentScene.scale.z
+				)
+			);
+			transformMatrix.invert();
+
+			placer.position.applyMatrix4(transformMatrix);
+
+			const relativePosition = {
+				x: placer.position.x,
+				y: placer.position.y,
+				z: placer.position.z,
+			};
+
+			const transformedRadius = radius / currentScene.scale.x;
+
+			const newArtifact = gsnArtifactCreate(
+				relativePosition,
+				transformedRadius
+			);
+			useGSStore.getState().setAddNode(currentSceneId, newArtifact);
 			useInteractions.getState().setUserState(UserState.None);
-			return;
+			useInteractions
+				.getState()
+				.setCurrentNode(newArtifact.id, NodeType.Artifact);
+			toastSuccess("Artifact created");
+		} catch (error) {
+			console.error(error);
+
+			if (!(error instanceof Error)) {
+				toastUnknownError();
+				return;
+			}
+
+			toastError(`Artifact creation failed: ${error.message}`);
 		}
-
-		const currentScene = useGSStore.getState().gsmap.scenes[currentSceneId];
-
-		rotationQuaternion.setFromEuler(
-			new Euler(
-				currentScene.rotation.x,
-				currentScene.rotation.y,
-				currentScene.rotation.z
-			)
-		);
-		transformMatrix.compose(
-			new Vector3(
-				currentScene.position.x,
-				currentScene.position.y,
-				currentScene.position.z
-			),
-			rotationQuaternion,
-			new Vector3(
-				currentScene.scale.x,
-				currentScene.scale.y,
-				currentScene.scale.z
-			)
-		);
-		transformMatrix.invert();
-
-		placer.position.applyMatrix4(transformMatrix);
-
-		const relativePosition = {
-			x: placer.position.x,
-			y: placer.position.y,
-			z: placer.position.z,
-		};
-
-		const transformedRadius = radius / currentScene.scale.x;
-
-		const newArtifact = gsnArtifactCreate(relativePosition, transformedRadius);
-		useGSStore.getState().setAddNode(currentSceneId, newArtifact);
-		useInteractions.getState().setUserState(UserState.None);
-		useInteractions
-			.getState()
-			.setCurrentNode(newArtifact.id, NodeType.Artifact);
-		toastSuccess("Artifact created");
 	}
 
 	return (

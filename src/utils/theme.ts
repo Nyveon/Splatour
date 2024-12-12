@@ -85,7 +85,11 @@ export const UnstyledButton = styled(Button)<{ onClick: () => void }>`
 export enum AppIcons {
 	Placement = "move",
 	Artifact = "info",
+
 	Barrier = "shield",
+	BarrierWall = "square",
+	BarrierSolid = "circle",
+
 	Portal = "crosshair",
 }
 

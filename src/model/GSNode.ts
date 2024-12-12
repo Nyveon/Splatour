@@ -14,12 +14,65 @@ interface GSNodeBase {
 	name: string;
 }
 
-export interface GSNodeWall extends GSNodeBase {
+//#region Barriers
+enum BarrierShape {
+	Wall,
+	Solid,
+}
+
+export interface GSNodeBarrier extends GSNodeBase {
 	type: NodeType.Barrier;
+	shape: BarrierShape;
+}
+
+export interface GSNodeWall extends GSNodeBarrier {
+	shape: BarrierShape.Wall;
 	startPosition: Vec3;
 	endPosition: Vec3;
 }
 
+export function nodeIsWall(node: GSNode): node is GSNodeWall {
+	return node.type === NodeType.Barrier && node.shape === BarrierShape.Wall;
+}
+
+export function gsnWallCreate(
+	startPosition: Vec3,
+	endPosition: Vec3
+): GSNodeWall {
+	return {
+		type: NodeType.Barrier,
+		shape: BarrierShape.Wall,
+		id: crypto.randomUUID(),
+		name: "Wall",
+		startPosition: startPosition,
+		endPosition: endPosition,
+	};
+}
+
+export interface GSNodeSolid extends GSNodeBarrier {
+	shape: BarrierShape.Solid;
+	position: Vec3;
+	radius: number;
+}
+
+export function nodeIsSolid(node: GSNode): node is GSNodeSolid {
+	return node.type === NodeType.Barrier && node.shape === BarrierShape.Solid;
+}
+
+export function gsnSolidCreate(position: Vec3, radius: number): GSNodeSolid {
+	return {
+		type: NodeType.Barrier,
+		shape: BarrierShape.Solid,
+		id: crypto.randomUUID(),
+		name: "Solid",
+		position: position,
+		radius: radius,
+	};
+}
+
+//#endregion
+
+//#region Artifacts
 export interface GSNodeArtifact extends GSNodeBase {
 	type: NodeType.Artifact;
 
@@ -46,8 +99,9 @@ export function gsnArtifactCreate(
 		radius: radius,
 	};
 }
+//#endregion
 
-export type GSNode = GSNodeArtifact | GSNodeWall;
+export type GSNode = GSNodeArtifact | GSNodeBarrier;
 
 export const NodeIconMap: Record<NodeType, FeatherIconNames> = {
 	[NodeType.None]: "alert-circle",

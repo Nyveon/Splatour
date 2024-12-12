@@ -2,11 +2,12 @@ import { useGSStore } from "@/hooks/useGSStore";
 import { useFrame } from "@react-three/fiber";
 import { useRef } from "react";
 import type { Group } from "three";
-import SceneViewer from "./SceneViewer";
 import SceneArtifacts from "../nodes/SceneArtifacts";
+import SceneViewer from "./SceneViewer";
 
 export default function SceneDynamic({ sceneId }: { sceneId: string }) {
 	const sceneRef = useRef<Group>(null);
+	const rotationGroupRef = useRef<Group>(null);
 	const splatSceneRef = useRef<Group>(null);
 	const sceneFile = useGSStore((state) => state.gsmap.scenes[sceneId].filePath);
 	const sceneBuffer = useGSStore((state) => state.gsmap.scenes[sceneId].buffer);
@@ -23,7 +24,7 @@ export default function SceneDynamic({ sceneId }: { sceneId: string }) {
 	function updateScene() {
 		const gsmapScene = useGSStore.getState().gsmap.scenes[sceneId];
 
-		if (!sceneRef.current || !gsmapScene) {
+		if (!sceneRef.current || !gsmapScene || !rotationGroupRef.current) {
 			return;
 		}
 
@@ -37,7 +38,7 @@ export default function SceneDynamic({ sceneId }: { sceneId: string }) {
 			scenePosition.z
 		);
 		sceneRef.current.scale.set(sceneScale.x, sceneScale.y, sceneScale.z);
-		sceneRef.current.rotation.set(
+		rotationGroupRef.current.rotation.set(
 			sceneRotation.x,
 			sceneRotation.y,
 			sceneRotation.z
@@ -56,8 +57,10 @@ export default function SceneDynamic({ sceneId }: { sceneId: string }) {
 
 	return (
 		<group ref={sceneRef}>
-			<SceneViewer ref={splatSceneRef} sceneData={sceneData} />
-            <SceneArtifacts sceneId={sceneId} />
+			<group ref={rotationGroupRef}>
+				<SceneViewer ref={splatSceneRef} sceneData={sceneData} />
+				<SceneArtifacts sceneId={sceneId} />
+			</group>
 		</group>
 	);
 }

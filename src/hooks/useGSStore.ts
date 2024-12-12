@@ -1,5 +1,5 @@
 import { GSMap, gsmCreateEmpty } from "@/model/GSMap";
-import { GSNode, GSNodeArtifact, nodeIsArtifact } from "@/model/GSNode";
+import { GSNode, GSNodeArtifact, nodeIsArtifact, nodeIsSolid } from "@/model/GSNode";
 import { GSScene } from "@/model/GSScene";
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
@@ -50,13 +50,17 @@ export const useGSStore = create<SceneState>()(
 			set((state) => {
 				const scene = state.gsmap.scenes[sceneId];
 				if (scene) {
-					scene.nodes[node.id] = node;
-
 					if (nodeIsArtifact(node)) {
 						scene.artifacts[node.id] = node;
-					} else {
-						console.error("Unknown node type", node);
+					} else if (nodeIsSolid(node)) {
+                        scene.barriers[node.id] = node;
+                    } else {
+						throw new Error("Unknown node type");
 					}
+
+					scene.nodes[node.id] = node;
+				} else {
+					throw new Error("Scene not found");
 				}
 			}),
 		setDeleteNode: (sceneId, nodeId) =>
@@ -68,7 +72,7 @@ export const useGSStore = create<SceneState>()(
 					if (nodeIsArtifact(node)) {
 						delete scene.artifacts[nodeId];
 					} else {
-						console.error("Unknown node type", node);
+						throw new Error("Unknown node type");
 					}
 
 					delete scene.nodes[nodeId];
@@ -77,11 +81,8 @@ export const useGSStore = create<SceneState>()(
 		setNodeTransform: (sceneId, nodeId, transform) =>
 			set((state) => {
 				const scene = state.gsmap.scenes[sceneId];
-				console.log("here", transform);
 				if (scene) {
 					const node = scene.nodes[nodeId];
-					Object.assign(node, transform);
-					console.log(nodeId, sceneId, scene);
 
 					if (nodeIsArtifact(node)) {
 						const artifact = scene.artifacts[nodeId];
@@ -89,8 +90,10 @@ export const useGSStore = create<SceneState>()(
 							Object.assign(artifact, transform);
 						}
 					} else {
-						console.error("Unknown node type", node);
+						throw new Error("Unknown node type");
 					}
+
+					Object.assign(node, transform);
 				}
 
 				console.log(useGSStore.getState());

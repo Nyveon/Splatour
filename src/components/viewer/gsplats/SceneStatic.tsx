@@ -6,9 +6,10 @@ import SceneViewer from "./SceneViewer";
 
 export default function SceneStatic({ scene }: { scene: GSScene }) {
 	const sceneRef = useRef<Group>(null);
+	const rotationGroupRef = useRef<Group>(null);
 
 	useEffect(() => {
-		if (!sceneRef.current) return;
+		if (!sceneRef.current || !rotationGroupRef.current) return;
 
 		sceneRef.current.position.set(
 			scene.position.x,
@@ -16,7 +17,7 @@ export default function SceneStatic({ scene }: { scene: GSScene }) {
 			scene.position.z
 		);
 		sceneRef.current.scale.set(scene.scale.x, scene.scale.y, scene.scale.z);
-		sceneRef.current.rotation.set(
+		rotationGroupRef.current.rotation.set(
 			scene.rotation.x,
 			scene.rotation.y,
 			scene.rotation.z
@@ -27,8 +28,10 @@ export default function SceneStatic({ scene }: { scene: GSScene }) {
 
 	return (
 		<group ref={sceneRef}>
-			<SceneViewer sceneData={{ filePath: scene.filePath }} />
-			<SceneArtifacts sceneId={scene.id} />
+			<group ref={rotationGroupRef}>
+				<SceneViewer sceneData={{ filePath: scene.filePath }} />
+				<SceneArtifacts sceneId={scene.id} />
+			</group>
 		</group>
 	);
 }

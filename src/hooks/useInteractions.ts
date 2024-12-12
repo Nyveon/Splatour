@@ -6,8 +6,8 @@ import { create } from "zustand";
 export enum UserState {
 	None,
 	Artifacts,
-	Walls,
-	Columns,
+	BarrierWalls,
+	BarrierSolids,
 	Portals,
 }
 

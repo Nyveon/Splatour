@@ -22,12 +22,15 @@ const shadowPoint = new Vector3();
 const lookDirection = new Vector3();
 const rotationQuaternion = new Quaternion();
 const transformMatrix = new Matrix4();
-const radius = 0.5;
+const minRadius = 0.1;
+const maxRadius = 1;
+const radiusScrollSpeed = 0.001;
 const placementClose = 0;
 const placementFar = 10;
 
 export default function BarrierSolidPlacer() {
 	const ref = useRef<Mesh>(null);
+	const radius = useRef(0.5);
 
 	useFrame(({ raycaster }) => {
 		const placer = ref.current;
@@ -49,6 +52,8 @@ export default function BarrierSolidPlacer() {
 			return;
 		}
 		placer.visible = true;
+
+		placer.scale.set(radius.current, 1, radius.current);
 
 		raycaster.ray.intersectPlane(plane, intersectPoint);
 
@@ -123,7 +128,7 @@ export default function BarrierSolidPlacer() {
 				z: placer.position.z,
 			};
 
-			const transformedRadius = radius / currentScene.scale.x;
+			const transformedRadius = radius.current / currentScene.scale.x;
 
 			const newSolid = gsnSolidCreate(relativePosition, transformedRadius);
 			useGSStore.getState().setAddNode(currentSceneId, newSolid);
@@ -144,16 +149,21 @@ export default function BarrierSolidPlacer() {
 		}
 	}
 
-	//todo: scroll wheel radius
-
 	return (
 		<mesh
 			ref={ref}
 			position={[0, 0, 0]}
 			visible={false}
 			onClick={(e) => handleClick(e)}
+			onWheel={(e) => {
+				radius.current -= e.deltaY * radiusScrollSpeed;
+				radius.current = Math.min(
+					maxRadius,
+					Math.max(minRadius, radius.current)
+				);
+			}}
 		>
-			<cylinderGeometry args={[radius, radius, barrierHeight, 16]} />
+			<cylinderGeometry args={[1, 1, barrierHeight, 16]} />
 			<meshBasicMaterial
 				color={color.barrierNode}
 				transparent={true}

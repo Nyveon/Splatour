@@ -1,4 +1,5 @@
 import { axes, axis } from "@/utils/constants";
+import { color } from "@/utils/theme";
 import styled from "@emotion/styled";
 import Slider from "./Slider";
 import Stepper from "./Stepper";
@@ -7,6 +8,18 @@ const InputFields = styled.div`
 	display: flex;
 	flex-direction: column;
 	gap: 0.5rem;
+
+	.axis-x label {
+		color: ${color.axisX};
+	}
+
+	.axis-y label {
+		color: ${color.axisY};
+	}
+
+	.axis-z label {
+		color: ${color.axisZ};
+	}
 `;
 
 export interface AxisInputsProps {
@@ -49,6 +62,7 @@ export default function AxisInputs({
 						min={min}
 						max={max}
 						step={step}
+						className={`axis-${linked ? "linked" : axis}`}
 					/>
 				</div>
 			))}

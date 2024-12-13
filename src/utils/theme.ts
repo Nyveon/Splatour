@@ -25,8 +25,13 @@ export const color = {
 	borderHalf: "#ced4da80",
 	borderQuarter: "#ced4da40",
 
-	artifactNode: "#ff00aa",
-	barrierNode: "#ffaa00",
+	artifactNode: "#fa7fa9",
+	barrierNode: "#ef952b",
+	portalNode: "#be94ff",
+
+	axisX: "#ff808c",
+	axisY: "#93be47",
+	axisZ: "#00c2ef",
 };
 
 export const unstyledButtonCSS = css`

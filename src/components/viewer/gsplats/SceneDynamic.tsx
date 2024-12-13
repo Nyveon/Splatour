@@ -41,9 +41,12 @@ export default function SceneDynamic({ sceneId }: { sceneId: string }) {
 
 		sceneRef.current.position.set(
 			scenePosition.x,
-			scenePosition.y,
+			0,
+			// scenePosition.y,
 			scenePosition.z
 		);
+
+		relativeGroupRef.current.position.set(0, scenePosition.y, 0);
 
 		relativeGroupRef.current.scale.set(
 			sceneScale.x,

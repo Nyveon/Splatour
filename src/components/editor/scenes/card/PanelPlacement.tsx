@@ -6,7 +6,7 @@ import { AppIcons } from "@/utils/theme";
 
 export default function PanelPlacement({ sceneId }: { sceneId: string }) {
 	return (
-		<SceneCardPanel label="Placement" icon={AppIcons.Placement}>
+		<SceneCardPanel label="Transform" icon={AppIcons.Placement}>
 			<EditTranslation sceneId={sceneId} />
 			<EditScale sceneId={sceneId} />
 			<EditRotation sceneId={sceneId} />

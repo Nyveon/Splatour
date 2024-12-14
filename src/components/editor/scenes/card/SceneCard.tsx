@@ -8,6 +8,7 @@ import SceneVisibility from "@/components/editor/scenes/properties/SceneVisibili
 import Icon from "@/components/Icon";
 import { useGSStore } from "@/hooks/useGSStore";
 import { AppIcons, color } from "@/utils/theme";
+import { toastError, toastSuccess } from "@/utils/toasts";
 import styled from "@emotion/styled";
 import PanelArtifacts from "./PanelArtifacts";
 import PanelBackdrop from "./PanelBackdrop";
@@ -79,6 +80,18 @@ const UneditableItem = styled(CardItem)`
 	color: ${color.textDisabled};
 `;
 
+const LabelID = styled(UneditableItem)`
+	font-size: 0.65rem;
+	font-family: monospace;
+	text-align: center;
+
+	cursor: pointer;
+
+	&:hover {
+		color: ${color.textLight};
+	}
+`;
+
 export default function SceneCard({
 	sceneId,
 	selected,
@@ -105,6 +118,17 @@ export default function SceneCard({
 			</CardItem>
 
 			<Collapsible data-open={selected}>
+				<LabelID
+					onClick={() => {
+						navigator.clipboard
+							.writeText(sceneId)
+							.then(() => toastSuccess("Scene ID copied to clipboard"))
+							.catch(() => toastError("Failed to copy scene ID to clipboard"));
+					}}
+				>
+					{sceneId}
+				</LabelID>
+
 				<UneditableItem>
 					<Icon icon="file" />
 					{sceneFile}

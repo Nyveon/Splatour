@@ -34,6 +34,11 @@ export default function PortalEdge({
 		assertNodeIsPortalEdge(portal);
 		return portal.thickness;
 	});
+	const destination = useGSStore((state) => {
+		const portal = state.gsmap.scenes[sceneId].portals[portalId];
+		assertNodeIsPortalEdge(portal);
+		return portal.destination;
+	});
 
 	startPosition.set(wallStartPosition.x, 0, wallStartPosition.z);
 	endPosition.set(wallEndPosition.x, 0, wallEndPosition.z);
@@ -48,6 +53,12 @@ export default function PortalEdge({
 			radius={wallThickness / 2}
 			rotation={[0, -Math.atan2(direction.z, direction.x), 0]}
 			visible={visible}
+			userData={{
+				collidable: true,
+				portal: true,
+				portalFrom: sceneId,
+				portalTo: destination,
+			}}
 		>
 			<meshStandardMaterial
 				color={color.portalNode}

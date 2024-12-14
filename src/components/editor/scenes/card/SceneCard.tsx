@@ -1,4 +1,3 @@
-import SceneCardSection from "@/components/editor/scenes/card/SceneCardPanel";
 import SceneDelete from "@/components/editor/scenes/manage/SceneDelete";
 import MinimizeCard from "@/components/editor/scenes/misc/MinimizeCard";
 import SceneTeleporter from "@/components/editor/scenes/misc/SceneTeleporter";
@@ -7,7 +6,7 @@ import SceneReset from "@/components/editor/scenes/properties/SceneReset";
 import SceneVisibility from "@/components/editor/scenes/properties/SceneVisibility";
 import Icon from "@/components/Icon";
 import { useGSStore } from "@/hooks/useGSStore";
-import { AppIcons, color } from "@/utils/theme";
+import { color } from "@/utils/theme";
 import { toastError, toastSuccess } from "@/utils/toasts";
 import styled from "@emotion/styled";
 import PanelArtifacts from "./PanelArtifacts";
@@ -100,7 +99,7 @@ export default function SceneCard({
 }: {
 	sceneId: string;
 	selected: boolean;
-	handleSelected: (sceneId: string | null) => void;
+	handleSelected: (sceneId: string) => void;
 }) {
 	const sceneFile = useGSStore((state) => state.gsmap.scenes[sceneId].filePath);
 

@@ -2,6 +2,7 @@ import { useInteractions } from "@/hooks/useInteractions";
 import { useJoystickControls } from "@/hooks/useJoystickControls";
 import { useSettingsStore } from "@/hooks/useSettingsStore";
 import { Controls } from "@/utils/constants";
+import { toastError } from "@/utils/toasts";
 import { useKeyboardControls } from "@react-three/drei";
 import { RootState, useFrame } from "@react-three/fiber";
 import { useRef } from "react";
@@ -56,10 +57,29 @@ function checkCollisions(
 	const intersects = collisionRaycaster.intersectObjects(collidables, false);
 
 	if (intersects.length > 0) {
-		if (intersects[0].face) {
-			normalMatrix.getNormalMatrix(intersects[0].object.matrixWorld);
+		const collider = intersects[0];
+
+		if (
+			collider.object.userData.portalFrom &&
+			collider.object.userData.portalTo
+		) {
+			const portalFrom = collider.object.userData.portalFrom as string;
+			const portalTo = collider.object.userData.portalTo as string;
+			const currentScene = useInteractions.getState().currentSceneId;
+
+			if (portalFrom === currentScene) {
+				if (portalTo === currentScene) {
+					toastError("Must set a destination for the portal");
+				} else {
+					useInteractions.getState().setCurrentSceneId(portalTo);
+				}
+			}
+
+			return null;
+		} else if (collider.face) {
+			normalMatrix.getNormalMatrix(collider.object.matrixWorld);
 			collisionNormal
-				.copy(intersects[0].face.normal)
+				.copy(collider.face.normal)
 				.applyNormalMatrix(normalMatrix)
 				.normalize();
 		} else {

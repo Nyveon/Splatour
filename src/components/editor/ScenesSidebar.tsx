@@ -4,7 +4,7 @@ import { useGSStore } from "@/hooks/useGSStore";
 import { useInteractions } from "@/hooks/useInteractions";
 import { color, headerHeightREM, sidebarWidthREM } from "@/utils/theme";
 import styled from "@emotion/styled";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { useShallow } from "zustand/react/shallow";
 
 const scrollbarWidthREM = 1;
@@ -48,18 +48,21 @@ const SceneListItem = styled.div`
 
 export default function Sidebar({ className }: { className?: string }) {
 	const ref = useRef(null);
-	const [selectedSceneId, setSelectedSceneId] = useState<string | null>(null);
+	// const [selectedSceneId, setSelectedSceneId] = useState<string | null>(null);
+	const selectedSceneId = useInteractions((state) => state.currentSceneId);
+	const setSelectedSceneId = useInteractions(
+		(state) => state.setCurrentSceneId
+	);
 	const sceneIds = useGSStore(
 		useShallow((state) => Object.keys(state.gsmap.scenes))
 	);
-	const setCurrentSceneId = useInteractions((state) => state.setCurrentSceneId);
 	const resetCurrentNode = useInteractions((state) => state.resetCurrentNode);
 
-	function handleSelectScene(sceneId: string | null) {
+	function handleSelectScene(sceneId: string) {
 		setSelectedSceneId(sceneId);
 
 		if (sceneId) {
-			setCurrentSceneId(sceneId);
+			setSelectedSceneId(sceneId);
 		}
 
 		if (sceneId !== selectedSceneId) {

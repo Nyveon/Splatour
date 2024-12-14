@@ -56,7 +56,8 @@ export const useInteractions = create<InteractableState>((set) => ({
 	setUserState: (userState: UserState) => set({ userState }),
 
 	currentSceneId: "",
-	setCurrentSceneId: (sceneId: string) => set({ currentSceneId: sceneId }),
+	setCurrentSceneId: (sceneId: string) =>
+		set({ currentSceneId: sceneId, currentNodeId: "", currentNodeType: null }),
 
 	currentNodeId: "",
 	currentNodeType: null,

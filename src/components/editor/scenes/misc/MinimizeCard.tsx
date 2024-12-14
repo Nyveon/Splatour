@@ -2,7 +2,7 @@ import Button from "@/components/input/Button";
 
 interface MinimizeCardProps {
 	selected: boolean;
-	handleSelected: (selected: string | null) => void;
+	handleSelected: (selected: string) => void;
 }
 
 export default function MinimizeCard({
@@ -18,7 +18,7 @@ export default function MinimizeCard({
 			title="Minimize scene details"
 			icon="minimize-2"
 			variant="primary"
-			onClick={() => handleSelected(null)}
+			onClick={() => handleSelected("")}
 		/>
 	);
 }

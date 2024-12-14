@@ -1,6 +1,6 @@
 import { AppIcons } from "@/utils/theme";
-import NodeContainer from "../NodeContainer";
-import NodePanel from "../NodePanel";
+import NodeContainer from "../shared/NodeContainer";
+import NodePanel from "../shared/NodePanel";
 import ArtifactContent from "./ArtifactContent";
 import ArtifactSize from "./ArtifactSize";
 import ArtifactTranslation from "./ArtifactTranslation";

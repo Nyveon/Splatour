@@ -16,6 +16,7 @@ export enum Controls {
 	newWall = "newWall",
 	newSolid = "newSolid",
 	newArtifact = "newArtifact",
+	newPortal = "newPortal",
 	closeReturn = "closeReturn",
 
 	//other
@@ -36,6 +37,7 @@ export const KeyMap = [
 	{ name: Controls.newWall, keys: ["1"] },
 	{ name: Controls.newSolid, keys: ["2"] },
 	{ name: Controls.newArtifact, keys: ["3"] },
+	{ name: Controls.newPortal, keys: ["4"] },
 
 	{ name: Controls.togglePreview, keys: ["v"] },
 	{ name: Controls.toggleMobile, keys: ["m"] },

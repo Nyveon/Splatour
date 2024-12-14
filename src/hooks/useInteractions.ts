@@ -8,7 +8,8 @@ export enum UserState {
 	Artifacts,
 	BarrierWalls,
 	BarrierSolids,
-	Portals,
+	PortalEdges,
+	PortalWarps,
 }
 
 export interface InteractableState {

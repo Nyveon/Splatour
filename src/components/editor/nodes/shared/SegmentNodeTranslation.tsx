@@ -1,8 +1,8 @@
 import AxisInputs from "@/components/input/AxisInputs";
 import { useGSStore } from "@/hooks/useGSStore";
-import { assertNodeIsWall } from "@/model/GSNode";
+import { assertNodeIsSegment } from "@/model/GSNode";
 import { axis } from "@/utils/constants";
-import NodePanel from "../NodePanel";
+import NodePanel from "./NodePanel";
 
 export default function BarrierWallTranslation({
 	nodeId,
@@ -11,27 +11,27 @@ export default function BarrierWallTranslation({
 	nodeId: string;
 	sceneId: string;
 }) {
-	const barrierStartPosition = useGSStore((state) => {
-		const barrier = state.gsmap.scenes[sceneId].barriers[nodeId];
-		assertNodeIsWall(barrier);
-		return barrier.startPosition;
+	const startPosition = useGSStore((state) => {
+		const node = state.gsmap.scenes[sceneId].nodes[nodeId];
+		assertNodeIsSegment(node);
+		return node.startPosition;
 	});
-	const barrierEndPosition = useGSStore((state) => {
-		const barrier = state.gsmap.scenes[sceneId].barriers[nodeId];
-		assertNodeIsWall(barrier);
-		return barrier.endPosition;
+	const endPosition = useGSStore((state) => {
+		const node = state.gsmap.scenes[sceneId].nodes[nodeId];
+		assertNodeIsSegment(node);
+		return node.endPosition;
 	});
 	const setNodeTransform = useGSStore((state) => state.setNodeTransform);
 
 	const handleChangeStart = (ax: axis, value: number) => {
 		setNodeTransform(sceneId, nodeId, {
-			startPosition: { ...barrierStartPosition, [ax]: value },
+			startPosition: { ...startPosition, [ax]: value },
 		});
 	};
 
 	const handleChangeEnd = (ax: axis, value: number) => {
 		setNodeTransform(sceneId, nodeId, {
-			endPosition: { ...barrierEndPosition, [ax]: value },
+			endPosition: { ...endPosition, [ax]: value },
 		});
 	};
 
@@ -39,7 +39,7 @@ export default function BarrierWallTranslation({
 		<>
 			<NodePanel label="Start" icon="move">
 				<AxisInputs
-					values={barrierStartPosition}
+					values={startPosition}
 					handleChange={handleChangeStart}
 					min={-Infinity}
 					max={Infinity}
@@ -50,7 +50,7 @@ export default function BarrierWallTranslation({
 
 			<NodePanel label="End" icon="move">
 				<AxisInputs
-					values={barrierEndPosition}
+					values={endPosition}
 					handleChange={handleChangeEnd}
 					min={-Infinity}
 					max={Infinity}

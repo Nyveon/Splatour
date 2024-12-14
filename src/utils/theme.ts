@@ -98,7 +98,9 @@ export enum AppIcons {
 	BarrierWall = "square",
 	BarrierSolid = "circle",
 
-	Portal = "crosshair",
+	Portal = "target",
+	PortalEdge = "log-in",
+	PortalWarp = "crosshair",
 }
 
 export const headerHeightREM = 4;

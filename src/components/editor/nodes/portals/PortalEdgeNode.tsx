@@ -1,9 +1,9 @@
 import { AppIcons } from "@/utils/theme";
 import NodeContainer from "../shared/NodeContainer";
-import SegmentNodeTranslation from "../shared/SegmentNodeTranslation";
 import NodeFloorSnap from "../shared/NodeFloorSnap";
+import SegmentNodeTranslation from "../shared/SegmentNodeTranslation";
 
-export default function BarrierSolidNode({
+export default function PortalEdgeNode({
 	nodeId,
 	sceneId,
 }: {
@@ -14,7 +14,7 @@ export default function BarrierSolidNode({
 		<NodeContainer
 			sceneId={sceneId}
 			nodeId={nodeId}
-			icon={AppIcons.BarrierWall}
+			icon={AppIcons.PortalEdge}
 		>
 			<SegmentNodeTranslation nodeId={nodeId} sceneId={sceneId} />
 

@@ -5,6 +5,7 @@ import styled from "@emotion/styled";
 import ArtifactNode from "./nodes/artifacts/ArtifactNode";
 import BarrierSolidNode from "./nodes/barriers/BarrierSolidNode";
 import BarrierWallNode from "./nodes/barriers/BarrierWallNode";
+import PortalEdgeNode from "./nodes/portals/PortalEdgeNode";
 
 const Aside = styled.aside`
 	position: absolute;
@@ -46,6 +47,9 @@ export default function NodesSidebar() {
 			)}
 			{currentNodeType === NodeType.BarrierWall && (
 				<BarrierWallNode sceneId={currentSceneId} nodeId={currentNodeId} />
+			)}
+			{currentNodeType === NodeType.PortalEdge && (
+				<PortalEdgeNode sceneId={currentSceneId} nodeId={currentNodeId} />
 			)}
 		</Aside>
 	);

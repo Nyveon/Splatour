@@ -7,6 +7,8 @@ export enum NodeType {
 	Artifact,
 	BarrierSolid,
 	BarrierWall,
+	PortalEdge,
+	PortalWarp,
 }
 
 interface GSNodeBase {
@@ -15,23 +17,37 @@ interface GSNodeBase {
 	name: string;
 }
 
-//#region Barriers
+export interface SegmentNode extends GSNodeBase {
+	startPosition: Vec3;
+	endPosition: Vec3;
+}
 
+export function nodeIsSegment(node: GSNodeBase): node is SegmentNode {
+	return "startPosition" in node && "endPosition" in node;
+}
+
+export function assertNodeIsSegment(
+	node: GSNodeBase
+): asserts node is SegmentNode {
+	if (!nodeIsSegment(node)) {
+		throw new Error("Type error: Node is not a segment");
+	}
+}
+
+//#region Barriers
+export type Barrier = NodeType.BarrierWall | NodeType.BarrierSolid;
 export interface GSNodeBarrier extends GSNodeBase {
 	type: Barrier;
 }
 
-export type Barrier = NodeType.BarrierWall | NodeType.BarrierSolid;
 export function nodeIsBarrier(node: GSNodeBase): node is GSNodeBarrier {
 	return (
 		node.type === NodeType.BarrierSolid || node.type === NodeType.BarrierWall
 	);
 }
 
-export interface GSNodeWall extends GSNodeBarrier {
+export interface GSNodeWall extends GSNodeBarrier, SegmentNode {
 	type: NodeType.BarrierWall;
-	startPosition: Vec3;
-	endPosition: Vec3;
 	thickness: number;
 }
 
@@ -119,11 +135,66 @@ export function gsnArtifactCreate(
 }
 //#endregion
 
-export type GSNode = GSNodeArtifact | GSNodeSolid | GSNodeWall;
+//#region Portals
+export type Portal = NodeType.PortalEdge | NodeType.PortalWarp;
+export interface GSNodePortal extends GSNodeBase {
+	type: Portal;
+}
+
+export function nodeIsPortal(node: GSNodeBase): node is GSNodePortal {
+	return node.type === NodeType.PortalEdge || node.type === NodeType.PortalWarp;
+}
+
+export interface GSNodePortalEdge extends GSNodePortal, SegmentNode {
+	type: NodeType.PortalEdge;
+	thickness: number;
+	destination: string;
+}
+
+export function nodeIsPortalEdge(node: GSNodeBase): node is GSNodePortalEdge {
+	return node.type === NodeType.PortalEdge;
+}
+
+export function assertNodeIsPortalEdge(
+	node: GSNodeBase
+): asserts node is GSNodePortalEdge {
+	if (!nodeIsPortalEdge(node)) {
+		throw new Error("Type error: Node is not a portal edge");
+	}
+}
+
+export function gsnEdgeCreate(
+	startPosition: Vec3,
+	endPosition: Vec3,
+	thickness: number
+): GSNodePortalEdge {
+	return {
+		type: NodeType.PortalEdge,
+		id: crypto.randomUUID(),
+		name: "Edge",
+		startPosition: startPosition,
+		endPosition: endPosition,
+		thickness: thickness,
+		destination: "",
+	};
+}
+
+//#endregion
+
+// ! this feels like a typescript crime but no tie to figure it out :(
+export type GSNode =
+	| GSNodeArtifact
+	| GSNodeSolid
+	| GSNodeWall
+	| GSNodeBarrier
+	| GSNodePortalEdge
+	| GSNodePortal;
 
 export const NodeIconMap: Record<NodeType, FeatherIconNames> = {
 	[NodeType.None]: "alert-circle",
 	[NodeType.Artifact]: AppIcons.Artifact,
 	[NodeType.BarrierWall]: AppIcons.BarrierWall,
 	[NodeType.BarrierSolid]: AppIcons.BarrierSolid,
+	[NodeType.PortalEdge]: AppIcons.PortalEdge,
+	[NodeType.PortalWarp]: AppIcons.PortalWarp,
 };

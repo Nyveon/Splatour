@@ -4,10 +4,11 @@ import type {
 	SplatBuffer,
 } from "@mkkellogg/gaussian-splats-3d";
 import { KSplatLoader, LoaderUtils } from "@mkkellogg/gaussian-splats-3d";
-import { GSNode, GSNodeArtifact, GSNodeBarrier } from "./GSNode";
+import { GSNode, GSNodeArtifact, GSNodeBarrier, GSNodePortal } from "./GSNode";
 import { GSSky } from "./GSSky";
 
 export interface SerialGSScene {
+	id: string;
 	filePath: string;
 	name: string;
 	scale: Vec3;
@@ -16,6 +17,7 @@ export interface SerialGSScene {
 	sky: GSSky | null;
 	artifacts: Record<string, GSNodeArtifact>;
 	barriers: Record<string, GSNodeBarrier>;
+	portals: Record<string, GSNodePortal>;
 }
 
 export interface GSScene {
@@ -40,6 +42,7 @@ export interface GSScene {
 	nodes: Record<string, GSNode>;
 	artifacts: Record<string, GSNodeArtifact>;
 	barriers: Record<string, GSNodeBarrier>;
+	portals: Record<string, GSNodePortal>;
 }
 
 export const gssResetTransform = {
@@ -59,6 +62,7 @@ export function gssCreate(filePath: string, name: string): GSScene {
 		nodes: {},
 		artifacts: {},
 		barriers: {},
+		portals: {},
 	};
 }
 
@@ -73,6 +77,7 @@ export function gssCreateBuffer(
 
 export function gssDeserialize(scene: SerialGSScene): GSScene {
 	const gssBase = gssCreate(scene.filePath, scene.name);
+	if (scene.id) gssBase.id = scene.id;
 	gssBase.scale = scene.scale;
 	gssBase.rotation = scene.rotation;
 	gssBase.position = scene.position;
@@ -80,9 +85,11 @@ export function gssDeserialize(scene: SerialGSScene): GSScene {
 
 	gssBase.artifacts = scene.artifacts ?? {};
 	gssBase.barriers = scene.barriers ?? {};
+	gssBase.portals = scene.portals ?? {};
 	gssBase.nodes = {
 		...gssBase.artifacts,
 		...gssBase.barriers,
+		...gssBase.portals,
 	};
 
 	return gssBase;
@@ -90,6 +97,7 @@ export function gssDeserialize(scene: SerialGSScene): GSScene {
 
 export function gssSerialize(scene: GSScene): SerialGSScene {
 	return {
+		id: scene.id,
 		filePath: scene.filePath,
 		name: scene.name,
 
@@ -101,6 +109,7 @@ export function gssSerialize(scene: GSScene): SerialGSScene {
 
 		artifacts: scene.artifacts ?? {},
 		barriers: scene.barriers ?? {},
+		portals: scene.portals ?? {},
 	};
 }
 

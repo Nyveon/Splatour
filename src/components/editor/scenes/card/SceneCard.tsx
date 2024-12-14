@@ -14,6 +14,7 @@ import PanelArtifacts from "./PanelArtifacts";
 import PanelBackdrop from "./PanelBackdrop";
 import PanelBarriers from "./PanelBarriers";
 import PanelPlacement from "./PanelPlacement";
+import PanelPortals from "./PanelPortals";
 
 const SceneCardContainer = styled.div`
 	display: flex;
@@ -150,9 +151,7 @@ export default function SceneCard({
 				</CardItem>
 
 				<CardItem>
-					<SceneCardSection label="Portals" icon={AppIcons.Portal}>
-						Placeholder
-					</SceneCardSection>
+					<PanelPortals sceneId={sceneId} />
 				</CardItem>
 
 				<CardItem>

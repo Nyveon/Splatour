@@ -2,7 +2,7 @@ import { color } from "@/utils/theme";
 import styled from "@emotion/styled";
 import type { FeatherIconNames } from "feather-icons";
 import type { ReactNode } from "react";
-import Icon from "../../Icon";
+import Icon from "../../../Icon";
 
 const Panel = styled.div`
 	display: flex;

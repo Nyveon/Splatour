@@ -36,7 +36,11 @@ const modeMap = {
 		icon: AppIcons.BarrierSolid,
 		label: "Placing Solid",
 	},
-	[UserState.Portals]: { icon: AppIcons.Portal, label: "Placing Portal" },
+	[UserState.PortalEdges]: { icon: AppIcons.Portal, label: "Placing Edge" },
+	[UserState.PortalWarps]: {
+		icon: AppIcons.Portal,
+		label: "Placing Warp",
+	},
 };
 
 export default function ModeSelector() {

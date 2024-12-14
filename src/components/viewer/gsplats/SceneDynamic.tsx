@@ -1,9 +1,11 @@
 import { useGSStore } from "@/hooks/useGSStore";
+import { useInteractions } from "@/hooks/useInteractions";
 import { useFrame } from "@react-three/fiber";
 import { useRef } from "react";
 import type { Group } from "three";
-import SceneArtifacts from "../nodes/SceneArtifacts";
-import SceneBarriers from "../nodes/SceneBarriers";
+import SceneArtifacts from "../nodes/artifacts/SceneArtifacts";
+import SceneBarriers from "../nodes/barriers/SceneBarriers";
+import ScenePortals from "../nodes/portals/ScenePortals";
 import SceneViewer from "./SceneViewer";
 
 export default function SceneDynamic({ sceneId }: { sceneId: string }) {
@@ -19,8 +21,11 @@ export default function SceneDynamic({ sceneId }: { sceneId: string }) {
 			return;
 		}
 
-		const sceneVisible = !useGSStore.getState().gsmap.scenes[sceneId].hidden;
-		splatSceneRef.current.visible = sceneVisible;
+		const sceneHidden =
+			useInteractions.getState().currentSceneId !== sceneId ||
+			useGSStore.getState().gsmap.scenes[sceneId].hidden;
+		// const sceneVisible = !useGSStore.getState().gsmap.scenes[sceneId].hidden;
+		splatSceneRef.current.visible = !sceneHidden;
 	}
 
 	function updateScene() {
@@ -76,6 +81,7 @@ export default function SceneDynamic({ sceneId }: { sceneId: string }) {
 			</group>
 			<group ref={floorGroupRef} userData={{ hasCollidables: true }}>
 				<SceneBarriers sceneId={sceneId} />
+				<ScenePortals sceneId={sceneId} />
 			</group>
 		</group>
 	);

@@ -1,6 +1,6 @@
 import { useGSStore } from "@/hooks/useGSStore";
 import { useInteractions, UserState } from "@/hooks/useInteractions";
-import { gsnWallCreate, NodeType } from "@/model/GSNode";
+import { gsnEdgeCreate, NodeType } from "@/model/GSNode";
 import { barrierHeight, barrierWallThickness } from "@/utils/constants";
 import { color } from "@/utils/theme";
 import { toastError, toastSuccess, toastUnknownError } from "@/utils/toasts";
@@ -16,7 +16,7 @@ const lookDirection = new Vector3();
 const startPositionVector = new Vector3();
 const placementFar = 10;
 
-export default function BarrierWallPlacer() {
+export default function PortalEdgePlacer() {
 	const previewRef = useRef<Mesh>(null);
 	const placerRef = useRef<Mesh>(null);
 	const startPosition = useRef<Vector3>();
@@ -40,7 +40,7 @@ export default function BarrierWallPlacer() {
 		const userState = useInteractions.getState().userState;
 		const currentSceneId = useInteractions.getState().currentSceneId;
 
-		if (userState !== UserState.BarrierWalls || !currentSceneId) {
+		if (userState !== UserState.PortalEdges || !currentSceneId) {
 			placer.visible = false;
 			preview.visible = false;
 			return;
@@ -106,7 +106,7 @@ export default function BarrierWallPlacer() {
 			const currentSceneId = useInteractions.getState().currentSceneId;
 			const userState = useInteractions.getState().userState;
 
-			if (userState !== UserState.BarrierWalls || !placer || !currentSceneId) {
+			if (userState !== UserState.PortalEdges || !placer || !currentSceneId) {
 				return;
 			}
 
@@ -126,43 +126,6 @@ export default function BarrierWallPlacer() {
 			// End wall draw
 			const currentScene = useGSStore.getState().gsmap.scenes[currentSceneId];
 
-			// rotationQuaternion.setFromEuler(
-			// 	new Euler(
-			// 		currentScene.rotation.x,
-			// 		currentScene.rotation.y,
-			// 		currentScene.rotation.z
-			// 	)
-			// );
-			// transformMatrix.compose(
-			// 	new Vector3(
-			// 		currentScene.position.x,
-			// 		currentScene.position.y,
-			// 		currentScene.position.z
-			// 	),
-			// 	rotationQuaternion,
-			// 	new Vector3(
-			// 		currentScene.scale.x,
-			// 		currentScene.scale.y,
-			// 		currentScene.scale.z
-			// 	)
-			// );
-			// transformMatrix.invert();
-
-			// startPosition.current.applyMatrix4(transformMatrix);
-			// placer.position.applyMatrix4(transformMatrix);
-
-			// const relativeStartPosition = {
-			// 	x: startPosition.current.x,
-			// 	y: 0,
-			// 	z: startPosition.current.z,
-			// };
-
-			// const relativeEndPosition = {
-			// 	x: placer.position.x,
-			// 	y: 0,
-			// 	z: placer.position.z,
-			// };
-
 			const relativeStartPosition = {
 				x: startPosition.current.x - currentScene.position.x,
 				y: 0,
@@ -175,20 +138,20 @@ export default function BarrierWallPlacer() {
 				z: placer.position.z - currentScene.position.z,
 			};
 
-			// const transformedThickness = barrierWallThickness / currentScene.scale.x;
-
-			const newWall = gsnWallCreate(
+			const newPortal = gsnEdgeCreate(
 				relativeStartPosition,
 				relativeEndPosition,
 				barrierWallThickness
 			);
-			useGSStore.getState().setAddNode(currentSceneId, newWall);
+			useGSStore.getState().setAddNode(currentSceneId, newPortal);
 			useInteractions.getState().setUserState(UserState.None);
 			useInteractions
 				.getState()
-				.setCurrentNode(newWall.id, NodeType.BarrierWall);
+				.setCurrentNode(newPortal.id, NodeType.PortalEdge);
 			reset();
-			toastSuccess("Wall barrier created");
+			toastSuccess(
+				"Portal edge created. Don't forget to define its destination."
+			);
 		} catch (error) {
 			console.error(error);
 
@@ -209,7 +172,7 @@ export default function BarrierWallPlacer() {
 				ref={previewRef}
 			>
 				<meshStandardMaterial
-					color={color.barrierNode}
+					color={color.portalNode}
 					side={DoubleSide}
 					transparent
 					opacity={0.25}
@@ -225,7 +188,7 @@ export default function BarrierWallPlacer() {
 					]}
 				/>
 				<meshStandardMaterial
-					color={color.barrierNode}
+					color={color.portalNode}
 					side={DoubleSide}
 					transparent
 					opacity={0.5}

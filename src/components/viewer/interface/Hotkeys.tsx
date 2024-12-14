@@ -14,6 +14,7 @@ export default function Hotkeys() {
 	const newWall = kb<Controls>((state) => state.newWall);
 	const newSolid = kb<Controls>((state) => state.newSolid);
 	const newArtifact = kb<Controls>((state) => state.newArtifact);
+	const newPortal = kb<Controls>((state) => state.newPortal);
 	const closeReturn = kb<Controls>((state) => state.closeReturn);
 	const togglePreview = kb<Controls>((state) => state.togglePreview);
 	const toggleMobile = kb<Controls>((state) => state.toggleMobile);
@@ -32,13 +33,14 @@ export default function Hotkeys() {
 		useInteractions.getState().resetCurrentNode();
 	}
 
-	if (newWall || newSolid || newArtifact) {
+	if (newWall || newSolid || newArtifact || newPortal) {
 		if (!useInteractions.getState().currentSceneId) {
 			toastError("No scene selected");
 		} else {
 			if (newWall) setUserState(UserState.BarrierWalls);
 			if (newSolid) setUserState(UserState.BarrierSolids);
 			if (newArtifact) setUserState(UserState.Artifacts);
+			if (newPortal) setUserState(UserState.PortalEdges);
 		}
 	}
 

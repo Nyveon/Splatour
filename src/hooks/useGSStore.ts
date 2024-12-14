@@ -1,5 +1,10 @@
 import { GSMap, gsmCreateEmpty } from "@/model/GSMap";
-import { GSNode, nodeIsArtifact, nodeIsBarrier } from "@/model/GSNode";
+import {
+	GSNode,
+	nodeIsArtifact,
+	nodeIsBarrier,
+	nodeIsPortal,
+} from "@/model/GSNode";
 import { GSScene } from "@/model/GSScene";
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
@@ -51,6 +56,8 @@ export const useGSStore = create<SceneState>()(
 						scene.artifacts[node.id] = node;
 					} else if (nodeIsBarrier(node)) {
 						scene.barriers[node.id] = node;
+					} else if (nodeIsPortal(node)) {
+						scene.portals[node.id] = node;
 					} else {
 						throw new Error("Unknown node type");
 					}
@@ -70,6 +77,8 @@ export const useGSStore = create<SceneState>()(
 						delete scene.artifacts[nodeId];
 					} else if (nodeIsBarrier(node)) {
 						delete scene.barriers[nodeId];
+					} else if (nodeIsPortal(node)) {
+						delete scene.portals[nodeId];
 					} else {
 						throw new Error("Unknown node type");
 					}
@@ -89,6 +98,9 @@ export const useGSStore = create<SceneState>()(
 					} else if (nodeIsBarrier(node)) {
 						const barrier = scene.barriers[nodeId];
 						Object.assign(barrier, transform);
+					} else if (nodeIsPortal(node)) {
+						const portal = scene.portals[nodeId];
+						Object.assign(portal, transform);
 					} else {
 						throw new Error("Unknown node type");
 					}

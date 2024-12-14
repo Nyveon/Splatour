@@ -1,7 +1,7 @@
 import { AppIcons } from "@/utils/theme";
-import NodeContainer from "../NodeContainer";
-import NodePanel from "../NodePanel";
-import BarrierFloorSnap from "./BarrierFloorSnap";
+import NodeContainer from "../shared/NodeContainer";
+import NodeFloorSnap from "../shared/NodeFloorSnap";
+import NodePanel from "../shared/NodePanel";
 import BarrierSolidRadius from "./BarrierSolidRadius";
 import BarrierSolidTranslation from "./BarrierSolidTranslation";
 
@@ -26,7 +26,7 @@ export default function BarrierSolidNode({
 				<BarrierSolidRadius nodeId={nodeId} sceneId={sceneId} />
 			</NodePanel>
 
-			<BarrierFloorSnap />
+			<NodeFloorSnap />
 		</NodeContainer>
 	);
 }

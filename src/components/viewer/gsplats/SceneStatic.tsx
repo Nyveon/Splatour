@@ -1,7 +1,7 @@
 import type { GSScene } from "@/model/GSScene";
 import { useEffect, useRef } from "react";
 import type { Group } from "three";
-import SceneArtifacts from "../nodes/SceneArtifacts";
+import SceneArtifacts from "../nodes/artifacts/SceneArtifacts";
 import SceneViewer from "./SceneViewer";
 
 export default function SceneStatic({ scene }: { scene: GSScene }) {

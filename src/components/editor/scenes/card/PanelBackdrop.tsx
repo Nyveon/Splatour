@@ -1,6 +1,6 @@
 import { useGSStore } from "@/hooks/useGSStore";
 import { defaultSkyFlat, defaultSkyHemi } from "@/model/GSSky";
-import { color } from "@/utils/theme";
+import { createDropdownStyles } from "@/utils/theme";
 import { useState } from "react";
 import Select from "react-select";
 import BackdropFlat from "../elements/BackdropFlat";
@@ -57,40 +57,12 @@ export default function PanelBackdrop({ sceneId }: { sceneId: string }) {
 	return (
 		<SceneCardPanel label="Backdrop" icon="sun">
 			<Select
-				styles={{
-					singleValue: (styles) => ({
-						...styles,
-						color: "inherit",
-					}),
-					menu: (styles) => ({
-						...styles,
-						color: "inherit",
-						backgroundColor: color.backgroundDark,
-					}),
-					control: (styles) => ({
-						...styles,
-						color: "inherit",
-						backgroundColor: "transparent",
-					}),
-					option: (styles, { isSelected }) => ({
-						...styles,
-						color: "inherit",
-						backgroundColor: isSelected ? color.primary : "transparent",
-						":hover": {
-							...styles[":hover"],
-							backgroundColor: isSelected
-								? color.primaryLight
-								: color.backgroundMedium,
-						},
-					}),
-				}}
+				styles={createDropdownStyles<Option>()}
 				menuPosition="fixed"
 				options={options}
 				value={backdrop}
 				onChange={(option) => {
-					if (option) {
-						handleChange(option);
-					}
+					if (option) handleChange(option);
 				}}
 			/>
 

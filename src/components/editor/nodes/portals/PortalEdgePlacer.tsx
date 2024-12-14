@@ -141,7 +141,8 @@ export default function PortalEdgePlacer() {
 			const newPortal = gsnEdgeCreate(
 				relativeStartPosition,
 				relativeEndPosition,
-				barrierWallThickness
+				barrierWallThickness,
+				currentSceneId
 			);
 			useGSStore.getState().setAddNode(currentSceneId, newPortal);
 			useInteractions.getState().setUserState(UserState.None);

@@ -1,6 +1,7 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { Button } from "@headlessui/react";
+import { StylesConfig } from "react-select";
 
 export const color = {
 	backgroundLight: "#f8f9fa",
@@ -105,3 +106,31 @@ export enum AppIcons {
 
 export const headerHeightREM = 4;
 export const sidebarWidthREM = 16;
+
+export const createDropdownStyles = <
+	T extends { value: string; label: string },
+>(): StylesConfig<T, false> => ({
+	singleValue: (styles) => ({
+		...styles,
+		color: "inherit",
+	}),
+	menu: (styles) => ({
+		...styles,
+		color: "inherit",
+		backgroundColor: color.backgroundDark,
+	}),
+	control: (styles) => ({
+		...styles,
+		color: "inherit",
+		backgroundColor: "transparent",
+	}),
+	option: (styles, { isSelected }) => ({
+		...styles,
+		color: "inherit",
+		backgroundColor: isSelected ? color.primary : "transparent",
+		":hover": {
+			...styles[":hover"],
+			backgroundColor: isSelected ? color.primaryLight : color.backgroundMedium,
+		},
+	}),
+});

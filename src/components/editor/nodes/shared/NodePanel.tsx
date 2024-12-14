@@ -17,6 +17,7 @@ const Panel = styled.div`
 
 	&[data-vertical="true"] {
 		flex-direction: column;
+        align-items: stretch;
 	}
 `;
 

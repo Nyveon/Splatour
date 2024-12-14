@@ -166,7 +166,8 @@ export function assertNodeIsPortalEdge(
 export function gsnEdgeCreate(
 	startPosition: Vec3,
 	endPosition: Vec3,
-	thickness: number
+	thickness: number,
+	sceneId: string
 ): GSNodePortalEdge {
 	return {
 		type: NodeType.PortalEdge,
@@ -175,7 +176,7 @@ export function gsnEdgeCreate(
 		startPosition: startPosition,
 		endPosition: endPosition,
 		thickness: thickness,
-		destination: "",
+		destination: sceneId,
 	};
 }
 

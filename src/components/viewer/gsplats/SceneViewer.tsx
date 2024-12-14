@@ -22,7 +22,6 @@ const SceneViewer = forwardRef<Group, SceneViewerProps>(function GS3DViewer(
 	useEffect(() => {
 		const viewer = new DropInViewer({
 			sharedMemoryForWorkers: true,
-			// todo: https://github.com/mkkellogg/GaussianSplats3D/issues/380
 			dynamicScene: false,
 			sceneFadeInRateMultiplier: 100,
 		});

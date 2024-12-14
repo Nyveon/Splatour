@@ -27,6 +27,6 @@ dist-ssr
 *.ply
 *.splat
 *.ksplat
-!docs/*.ksplat
+docs
 
 bundle-visualization.html

@@ -91,9 +91,9 @@ export default function BarrierWallPlacer() {
 
 			intersectPoint.sub(startPosition.current);
 			const distance = intersectPoint.length();
-			const angle = -Math.atan2(intersectPoint.z, intersectPoint.x);
+			const angle = Math.atan2(intersectPoint.x, intersectPoint.z);
 
-			preview.scale.x = 1 + distance / barrierWallThickness;
+			preview.scale.z = 1 + distance / barrierWallThickness;
 
 			preview.position
 				.copy(startPosition.current)
@@ -136,49 +136,61 @@ export default function BarrierWallPlacer() {
 			// End wall draw
 			const currentScene = useGSStore.getState().gsmap.scenes[currentSceneId];
 
-			rotationQuaternion.setFromEuler(
-				new Euler(
-					currentScene.rotation.x,
-					currentScene.rotation.y,
-					currentScene.rotation.z
-				)
-			);
-			transformMatrix.compose(
-				new Vector3(
-					currentScene.position.x,
-					currentScene.position.y,
-					currentScene.position.z
-				),
-				rotationQuaternion,
-				new Vector3(
-					currentScene.scale.x,
-					currentScene.scale.y,
-					currentScene.scale.z
-				)
-			);
-			transformMatrix.invert();
+			// rotationQuaternion.setFromEuler(
+			// 	new Euler(
+			// 		currentScene.rotation.x,
+			// 		currentScene.rotation.y,
+			// 		currentScene.rotation.z
+			// 	)
+			// );
+			// transformMatrix.compose(
+			// 	new Vector3(
+			// 		currentScene.position.x,
+			// 		currentScene.position.y,
+			// 		currentScene.position.z
+			// 	),
+			// 	rotationQuaternion,
+			// 	new Vector3(
+			// 		currentScene.scale.x,
+			// 		currentScene.scale.y,
+			// 		currentScene.scale.z
+			// 	)
+			// );
+			// transformMatrix.invert();
 
-			startPosition.current.applyMatrix4(transformMatrix);
-			placer.position.applyMatrix4(transformMatrix);
+			// startPosition.current.applyMatrix4(transformMatrix);
+			// placer.position.applyMatrix4(transformMatrix);
+
+			// const relativeStartPosition = {
+			// 	x: startPosition.current.x,
+			// 	y: 0,
+			// 	z: startPosition.current.z,
+			// };
+
+			// const relativeEndPosition = {
+			// 	x: placer.position.x,
+			// 	y: 0,
+			// 	z: placer.position.z,
+			// };
 
 			const relativeStartPosition = {
-				x: startPosition.current.x,
+				x: startPosition.current.x - currentScene.position.x,
 				y: 0,
-				z: startPosition.current.z,
+				z: startPosition.current.z - currentScene.position.z,
 			};
 
 			const relativeEndPosition = {
-				x: placer.position.x,
+				x: placer.position.x - currentScene.position.x,
 				y: 0,
-				z: placer.position.z,
+				z: placer.position.z - currentScene.position.z,
 			};
 
-			const transformedThickness = barrierWallThickness / currentScene.scale.x;
+			// const transformedThickness = barrierWallThickness / currentScene.scale.x;
 
 			const newWall = gsnWallCreate(
 				relativeStartPosition,
 				relativeEndPosition,
-				transformedThickness
+				barrierWallThickness
 			);
 			useGSStore.getState().setAddNode(currentSceneId, newWall);
 			useInteractions.getState().setUserState(UserState.None);

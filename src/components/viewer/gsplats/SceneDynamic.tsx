@@ -41,26 +41,21 @@ export default function SceneDynamic({ sceneId }: { sceneId: string }) {
 
 		sceneRef.current.position.set(
 			scenePosition.x,
-			0,
-			// scenePosition.y,
+			scenePosition.y,
 			scenePosition.z
-		);
-
-		relativeGroupRef.current.position.set(0, scenePosition.y, 0);
-
-		relativeGroupRef.current.scale.set(
-			sceneScale.x,
-			sceneScale.y,
-			sceneScale.z
 		);
 		relativeGroupRef.current.rotation.set(
 			sceneRotation.x,
 			sceneRotation.y,
 			sceneRotation.z
 		);
+		relativeGroupRef.current.scale.set(
+			sceneScale.x,
+			sceneScale.y,
+			sceneScale.z
+		);
 
-		floorGroupRef.current.rotation.set(0, sceneRotation.y, 0);
-		floorGroupRef.current.scale.set(sceneScale.x, 1, sceneScale.z);
+		floorGroupRef.current.position.set(0, -scenePosition.y, 0);
 	}
 
 	useFrame(() => {

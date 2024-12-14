@@ -8,7 +8,7 @@ export default function EditTranslation({ sceneId }: { sceneId: string }) {
 			icon="move"
 			min={-Infinity}
 			max={Infinity}
-			step={0.5}
+			step={0.1}
 		/>
 	);
 }

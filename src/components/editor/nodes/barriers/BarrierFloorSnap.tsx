@@ -9,7 +9,7 @@ const Note = styled.span`
 export default function BarrierFloorSnap() {
 	return (
 		<NodePanel label="Floor Snap" icon="help-circle" vertical={true}>
-			<Note>No X or Z axis rotation. No Y axis scaling or translation.</Note>
+			<Note>Does not apply scene&apos;s rotation or scale.</Note>
 		</NodePanel>
 	);
 }

@@ -1,5 +1,6 @@
 import { useGSStore } from "@/hooks/useGSStore";
 import { useInteractions } from "@/hooks/useInteractions";
+import { useSettingsStore } from "@/hooks/useSettingsStore";
 import { useFrame } from "@react-three/fiber";
 import { useRef } from "react";
 import type { Group } from "three";
@@ -22,8 +23,9 @@ export default function SceneDynamic({ sceneId }: { sceneId: string }) {
 		}
 
 		const sceneHidden =
-			useInteractions.getState().currentSceneId !== sceneId ||
-			useGSStore.getState().gsmap.scenes[sceneId].hidden;
+			!useSettingsStore.getState().forceVisible &&
+			(useInteractions.getState().currentSceneId !== sceneId ||
+				useGSStore.getState().gsmap.scenes[sceneId].hidden);
 		// const sceneVisible = !useGSStore.getState().gsmap.scenes[sceneId].hidden;
 		splatSceneRef.current.visible = !sceneHidden;
 	}

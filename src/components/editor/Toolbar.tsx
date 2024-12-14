@@ -3,7 +3,11 @@ import styled from "@emotion/styled";
 import MapToolbar from "./map/MapToolbar";
 import ModeSelector from "./ModeSelector";
 import FlySpeed from "./settings/FlySpeed";
-import SettingsToolbar from "./settings/SettingsToolbar";
+import ToggleDebug from "./settings/ToggleDebug";
+import ToggleForceVisible from "./settings/ToggleForceVisible";
+import ToggleMobileDebug from "./settings/ToggleMobileDebug";
+import ToggleNoclip from "./settings/ToggleNoclip";
+import ToggleNodeVisibility from "./settings/ToggleNodeVisibility";
 
 const ToolbarContainer = styled.div`
 	display: flex;
@@ -31,9 +35,17 @@ export default function Toolbar() {
 
 			<Separator />
 
-			<SettingsToolbar />
+			<ToggleDebug />
+			<ToggleMobileDebug />
 
 			<Separator />
+
+			<ToggleNodeVisibility />
+			<ToggleForceVisible />
+
+			<Separator />
+
+			<ToggleNoclip />
 			<FlySpeed />
 
 			<Space />

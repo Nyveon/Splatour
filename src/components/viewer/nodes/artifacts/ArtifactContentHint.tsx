@@ -18,6 +18,7 @@ const ArtifactContentHint = forwardRef<HTMLDivElement>(
 				distanceFactor={8}
 				ref={ref}
 				style={{ transition: "opacity 0.5s ease" }}
+				zIndexRange={[100, 0]}
 			>
 				<Hint>
 					<Icon icon={AppIcons.Artifact} />

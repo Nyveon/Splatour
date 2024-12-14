@@ -8,11 +8,10 @@ import { Mesh, Vector3 } from "three";
 import ArtifactContentHint from "./ArtifactContentHint";
 import ArtifactContentView from "./ArtifactContentView";
 
-const activationRangeBase = 0.75; // 75cm average arm length
+const activationRangeBase = 1.25; // 75cm average arm length
 const artifactWorldPosition = new Vector3();
 const artifactWorldScale = new Vector3();
 
-//todo: left click to interact
 //todo: right click to edit
 
 export default function Artifact({
@@ -33,14 +32,14 @@ export default function Artifact({
 		(state) => state.gsmap.scenes[sceneId].artifacts[artifactId].radius
 	);
 	const visible = useSettingsStore((state) => state.debug && state.debugNodes);
+	const ready = useRef(false);
 
 	function deactivate() {
-		if (!isActive) {
-			return;
+		if (isActive) {
+			setIsActive(false);
 		}
 
 		setInteractable(false);
-		setIsActive(false);
 	}
 
 	function activate() {
@@ -48,8 +47,8 @@ export default function Artifact({
 			return;
 		}
 
-		setInteractable(true);
 		setIsActive(true);
+		setInteractable(false);
 	}
 
 	useFrame(({ raycaster }) => {
@@ -69,9 +68,9 @@ export default function Artifact({
 		if (distance > activationRange) {
 			if (artifactHint.current) {
 				if (distance < 2 * activationRange) {
-					artifactHint.current.style.opacity = "33%";
+					artifactHint.current.style.opacity = "40%";
 				} else {
-					artifactHint.current.style.opacity = "10%";
+					artifactHint.current.style.opacity = "20%";
 				}
 			}
 
@@ -83,19 +82,25 @@ export default function Artifact({
 			if (isActive) {
 				artifactHint.current.style.opacity = "0%";
 			} else {
-				artifactHint.current.style.opacity = "100%";
+				artifactHint.current.style.opacity = "95%";
 			}
 		}
 
-		if (
-			raycaster.intersectObject(artifact).length > 0 ||
-			distance < artifactTrueSize
-		) {
-			activate();
-		} else {
-			deactivate();
-		}
+		ready.current = raycaster.intersectObject(artifact).length > 0;
+		setInteractable(ready.current);
 	});
+
+	function handleClick() {
+		if (!ready.current) {
+			return;
+		}
+
+		if (isActive) {
+			deactivate();
+		} else {
+			activate();
+		}
+	}
 
 	return (
 		<group
@@ -108,7 +113,7 @@ export default function Artifact({
 			/>
 			<ArtifactContentHint ref={artifactHint} />
 
-			<mesh ref={artifactMesh} visible={visible}>
+			<mesh ref={artifactMesh} visible={visible} onClick={() => handleClick()}>
 				<sphereGeometry args={[artifactRadius, 16]} />
 				<meshBasicMaterial
 					color={color.artifactNode}

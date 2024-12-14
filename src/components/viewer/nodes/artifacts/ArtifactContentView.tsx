@@ -14,7 +14,7 @@ const InfoContainer = styled.div`
 
 	min-width: 200px;
 	width: max-content;
-	max-width: min(80ch, 33vw);
+	max-width: min(60ch, 33vw);
 
 	cursor: pointer;
 `;

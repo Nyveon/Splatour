@@ -13,6 +13,7 @@ export default function ToogleNodeVisibility() {
 	return (
 		<Checkbox
 			label="Nodes"
+			title="Show nodes (barriers, portals, artifacts, etc.)"
 			value={debugNodes}
 			onChange={(e: boolean) => {
 				setDebugNodes(e);

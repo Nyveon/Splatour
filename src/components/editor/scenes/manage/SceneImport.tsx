@@ -18,6 +18,10 @@ export default function SceneImport({
 				title="Import a New Scene"
 				description="Upload a gaussian splat scene file to start editing"
 			>
+				<span>
+					You are not working in a project directory. Changes{" "}
+					<b>will not be saved</b>.
+				</span>
 				<FileSelector
 					onFileSelect={(file: File) => {
 						handleSplatSelect(file);

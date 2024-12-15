@@ -13,6 +13,7 @@ export default function ToggleNoclip() {
 	return (
 		<Checkbox
 			label="Noclip"
+			title="Disable collisions with barriers and portals"
 			value={noclip}
 			onChange={(e: boolean) => {
 				setNoclip(e);

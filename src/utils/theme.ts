@@ -104,7 +104,7 @@ export enum AppIcons {
 	PortalWarp = "crosshair",
 }
 
-export const headerHeightREM = 4;
+export const headerHeightREM = 5;
 export const sidebarWidthREM = 16;
 
 export const createDropdownStyles = <

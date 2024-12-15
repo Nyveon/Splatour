@@ -1,14 +1,14 @@
 import { color } from "@/utils/theme";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { Field, Input, Label } from "@headlessui/react";
+import { Field, FieldProps, Input, Label } from "@headlessui/react";
 import { ReactNode } from "react";
 
 const ThumbHeightPX = 16;
 const TrackHeightPX = 8;
 const BubbleWidthCH = 4.5;
 
-const SliderField = styled(Field)`
+const SliderField = styled(Field)<FieldProps>`
 	display: flex;
 	align-items: center;
 	gap: 0.5rem;
@@ -189,6 +189,7 @@ interface SliderProps {
 	max: number;
 	step?: number;
 	label?: ReactNode;
+	title?: string;
 	value: number;
 	valueHandler: (value: number) => void;
 	className?: string;
@@ -199,6 +200,7 @@ export default function Slider({
 	max,
 	step = 1,
 	label = "",
+	title = "",
 	value,
 	valueHandler,
 	className = "",
@@ -206,7 +208,7 @@ export default function Slider({
 	const valuePercent = ((value - min) / (max - min)) * 100;
 
 	return (
-		<SliderField className={className}>
+		<SliderField className={className} title={title}>
 			{label && <SliderLabel>{label}</SliderLabel>}
 			<SliderContainer>
 				<ValueBubble valuePercent={valuePercent}>

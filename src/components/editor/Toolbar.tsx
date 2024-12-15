@@ -8,6 +8,7 @@ import ToggleForceVisible from "./settings/ToggleForceVisible";
 import ToggleMobileDebug from "./settings/ToggleMobileDebug";
 import ToggleNoclip from "./settings/ToggleNoclip";
 import ToggleNodeVisibility from "./settings/ToggleNodeVisibility";
+import ToolbarSection from "./ToolbarSection";
 
 const ToolbarContainer = styled.div`
 	display: flex;
@@ -35,22 +36,28 @@ export default function Toolbar() {
 
 			<Separator />
 
-			<ToggleDebug />
-			<ToggleMobileDebug />
+			<ToolbarSection label="Modes" icon="monitor">
+				<ToggleDebug />
+				<ToggleMobileDebug />
+			</ToolbarSection>
 
 			<Separator />
 
-			<ToggleNodeVisibility />
-			<ToggleForceVisible />
+			<ToolbarSection label="Visibility" icon="eye">
+				<ToggleNodeVisibility />
+				<ToggleForceVisible />
+			</ToolbarSection>
 
 			<Separator />
 
-			<ToggleNoclip />
-			<FlySpeed />
+			<ToolbarSection label="Movement" icon="move">
+				<ToggleNoclip />
+				<FlySpeed />
+			</ToolbarSection>
+
+			<Separator />
 
 			<Space />
-			<Separator />
-
 			<ModeSelector />
 		</ToolbarContainer>
 	);

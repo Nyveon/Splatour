@@ -69,7 +69,7 @@ export default function ModeSelector() {
 					</ModeLabel>
 				</>
 			) : (
-				<ModeLabel>None</ModeLabel>
+				<ModeLabel>Nothing selected</ModeLabel>
 			)}
 		</Mode>
 	);

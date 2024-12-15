@@ -4,10 +4,10 @@ import styled from "@emotion/styled";
 
 const StyledSlider = styled(Slider)`
 	display: flex;
-	flex-direction: column-reverse;
+	flex-direction: row;
 	align-items: center;
 	justify-content: center;
-	gap: 0;
+	gap: 0.75rem;
 `;
 
 export default function FlySpeed() {
@@ -17,6 +17,7 @@ export default function FlySpeed() {
 	return (
 		<StyledSlider
 			label="Speed"
+			title="Flight speed multiplier"
 			min={0.1}
 			max={10}
 			step={0.1}

@@ -10,6 +10,7 @@ export default function ToggleForceVisible() {
 	return (
 		<Checkbox
 			label="All Splats"
+			title="Show all splat scenes simultaneously"
 			value={forceVisible}
 			onChange={(e: boolean) => {
 				setForceVisible(e);

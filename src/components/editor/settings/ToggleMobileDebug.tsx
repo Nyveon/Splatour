@@ -8,6 +8,7 @@ export default function ToogleDebug() {
 	return (
 		<Checkbox
 			label="Mobile"
+			title="Simulate mobile controls"
 			value={mobileDebug}
 			onChange={(e) => {
 				setMobileDebug(e);

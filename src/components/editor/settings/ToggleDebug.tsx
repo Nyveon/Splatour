@@ -8,6 +8,7 @@ export default function ToogleDebug() {
 	return (
 		<Checkbox
 			label="Preview"
+			title="Simulate exported view"
 			value={!debug}
 			onChange={(e: boolean) => {
 				setDebug(!e);

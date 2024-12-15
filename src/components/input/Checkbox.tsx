@@ -1,9 +1,14 @@
 import Icon from "@/components/Icon";
 import { color } from "@/utils/theme";
 import styled from "@emotion/styled";
-import { Checkbox as BaseCheckbox, Field, Label } from "@headlessui/react";
+import {
+	Checkbox as BaseCheckbox,
+	Field,
+	FieldProps,
+	Label,
+} from "@headlessui/react";
 
-const CheckboxField = styled(Field)`
+const CheckboxField = styled(Field)<FieldProps>`
 	display: flex;
 	gap: 0.5rem;
 	align-items: center;
@@ -41,11 +46,17 @@ interface CheckboxProps {
 	label: string;
 	value: boolean;
 	onChange: (value: boolean) => void;
+	title?: string;
 }
 
-export default function Checkbox({ label, value, onChange }: CheckboxProps) {
+export default function Checkbox({
+	label,
+	value,
+	onChange,
+	title = "",
+}: CheckboxProps) {
 	return (
-		<CheckboxField>
+		<CheckboxField title={title}>
 			<CheckboxInput checked={value} onChange={onChange}>
 				<Icon icon="check" />
 			</CheckboxInput>

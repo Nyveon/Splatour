@@ -125,11 +125,12 @@ export default function SceneCard({
 							.then(() => toastSuccess("Scene ID copied to clipboard"))
 							.catch(() => toastError("Failed to copy scene ID to clipboard"));
 					}}
+					title="The scene's unique identifier"
 				>
 					{sceneId}
 				</LabelID>
 
-				<UneditableItem>
+				<UneditableItem title="The scene's gaussian splat file path within the project">
 					<Icon icon="file" />
 					{sceneFile}
 				</UneditableItem>

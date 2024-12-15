@@ -18,7 +18,7 @@ export default function ArtifactNode({
 				<ArtifactTranslation nodeId={nodeId} sceneId={sceneId} />
 			</NodePanel>
 
-			<NodePanel label="Size" icon="maximize-2">
+			<NodePanel label="Radius" icon="maximize-2">
 				<ArtifactSize nodeId={nodeId} sceneId={sceneId} />
 			</NodePanel>
 

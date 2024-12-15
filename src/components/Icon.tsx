@@ -18,12 +18,32 @@ const IconSvg = styled.svg`
 	fill: none;
 `;
 
-export default function Icon({ icon }: { icon: FeatherIconNames }) {
+export default function Icon({
+	icon,
+	className = "",
+}: {
+	icon: FeatherIconNames;
+	className?: string;
+}) {
 	return (
-		<IconContainer className={`icon-${icon}`}>
+		<IconContainer className={`icon-${icon} ${className}`}>
 			<IconSvg className={`svg-${icon}`}>
 				<use href={`${icons}#${icon}`}></use>
 			</IconSvg>
 		</IconContainer>
+	);
+}
+
+export function IconSvgOnly({
+	icon,
+	className = "",
+}: {
+	icon: FeatherIconNames;
+	className?: string;
+}) {
+	return (
+		<IconSvg className={`svg-${icon} ${className}`}>
+			<use href={`${icons}#${icon}`}></use>
+		</IconSvg>
 	);
 }

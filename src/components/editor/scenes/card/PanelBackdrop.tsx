@@ -1,6 +1,6 @@
 import { useGSStore } from "@/hooks/useGSStore";
 import { defaultSkyFlat, defaultSkyHemi } from "@/model/GSSky";
-import { createDropdownStyles } from "@/utils/theme";
+import { AppIcons, createDropdownStyles } from "@/utils/theme";
 import { useState } from "react";
 import Select from "react-select";
 import BackdropFlat from "../elements/BackdropFlat";
@@ -25,6 +25,25 @@ function getInitialValue(sceneId: string) {
 	const value = sky ? sky.type : "sky";
 	return options.find((option) => option.value === value) ?? options[0];
 }
+
+const helpInfo = `
+# *icon-${AppIcons.Backdrop}* Backdrop
+
+The scene's background and lighting settings. All scenes have a backdrop.
+Setting this can be useful for patching holes in the scene.
+
+## Default sky
+
+A realistic blue sky with the sun placed close to the horizon.
+
+## Flat color
+
+A single color that fills the entire sky.
+
+## Hemispheres
+
+Two colors that split the sky into two hemispheres (upper and lower).
+`;
 
 export default function PanelBackdrop({ sceneId }: { sceneId: string }) {
 	const [backdrop, setBackdrop] = useState<Option>(getInitialValue(sceneId));
@@ -55,7 +74,11 @@ export default function PanelBackdrop({ sceneId }: { sceneId: string }) {
 	}
 
 	return (
-		<SceneCardPanel label="Backdrop" icon="sun">
+		<SceneCardPanel
+			label="Backdrop"
+			icon={AppIcons.Backdrop}
+			helpInfo={helpInfo}
+		>
 			<Select
 				styles={createDropdownStyles<Option>()}
 				menuPosition="fixed"

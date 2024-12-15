@@ -45,7 +45,7 @@ export default function Editor() {
 			debug: true,
 			mobileDebug: false,
 			debugNodes: true,
-			noclip: true,
+			noclip: false,
 		});
 	}, [initializeSettings]);
 

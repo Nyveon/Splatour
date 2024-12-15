@@ -11,10 +11,12 @@ export default function NodeCreate({
 	targetState,
 	label,
 	icon = "plus-circle",
+	disabled = false,
 }: {
 	targetState: UserState;
 	label: string;
 	icon?: FeatherIconNames;
+	disabled?: boolean;
 }) {
 	const setUserState = useInteractions((state) => state.setUserState);
 
@@ -28,6 +30,7 @@ export default function NodeCreate({
 			label={label}
 			icon={icon}
 			onClick={handleClick}
+			variant={disabled ? "disabled" : "primary"}
 		/>
 	);
 }

@@ -8,6 +8,7 @@ import {
 } from "@headlessui/react";
 import { FeatherIconNames } from "feather-icons";
 import type { ReactNode } from "react";
+import HoverInfo from "../../HelpInfo";
 
 const DisclosureWrapper = styled.div`
 	width: 100%;
@@ -25,13 +26,14 @@ const DisclosureButton = styled(BaseDisclosureButton)`
 	align-items: center;
 	gap: 0.75rem;
 	border-radius: 0.25rem;
+	padding-right: 0.5rem;
 
 	svg {
 		transition: all 0.2s ease;
 	}
 
 	&[data-open] {
-		svg {
+		.label-icon svg {
 			color: ${color.textLight};
 		}
 
@@ -41,10 +43,6 @@ const DisclosureButton = styled(BaseDisclosureButton)`
 	}
 
 	&[data-hover] {
-		svg {
-			color: ${color.textLight};
-		}
-
 		background-color: ${color.backgroundMedium};
 	}
 `;
@@ -82,7 +80,7 @@ const DisclosurePanel = styled(BaseDisclosurePanel)`
 const DisclosureLabel = styled.span`
 	display: flex;
 	align-items: center;
-	justify-content: space-between;
+	gap: 0.5rem;
 	width: 100%;
 	margin-right: 0.5rem;
 
@@ -95,21 +93,24 @@ interface SceneSubcardProps {
 	label: string;
 	children: ReactNode;
 	icon: FeatherIconNames;
+	helpInfo: string;
 }
 
 export default function SceneCardPanel({
 	label,
 	children,
 	icon,
+	helpInfo,
 }: SceneSubcardProps) {
 	return (
 		<Disclosure as={DisclosureWrapper}>
 			<DisclosureButton>
 				<Icon icon="chevron-right" />
 				<DisclosureLabel>
+					<Icon icon={icon} className="label-icon" />
 					{label}
-					<Icon icon={icon} />
 				</DisclosureLabel>
+				<HoverInfo info={helpInfo} />
 			</DisclosureButton>
 			<DisclosurePanel transition>{children}</DisclosurePanel>
 		</Disclosure>

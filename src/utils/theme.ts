@@ -1,6 +1,7 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { Button } from "@headlessui/react";
+import { FeatherIconNames } from "feather-icons";
 import { StylesConfig } from "react-select";
 
 export const color = {
@@ -15,6 +16,7 @@ export const color = {
 	primary: "#0a69cf",
 	primaryLight: "#329ff8",
 	primaryDark: "#0056b3",
+	primarySubtle: "#a6c3e0",
 
 	danger: "#dc3545",
 	dangerLight: "#ff505f",
@@ -91,18 +93,22 @@ export const UnstyledButton = styled(Button)<{ onClick: () => void }>`
 	}
 `;
 
-export enum AppIcons {
-	Placement = "move",
-	Artifact = "info",
+export const AppIcons: Record<string, FeatherIconNames> = {
+	Placement: "move",
+	Artifact: "info",
 
-	Barrier = "shield",
-	BarrierWall = "square",
-	BarrierSolid = "circle",
+	Barrier: "shield",
+	BarrierWall: "square",
+	BarrierSolid: "circle",
 
-	Portal = "target",
-	PortalEdge = "log-in",
-	PortalWarp = "crosshair",
-}
+	Portal: "target",
+	PortalEdge: "log-in",
+	PortalWarp: "crosshair",
+
+	Backdrop: "sun",
+
+	Movement: "move",
+};
 
 export const headerHeightREM = 5;
 export const sidebarWidthREM = 16;

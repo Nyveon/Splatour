@@ -38,6 +38,9 @@ export interface InteractableState {
 	currentNodeType: NodeType | null;
 	setCurrentNode: (nodeId: string, nodeType: NodeType) => void;
 	resetCurrentNode: () => void;
+
+	activeHelp: HTMLDivElement | null;
+	setActiveHelp: (help: HTMLDivElement | null) => void;
 }
 
 export const useInteractions = create<InteractableState>((set) => ({
@@ -64,4 +67,7 @@ export const useInteractions = create<InteractableState>((set) => ({
 	setCurrentNode: (nodeId: string, nodeType: NodeType) =>
 		set({ currentNodeId: nodeId, currentNodeType: nodeType }),
 	resetCurrentNode: () => set({ currentNodeId: "", currentNodeType: null }),
+
+	activeHelp: null,
+	setActiveHelp: (help: HTMLDivElement | null) => set({ activeHelp: help }),
 }));

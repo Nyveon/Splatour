@@ -1,4 +1,6 @@
+import { useInteractions } from "@/hooks/useInteractions";
 import type { GSScene } from "@/model/GSScene";
+import { useFrame } from "@react-three/fiber";
 import { useEffect, useRef } from "react";
 import type { Group } from "three";
 import SceneArtifacts from "../nodes/artifacts/SceneArtifacts";
@@ -10,6 +12,7 @@ export default function SceneStatic({ scene }: { scene: GSScene }) {
 	const sceneRef = useRef<Group>(null);
 	const relativeGroupRef = useRef<Group>(null);
 	const floorGroupRef = useRef<Group>(null);
+	const splatSceneRef = useRef<Group>(null);
 
 	useEffect(() => {
 		if (!sceneRef.current || !relativeGroupRef.current) return;
@@ -31,12 +34,22 @@ export default function SceneStatic({ scene }: { scene: GSScene }) {
 		);
 	}, [scene, sceneRef]);
 
-	console.log(scene);
+	useFrame(() => {
+		if (!splatSceneRef.current) {
+			return;
+		}
+
+		const sceneHidden = useInteractions.getState().currentSceneId !== scene.id;
+		splatSceneRef.current.visible = !sceneHidden;
+	});
 
 	return (
 		<group ref={sceneRef}>
 			<group ref={relativeGroupRef}>
-				<SceneViewer sceneData={{ filePath: scene.filePath }} />
+				<SceneViewer
+					ref={splatSceneRef}
+					sceneData={{ filePath: scene.filePath }}
+				/>
 				<SceneArtifacts sceneId={scene.id} />
 			</group>
 			<group ref={floorGroupRef} userData={{ hasCollidables: true }}>

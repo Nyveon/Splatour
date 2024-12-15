@@ -27,6 +27,9 @@ dist-ssr
 *.ply
 *.splat
 *.ksplat
+
+!docs/DCC_Norte/*
+
 !public/SalitaCropped.ksplat
 !public/Ofisalita.ksplat
 !public/Hallway.ksplat

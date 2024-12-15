@@ -12,6 +12,11 @@ const ToolbarContainer = styled.div`
 	align-items: center;
 	height: 100%;
 	gap: 1.5rem;
+
+	@media (max-width: 1300px) {
+		font-size: 0.9rem;
+		gap: 0.5rem;
+	}
 `;
 
 const Separator = styled.div`

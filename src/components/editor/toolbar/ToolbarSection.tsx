@@ -2,7 +2,8 @@ import { color } from "@/utils/theme";
 import styled from "@emotion/styled";
 import { FeatherIconNames } from "feather-icons";
 import type { ReactNode } from "react";
-import Icon from "../Icon";
+import Icon from "../../Icon";
+import HelpInfo from "../HelpInfo";
 
 const ToolbarSectionContainer = styled.div`
 	display: flex;
@@ -32,18 +33,21 @@ interface ToolbarSectionProps {
 	label: string;
 	icon: FeatherIconNames;
 	children: ReactNode;
+	helpInfo: string;
 }
 
 export default function ToolbarSection({
 	label,
 	icon,
 	children,
+	helpInfo,
 }: ToolbarSectionProps) {
 	return (
 		<ToolbarSectionContainer>
 			<ToolbarSectionLabel>
 				<Icon icon={icon} />
-				{label}:
+				{label}
+				<HelpInfo info={helpInfo} />
 			</ToolbarSectionLabel>
 			<ToolbarSectionTools>{children}</ToolbarSectionTools>
 		</ToolbarSectionContainer>

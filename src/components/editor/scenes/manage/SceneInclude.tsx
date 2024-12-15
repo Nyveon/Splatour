@@ -88,7 +88,7 @@ export default function SceneInclude({
 				open={isOpen}
 				handleClose={() => close()}
 				title="Include a New Scene"
-				description="Select a gaussian splat scene file to add and edit"
+				description="Select a gaussian splat scene file to add and edit."
 			>
 				{loading ? (
 					<p>Loading files...</p>
@@ -109,7 +109,7 @@ export default function SceneInclude({
 						))}
 					</FileList>
 				) : (
-					<p>Directory is empty...</p>
+					<p>No gaussian splat scene files found in the project directory...</p>
 				)}
 			</Modal>
 		</>

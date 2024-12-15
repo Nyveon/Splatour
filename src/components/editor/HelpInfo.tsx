@@ -8,6 +8,8 @@ import Markdown from "react-markdown";
 import Button from "../input/Button";
 
 const HelpIcon = styled.div`
+    align-self: center;
+
 	position: relative;
 	cursor: pointer;
 	background-color: ${color.textDark};

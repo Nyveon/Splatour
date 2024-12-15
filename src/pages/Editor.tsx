@@ -1,6 +1,6 @@
 import NodesSidebar from "@/components/editor/NodesSidebar";
 import ScenesSidebar from "@/components/editor/ScenesSidebar";
-import Toolbar from "@/components/editor/Toolbar";
+import Toolbar from "@/components/editor/toolbar/Toolbar";
 import Icon from "@/components/Icon";
 import EditorViewer from "@/components/viewer/EditorView";
 import { useSettingsStore } from "@/hooks/useSettingsStore";

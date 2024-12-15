@@ -13,8 +13,8 @@ const ToolbarContainer = styled.div`
 	height: 100%;
 	gap: 1.5rem;
 
-	@media (max-width: 1300px) {
-		font-size: 0.9rem;
+	@media (max-width: 1600px) {
+		font-size: 0.75rem;
 		gap: 0.5rem;
 	}
 `;

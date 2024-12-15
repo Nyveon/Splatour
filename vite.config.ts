@@ -23,6 +23,14 @@ export default defineConfig(({ mode }) => {
 		// staticFiles.push({ src: "./public/converted_file.ksplat", dest: "./" });
 		// staticFiles.push({ src: "./public/test.ksplat", dest: "./" });
 		// staticFiles.push({ src: "./public/SalitaFinal.ksplat", dest: "./" });
+
+		// DCC Norte splat files
+		staticFiles.push({ src: "./public/Hallway.ksplat", dest: "./DCC_Norte" });
+		staticFiles.push({ src: "./public/Ofisalita.ksplat", dest: "./DCC_Norte" });
+		staticFiles.push({
+			src: "./public/SalitaCropped.ksplat",
+			dest: "./DCC_Norte",
+		});
 	} else {
 		rollupOutputOptions.entryFileNames = `assets/[name].js`;
 		rollupOutputOptions.chunkFileNames = `assets/[name].js`;

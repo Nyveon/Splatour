@@ -28,6 +28,8 @@ dist-ssr
 *.splat
 *.ksplat
 docs
-!DCC_Norte/*.ksplat
+!public/SalitaCropped.ksplat
+!public/Ofisalita.ksplat
+!public/Hallway.ksplat
 
 bundle-visualization.html

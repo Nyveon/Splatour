@@ -33,23 +33,7 @@ export default function Artifact({
 	);
 	const visible = useSettingsStore((state) => state.debug && state.debugNodes);
 	const ready = useRef(false);
-
-	function deactivate() {
-		if (isActive) {
-			setIsActive(false);
-		}
-
-		setInteractable(false);
-	}
-
-	function activate() {
-		if (isActive) {
-			return;
-		}
-
-		setIsActive(true);
-		setInteractable(false);
-	}
+	const inActiveScene = useRef(false);
 
 	useFrame(({ raycaster }) => {
 		const artifact = artifactMesh.current;
@@ -57,6 +41,19 @@ export default function Artifact({
 		if (!artifact) {
 			return;
 		}
+
+		const currentSceneId = useInteractions.getState().currentSceneId;
+
+		if (currentSceneId !== sceneId) {
+			inActiveScene.current = false;
+
+			if (artifactHint.current) {
+				artifactHint.current.style.display = "none";
+			}
+			return;
+		}
+
+		inActiveScene.current = true;
 
 		artifact.getWorldPosition(artifactWorldPosition);
 		const distance = raycaster.ray.origin.distanceTo(artifactWorldPosition);
@@ -74,11 +71,22 @@ export default function Artifact({
 				}
 			}
 
-			deactivate();
+			if (isActive) {
+				setIsActive(false);
+				setInteractable(false);
+			}
+
+			if (ready.current) {
+				ready.current = false;
+				setInteractable(false);
+			}
+
 			return;
 		}
 
 		if (artifactHint.current) {
+			artifactHint.current.style.display = "block";
+
 			if (isActive) {
 				artifactHint.current.style.opacity = "0%";
 			} else {
@@ -86,8 +94,21 @@ export default function Artifact({
 			}
 		}
 
-		ready.current = raycaster.intersectObject(artifact).length > 0;
-		setInteractable(ready.current);
+		const lookingAt = raycaster.intersectObject(artifact).length > 0;
+
+		if (lookingAt) {
+			if (!useInteractions.getState().interactable) {
+				setInteractable(true);
+			}
+			ready.current = true;
+		} else if (
+			useInteractions.getState().interactable &&
+			!lookingAt &&
+			ready.current
+		) {
+			setInteractable(false);
+			ready.current = false;
+		}
 	});
 
 	function handleClick() {
@@ -96,9 +117,9 @@ export default function Artifact({
 		}
 
 		if (isActive) {
-			deactivate();
+			setIsActive(false);
 		} else {
-			activate();
+			setIsActive(true);
 		}
 	}
 

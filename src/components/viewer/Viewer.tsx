@@ -11,6 +11,7 @@ import { Canvas } from "@react-three/fiber";
 import type { ReactNode } from "react";
 import { useEffect, useRef } from "react";
 import type { PointerLockControls as PointerLockControlsImpl } from "three-stdlib";
+import ControlsHint from "./interface/ControlsHint";
 import Crosshair from "./interface/Crosshair";
 
 const ViewerContainer = styled.div`
@@ -73,6 +74,7 @@ export default function Viewer({ children }: { children: ReactNode }) {
 				</Canvas>
 				<JoystickControls />
 				<Crosshair />
+				<ControlsHint />
 			</ViewerContainer>
 		</KeyboardControls>
 	);

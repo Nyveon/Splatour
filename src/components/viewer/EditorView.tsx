@@ -21,7 +21,9 @@ export default function EditorView() {
 			<Viewer>
 				<Hotkeys />
 				<DebugUtils />
+
 				<GSMapEditable />
+
 				<ArtifactPlacer />
 				<BarrierSolidPlacer />
 				<BarrierWallPlacer />

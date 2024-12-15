@@ -28,5 +28,6 @@ dist-ssr
 *.splat
 *.ksplat
 docs
+!DCC_Norte/*.ksplat
 
 bundle-visualization.html

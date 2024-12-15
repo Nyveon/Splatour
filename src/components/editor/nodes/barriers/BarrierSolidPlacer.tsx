@@ -6,22 +6,14 @@ import { color } from "@/utils/theme";
 import { toastError, toastSuccess, toastUnknownError } from "@/utils/toasts";
 import { ThreeEvent, useFrame } from "@react-three/fiber";
 import { useRef } from "react";
-import {
-	DoubleSide,
-	Euler,
-	Matrix4,
-	Plane,
-	Quaternion,
-	Vector3,
-	type Mesh,
-} from "three";
+import { DoubleSide, Plane, Vector3, type Mesh } from "three";
 
 const plane = new Plane(new Vector3(0, 1, 0), 0);
 const intersectPoint = new Vector3();
 const shadowPoint = new Vector3();
 const lookDirection = new Vector3();
-const rotationQuaternion = new Quaternion();
-const transformMatrix = new Matrix4();
+// const rotationQuaternion = new Quaternion();
+// const transformMatrix = new Matrix4();
 const minRadius = 0.1;
 const maxRadius = 1;
 const radiusScrollSpeed = 0.001;
@@ -98,39 +90,39 @@ export default function BarrierSolidPlacer() {
 
 			const currentScene = useGSStore.getState().gsmap.scenes[currentSceneId];
 
-			rotationQuaternion.setFromEuler(
-				new Euler(
-					currentScene.rotation.x,
-					currentScene.rotation.y,
-					currentScene.rotation.z
-				)
-			);
-			transformMatrix.compose(
-				new Vector3(
-					currentScene.position.x,
-					currentScene.position.y,
-					currentScene.position.z
-				),
-				rotationQuaternion,
-				new Vector3(
-					currentScene.scale.x,
-					currentScene.scale.y,
-					currentScene.scale.z
-				)
-			);
-			transformMatrix.invert();
+			// rotationQuaternion.setFromEuler(
+			// 	new Euler(
+			// 		currentScene.rotation.x,
+			// 		currentScene.rotation.y,
+			// 		currentScene.rotation.z
+			// 	)
+			// );
+			// transformMatrix.compose(
+			// 	new Vector3(
+			// 		currentScene.position.x,
+			// 		currentScene.position.y,
+			// 		currentScene.position.z
+			// 	),
+			// 	rotationQuaternion,
+			// 	new Vector3(
+			// 		currentScene.scale.x,
+			// 		currentScene.scale.y,
+			// 		currentScene.scale.z
+			// 	)
+			// );
+			// transformMatrix.invert();
 
-			placer.position.applyMatrix4(transformMatrix);
+			// placer.position.applyMatrix4(transformMatrix);
 
 			const relativePosition = {
-				x: placer.position.x,
+				x: placer.position.x - currentScene.position.x,
 				y: 0,
-				z: placer.position.z,
+				z: placer.position.z - currentScene.position.z,
 			};
 
-			const transformedRadius = radius.current / currentScene.scale.x;
+			// const transformedRadius = radius.current / currentScene.scale.x;
 
-			const newSolid = gsnSolidCreate(relativePosition, transformedRadius);
+			const newSolid = gsnSolidCreate(relativePosition, radius.current);
 			useGSStore.getState().setAddNode(currentSceneId, newSolid);
 			useInteractions.getState().setUserState(UserState.None);
 			useInteractions

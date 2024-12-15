@@ -8,6 +8,7 @@ import {
 import { GSScene } from "@/model/GSScene";
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
+import { useInteractions } from "./useInteractions";
 
 interface SceneState {
 	gsmap: GSMap;
@@ -32,6 +33,10 @@ export const useGSStore = create<SceneState>()(
 		setGSMap: (transform) =>
 			set((state) => {
 				Object.assign(state.gsmap, transform);
+
+				if (transform.defaultScene) {
+					useInteractions.getState().setCurrentSceneId(transform.defaultScene);
+				}
 			}),
 		setSceneTransform: (sceneId, transform) =>
 			set((state) => {
@@ -47,6 +52,9 @@ export const useGSStore = create<SceneState>()(
 		setAddScene: (scene: GSScene) =>
 			set((state) => {
 				state.gsmap.scenes[scene.id] = scene;
+				if (!state.gsmap.defaultScene) {
+					state.gsmap.defaultScene = scene.id;
+				}
 			}),
 		setAddNode: (sceneId, node) =>
 			set((state) => {

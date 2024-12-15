@@ -8,7 +8,7 @@ import Markdown from "react-markdown";
 import Button from "../input/Button";
 
 const HelpIcon = styled.div`
-    align-self: center;
+	align-self: center;
 
 	position: relative;
 	cursor: pointer;
@@ -90,6 +90,11 @@ export default function HoverInfo({ info }: { info: string }) {
 	const activeHelp = useInteractions((state) => state.activeHelp);
 	const setActiveHelp = useInteractions((state) => state.setActiveHelp);
 	const helpRef = useRef<HTMLDivElement>(null);
+
+	if (!helpRef.current || !activeHelp) {
+		return;
+	}
+
 	const isShowing = activeHelp === helpRef.current;
 
 	return (
@@ -111,7 +116,9 @@ export default function HoverInfo({ info }: { info: string }) {
 						title="Close information panel"
 						icon="x"
 						variant="small"
-						onClick={() => setActiveHelp(null)}
+						onClick={() => {
+							setActiveHelp(null);
+						}}
 					/>
 				</TopBar>
 

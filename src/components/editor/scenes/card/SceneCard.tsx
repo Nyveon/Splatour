@@ -14,6 +14,7 @@ import PanelBackdrop from "./PanelBackdrop";
 import PanelBarriers from "./PanelBarriers";
 import PanelPlacement from "./PanelPlacement";
 import PanelPortals from "./PanelPortals";
+import SceneIsDefault from "./SceneIsDefault";
 
 const SceneCardContainer = styled.div`
 	display: flex;
@@ -134,6 +135,10 @@ export default function SceneCard({
 					<Icon icon="file" />
 					{sceneFile}
 				</UneditableItem>
+
+				<CardItem>
+					<SceneIsDefault sceneId={sceneId} />
+				</CardItem>
 
 				<ButtonBarItem>
 					<SceneDelete sceneId={sceneId} />

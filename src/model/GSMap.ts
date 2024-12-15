@@ -10,6 +10,7 @@ export interface SerialGSMap {
 	metadata: {
 		name: string;
 		version: number;
+		defaultScene: string;
 	};
 	scenes: SerialGSScene[];
 }
@@ -18,6 +19,7 @@ export interface GSMap {
 	name: string;
 	scenes: Record<string, GSScene>;
 	directoryHandle?: FileSystemDirectoryHandle;
+	defaultScene: string;
 }
 
 export function gsmDeserializeStringJSON(jsonString: string): GSMap {
@@ -28,6 +30,7 @@ export function gsmDeserializeStringJSON(jsonString: string): GSMap {
 export function gsmDeserializeObjectJSON(obj: SerialGSMap): GSMap {
 	return {
 		name: obj.metadata.name,
+		defaultScene: obj.metadata.defaultScene,
 		scenes: obj.scenes.reduce(
 			(acc, scene) => {
 				const deserialized = gssDeserialize(scene);
@@ -44,6 +47,7 @@ export function gsmSerialize(map: GSMap): SerialGSMap {
 		metadata: {
 			name: map.name,
 			version: formatVersion,
+			defaultScene: map.defaultScene,
 		},
 		scenes: Object.values(map.scenes).map(gssSerialize),
 	};
@@ -52,6 +56,7 @@ export function gsmSerialize(map: GSMap): SerialGSMap {
 export function gsmCreateEmpty(): GSMap {
 	return {
 		name: "New Map",
+		defaultScene: "",
 		scenes: {},
 	};
 }

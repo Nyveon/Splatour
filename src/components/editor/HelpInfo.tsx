@@ -37,12 +37,6 @@ const HelpIcon = styled.div`
 `;
 
 const Tooltip = styled.div`
-	display: none;
-
-	&[data-showing="true"] {
-		display: block;
-	}
-
 	position: fixed;
 	z-index: 1;
 	top: ${headerHeightREM}rem;
@@ -91,11 +85,8 @@ export default function HoverInfo({ info }: { info: string }) {
 	const setActiveHelp = useInteractions((state) => state.setActiveHelp);
 	const helpRef = useRef<HTMLDivElement>(null);
 
-	if (!helpRef.current || !activeHelp) {
-		return;
-	}
-
-	const isShowing = activeHelp === helpRef.current;
+	const isShowing =
+		helpRef.current && activeHelp && activeHelp === helpRef.current;
 
 	return (
 		<>
@@ -110,64 +101,67 @@ export default function HoverInfo({ info }: { info: string }) {
 			>
 				<Icon icon="help-circle" />
 			</HelpIcon>
-			<Tooltip data-showing={isShowing} onClick={(e) => e.stopPropagation()}>
-				<TopBar>
-					<Button
-						title="Close information panel"
-						icon="x"
-						variant="small"
-						onClick={() => {
-							setActiveHelp(null);
+			{isShowing && (
+				<Tooltip onClick={(e) => e.stopPropagation()}>
+					<TopBar>
+						<Button
+							title="Close information panel"
+							icon="x"
+							variant="small"
+							onClick={() => {
+								setActiveHelp(null);
+							}}
+						/>
+					</TopBar>
+
+					<Markdown
+						components={{
+							h1: "h3",
+							h2: "h4",
+							em({ children, ...props }) {
+								if (
+									typeof children === "string" &&
+									(children.startsWith("icon-") ||
+										children.startsWith(":icon-"))
+								) {
+									const iconName = children
+										.split("-")
+										.slice(1)
+										.join("-") as FeatherIconNames;
+									const isHighlight = children.startsWith(":icon-");
+
+									console.log(isHighlight, children);
+
+									return (
+										<InlineIcon
+											style={{
+												color: isHighlight
+													? color.primarySubtle
+													: color.textLight,
+											}}
+										>
+											<IconSvgOnly icon={iconName} />
+										</InlineIcon>
+									);
+								}
+
+								if (typeof children === "string" && children.startsWith(":")) {
+									const text = children.slice(1);
+									return (
+										<span {...props} style={{ color: color.primarySubtle }}>
+											{text}
+										</span>
+									);
+								}
+
+								return <em {...props}>{children}</em>;
+							},
 						}}
-					/>
-				</TopBar>
-
-				<Markdown
-					components={{
-						h1: "h3",
-						h2: "h4",
-						em({ children, ...props }) {
-							if (
-								typeof children === "string" &&
-								(children.startsWith("icon-") || children.startsWith(":icon-"))
-							) {
-								const iconName = children
-									.split("-")
-									.slice(1)
-									.join("-") as FeatherIconNames;
-								const isHighlight = children.startsWith(":icon-");
-
-								console.log(isHighlight, children);
-
-								return (
-									<InlineIcon
-										style={{
-											color: isHighlight
-												? color.primarySubtle
-												: color.textLight,
-										}}
-									>
-										<IconSvgOnly icon={iconName} />
-									</InlineIcon>
-								);
-							}
-
-							if (typeof children === "string" && children.startsWith(":")) {
-								const text = children.slice(1);
-								return (
-									<span {...props} style={{ color: color.primarySubtle }}>
-										{text}
-									</span>
-								);
-							}
-
-							return <em {...props}>{children}</em>;
-						},
-					}}
-				>
-					{info}
-				</Markdown>
-			</Tooltip>
+					>
+						{info}
+					</Markdown>
+				</Tooltip>
+			)}
 		</>
 	);
 }

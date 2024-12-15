@@ -27,7 +27,6 @@ dist-ssr
 *.ply
 *.splat
 *.ksplat
-docs
 !public/SalitaCropped.ksplat
 !public/Ofisalita.ksplat
 !public/Hallway.ksplat

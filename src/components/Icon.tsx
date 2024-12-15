@@ -1,6 +1,6 @@
+import icons from "@/assets/images/feather-sprite.svg";
 import styled from "@emotion/styled";
 import { FeatherIconNames } from "feather-icons";
-import icons from "feather-icons/dist/feather-sprite.svg";
 
 const IconContainer = styled.div`
 	display: flex;

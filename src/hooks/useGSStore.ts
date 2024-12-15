@@ -115,8 +115,6 @@ export const useGSStore = create<SceneState>()(
 
 					Object.assign(node, transform);
 				}
-
-				console.log(useGSStore.getState());
 			}),
 	}))
 );

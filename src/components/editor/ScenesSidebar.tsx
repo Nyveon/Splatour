@@ -72,11 +72,7 @@ export default function Sidebar({ className }: { className?: string }) {
 
 	return (
 		<Aside>
-			<SceneList
-				className={className}
-				ref={ref}
-				onScroll={() => console.log("hi")}
-			>
+			<SceneList className={className} ref={ref}>
 				{sceneIds.map((sceneId) => (
 					<SceneListItem key={sceneId}>
 						<SceneCard

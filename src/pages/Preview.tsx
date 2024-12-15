@@ -24,7 +24,5 @@ export default function Preview({
 		});
 	}
 
-	console.log("x", serialMap);
-
 	return <ExportedView serialMap={serialMap} />;
 }

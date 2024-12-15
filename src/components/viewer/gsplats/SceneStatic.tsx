@@ -46,10 +46,6 @@ export default function SceneStatic({ scene }: { scene: GSScene }) {
 		if (!splatSceneRef.current) {
 			return;
 		}
-		console.log(
-			useInteractions.getState().currentSceneId,
-			useGSStore.getState().gsmap
-		);
 
 		const sceneHidden = useInteractions.getState().currentSceneId !== scene.id;
 		splatSceneRef.current.visible = !sceneHidden;

@@ -1,4 +1,3 @@
-import { useGSStore } from "@/hooks/useGSStore";
 import { useInteractions } from "@/hooks/useInteractions";
 import type { GSScene } from "@/model/GSScene";
 import { useFrame } from "@react-three/fiber";

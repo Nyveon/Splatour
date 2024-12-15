@@ -14,12 +14,16 @@ export default defineConfig(({ mode }) => {
 	const rollupOutputOptions: Rollup.OutputOptions = {};
 
 	if (!isViewer) {
+		staticFiles.push({
+			src: "./src/assets/images/feather-sprite.svg",
+			dest: "./assets",
+		});
 		// staticFiles.push({ src: "./public/CNAME", dest: "./" });
 		// mobile.json
 		// staticFiles.push({ src: "./public/converted_file.ksplat", dest: "./" });
 		// staticFiles.push({ src: "./public/test.ksplat", dest: "./" });
 		// staticFiles.push({ src: "./public/SalitaFinal.ksplat", dest: "./" });
-    } else {
+	} else {
 		rollupOutputOptions.entryFileNames = `assets/[name].js`;
 		rollupOutputOptions.chunkFileNames = `assets/[name].js`;
 		rollupOutputOptions.assetFileNames = `assets/[name].[ext]`;

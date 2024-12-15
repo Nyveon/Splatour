@@ -1,3 +1,4 @@
+import { useGSStore } from "@/hooks/useGSStore";
 import { useInteractions } from "@/hooks/useInteractions";
 import type { GSScene } from "@/model/GSScene";
 import { useFrame } from "@react-three/fiber";
@@ -15,7 +16,12 @@ export default function SceneStatic({ scene }: { scene: GSScene }) {
 	const splatSceneRef = useRef<Group>(null);
 
 	useEffect(() => {
-		if (!sceneRef.current || !relativeGroupRef.current) return;
+		if (
+			!sceneRef.current ||
+			!relativeGroupRef.current ||
+			!floorGroupRef.current
+		)
+			return;
 
 		sceneRef.current.position.set(
 			scene.position.x,
@@ -32,19 +38,25 @@ export default function SceneStatic({ scene }: { scene: GSScene }) {
 			scene.rotation.y,
 			scene.rotation.z
 		);
+
+		floorGroupRef.current.position.set(0, -scene.position.y, 0);
 	}, [scene, sceneRef]);
 
 	useFrame(() => {
 		if (!splatSceneRef.current) {
 			return;
 		}
+		console.log(
+			useInteractions.getState().currentSceneId,
+			useGSStore.getState().gsmap
+		);
 
 		const sceneHidden = useInteractions.getState().currentSceneId !== scene.id;
 		splatSceneRef.current.visible = !sceneHidden;
 	});
 
 	return (
-		<group ref={sceneRef}>
+		<group ref={sceneRef} userData={{ hasCollidables: true }}>
 			<group ref={relativeGroupRef}>
 				<SceneViewer
 					ref={splatSceneRef}

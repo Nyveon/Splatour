@@ -37,6 +37,9 @@ export default function App() {
 
 			<LinkList>
 				<LinkListItem>
+					<Link to="dcc">DCC Norte</Link>
+				</LinkListItem>
+				<LinkListItem>
 					<Link to="viewer">Viewer</Link>
 				</LinkListItem>
 				<LinkListItem>

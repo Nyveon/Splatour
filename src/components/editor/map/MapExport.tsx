@@ -16,6 +16,7 @@ async function insertViewerTemplate(outputFolder: Record<string, Uint8Array>) {
 		"assets/index.css",
 		"assets/index.js",
 		"assets/main.woff2",
+		"assets/feather-sprite.svg",
 		"coi.js",
 		"index.html",
 	];

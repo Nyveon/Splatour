@@ -23,11 +23,11 @@ export interface SettingsState {
 }
 
 export const useSettingsStore = create<SettingsState>((set) => ({
-	debug: false,
+	debug: true,
 	setDebug: (debug) => set({ debug }),
 	mobileDebug: false,
 	setMobileDebug: (mobileDebug) => set({ mobileDebug }),
-	debugNodes: false,
+	debugNodes: true,
 	setDebugNodes: (debugNodes) => set({ debugNodes }),
 	noclip: false,
 	setNoclip: (noclip) => set({ noclip }),

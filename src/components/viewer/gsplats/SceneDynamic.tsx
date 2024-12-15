@@ -50,16 +50,16 @@ export default function SceneDynamic({ sceneId }: { sceneId: string }) {
 			scenePosition.x,
 			scenePosition.y,
 			scenePosition.z
-		);
-		relativeGroupRef.current.rotation.set(
-			sceneRotation.x,
-			sceneRotation.y,
-			sceneRotation.z
-		);
+		)
 		relativeGroupRef.current.scale.set(
 			sceneScale.x,
 			sceneScale.y,
 			sceneScale.z
+		);
+        relativeGroupRef.current.rotation.set(
+			sceneRotation.x,
+			sceneRotation.y,
+			sceneRotation.z
 		);
 
 		floorGroupRef.current.position.set(0, -scenePosition.y, 0);

@@ -37,7 +37,10 @@ export default function App() {
 
 			<LinkList>
 				<LinkListItem>
-					<Link to="dcc">DCC Norte</Link>
+					<Link to="dcc">Demo: DCC Norte</Link>
+				</LinkListItem>
+				<LinkListItem>
+					<Link to="khachkars">Demo: Khachkars</Link>
 				</LinkListItem>
 				<LinkListItem>
 					<Link to="viewer">Viewer</Link>

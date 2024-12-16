@@ -18,18 +18,28 @@ export default defineConfig(({ mode }) => {
 			src: "./src/assets/images/feather-sprite.svg",
 			dest: "./assets",
 		});
-		// staticFiles.push({ src: "./public/CNAME", dest: "./" });
+		staticFiles.push({ src: "./public/CNAME", dest: "./" });
 		// mobile.json
 		// staticFiles.push({ src: "./public/converted_file.ksplat", dest: "./" });
 		// staticFiles.push({ src: "./public/test.ksplat", dest: "./" });
 		// staticFiles.push({ src: "./public/SalitaFinal.ksplat", dest: "./" });
 
-		// DCC Norte splat files
+		// Demo: DCC Norte
 		staticFiles.push({ src: "./public/Hallway.ksplat", dest: "./DCC_Norte" });
 		staticFiles.push({ src: "./public/Ofisalita.ksplat", dest: "./DCC_Norte" });
 		staticFiles.push({
 			src: "./public/SalitaCropped.ksplat",
 			dest: "./DCC_Norte",
+		});
+
+		// Demo: Khachkars
+		staticFiles.push({
+			src: "./Khachkars/Khachkar_12_4.ksplat",
+			dest: "./Khachkars",
+		});
+		staticFiles.push({
+			src: "./Khachkars/Khachkar_12_5.ksplat",
+			dest: "./Khachkars",
 		});
 	} else {
 		rollupOutputOptions.entryFileNames = `assets/[name].js`;

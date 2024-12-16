@@ -1,4 +1,3 @@
-import mapURL from "@/assets/maps/salita.json?url";
 import { css, Global } from "@emotion/react";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
@@ -8,7 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import DCCNorte from "./pages/DCCNorte";
 import Editor from "./pages/Editor";
 import Index from "./pages/Index";
-import Preview from "./pages/Preview";
+import Khachkars from "./pages/Khachkars";
 import { color } from "./utils/theme";
 
 const root = document.getElementById("root");
@@ -36,9 +35,9 @@ createRoot(root).render(
 		<HashRouter>
 			<Routes>
 				<Route path="/" element={<Index />} />
-				<Route path="viewer" element={<Preview mapURL={mapURL} />} />
 				<Route path="editor" element={<Editor />} />
 				<Route path="dcc" element={<DCCNorte />} />
+				<Route path="khachkars" element={<Khachkars />} />
 			</Routes>
 		</HashRouter>
 	</StrictMode>

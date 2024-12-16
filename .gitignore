@@ -29,6 +29,7 @@ dist-ssr
 *.ksplat
 
 !docs/DCC_Norte/*
+!docs/Khachkars/*
 
 !public/SalitaCropped.ksplat
 !public/Ofisalita.ksplat

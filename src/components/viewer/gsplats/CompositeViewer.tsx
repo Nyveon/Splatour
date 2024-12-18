@@ -58,7 +58,7 @@ export default function CompositeViewer() {
 		});
 
 		const defaultSettings = {
-			showLoadingUI: false,
+			showLoadingUI: true,
 			splatAlphaRemovalThreshold: 20,
 		};
 

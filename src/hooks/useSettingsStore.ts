@@ -13,6 +13,8 @@ export interface SettingsState {
 	setFlySpeed: (flySpeed: number) => void;
 	forceVisible: boolean;
 	setForceVisible: (forceVisible: boolean) => void;
+	compositeViewer: boolean;
+	setCompositeViewer: (compositeViewer: boolean) => void;
 
 	initializeSettings: (defaults: {
 		debug: boolean;
@@ -35,6 +37,8 @@ export const useSettingsStore = create<SettingsState>((set) => ({
 	setFlySpeed: (flySpeed) => set({ flySpeed }),
 	forceVisible: false,
 	setForceVisible: (forceVisible) => set({ forceVisible }),
+	compositeViewer: false,
+	setCompositeViewer: (compositeViewer) => set({ compositeViewer }),
 
 	initializeSettings: (defaults) => set(defaults),
 }));

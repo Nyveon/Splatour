@@ -29,10 +29,14 @@ const LinkListItem = styled.li`
 export default function App() {
 	return (
 		<>
-			<h1>Gaussian Splats 3D Maps</h1>
+			<h1>3D Gaussian Splatting Maps</h1>
 
 			<p>
-				<i>Trabajo de título de Eric Kirchgesser, 2024</i>
+				Editor and viewer for virtual tours and 3D digital scene reconstructions
+			</p>
+
+			<p>
+				<i>Eric K&apos;s Bachelor&apos;s Thesis project, 2024</i>
 			</p>
 
 			<LinkList>
@@ -41,9 +45,6 @@ export default function App() {
 				</LinkListItem>
 				<LinkListItem>
 					<Link to="khachkars">Demo: Khachkars</Link>
-				</LinkListItem>
-				<LinkListItem>
-					<Link to="viewer">Viewer</Link>
 				</LinkListItem>
 				<LinkListItem>
 					<Link to="editor">Editor</Link>

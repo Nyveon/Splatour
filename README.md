@@ -2,6 +2,8 @@
 
 3D Gaussian splatting map-making, multimedia scene composition and virtual tour system for the web. Separated into two main components: the scene viewer, and the scene editor.
 
+splatroom? splatmap? splatlab? splatstudio?
+
 ## Made with
 
 Static site with React + Typescript and Three.js.

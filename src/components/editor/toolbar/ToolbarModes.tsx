@@ -1,3 +1,4 @@
+import ToggleComposite from "./ToggleComposite";
 import ToggleDebug from "./ToggleDebug";
 import ToggleMobileDebug from "./ToggleMobileDebug";
 import ToolbarSection from "./ToolbarSection";
@@ -14,6 +15,10 @@ and hiding editor-only features.
 
 When active, simulates *:Mobile Device Input* disabling pointer lock
 and enabling joysticks for movement and looking.
+
+## Composite
+
+*Placeholder*
 `;
 
 export default function ToolbarModes() {
@@ -21,6 +26,7 @@ export default function ToolbarModes() {
 		<ToolbarSection label="Modes" icon="monitor" helpInfo={helpInfo}>
 			<ToggleDebug />
 			<ToggleMobileDebug />
+			<ToggleComposite />
 		</ToolbarSection>
 	);
 }

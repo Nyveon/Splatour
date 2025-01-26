@@ -1,8 +1,8 @@
-# GaussianSplats3DMaps 
+# Splatour 
 
-3D Gaussian splatting map-making, multimedia scene composition and virtual tour system for the web. Separated into two main components: the scene viewer, and the scene editor.
+3D Gaussian splatting map-making, immersive multimedia scene composition and virtual tour viewer and editor for the web.
 
-splatroom? splatmap? splatlab? splatstudio?
+*Currently in Alpha.*
 
 ## Made with
 
@@ -75,12 +75,3 @@ npm run preview
 ### Datasets
 
 - [Khachkar videos](https://drive.google.com/drive/u/1/folders/1T7olQ1MWyAnDPSOB5TnkdjeKj-EzXFvL)
-
-
-## Interesting decisions I had to take
-
-- How scenes should be loaded
-- How scenes should be structured
-- Native vs Local vs Full stack for files
-- Web for crossplatform
-- Packaging template + project

@@ -26,18 +26,20 @@ const LinkListItem = styled.li`
 	margin-bottom: 10px;
 `;
 
+const InfoParagraph = styled.p`
+	max-width: 70ch;
+`;
+
 export default function App() {
 	return (
 		<>
-			<h1>3D Gaussian Splatting Maps</h1>
+			<h1>Splatour</h1>
 
-			<p>
-				Editor and viewer for virtual tours and 3D digital scene reconstructions
-			</p>
-
-			<p>
-				<i>Eric K&apos;s Bachelor&apos;s Thesis project, 2024</i>
-			</p>
+			<InfoParagraph>
+				Web-based viewer & editor for immersive multimedia scenes, maps and
+				virtuals tours combining web components, traditional 3D models and 3D
+				Gaussian Splatting.
+			</InfoParagraph>
 
 			<LinkList>
 				<LinkListItem>
@@ -49,7 +51,26 @@ export default function App() {
 				<LinkListItem>
 					<Link to="editor">Editor</Link>
 				</LinkListItem>
+				<LinkListItem>
+					<a
+						href="https://github.com/Nyveon/Splatour"
+						target="_blank"
+						rel="noreferrer"
+					>
+						Github Repository
+					</a>
+				</LinkListItem>
 			</LinkList>
+
+			<InfoParagraph>
+				<i>
+					<a href="https://github.com/Nyveon" target="_blank" rel="noreferrer">
+						Eric K
+					</a>
+					&apos;s Bachelor of Science Thesis project @ Universidad de Chile,
+					FCFM, 2024.
+				</i>
+			</InfoParagraph>
 		</>
 	);
 }

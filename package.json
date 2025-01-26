@@ -1,8 +1,9 @@
 {
-    "name": "gs3dmaps",
+    "name": "splatour",
     "private": true,
     "version": "0.0.0",
     "type": "module",
+    "homepage": "https://github.com/Nyveon/Splatour",
     "scripts": {
         "dev": "vite --host",
         "build:main": "vite build --mode main",

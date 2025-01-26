@@ -76,7 +76,7 @@ export default function MapImport() {
 			<Modal
 				open={modalOpen}
 				handleClose={() => setModalOpen(false)}
-				title="Load a GS3DMap project"
+				title="Load a Splatour project"
 				description="Select a directory containing the project JSON and assets"
 			>
 				<DirectorySelector

@@ -4,11 +4,11 @@ import ArtifactPlacer from "../editor/nodes/artifacts/ArtifactPlacer";
 import BarrierSolidPlacer from "../editor/nodes/barriers/BarrierSolidPlacer";
 import BarrierWallPlacer from "../editor/nodes/barriers/BarrierWallPlacer";
 import PortalPlacer from "../editor/nodes/portals/PortalEdgePlacer";
-import MapDynamic from "./MapDynamic";
-import Viewer from "./Viewer";
 import CompositeViewer from "./gsplats/CompositeViewer";
 import DebugUtils from "./interface/DebugUtils";
 import Hotkeys from "./interface/Hotkeys";
+import MapDynamic from "./MapDynamic";
+import Viewer from "./Viewer";
 
 const Preview = styled.section`
 	position: relative;

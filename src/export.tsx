@@ -2,7 +2,7 @@ import { color } from "@/utils/theme";
 import { css, Global } from "@emotion/react";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import Preview from "./pages/Preview";
+import Preview from "./pages/demos/Preview";
 
 const root = document.getElementById("root");
 

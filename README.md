@@ -4,7 +4,19 @@
 
 Check out the demo at: [maps.eri.cl](https://maps.eri.cl/)
 
+
+## Usage
+
 *⚠ This project is currently in Alpha, and development is on hold until March 2025.*
+
+1. Access the Editor at [maps.eri.cl](https://maps.eri.cl/#/editor). *(⚠ Editor requires a Chromium browser)*
+2. Create an empty folder on your computer to store your project.
+3. Click on the "Create" button in the Editor and select the folder you created.
+4. Import and edit Gaussian Splat scenes, 3D models, and web content.
+5. Save your project, and if you wish, export it as a static site.
+
+For more details about each step, refer to internal documentation available by clicking on the **question mark icons** in the Editor.
+
 
 ## Development
 
@@ -50,7 +62,7 @@ Static site with React + Typescript and Three.js.
 - [Interior scan path for Gaussian Splats](https://www.youtube.com/watch?v=2ZX_5bOdKjo)
 
 
-### Local Usage
+### Deployment
 
 1. Install
 2. Run local
@@ -63,3 +75,5 @@ npm run dev
 npm run build
 npm run preview
 ```
+
+## Contributing

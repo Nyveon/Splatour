@@ -1,8 +1,8 @@
 import { useGSStore } from "@/hooks/useGSStore";
 import { gsmDeserializeObjectJSON, SerialGSMap } from "@/model/GSMap";
 import { useEffect } from "react";
-import CompositeViewer from "./gsplats/CompositeViewer";
 import Viewer from "./Viewer";
+import CompositeViewer from "./gsplats/CompositeViewer";
 
 export default function CompositeView({
 	serialMap,

@@ -4,10 +4,11 @@ import { createRoot } from "react-dom/client";
 import { HashRouter, Route, Routes } from "react-router";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import DCCNorte from "./pages/DCCNorte";
+import SimpleBenchmark from "./pages/benchmarks/SimpleBenchmark";
+import DCCNorte from "./pages/demos/DCCNorte";
+import Khachkars from "./pages/demos/Khachkars";
 import Editor from "./pages/Editor";
 import Index from "./pages/Index";
-import Khachkars from "./pages/Khachkars";
 import { color } from "./utils/theme";
 
 const root = document.getElementById("root");
@@ -38,6 +39,7 @@ createRoot(root).render(
 				<Route path="editor" element={<Editor />} />
 				<Route path="dcc" element={<DCCNorte />} />
 				<Route path="khachkars" element={<Khachkars />} />
+				<Route path="benchmark" element={<SimpleBenchmark />} />
 			</Routes>
 		</HashRouter>
 	</StrictMode>

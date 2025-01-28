@@ -39,7 +39,8 @@ const SceneViewer = forwardRef<Group, SceneViewerProps>(function GS3DViewer(
 
 		loadScene
 			.then(() => {
-				console.log("Splat Scene loaded");
+				console.log("Splat Scene loaded", sceneData.filePath);
+				console.log("Splat count: ", viewer.splatMesh.getSplatCount());
 			})
 			.catch((err) => {
 				console.error(err);

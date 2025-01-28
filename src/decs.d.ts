@@ -29,6 +29,9 @@ declare module "@mkkellogg/gaussian-splats-3d" {
 		dispose(): Promise<void>;
 		viewer: Viewer;
 		getSceneCount(): number;
+		splatMesh: {
+			getSplatCount(): number;
+		};
 	}
 
 	export interface DropInViewerOptions {

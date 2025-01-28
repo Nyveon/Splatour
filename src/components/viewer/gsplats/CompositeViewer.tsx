@@ -133,6 +133,7 @@ export default function CompositeViewer() {
 			return;
 		}
 		console.log("Hook2: running");
+		console.log("Splat count:", viewer.splatMesh.getSplatCount());
 		gssUpdateTransforms(viewer, scenes);
 	}, [scenes, localLoading, viewer]);
 

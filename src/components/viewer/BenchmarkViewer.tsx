@@ -12,14 +12,15 @@ import BenchmarkTool from "./interface/BenchmarkTool";
 
 const ViewerContainer = styled.div`
 	position: relative;
-	width: 100%;
-	height: 100%;
+	width: 1280px;
+	height: 720px;
 	margin: 0;
 	padding: 0;
 `;
 
 /**
  * Stripped down version of Viewer.tsx
+ * Fixed size, no controls, no interactions
  */
 export default function BenchmarkViewer({
 	benchmarkName,

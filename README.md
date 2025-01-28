@@ -46,6 +46,7 @@ Static site with React + Typescript and Three.js.
 - [Three.js](https://threejs.org/)
 - [React Three Fiber](https://r3f.docs.pmnd.rs/getting-started/introduction) - Three.js as react components
 - [Drei](https://drei.docs.pmnd.rs/getting-started/introduction) - Extra Three.js components
+- [R3F-Perf](https://github.com/utsuboco/r3f-perf) - Benchmarking performance
 
 
 #### Images

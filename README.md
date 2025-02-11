@@ -1,6 +1,6 @@
 # Splatour 
 
-"A web-based platform for 3D Gaussian Splatting (3DGS) map-making, immersive multimedia scene composition, and first-person virtual tours. Seamlessly integrate multiple 3DGS scenes into a single interactive environment with dynamic scene loading and unloading, support for interactive 3D and web objects, and effortless static site exporting. Optimized for both mobile and desktop browsers, ensuring smooth performance across a wide range of hardware.
+A web-based platform for 3D Gaussian Splatting (3DGS) map-making, immersive multimedia scene composition, and first-person virtual tours. Seamlessly integrate multiple 3DGS scenes into a single interactive environment with dynamic scene loading and unloading, support for interactive 3D and web objects, and effortless static site exporting. Optimized for both mobile and desktop browsers, ensuring smooth performance across a wide range of hardware.
 
 Check out the demos at: [maps.eri.cl](https://maps.eri.cl/)
 
@@ -137,6 +137,8 @@ Static site with React + Typescript and Three.js.
 📦public    # Files for test maps and exports
 📦docs      # Final build for demo page
 📦patches   # Patches to used node modules
+📦Khachkars # Demo map 1
+📦DCC_Norte # Demo map 2
 📦src       # Editor and Viewer source code
  ┣ 📂assets
  ┃ ┣ 📂css     # Base style

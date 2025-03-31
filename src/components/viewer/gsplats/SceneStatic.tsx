@@ -1,3 +1,4 @@
+import AvatarModel from "@/components/viewer/nodes/models/AvatarModel";
 import { useInteractions } from "@/hooks/useInteractions";
 import type { GSScene } from "@/model/GSScene";
 import { useFrame } from "@react-three/fiber";
@@ -13,6 +14,7 @@ export default function SceneStatic({ scene }: { scene: GSScene }) {
 	const relativeGroupRef = useRef<Group>(null);
 	const floorGroupRef = useRef<Group>(null);
 	const splatSceneRef = useRef<Group>(null);
+	const easterEggRef = useRef<Group>(null);
 
 	useEffect(() => {
 		if (
@@ -48,6 +50,10 @@ export default function SceneStatic({ scene }: { scene: GSScene }) {
 
 		const sceneHidden = useInteractions.getState().currentSceneId !== scene.id;
 		splatSceneRef.current.visible = !sceneHidden;
+
+		if (easterEggRef.current) {
+			easterEggRef.current.visible = !sceneHidden;
+		}
 	});
 
 	return (
@@ -63,6 +69,11 @@ export default function SceneStatic({ scene }: { scene: GSScene }) {
 				<SceneBarriers sceneId={scene.id} />
 				<ScenePortals sceneId={scene.id} />
 			</group>
+			{scene.filePath.includes("picarte.ksplat") && (
+				<group ref={easterEggRef}>
+					<AvatarModel />
+				</group>
+			)}
 		</group>
 	);
 }

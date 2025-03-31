@@ -18,6 +18,7 @@ export default defineConfig(({ mode }) => {
 			src: "./src/assets/images/feather-sprite.svg",
 			dest: "./assets",
 		});
+
 		staticFiles.push({ src: "./public/CNAME", dest: "./" });
 		// mobile.json
 		// staticFiles.push({ src: "./public/converted_file.ksplat", dest: "./" });

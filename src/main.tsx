@@ -9,6 +9,7 @@ import DCCNorte from "./pages/demos/DCCNorte";
 import Khachkars from "./pages/demos/Khachkars";
 import Editor from "./pages/Editor";
 import Index from "./pages/Index";
+import Presentation from "./pages/presentation/Presentation";
 import { color } from "./utils/theme";
 
 const root = document.getElementById("root");
@@ -40,6 +41,7 @@ createRoot(root).render(
 				<Route path="dcc" element={<DCCNorte />} />
 				<Route path="khachkars" element={<Khachkars />} />
 				<Route path="benchmark" element={<SimpleBenchmark />} />
+				<Route path="presentation" element={<Presentation />} />
 			</Routes>
 		</HashRouter>
 	</StrictMode>

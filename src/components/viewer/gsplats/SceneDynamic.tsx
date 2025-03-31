@@ -1,3 +1,4 @@
+import AvatarModel from "@/components/viewer/nodes/models/AvatarModel";
 import { useGSStore } from "@/hooks/useGSStore";
 import { useInteractions } from "@/hooks/useInteractions";
 import { useSettingsStore } from "@/hooks/useSettingsStore";
@@ -14,6 +15,7 @@ export default function SceneDynamic({ sceneId }: { sceneId: string }) {
 	const relativeGroupRef = useRef<Group>(null);
 	const floorGroupRef = useRef<Group>(null);
 	const splatSceneRef = useRef<Group>(null);
+	const easterEggRef = useRef<Group>(null);
 	const sceneFile = useGSStore((state) => state.gsmap.scenes[sceneId].filePath);
 	const sceneBuffer = useGSStore((state) => state.gsmap.scenes[sceneId].buffer);
 
@@ -28,6 +30,10 @@ export default function SceneDynamic({ sceneId }: { sceneId: string }) {
 				useGSStore.getState().gsmap.scenes[sceneId].hidden);
 		// const sceneVisible = !useGSStore.getState().gsmap.scenes[sceneId].hidden;
 		splatSceneRef.current.visible = !sceneHidden;
+
+		if (easterEggRef.current) {
+			easterEggRef.current.visible = !sceneHidden;
+		}
 	}
 
 	function updateScene() {
@@ -85,6 +91,11 @@ export default function SceneDynamic({ sceneId }: { sceneId: string }) {
 				<SceneBarriers sceneId={sceneId} />
 				<ScenePortals sceneId={sceneId} />
 			</group>
+			{sceneFile === "picarte.ksplat" && (
+				<group ref={easterEggRef}>
+					<AvatarModel />
+				</group>
+			)}
 		</group>
 	);
 }

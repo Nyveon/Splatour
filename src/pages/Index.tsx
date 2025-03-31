@@ -55,6 +55,9 @@ export default function App() {
 					<Link to="benchmark">Simple Benchmark</Link>
 				</LinkListItem>
 				<LinkListItem>
+					<Link to="presentation">Presentation</Link>
+				</LinkListItem>
+				<LinkListItem>
 					<a
 						href="https://github.com/Nyveon/Splatour"
 						target="_blank"

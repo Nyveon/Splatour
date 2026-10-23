@@ -122,6 +122,14 @@ export default function ControlsHints() {
 
 				<ControlSubGroup>
 					<GroupSide>
+						<Icon icon="zoom-in" />
+						Zoom:
+					</GroupSide>
+					<GroupSide>Mouse wheel</GroupSide>
+				</ControlSubGroup>
+
+				<ControlSubGroup>
+					<GroupSide>
 						<Icon icon="mouse-pointer" />
 						Interact:
 					</GroupSide>

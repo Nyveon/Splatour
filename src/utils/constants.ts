@@ -60,3 +60,8 @@ export const mapAssetsSubfolder = "gsmap";
 export const playerHeight = 1.7;
 export const barrierHeight = playerHeight * 1.5;
 export const barrierWallThickness = 0.1;
+
+//* cam fov in degrees
+export const maxFov = 90;
+export const minFov = 30;
+export const fovNotch = 5; // degrees per mwheel tick

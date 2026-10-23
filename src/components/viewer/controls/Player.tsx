@@ -1,12 +1,12 @@
 import { useInteractions } from "@/hooks/useInteractions";
 import { useJoystickControls } from "@/hooks/useJoystickControls";
 import { useSettingsStore } from "@/hooks/useSettingsStore";
-import { Controls } from "@/utils/constants";
+import { Controls, playerCrouchHeight, playerHeight } from "@/utils/constants";
 import { toastError } from "@/utils/toasts";
 import { useKeyboardControls } from "@react-three/drei";
 import { RootState, useFrame } from "@react-three/fiber";
 import { useRef } from "react";
-import { Matrix3, type Object3D, Raycaster, Vector3 } from "three";
+import { MathUtils, Matrix3, type Object3D, Raycaster, Vector3 } from "three";
 
 const rotationSpeed = 1.5; // for joystick
 const walkingSpeed = 1.4; // meters per second
@@ -133,6 +133,7 @@ export default function Player() {
 	const [, getControls] = useKeyboardControls();
 	const bobbingPhase = useRef(0);
 	const bobbingOffset = useRef(0);
+	const crouchOffset = useRef(0);
 
 	useFrame((state: RootState, delta: number) => {
 		// Handle teleportation
@@ -146,6 +147,7 @@ export default function Player() {
 				teleportPending.y,
 				teleportPending.z
 			);
+			state.camera.position.y += crouchOffset.current;
 			setTeleportPending(null);
 		}
 
@@ -156,6 +158,19 @@ export default function Player() {
 		const joystickState = useJoystickControls.getState();
 		const { moveX, moveY, cameraX, cameraY } = joystickState;
 		const camera = state.camera;
+
+		// Crouching
+		const crouching = Boolean(controls[Controls.crouch]);
+		const targetCrouchOffset = crouching ? playerCrouchHeight - playerHeight : 0;
+		const prevCrouchOffset = crouchOffset.current;
+		// smoothing
+		crouchOffset.current = MathUtils.damp(
+			crouchOffset.current,
+			targetCrouchOffset,
+			10,
+			delta
+		);
+		camera.position.y += crouchOffset.current - prevCrouchOffset
 
 		// Camera direction from inputs
 		camera.rotation.order = "YXZ";
@@ -198,7 +213,7 @@ export default function Player() {
 
 		move.normalize();
 		const instantSpeed =
-			useSettingsStore.getState().flySpeed * walkingSpeed * delta;
+			useSettingsStore.getState().flySpeed * walkingSpeed * (crouching ? 0.5 : 1.0) * delta;
 		move.multiplyScalar(instantSpeed);
 
 		// Collisions

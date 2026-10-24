@@ -78,7 +78,10 @@ export function downloadFile(
 	filename: string,
 	filetype: string
 ) {
-	const blob = new Blob([fileData], { type: filetype });
+	const blob = new Blob(
+		[typeof fileData === "string" ? fileData : new Uint8Array(fileData)],
+		{ type: filetype }
+	);
 	const link = document.createElement("a");
 	link.href = URL.createObjectURL(blob);
 	link.download = filename;

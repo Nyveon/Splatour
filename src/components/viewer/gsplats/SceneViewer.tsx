@@ -1,4 +1,4 @@
-import { DropInViewer, SplatBuffer } from "@mkkellogg/gaussian-splats-3d";
+import { DropInViewer, LoaderUtils, SplatBuffer } from "@mkkellogg/gaussian-splats-3d";
 import { forwardRef, useEffect, useState } from "react";
 import type { Group } from "three";
 
@@ -29,6 +29,7 @@ const SceneViewer = forwardRef<Group, SceneViewerProps>(function GS3DViewer(
 		setViewer(viewer);
 
 		const defaultOptions = {
+			format: LoaderUtils.sceneFormatFromPath(sceneData.filePath.toLowerCase()),
 			showLoadingUI: true,
 			splatAlphaRemovalThreshold: 20,
 		};

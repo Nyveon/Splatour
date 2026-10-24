@@ -1,17 +1,15 @@
 import basicSsl from "@vitejs/plugin-basic-ssl";
 import react from "@vitejs/plugin-react-swc";
 import { visualizer } from "rollup-plugin-visualizer";
-import { defineConfig, Rollup } from "vite";
-import { createHtmlPlugin } from "vite-plugin-html";
+import { defineConfig, type Rolldown } from "vite";
 import { viteStaticCopy } from "vite-plugin-static-copy";
-import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig(({ mode }) => {
 	const isViewer = mode === "viewer";
 
 	// coi-serviceworker
 	const staticFiles = [{ src: "./public/coi.js", dest: "./" }];
-	const rollupOutputOptions: Rollup.OutputOptions = {};
+	const rollupOutputOptions: Rolldown.OutputOptions = {};
 
 	if (!isViewer) {
 		staticFiles.push({
@@ -28,7 +26,7 @@ export default defineConfig(({ mode }) => {
 		staticFiles.push({ src: "./public/Hallway.ksplat", dest: "./DCC_Norte" });
 		staticFiles.push({ src: "./public/Ofisalita.ksplat", dest: "./DCC_Norte" });
 		staticFiles.push({
-			src: "./public/SalitaCropped.ksplat",
+			src: "./DCC_Norte/salita2x.compressed.ply",
 			dest: "./DCC_Norte",
 		});
 
@@ -52,27 +50,33 @@ export default defineConfig(({ mode }) => {
 		plugins: [
 			react(),
 			basicSsl(),
-			tsconfigPaths(),
-			createHtmlPlugin({
-				inject: {
-					data: {
-						REACT_SCRIPT_SOURCE: isViewer ? "/src/export.tsx" : "/src/main.tsx",
-					},
+			{
+				name: "splatour-entry",
+				transformIndexHtml: {
+					order: "pre",
+					handler: (html) =>
+						html.replace(
+							"<%- REACT_SCRIPT_SOURCE %>",
+							isViewer ? "/src/export.tsx" : "/src/main.tsx"
+						),
 				},
-			}),
+			},
 			visualizer({
 				open: false,
 				filename: "bundle-visualization.html",
 				template: "network",
 			}),
 			viteStaticCopy({
-				targets: staticFiles,
+				targets: staticFiles.map((target) => ({
+					...target,
+					rename: { stripBase: true },
+				})),
 			}),
 		],
 		build: {
 			outDir: isViewer ? "docs/export" : "docs",
 			emptyOutDir: true,
-			rollupOptions: {
+			rolldownOptions: {
 				output: rollupOutputOptions,
 			},
 		},
@@ -90,6 +94,7 @@ export default defineConfig(({ mode }) => {
 			},
 		},
 		resolve: {
+			tsconfigPaths: true,
 			alias: [
 				{ find: "@assets", replacement: "/src/assets" },
 				{ find: "@components", replacement: "/src/components" },

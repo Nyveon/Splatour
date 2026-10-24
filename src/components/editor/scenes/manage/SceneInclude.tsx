@@ -1,5 +1,6 @@
 import Icon from "@/components/Icon";
 import Modal from "@/components/Modal";
+import { isSupportedSceneFile } from "@/model/GSScene";
 import { getAllFiles } from "@/utils/filesystem";
 import { color, UnstyledButton } from "@/utils/theme";
 import styled from "@emotion/styled";
@@ -52,10 +53,7 @@ export default function SceneInclude({
 			getAllFiles(directoryHandle)
 				.then((retrievedFiles) => {
 					const filteredFiles = retrievedFiles.filter(
-						(file) =>
-							file.name.endsWith(".splat") ||
-							file.name.endsWith(".ksplat") ||
-							file.name.endsWith(".ply")
+						(file) => isSupportedSceneFile(file.name)
 					);
 					setFiles(filteredFiles);
 				})

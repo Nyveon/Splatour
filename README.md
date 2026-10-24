@@ -9,7 +9,7 @@ Check out the demos at: [maps.eri.cl](https://maps.eri.cl/)
 
 ## Usage
 
-*⚠ This project is currently in Alpha, and development is on hold until March 2025.*
+*⚠ This project is in KTLO since March 2025. Contributions are still welcome.*
 
 ### Project creation
 
@@ -17,6 +17,11 @@ Check out the demos at: [maps.eri.cl](https://maps.eri.cl/)
 2. Create an empty folder on your computer to store your project.
 3. Click on the "Create" button in the Editor and select the folder you created.
 4. Import and edit Gaussian Splat scenes, 3D models, and web content.
+
+Gaussian splat scenes can be imported from `.ply` or `.ksplat` files. For an existing
+project, put the file in the project folder, then use **Add scene**. Saving keeps
+the original filename, and exported tours include the original scene file.
+PLY support is for Gaussian splat data, rather than ordinary polygon meshes.
 
 ### Editing
 
@@ -206,4 +211,11 @@ Some benchmarks (GPU and CPU latency) from the demo benchmark scene. All benchma
 
 ## Contributing
 
-Contribution guidelines will be defined once my thesis has been succesfully defended 😰. For now, feel free to leave issues or make pull requests, I just can't promise I'll be able to accept or handle them.
+I successfully defended my thesis in March 2025, and the available tools and technologies surrounding 3D Gaussian Splatting have advanced *tremendously* since then, leaving this project in the dust. Because of this, please don't expect further development here. 
+
+However, contributions are still welcome if for some reason you find value in this project c:
+
+### Acknowledgements
+
+* [Professor Nelson Baloian](https://dcc.uchile.cl/nosotros/academico/nboloian/), thesis supervisor.
+* ...

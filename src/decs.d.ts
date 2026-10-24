@@ -43,6 +43,13 @@ declare module "@mkkellogg/gaussian-splats-3d" {
 
 	type SceneFormatType = 0 | 1 | 2 | 3 | null;
 
+	export const SceneFormat: {
+		readonly Splat: 0;
+		readonly KSplat: 1;
+		readonly Ply: 2;
+		readonly Spz: 3;
+	};
+
 	export class LoaderUtils {
 		static sceneFormatFromPath(path: string): SceneFormatType;
 	}
@@ -64,5 +71,15 @@ declare module "@mkkellogg/gaussian-splats-3d" {
 
 	export class KSplatLoader {
 		static loadFromFileData(data: ArrayBuffer): Promise<SplatBuffer>;
+	}
+
+	export class PlyLoader {
+		static loadFromFileData(
+			data: ArrayBuffer,
+			minimumAlpha: number,
+			compressionLevel: number,
+			optimizeSplatData: boolean,
+			outSphericalHarmonicsDegree?: number
+		): Promise<SplatBuffer>;
 	}
 }

@@ -26,7 +26,7 @@ export default tseslint.config(
 				sourceType: "module",
 			},
 		},
-		settings: { react: { version: "18.3" } },
+		settings: { react: { version: "detect" } },
 		plugins: {
 			react,
 			// "react-three": ReactThreeFiber,
@@ -34,7 +34,9 @@ export default tseslint.config(
 			"react-refresh": reactRefresh,
 		},
 		rules: {
-			...reactHooks.configs.recommended.rules,
+			// Keep the existing checks; React Compiler adoption is a separate migration.
+			"react-hooks/rules-of-hooks": "error",
+			"react-hooks/exhaustive-deps": "warn",
 			"react-refresh/only-export-components": [
 				"warn",
 				{ allowConstantExport: true },

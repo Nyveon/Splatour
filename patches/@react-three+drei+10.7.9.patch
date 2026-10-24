@@ -1,0 +1,31 @@
+diff --git a/node_modules/@react-three/drei/web/Html.js b/node_modules/@react-three/drei/web/Html.js
+index 81d68b7..cb553f6 100644
+--- a/node_modules/@react-three/drei/web/Html.js
++++ b/node_modules/@react-three/drei/web/Html.js
+@@ -112,7 +112,8 @@ const Html = /* @__PURE__ */React.forwardRef(({
+     events,
+     viewport
+   } = useThree();
+-  const [el] = React.useState(() => document.createElement(as));
++  const target = (portal == null ? void 0 : portal.current) || events.connected || gl.domElement.parentNode;
++  const el = React.useMemo(() => document.createElement(as), [as, target]);
+   const root = React.useRef(null);
+   const group = React.useRef(null);
+   const oldZoom = React.useRef(0);
+@@ -120,7 +121,6 @@ const Html = /* @__PURE__ */React.forwardRef(({
+   const transformOuterRef = React.useRef(null);
+   const transformInnerRef = React.useRef(null);
+   // Append to the connected element, which makes HTML work with views
+-  const target = (portal == null ? void 0 : portal.current) || events.connected || gl.domElement.parentNode;
+   const occlusionMeshRef = React.useRef(null);
+   const isMeshSizeSet = React.useRef(false);
+   const isRayCastOcclusion = React.useMemo(() => {
+@@ -156,7 +156,7 @@ const Html = /* @__PURE__ */React.forwardRef(({
+         currentRoot.unmount();
+       };
+     }
+-  }, [target, transform]);
++  }, [target, transform, el]);
+   React.useLayoutEffect(() => {
+     if (wrapperClass) el.className = wrapperClass;
+   }, [wrapperClass]);

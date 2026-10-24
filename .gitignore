@@ -28,6 +28,9 @@ dist-ssr
 *.splat
 *.ksplat
 
+!DCC_Norte/SalitaNew.ksplat
+!DCC_Norte/salita2x.compressed.ply
+
 !docs/DCC_Norte/*
 !docs/Khachkars/*
 

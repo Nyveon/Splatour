@@ -1,6 +1,6 @@
 import { useGSStore } from "@/hooks/useGSStore";
 import { GSScene } from "@/model/GSScene";
-import { DropInViewer, SplatSceneParams } from "@mkkellogg/gaussian-splats-3d";
+import { DropInViewer, LoaderUtils, SplatSceneParams } from "@mkkellogg/gaussian-splats-3d";
 import { useThree } from "@react-three/fiber";
 import { useEffect, useState } from "react";
 import * as THREE from "three";
@@ -67,6 +67,7 @@ export default function CompositeViewer() {
 		const fileSceneParams: SplatSceneParams[] = fileScenes.map(
 			(scene: GSScene) => ({
 				path: scene.filePath,
+				format: LoaderUtils.sceneFormatFromPath(scene.filePath.toLowerCase()),
 				...defaultSettings,
 			})
 		);

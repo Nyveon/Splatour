@@ -7,7 +7,7 @@ import {
 	GizmoViewport,
 	Grid,
 } from "@react-three/drei";
-import { useEffect } from "react";
+import { useEffect, type RefObject } from "react";
 
 const Stats = styled(BaseStats)`
 	position: absolute !important;
@@ -42,7 +42,11 @@ export default function DebugUtils() {
 				/>
 			</GizmoHelper>
 			{viewerContainerRef && (
-				<Stats parent={viewerContainerRef} showPanel={0} />
+				// Drei's parent type still uses the pre-React 19 ref signature.
+				<Stats
+					parent={viewerContainerRef as RefObject<HTMLDivElement>}
+					showPanel={0}
+				/>
 			)}
 		</>
 	);

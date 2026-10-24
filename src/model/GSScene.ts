@@ -1,9 +1,11 @@
 import { Vec3 } from "@/utils/data";
-import type {
-	SceneFormatType,
-	SplatBuffer,
+import type { SplatBuffer } from "@mkkellogg/gaussian-splats-3d";
+import {
+	KSplatLoader,
+	LoaderUtils,
+	PlyLoader,
+	SceneFormat,
 } from "@mkkellogg/gaussian-splats-3d";
-import { KSplatLoader, LoaderUtils } from "@mkkellogg/gaussian-splats-3d";
 import { GSNode, GSNodeArtifact, GSNodeBarrier, GSNodePortal } from "./GSNode";
 import { GSSky } from "./GSSky";
 
@@ -115,64 +117,26 @@ export function gssSerialize(scene: GSScene): SerialGSScene {
 
 export class SplatFormatError extends Error {
 	constructor() {
-		super("Invalid file format");
+		super("Unsupported scene format. Choose a Gaussian splat .ply or .ksplat file.");
 		this.name = "SplatFormatError";
 	}
 }
 
-/**
- * Turns a ply/splat/ksplat file into a loaded splat buffer
- * ! .ply and .splat are currently disabled
- * @param fileBufferData of the file
- * @param format GS3D format of the file
- * @returns Promise of the loaded splat buffer
- */
-export async function fileToSplatBuffer(file: File) {
-	const fileName = file.name;
-	const format = LoaderUtils.sceneFormatFromPath(fileName);
+export function isSupportedSceneFile(fileName: string): boolean {
+	return /\.(ply|ksplat)$/i.test(fileName);
+}
 
-	if (!format) {
+/** Load a Gaussian splat PLY or KSPLAT file for editing. */
+export async function fileToSplatBuffer(file: File): Promise<SplatBuffer> {
+	if (!isSupportedSceneFile(file.name)) {
 		throw new SplatFormatError();
 	}
 
+	const format = LoaderUtils.sceneFormatFromPath(file.name.toLowerCase());
 	const fileData = await file.arrayBuffer();
-	return fileBufferToSplatBuffer(fileData, format);
-}
-
-function fileBufferToSplatBuffer(
-	fileBufferData: ArrayBuffer,
-	format: SceneFormatType
-): Promise<SplatBuffer> {
-	if (format === 0) {
-		// splat
-		throw new Error("Not yet implement, try with .ksplat");
-		// return GaussianSplats3D.PlyLoader.loadFromFileData(
-		// 	fileBufferData.data,
-		// 	alphaRemovalThreshold,
-		// 	compressionLevel,
-		// 	true,
-		// 	outSphericalHarmonicsDegree,
-		// 	sectionSize,
-		// 	sceneCenter,
-		// 	blockSize,
-		// 	bucketSize
-		// );
-	} else if (format === 2) {
-		//ply
-		throw new Error("Not yet implement, try with .ksplat");
-		// return GaussianSplats3D.SplatLoader.loadFromFileData(
-		// 	fileBufferData.data,
-		// 	alphaRemovalThreshold,
-		// 	compressionLevel,
-		// 	true,
-		// 	sectionSize,
-		// 	sceneCenter,
-		// 	blockSize,
-		// 	bucketSize
-		// );
-	} else if (format === 1) {
-		//ksplat
-		return KSplatLoader.loadFromFileData(fileBufferData);
+	if (format === SceneFormat.Ply) {
+		// Match the viewer's alpha threshold and keep an optimized in-memory buffer.
+		return PlyLoader.loadFromFileData(fileData, 20, 1, true);
 	}
-	throw new Error("Invalid file format");
+	return KSplatLoader.loadFromFileData(fileData);
 }

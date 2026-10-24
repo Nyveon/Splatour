@@ -1,4 +1,4 @@
-import mapUrl from "DCC_Norte/map.json?url";
+import mapUrl from "../../../DCC_Norte/map.json?url";
 import Preview from "./Preview";
 
 export default function DCCNorte() {

@@ -1,10 +1,9 @@
 import {
 	EventManager,
-	ReactThreeFiber,
+	ThreeElement,
 	RootState,
 	useThree,
 } from "@react-three/fiber";
-import { DomEvent } from "@react-three/fiber/dist/declarations/src/core/events";
 import {
 	forwardRef,
 	ForwardRefExoticComponent,
@@ -20,9 +19,9 @@ type ForwardRefComponent<P, T> = ForwardRefExoticComponent<
 	PropsWithoutRef<P> & RefAttributes<T>
 >;
 
-export type PointerLockControlsProps = ReactThreeFiber.Object3DNode<
-	PointerLockControlsImpl,
-	typeof PointerLockControlsImpl
+export type PointerLockControlsProps = Omit<
+	ThreeElement<typeof PointerLockControlsImpl>,
+	"args"
 > & {
 	domElement?: HTMLElement;
 	selector?: string;
@@ -75,7 +74,7 @@ export const PointerLockControls: ForwardRefComponent<
 			// Force events to be centered while PLC is active
 			const oldComputeOffsets = get().events.compute;
 			setEvents({
-				compute(_: DomEvent, state: RootState) {
+				compute(_, state: RootState) {
 					const offsetX = state.size.width / 2;
 					const offsetY = state.size.height / 2;
 					state.pointer.set(

@@ -5,6 +5,7 @@ export enum Controls {
 	right = "right",
 	up = "up",
 	down = "down",
+	crouch = "crouch",
 
 	//toggles
 	togglePreview = "togglePreview",
@@ -31,7 +32,8 @@ export const KeyMap = [
 	{ name: Controls.left, keys: ["ArrowLeft", "a", "A"] },
 	{ name: Controls.right, keys: ["ArrowRight", "d", "D"] },
 	{ name: Controls.up, keys: ["Space", "Q", "q"] },
-	{ name: Controls.down, keys: ["Shift", "E", "e"] },
+	{ name: Controls.down, keys: ["E", "e"] }, // note: reassigned shift to crouch
+	{ name: Controls.crouch, keys: ["Shift"] },
 
 	{ name: Controls.closeReturn, keys: ["x"] },
 	{ name: Controls.newWall, keys: ["1"] },
@@ -58,5 +60,11 @@ export const mapAssetsSubfolder = "gsmap";
 
 //* 1 unit = 100cm
 export const playerHeight = 1.7;
+export const playerCrouchHeight = 0.7;
 export const barrierHeight = playerHeight * 1.5;
 export const barrierWallThickness = 0.1;
+
+//* cam fov in degrees
+export const maxFov = 90;
+export const minFov = 30;
+export const fovNotch = 5; // degrees per mwheel tick

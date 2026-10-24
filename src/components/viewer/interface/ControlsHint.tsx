@@ -114,10 +114,26 @@ export default function ControlsHints() {
 
 				<ControlSubGroup>
 					<GroupSide>
+						<Icon icon="chevrons-down" />
+						Crouch:
+					</GroupSide>
+					<GroupSide>Shift key</GroupSide>
+				</ControlSubGroup>
+
+				<ControlSubGroup>
+					<GroupSide>
 						<Icon icon="camera" />
 						Look:
 					</GroupSide>
 					<GroupSide>Move mouse</GroupSide>
+				</ControlSubGroup>
+
+				<ControlSubGroup>
+					<GroupSide>
+						<Icon icon="zoom-in" />
+						Zoom:
+					</GroupSide>
+					<GroupSide>Mouse wheel</GroupSide>
 				</ControlSubGroup>
 
 				<ControlSubGroup>

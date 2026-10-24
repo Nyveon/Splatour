@@ -13,6 +13,7 @@ import { useEffect, useRef } from "react";
 import type { PointerLockControls as PointerLockControlsImpl } from "three-stdlib";
 import ControlsHint from "./interface/ControlsHint";
 import Crosshair from "./interface/Crosshair";
+import ZoomControls from "./controls/ZoomControls";
 
 const ViewerContainer = styled.div`
 	position: relative;
@@ -69,6 +70,7 @@ export default function Viewer({ children }: { children: ReactNode }) {
 						onUnlock={() => unlock()}
 					/>
 					<Player />
+					<ZoomControls controlsRef={pointerLockControlsRef} />
 					<Ambient />
 					{children}
 				</Canvas>

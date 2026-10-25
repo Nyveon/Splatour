@@ -9,7 +9,7 @@ import type { PointerLockControls as PointerLockControlsImpl } from "three-stdli
 export default function ZoomControls({
     controlsRef,
 }: {
-    controlsRef?: RefObject<PointerLockControlsImpl>;
+    controlsRef?: RefObject<PointerLockControlsImpl | null>;
 }) {
     const camera = useThree((state) => state.camera) as PerspectiveCamera;
     const viewerContainerRef = useViewerStore((state) => state.viewerContainerRef);

@@ -1,6 +1,7 @@
 import Button from "@/components/input/Button";
 import { useGSStore } from "@/hooks/useGSStore";
-import { fileToSplatBuffer, gssCreateBuffer } from "@/model/GSScene";
+import { useInteractions } from "@/hooks/useInteractions";
+import { gssCreateFromFile, validateSceneFile } from "@/model/GSScene";
 import { toastError, toastSuccess, toastUnknownError } from "@/utils/toasts";
 import { useState } from "react";
 import SceneImport from "./SceneImport";
@@ -13,11 +14,12 @@ export default function NewScene() {
 
 	const handleSplatSelect = async (file: File) => {
 		try {
-			const splatBuffer = await fileToSplatBuffer(file);
-			const newGss = gssCreateBuffer(file.name, splatBuffer);
+			await validateSceneFile(file);
+			const newGss = gssCreateFromFile(file);
 			setAddScene(newGss);
+			useInteractions.getState().setCurrentSceneId(newGss.id);
 			setModalOpen(false);
-			toastSuccess("Scene loaded successfully");
+			toastSuccess("Scene added");
 		} catch (error) {
 			if (!(error instanceof Error)) {
 				toastUnknownError();

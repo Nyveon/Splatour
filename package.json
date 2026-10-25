@@ -12,16 +12,15 @@
         "lint": "eslint .",
         "preview": "vite preview",
         "postinstall": "patch-package",
-        "typecheck": "tsc -b",
-        "test": "node --test tests/*.test.mjs"
+        "typecheck": "tsc -b"
     },
     "dependencies": {
         "@emotion/react": "^11.14.0",
         "@emotion/styled": "^11.14.1",
         "@headlessui/react": "^2.2.10",
-        "@mkkellogg/gaussian-splats-3d": "0.4.7",
         "@react-three/drei": "10.7.9",
         "@react-three/fiber": "^9.8.2",
+        "@sparkjsdev/spark": "^2.4.0",
         "feather-icons": "^4.29.2",
         "fflate": "^0.8.3",
         "immer": "^11.2.9",

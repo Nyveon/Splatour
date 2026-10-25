@@ -9,13 +9,21 @@ import SceneBarriers from "../nodes/barriers/SceneBarriers";
 import ScenePortals from "../nodes/portals/ScenePortals";
 import SceneViewer from "./SceneViewer";
 
-export default function SceneDynamic({ sceneId }: { sceneId: string }) {
+export default function SceneDynamic({
+	sceneId,
+	composite = false,
+}: {
+	sceneId: string;
+	composite?: boolean;
+}) {
 	const sceneRef = useRef<Group>(null);
 	const relativeGroupRef = useRef<Group>(null);
 	const floorGroupRef = useRef<Group>(null);
 	const splatSceneRef = useRef<Group>(null);
 	const sceneFile = useGSStore((state) => state.gsmap.scenes[sceneId].filePath);
-	const sceneBuffer = useGSStore((state) => state.gsmap.scenes[sceneId].buffer);
+	const sceneSourceFile = useGSStore(
+		(state) => state.gsmap.scenes[sceneId].file
+	);
 
 	function updateSplatScene() {
 		if (!splatSceneRef.current) {
@@ -24,7 +32,7 @@ export default function SceneDynamic({ sceneId }: { sceneId: string }) {
 
 		const sceneHidden =
 			!useSettingsStore.getState().forceVisible &&
-			(useInteractions.getState().currentSceneId !== sceneId ||
+			((!composite && useInteractions.getState().currentSceneId !== sceneId) ||
 				useGSStore.getState().gsmap.scenes[sceneId].hidden);
 		// const sceneVisible = !useGSStore.getState().gsmap.scenes[sceneId].hidden;
 		splatSceneRef.current.visible = !sceneHidden;
@@ -72,7 +80,7 @@ export default function SceneDynamic({ sceneId }: { sceneId: string }) {
 
 	const sceneData = {
 		filePath: sceneFile,
-		buffer: sceneBuffer,
+		file: sceneSourceFile,
 	};
 
 	return (

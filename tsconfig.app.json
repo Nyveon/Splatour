@@ -30,5 +30,5 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["src", "src/decs.d.ts"]
+  "include": ["src"]
 }

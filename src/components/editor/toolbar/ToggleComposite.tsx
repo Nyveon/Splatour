@@ -10,7 +10,7 @@ export default function ToggleComposite() {
 	return (
 		<Checkbox
 			label="Composite"
-			title="Composite 3DGS renderer"
+			title="Show all scenes together to check their alignment"
 			value={composite}
 			onChange={(e: boolean) => {
 				setComposite(e);

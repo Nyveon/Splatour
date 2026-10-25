@@ -1,11 +1,4 @@
 import { Vec3 } from "@/utils/data";
-import type { SplatBuffer } from "@mkkellogg/gaussian-splats-3d";
-import {
-	KSplatLoader,
-	LoaderUtils,
-	PlyLoader,
-	SceneFormat,
-} from "@mkkellogg/gaussian-splats-3d";
 import { GSNode, GSNodeArtifact, GSNodeBarrier, GSNodePortal } from "./GSNode";
 import { GSSky } from "./GSSky";
 
@@ -34,7 +27,7 @@ export interface GSScene {
 	position: Vec3;
 
 	// Rendering
-	buffer?: SplatBuffer;
+	file?: File;
 	hidden?: boolean;
 
 	// Skybox
@@ -68,12 +61,10 @@ export function gssCreate(filePath: string, name: string): GSScene {
 	};
 }
 
-export function gssCreateBuffer(
-	fileName: string,
-	buffer: SplatBuffer
-): GSScene {
-	const scene = gssCreate(fileName, fileName);
-	scene.buffer = buffer;
+/** Keep the original file; each viewer owns and disposes its decoded GPU data. */
+export function gssCreateFromFile(file: File): GSScene {
+	const scene = gssCreate(file.name, file.name);
+	scene.file = file;
 	return scene;
 }
 
@@ -117,7 +108,9 @@ export function gssSerialize(scene: GSScene): SerialGSScene {
 
 export class SplatFormatError extends Error {
 	constructor() {
-		super("Unsupported scene format. Choose a Gaussian splat .ply or .ksplat file.");
+		super(
+			"Unsupported scene format. Choose a Gaussian splat .ply or .ksplat file."
+		);
 		this.name = "SplatFormatError";
 	}
 }
@@ -126,17 +119,18 @@ export function isSupportedSceneFile(fileName: string): boolean {
 	return /\.(ply|ksplat)$/i.test(fileName);
 }
 
-/** Load a Gaussian splat PLY or KSPLAT file for editing. */
-export async function fileToSplatBuffer(file: File): Promise<SplatBuffer> {
-	if (!isSupportedSceneFile(file.name)) {
-		throw new SplatFormatError();
+/** Validate the local asset without storing renderer resources in project state. */
+export async function validateSceneFile(file: File): Promise<void> {
+	if (!isSupportedSceneFile(file.name)) throw new SplatFormatError();
+	if (file.size < 4) throw new Error("Scene file is empty or truncated.");
+	if (/\.ply$/i.test(file.name)) {
+		const header = await file.slice(0, 65536).text();
+		if (!header.startsWith("ply\n") && !header.startsWith("ply\r\n")) {
+			throw new Error("Invalid PLY header.");
+		}
+		if (!header.includes("end_header"))
+			throw new Error("Incomplete PLY header.");
+	} else if (file.size < 4096) {
+		throw new Error("KSPLAT file is truncated.");
 	}
-
-	const format = LoaderUtils.sceneFormatFromPath(file.name.toLowerCase());
-	const fileData = await file.arrayBuffer();
-	if (format === SceneFormat.Ply) {
-		// Match the viewer's alpha threshold and keep an optimized in-memory buffer.
-		return PlyLoader.loadFromFileData(fileData, 20, 1, true);
-	}
-	return KSplatLoader.loadFromFileData(fileData);
 }

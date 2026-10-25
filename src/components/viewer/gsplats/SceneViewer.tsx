@@ -1,67 +1,79 @@
-import { DropInViewer, LoaderUtils, SplatBuffer } from "@mkkellogg/gaussian-splats-3d";
-import { forwardRef, useEffect, useState } from "react";
+import { createSplatMesh } from "@/utils/splatRenderer";
+import { toastError } from "@/utils/toasts";
+import type { SplatMesh } from "@sparkjsdev/spark";
+import { forwardRef, useEffect, useRef } from "react";
+import { toast } from "react-toastify";
 import type { Group } from "three";
 
-interface SceneData {
-	buffer?: SplatBuffer;
-	filePath: string;
-}
-
 interface SceneViewerProps {
-	sceneData: SceneData;
+	sceneData: { filePath: string; file?: File };
 }
 
-const SceneViewer = forwardRef<Group, SceneViewerProps>(function GS3DViewer(
-	{ sceneData }: SceneViewerProps,
+const SceneViewer = forwardRef<Group, SceneViewerProps>(function SceneViewer(
+	{ sceneData: { filePath, file } },
 	ref
 ) {
-	const [viewer, setViewer] = useState<DropInViewer | null>();
-
-	console.log("Scene re-render");
+	const hostRef = useRef<Group>(null);
 
 	useEffect(() => {
-		const viewer = new DropInViewer({
-			sharedMemoryForWorkers: true,
-			dynamicScene: false,
-			sceneFadeInRateMultiplier: 100,
-		});
-		console.log("Scene viewer created");
-		setViewer(viewer);
-
-		const defaultOptions = {
-			format: LoaderUtils.sceneFormatFromPath(sceneData.filePath.toLowerCase()),
-			showLoadingUI: true,
-			splatAlphaRemovalThreshold: 20,
+		const host = hostRef.current;
+		if (!host) return;
+		let cancelled = false;
+		let settled = false;
+		let disposed = false;
+		let mesh: SplatMesh | undefined;
+		const loading = toast.loading(`Loading ${filePath.split("/").pop()}…`);
+		const dispose = () => {
+			if (!mesh || disposed) return;
+			disposed = true;
+			mesh.removeFromParent();
+			mesh.dispose();
 		};
 
-		const loadScene = sceneData.buffer
-			? viewer.viewer.addSplatBuffers([sceneData.buffer], [defaultOptions])
-			: viewer.addSplatScene(sceneData.filePath, defaultOptions);
-
-		loadScene
-			.then(() => {
-				console.log("Splat Scene loaded", sceneData.filePath);
-				console.log("Splat count: ", viewer.splatMesh.getSplatCount());
-			})
-			.catch((err) => {
-				console.error(err);
-			});
+		void (async () => {
+			try {
+				const fileBytes = file ? await file.arrayBuffer() : undefined;
+				if (cancelled) return;
+				mesh = createSplatMesh(filePath, fileBytes);
+				await mesh.initialized;
+				settled = true;
+				if (cancelled) {
+					dispose();
+					return;
+				}
+				host.add(mesh);
+				console.info("Splat scene loaded", {
+					file: filePath,
+					splats: mesh.numSplats,
+					shDegree: mesh.extSplats?.getNumSh() ?? 0,
+				});
+			} catch (error) {
+				settled = true;
+				dispose();
+				if (!cancelled) {
+					console.error(`Failed to load ${filePath}`, error);
+					toastError(
+						`Could not load ${filePath}: ${error instanceof Error ? error.message : String(error)}`
+					);
+				}
+			} finally {
+				toast.dismiss(loading);
+			}
+		})();
 
 		return () => {
-			console.log("Scene Viewer disposal started");
-			setViewer(null);
-			viewer
-				.dispose()
-				.then(() => {
-					console.log("Scene Viewer disposal completed");
-				})
-				.catch((err: unknown) => {
-					console.log("Scene Viewer disposal error:", err);
-				});
+			cancelled = true;
+			toast.dismiss(loading);
+			// A decoder may finish after unmount; dispose it once its promise settles.
+			if (settled) dispose();
 		};
-	}, [sceneData.filePath, sceneData.buffer]);
+	}, [filePath, file]);
 
-	return <group ref={ref}>{viewer && <primitive object={viewer} />}</group>;
+	return (
+		<group ref={ref}>
+			<group ref={hostRef} />
+		</group>
+	);
 });
 
 export default SceneViewer;

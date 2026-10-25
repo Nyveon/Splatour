@@ -114,7 +114,8 @@ Static site with React + Typescript and Three.js.
 
 #### 3D
 
-- [✨ GaussianSplats3D ✨](https://github.com/mkkellogg/GaussianSplats3D) - Gaussian Splat renderer. Absolutely essential, thanks @mkkellogg!
+- [Spark](https://github.com/sparkjsdev/spark) - Gaussian splat rendering, sorting, and file decoding.
+  -  Previously: [✨ GaussianSplats3D ✨](https://github.com/mkkellogg/GaussianSplats3D) - Gaussian Splat renderer. Absolutely essential, thanks @mkkellogg!
 - [Three.js](https://threejs.org/) - 3D Rendering.
 - [React Three Fiber](https://r3f.docs.pmnd.rs/getting-started/introduction) - Three.js as react components.
 - [Drei](https://drei.docs.pmnd.rs/getting-started/introduction) - Extra Three.js components.

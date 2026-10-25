@@ -15,6 +15,7 @@ import ZoomControls from "./controls/ZoomControls";
 import SparkLayer from "./gsplats/SparkLayer";
 import ControlsHint from "./interface/ControlsHint";
 import Crosshair from "./interface/Crosshair";
+import ScenePostProcessing from "./ScenePostProcessing";
 
 const ViewerContainer = styled.div`
 	position: relative;
@@ -66,6 +67,7 @@ export default function Viewer({ children }: { children: ReactNode }) {
 					onClick={handleClick}
 				>
 					<SparkLayer />
+					<ScenePostProcessing />
 					<PointerLockControls
 						ref={pointerLockControlsRef}
 						onLock={() => lockIn()}

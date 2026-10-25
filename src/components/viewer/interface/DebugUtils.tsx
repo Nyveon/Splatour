@@ -34,7 +34,7 @@ export default function DebugUtils() {
 			<axesHelper args={[50]} />
 			<Grid infiniteGrid={true} sectionColor="white" fadeStrength={10} />
 
-			<GizmoHelper alignment="top-left" margin={[90, 70]}>
+			<GizmoHelper alignment="top-left" margin={[90, 70]} renderPriority={2}>
 				<GizmoViewport
 					axisColors={["red", "green", "blue"]}
 					labelColor="black"

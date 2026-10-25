@@ -14,6 +14,7 @@ import PanelBackdrop from "./PanelBackdrop";
 import PanelBarriers from "./PanelBarriers";
 import PanelPlacement from "./PanelPlacement";
 import PanelPortals from "./PanelPortals";
+import PanelPostProcessing from "./PanelPostProcessing";
 import SceneIsDefault from "./SceneIsDefault";
 
 const SceneCardContainer = styled.div`
@@ -165,6 +166,9 @@ export default function SceneCard({
 
 				<CardItem>
 					<PanelBackdrop sceneId={sceneId} />
+				</CardItem>
+				<CardItem>
+					<PanelPostProcessing sceneId={sceneId} />
 				</CardItem>
 			</Collapsible>
 		</SceneCardContainer>

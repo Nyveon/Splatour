@@ -18,6 +18,7 @@ const SceneViewer = forwardRef<Group, SceneViewerProps>(function SceneViewer(
 	useEffect(() => {
 		const host = hostRef.current;
 		if (!host) return;
+		host.userData.splatLoading = true;
 		let cancelled = false;
 		let settled = false;
 		let disposed = false;
@@ -42,6 +43,7 @@ const SceneViewer = forwardRef<Group, SceneViewerProps>(function SceneViewer(
 					return;
 				}
 				host.add(mesh);
+				mesh.userData.splatReady = true;
 				console.info("Splat scene loaded", {
 					file: filePath,
 					splats: mesh.numSplats,
@@ -57,12 +59,14 @@ const SceneViewer = forwardRef<Group, SceneViewerProps>(function SceneViewer(
 					);
 				}
 			} finally {
+				if (!cancelled) host.userData.splatLoading = false;
 				toast.dismiss(loading);
 			}
 		})();
 
 		return () => {
 			cancelled = true;
+			host.userData.splatLoading = false;
 			toast.dismiss(loading);
 			// A decoder may finish after unmount; dispose it once its promise settles.
 			if (settled) dispose();

@@ -1,8 +1,13 @@
 import { Vec3 } from "@/utils/data";
 import { GSNode, GSNodeArtifact, GSNodeBarrier, GSNodePortal } from "./GSNode";
 import { GSSky } from "./GSSky";
+import {
+	PostProcessingSettings,
+	resolvePostProcessing,
+} from "./PostProcessing";
 
 export interface SerialGSScene {
+	postProcessing?: PostProcessingSettings;
 	id: string;
 	filePath: string;
 	name: string;
@@ -16,6 +21,7 @@ export interface SerialGSScene {
 }
 
 export interface GSScene {
+	postProcessing: PostProcessingSettings;
 	// Metadata
 	id: string;
 	filePath: string;
@@ -48,6 +54,7 @@ export const gssResetTransform = {
 
 export function gssCreate(filePath: string, name: string): GSScene {
 	return {
+		postProcessing: resolvePostProcessing(),
 		id: crypto.randomUUID(),
 		filePath: filePath,
 		name: name,
@@ -70,6 +77,7 @@ export function gssCreateFromFile(file: File): GSScene {
 
 export function gssDeserialize(scene: SerialGSScene): GSScene {
 	const gssBase = gssCreate(scene.filePath, scene.name);
+	gssBase.postProcessing = resolvePostProcessing(scene.postProcessing);
 	if (scene.id) gssBase.id = scene.id;
 	gssBase.scale = scene.scale;
 	gssBase.rotation = scene.rotation;
@@ -90,6 +98,7 @@ export function gssDeserialize(scene: SerialGSScene): GSScene {
 
 export function gssSerialize(scene: GSScene): SerialGSScene {
 	return {
+		postProcessing: resolvePostProcessing(scene.postProcessing),
 		id: scene.id,
 		filePath: scene.filePath,
 		name: scene.name,

@@ -5,13 +5,13 @@ import styled from "@emotion/styled";
 import { useShallow } from "zustand/react/shallow";
 import NodeItem from "./NodeItem";
 
-export const List = styled.ul`
+const List = styled.ul`
 	display: flex;
 	flex-direction: column;
 	margin-bottom: 0.5rem;
 `;
 
-export const ListItem = styled.li`
+const ListItem = styled.li`
 	border-top: thin solid ${color.borderQuarter};
 
 	&:last-child {

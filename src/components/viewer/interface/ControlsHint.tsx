@@ -90,6 +90,13 @@ export default function ControlsHints() {
 			<Controls className="controls-content">
 				<ControlSubGroup>
 					<GroupSide>
+						<Icon icon="info" />
+						Information markers:
+					</GroupSide>
+					<GroupSide>N key (viewing)</GroupSide>
+				</ControlSubGroup>
+				<ControlSubGroup>
+					<GroupSide>
 						<Icon icon="eye" />
 						Lock in:
 					</GroupSide>

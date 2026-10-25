@@ -47,7 +47,8 @@ export default function Hotkeys() {
 	if (togglePreview) setDebug(!useSettingsStore.getState().debug);
 	if (toggleMobile) setMobileDebug(!useSettingsStore.getState().mobileDebug);
 	if (toggleNoclip) setNoclip(!useSettingsStore.getState().noclip);
-	if (toggleNodes) setDebugNodes(!useSettingsStore.getState().debugNodes);
+	if (toggleNodes && useSettingsStore.getState().debug)
+		setDebugNodes(!useSettingsStore.getState().debugNodes);
 
 	if (speedUp) {
 		const speed = useSettingsStore.getState().flySpeed;

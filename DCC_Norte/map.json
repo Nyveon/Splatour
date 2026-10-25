@@ -25,9 +25,8 @@
                 "z": -0.03472345866329504
             },
             "sky": {
-                "type": "hemi",
-                "primary": "#9ca085",
-                "secondary": "#abb3a0"
+                "type": "flat",
+                "primary": "#000000"
             },
             "artifacts": {
                 "83048c7c-9d4b-4138-88d4-3e4197be075a": {

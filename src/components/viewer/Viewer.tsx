@@ -15,6 +15,7 @@ import ZoomControls from "./controls/ZoomControls";
 import SparkLayer from "./gsplats/SparkLayer";
 import ControlsHint from "./interface/ControlsHint";
 import Crosshair from "./interface/Crosshair";
+import InformationHotkey from "./interface/InformationHotkey";
 import ScenePostProcessing from "./ScenePostProcessing";
 
 const ViewerContainer = styled.div`
@@ -81,6 +82,7 @@ export default function Viewer({ children }: { children: ReactNode }) {
 				<JoystickControls />
 				<Crosshair />
 				<ControlsHint />
+				<InformationHotkey />
 			</ViewerContainer>
 		</KeyboardControls>
 	);

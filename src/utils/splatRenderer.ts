@@ -13,7 +13,9 @@ export function createSplatRenderer(
 		accumExtSplats: true,
 		// Covariances preserve independent X/Y/Z scaling in existing maps.
 		covSplats: true,
-		sortRadial: false,
+		// Keep splats behind the previous view available during fast camera turns.
+		// Z-depth sorting drops them until the asynchronous sorter catches up.
+		sortRadial: true,
 	});
 	spark.name = "Splatour Spark renderer";
 	return spark;

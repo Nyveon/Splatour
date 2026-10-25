@@ -219,4 +219,4 @@ However, contributions are still welcome if for some reason you find value in th
 ### Acknowledgements
 
 * [Professor Nelson Baloian](https://dcc.uchile.cl/nosotros/academico/nboloian/), thesis supervisor.
-* ...
+* [@bigkwii](https://github.com/bigkwii), better controls via zoom and crouching

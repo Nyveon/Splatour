@@ -26,7 +26,13 @@ const ViewerContainer = styled.div`
 	padding: 0;
 `;
 
-export default function Viewer({ children }: { children: ReactNode }) {
+export default function Viewer({
+	children,
+	preventPointerLock = false,
+}: {
+	children: ReactNode;
+	preventPointerLock?: boolean;
+}) {
 	const viewerContainerRef = useRef<HTMLDivElement>(null);
 	const pointerLockControlsRef = useRef<PointerLockControlsImpl>(null);
 	const lockIn = useInteractions((state) => state.lockIn);
@@ -42,6 +48,7 @@ export default function Viewer({ children }: { children: ReactNode }) {
 	}, [setViewerContainerRef]);
 
 	function handleClick() {
+		if (preventPointerLock) return;
 		if (!pointerLockControlsRef.current || !viewerContainerRef.current) {
 			return;
 		}

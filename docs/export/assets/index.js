@@ -8128,7 +8128,7 @@ void main() {
 	height: 100%;
 	margin: 0;
 	padding: 0;
-`;function aI({children:e}){let t=(0,f.useRef)(null),n=(0,f.useRef)(null),r=Qr(e=>e.lockIn),i=Qr(e=>e.unlock),a=uk(e=>e.setViewerContainerRef);(0,f.useEffect)(()=>{t.current&&a(t)},[a]);function o(){n.current&&t.current&&(n.current.isLocked||n.current.lock())}return(0,U.jsx)(Ww,{map:ei,children:(0,U.jsxs)(iI,{ref:t,id:`#viewer`,children:[(0,U.jsxs)(Ew,{camera:{position:[0,ti,0],fov:90,rotation:[0,0,0],up:[0,1,0]},gl:{antialias:!1},dpr:[1,2],onClick:o,children:[(0,U.jsx)(NF,{}),(0,U.jsx)(rI,{}),(0,U.jsx)(yD,{ref:n,onLock:()=>r(),onUnlock:()=>i()}),(0,U.jsx)(vD,{}),(0,U.jsx)(dk,{controlsRef:n}),(0,U.jsx)(lk,{}),e]}),(0,U.jsx)(Zr,{}),(0,U.jsx)(XF,{}),(0,U.jsx)(UF,{}),(0,U.jsx)(ZF,{})]})})}var oI=Dt.div`
+`;function aI({children:e,preventPointerLock:t=!1}){let n=(0,f.useRef)(null),r=(0,f.useRef)(null),i=Qr(e=>e.lockIn),a=Qr(e=>e.unlock),o=uk(e=>e.setViewerContainerRef);(0,f.useEffect)(()=>{n.current&&o(n)},[o]);function s(){t||r.current&&n.current&&(r.current.isLocked||r.current.lock())}return(0,U.jsx)(Ww,{map:ei,children:(0,U.jsxs)(iI,{ref:n,id:`#viewer`,children:[(0,U.jsxs)(Ew,{camera:{position:[0,ti,0],fov:90,rotation:[0,0,0],up:[0,1,0]},gl:{antialias:!1},dpr:[1,2],onClick:s,children:[(0,U.jsx)(NF,{}),(0,U.jsx)(rI,{}),(0,U.jsx)(yD,{ref:r,onLock:()=>i(),onUnlock:()=>a()}),(0,U.jsx)(vD,{}),(0,U.jsx)(dk,{controlsRef:r}),(0,U.jsx)(lk,{}),e]}),(0,U.jsx)(Zr,{}),(0,U.jsx)(XF,{}),(0,U.jsx)(UF,{}),(0,U.jsx)(ZF,{})]})})}var oI=Dt.div`
 	color: ${xr.textDark};
 	background-color: ${xr.backgroundLight};
 	border-radius: 50%;

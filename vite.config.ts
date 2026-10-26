@@ -23,7 +23,10 @@ export default defineConfig(({ mode }) => {
 		// staticFiles.push({ src: "./public/SalitaFinal.ksplat", dest: "./" });
 
 		// Demo: DCC Norte
-		staticFiles.push({ src: "./public/Hallway.ksplat", dest: "./DCC_Norte" });
+		staticFiles.push({
+			src: "./DCC_Norte/hallway.compressed.ply",
+			dest: "./DCC_Norte",
+		});
 		staticFiles.push({
 			src: "./DCC_Norte/ofisalita.compressed.ply",
 			dest: "./DCC_Norte",

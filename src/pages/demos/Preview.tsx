@@ -4,9 +4,11 @@ import useFetchGSMap from "@/hooks/useFetchGSMap";
 export default function Preview({
 	mapURL,
 	folder = "",
+	enableVR = false,
 }: {
 	mapURL: string;
 	folder?: string;
+	enableVR?: boolean;
 }) {
 	const { serialMap, error, loading } = useFetchGSMap(mapURL);
 
@@ -24,5 +26,5 @@ export default function Preview({
 		});
 	}
 
-	return <ExportedView serialMap={serialMap} />;
+	return <ExportedView serialMap={serialMap} enableVR={enableVR} />;
 }

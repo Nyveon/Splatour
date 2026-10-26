@@ -36,7 +36,8 @@ export default function ZoomControls({
     }, [camera, viewerContainerRef]);
 
     // smoothing
-    useFrame((_, delta) => {
+    useFrame(({ gl }, delta) => {
+        if (gl.xr.isPresenting) return;
         if (Math.abs(camera.fov - desiredFov.current) >= 0.01) {
             camera.fov = MathUtils.damp(camera.fov, desiredFov.current, 20, delta);
             camera.updateProjectionMatrix();

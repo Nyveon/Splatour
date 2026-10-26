@@ -9,8 +9,9 @@ import styled from "@emotion/styled";
 import { KeyboardControls } from "@react-three/drei/web/KeyboardControls";
 import { Canvas } from "@react-three/fiber";
 import type { ReactNode } from "react";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { PointerLockControls as PointerLockControlsImpl } from "three-stdlib";
+import VRControls from "./controls/VRControls";
 import ZoomControls from "./controls/ZoomControls";
 import SparkLayer from "./gsplats/SparkLayer";
 import ControlsHint from "./interface/ControlsHint";
@@ -29,12 +30,15 @@ const ViewerContainer = styled.div`
 export default function Viewer({
 	children,
 	preventPointerLock = false,
+	enableVR = false,
 }: {
 	children: ReactNode;
 	preventPointerLock?: boolean;
+	enableVR?: boolean;
 }) {
 	const viewerContainerRef = useRef<HTMLDivElement>(null);
 	const pointerLockControlsRef = useRef<PointerLockControlsImpl>(null);
+	const [inVR, setInVR] = useState(false);
 	const lockIn = useInteractions((state) => state.lockIn);
 	const unlock = useInteractions((state) => state.unlock);
 	const setViewerContainerRef = useViewerStore(
@@ -48,7 +52,7 @@ export default function Viewer({
 	}, [setViewerContainerRef]);
 
 	function handleClick() {
-		if (preventPointerLock) return;
+		if (preventPointerLock || inVR) return;
 		if (!pointerLockControlsRef.current || !viewerContainerRef.current) {
 			return;
 		}
@@ -76,7 +80,14 @@ export default function Viewer({
 				>
 					<SparkLayer />
 					<ScenePostProcessing />
+					{enableVR && (
+						<VRControls
+							containerRef={viewerContainerRef}
+							onSessionChange={setInVR}
+						/>
+					)}
 					<PointerLockControls
+						enabled={!inVR}
 						ref={pointerLockControlsRef}
 						onLock={() => lockIn()}
 						onUnlock={() => unlock()}
@@ -86,10 +97,14 @@ export default function Viewer({
 					<Ambient />
 					{children}
 				</Canvas>
-				<JoystickControls />
-				<Crosshair />
-				<ControlsHint />
-				<InformationHotkey />
+				{!inVR && (
+					<>
+						<JoystickControls />
+						<Crosshair />
+						<ControlsHint />
+						<InformationHotkey />
+					</>
+				)}
 			</ViewerContainer>
 		</KeyboardControls>
 	);

@@ -136,6 +136,8 @@ export default function Player() {
 	const crouchOffset = useRef(0);
 
 	useFrame((state: RootState, delta: number) => {
+		// WebXR owns the head pose; VRControls moves its parent rig instead.
+		if (state.gl.xr.isPresenting) return;
 		// Handle teleportation
 		const teleportPending = useInteractions.getState().teleportPending;
 		const setTeleportPending = useInteractions.getState().setTeleportPending;

@@ -16,6 +16,7 @@ import PanelFloorAlignment from "./PanelFloorAlignment";
 import PanelPlacement from "./PanelPlacement";
 import PanelPortals from "./PanelPortals";
 import PanelPostProcessing from "./PanelPostProcessing";
+import PanelScaleCalibration from "./PanelScaleCalibration";
 import SceneIsDefault from "./SceneIsDefault";
 
 const SceneCardContainer = styled.div`
@@ -151,6 +152,9 @@ export default function SceneCard({
 
 				<CardItem>
 					<PanelPlacement sceneId={sceneId} />
+				</CardItem>
+				<CardItem>
+					<PanelScaleCalibration sceneId={sceneId} />
 				</CardItem>
 				<CardItem>
 					<PanelFloorAlignment sceneId={sceneId} />

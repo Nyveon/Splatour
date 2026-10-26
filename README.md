@@ -1,6 +1,6 @@
 # Splatour 
 
-A web-based platform for 3D Gaussian Splatting (3DGS) map-making, immersive multimedia scene composition, and first-person virtual tours. Seamlessly integrate multiple 3DGS scenes into a single interactive environment with dynamic scene loading and unloading, support for interactive 3D and web objects, and effortless static site exporting. Optimized for both mobile and desktop browsers, ensuring smooth performance across a wide range of hardware.
+A web-based platform for 3D Gaussian Splatting (3DGS) map-making, immersive multimedia scene composition, and first-person virtual tours. Seamlessly integrate multiple 3DGS scenes into a single interactive environment with dynamic scene loading and unloading, support for interactive 3D and web objects, and effortless static site exporting. Optimized for both mobile and desktop browsers, ensuring smooth performance across a wide range of hardware. Experimental VR support.
 
 Check out the demos at: [maps.eri.cl](https://maps.eri.cl/)
 

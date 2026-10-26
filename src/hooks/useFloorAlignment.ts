@@ -9,6 +9,7 @@ import {
 import { create } from "zustand";
 import { useGSStore } from "./useGSStore";
 import { useInteractions, UserState } from "./useInteractions";
+import { useScaleCalibration } from "./useScaleCalibration";
 
 interface FloorAlignmentState {
 	mode: "manual" | "automatic";
@@ -74,6 +75,7 @@ export const useFloorAlignment = create<FloorAlignmentState>((set, get) => ({
 	start: (sceneId) => {
 		const scene = useGSStore.getState().gsmap.scenes[sceneId];
 		if (!scene) return;
+		useScaleCalibration.getState().cancel();
 		if (document.pointerLockElement) document.exitPointerLock();
 		useInteractions.getState().unlock();
 		useInteractions.getState().setUserState(UserState.None);

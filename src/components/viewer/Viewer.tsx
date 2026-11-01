@@ -8,8 +8,10 @@ import { KeyMap, playerHeight } from "@/utils/constants";
 import styled from "@emotion/styled";
 import { KeyboardControls } from "@react-three/drei/web/KeyboardControls";
 import { Canvas } from "@react-three/fiber";
+import { Perf } from "r3f-perf";
 import type { ReactNode } from "react";
 import { useEffect, useRef, useState } from "react";
+import { isMobile } from "react-device-detect";
 import type { PointerLockControls as PointerLockControlsImpl } from "three-stdlib";
 import VRControls from "./controls/VRControls";
 import ZoomControls from "./controls/ZoomControls";
@@ -75,11 +77,13 @@ export default function Viewer({
 					gl={{
 						antialias: false,
 					}}
-					dpr={[1, 2]}
+					// Limit mobile fill rate and render-target memory on high-DPI screens.
+					dpr={isMobile ? 1 : [1, 2]}
 					onClick={handleClick}
 				>
 					<SparkLayer />
 					<ScenePostProcessing />
+					{import.meta.env.DEV && <Perf position="top-right" />}
 					{enableVR && (
 						<VRControls
 							containerRef={viewerContainerRef}

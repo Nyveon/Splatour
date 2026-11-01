@@ -4,6 +4,7 @@ import { resolvePostProcessing } from "@/model/PostProcessing";
 import { ScenePostProcessor } from "@/utils/postProcessing";
 import { useFrame } from "@react-three/fiber";
 import { useEffect, useRef } from "react";
+import { isMobile } from "react-device-detect";
 
 export default function ScenePostProcessing() {
 	const processor = useRef<ScenePostProcessor | null>(null);
@@ -23,11 +24,14 @@ export default function ScenePostProcessing() {
 			gl.render(scene, camera);
 			return;
 		}
+		const settings = resolvePostProcessing(map.scenes[sceneId]?.postProcessing);
+		// Skip periodic exposure metering and GPU readback on mobile devices.
+		if (isMobile) settings.autoExposure = false;
 		processor.current.render(
 			gl,
 			scene,
 			camera,
-			resolvePostProcessing(map.scenes[sceneId]?.postProcessing),
+			settings,
 			sceneId,
 			delta
 		);

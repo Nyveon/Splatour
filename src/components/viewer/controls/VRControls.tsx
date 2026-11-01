@@ -150,7 +150,7 @@ export default function VRControls({
 				onReady: (supported) => {
 					if (disposed || !supported) return;
 					status.textContent =
-						"VR test: left stick moves, right stick turns. Free movement; barriers, portals and information panels are not active in VR. Exit using the Quest menu.";
+						"VR WIP. Left stick to move, right stick to rotate. Exit using the Quest menu.";
 					panel.style.display = "";
 				},
 			});

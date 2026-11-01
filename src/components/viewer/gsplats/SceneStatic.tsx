@@ -51,7 +51,10 @@ export default function SceneStatic({ scene }: { scene: GSScene }) {
 	});
 
 	return (
-		<group ref={sceneRef} userData={{ hasCollidables: true }}>
+		<group
+			ref={sceneRef}
+			userData={{ hasCollidables: true, tourSceneId: scene.id }}
+		>
 			<group ref={relativeGroupRef}>
 				<SceneViewer
 					ref={splatSceneRef}

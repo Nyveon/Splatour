@@ -1,6 +1,6 @@
 # Splatour 
 
-A web-based platform for 3D Gaussian Splatting (3DGS) map-making, immersive multimedia scene composition, and first-person virtual tours. Seamlessly integrate multiple 3DGS scenes into a single interactive environment with dynamic scene loading and unloading, support for interactive 3D and web objects, and effortless static site exporting. Optimized for both mobile and desktop browsers, ensuring smooth performance across a wide range of hardware.
+A web-based platform for 3D Gaussian Splatting (3DGS) map-making, immersive multimedia scene composition, and first-person virtual tours. Seamlessly integrate multiple 3DGS scenes into a single interactive environment with dynamic scene loading and unloading, support for interactive 3D and web objects, and effortless static site exporting. Optimized for both mobile and desktop browsers, ensuring smooth performance across a wide range of hardware. Experimental VR support.
 
 Check out the demos at: [maps.eri.cl](https://maps.eri.cl/)
 
@@ -9,7 +9,7 @@ Check out the demos at: [maps.eri.cl](https://maps.eri.cl/)
 
 ## Usage
 
-*⚠ This project is currently in Alpha, and development is on hold until March 2025.*
+*⚠ This project is in KTLO since March 2025. Contributions are still welcome.*
 
 ### Project creation
 
@@ -17,6 +17,11 @@ Check out the demos at: [maps.eri.cl](https://maps.eri.cl/)
 2. Create an empty folder on your computer to store your project.
 3. Click on the "Create" button in the Editor and select the folder you created.
 4. Import and edit Gaussian Splat scenes, 3D models, and web content.
+
+Gaussian splat scenes can be imported from `.ply`, `.ksplat`, or `.spz` files. For an existing
+project, put the file in the project folder, then use **Add scene**. Saving keeps
+the original filename, and exported tours include the original scene file.
+PLY support is for Gaussian splat data, rather than ordinary polygon meshes.
 
 ### Editing
 
@@ -109,7 +114,8 @@ Static site with React + Typescript and Three.js.
 
 #### 3D
 
-- [✨ GaussianSplats3D ✨](https://github.com/mkkellogg/GaussianSplats3D) - Gaussian Splat renderer. Absolutely essential, thanks @mkkellogg!
+- [Spark](https://github.com/sparkjsdev/spark) - Gaussian splat rendering, sorting, and file decoding.
+  -  Previously: [✨ GaussianSplats3D ✨](https://github.com/mkkellogg/GaussianSplats3D) - Gaussian Splat renderer. Absolutely essential, thanks @mkkellogg!
 - [Three.js](https://threejs.org/) - 3D Rendering.
 - [React Three Fiber](https://r3f.docs.pmnd.rs/getting-started/introduction) - Three.js as react components.
 - [Drei](https://drei.docs.pmnd.rs/getting-started/introduction) - Extra Three.js components.
@@ -206,4 +212,11 @@ Some benchmarks (GPU and CPU latency) from the demo benchmark scene. All benchma
 
 ## Contributing
 
-Contribution guidelines will be defined once my thesis has been succesfully defended 😰. For now, feel free to leave issues or make pull requests, I just can't promise I'll be able to accept or handle them.
+I successfully defended my thesis in March 2025, and the available tools and technologies surrounding 3D Gaussian Splatting have advanced *tremendously* since then, leaving this project in the dust. Because of this, please don't expect further development here. 
+
+However, contributions are still welcome if for some reason you find value in this project c:
+
+### Acknowledgements
+
+* [Professor Nelson Baloian](https://dcc.uchile.cl/nosotros/academico/nboloian/), thesis supervisor.
+* [@bigkwii](https://github.com/bigkwii), better controls via zoom and crouching

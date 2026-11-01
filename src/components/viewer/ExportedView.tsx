@@ -6,8 +6,10 @@ import SceneStatic from "./gsplats/SceneStatic";
 
 export default function ExportedView({
 	serialMap,
+	enableVR = false,
 }: {
 	serialMap: SerialGSMap;
+	enableVR?: boolean;
 }) {
 	const gsmap = gsmDeserializeObjectJSON(serialMap);
 	const setGSMap = useGSStore((state) => state.setGSMap);
@@ -18,7 +20,7 @@ export default function ExportedView({
 
 	return (
 		<>
-			<Viewer>
+			<Viewer enableVR={enableVR}>
 				{Object.entries(gsmap.scenes).map(([sceneId, scene]) => {
 					return <SceneStatic key={sceneId} scene={scene} />;
 				})}

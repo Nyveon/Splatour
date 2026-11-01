@@ -8,11 +8,18 @@ import { KeyMap, playerHeight } from "@/utils/constants";
 import styled from "@emotion/styled";
 import { KeyboardControls } from "@react-three/drei/web/KeyboardControls";
 import { Canvas } from "@react-three/fiber";
+import { Perf } from "r3f-perf";
 import type { ReactNode } from "react";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { isMobile } from "react-device-detect";
 import type { PointerLockControls as PointerLockControlsImpl } from "three-stdlib";
+import VRControls from "./controls/VRControls";
+import ZoomControls from "./controls/ZoomControls";
+import SparkLayer from "./gsplats/SparkLayer";
 import ControlsHint from "./interface/ControlsHint";
 import Crosshair from "./interface/Crosshair";
+import InformationHotkey from "./interface/InformationHotkey";
+import ScenePostProcessing from "./ScenePostProcessing";
 
 const ViewerContainer = styled.div`
 	position: relative;
@@ -22,9 +29,18 @@ const ViewerContainer = styled.div`
 	padding: 0;
 `;
 
-export default function Viewer({ children }: { children: ReactNode }) {
+export default function Viewer({
+	children,
+	preventPointerLock = false,
+	enableVR = false,
+}: {
+	children: ReactNode;
+	preventPointerLock?: boolean;
+	enableVR?: boolean;
+}) {
 	const viewerContainerRef = useRef<HTMLDivElement>(null);
 	const pointerLockControlsRef = useRef<PointerLockControlsImpl>(null);
+	const [inVR, setInVR] = useState(false);
 	const lockIn = useInteractions((state) => state.lockIn);
 	const unlock = useInteractions((state) => state.unlock);
 	const setViewerContainerRef = useViewerStore(
@@ -38,6 +54,7 @@ export default function Viewer({ children }: { children: ReactNode }) {
 	}, [setViewerContainerRef]);
 
 	function handleClick() {
+		if (preventPointerLock || inVR) return;
 		if (!pointerLockControlsRef.current || !viewerContainerRef.current) {
 			return;
 		}
@@ -60,21 +77,38 @@ export default function Viewer({ children }: { children: ReactNode }) {
 					gl={{
 						antialias: false,
 					}}
-					dpr={1} //? this can be lowered even more for better performance
+					// Limit mobile fill rate and render-target memory on high-DPI screens.
+					dpr={isMobile ? 1 : [1, 2]}
 					onClick={handleClick}
 				>
+					<SparkLayer />
+					<ScenePostProcessing />
+					{import.meta.env.DEV && <Perf position="top-right" />}
+					{enableVR && (
+						<VRControls
+							containerRef={viewerContainerRef}
+							onSessionChange={setInVR}
+						/>
+					)}
 					<PointerLockControls
+						enabled={!inVR}
 						ref={pointerLockControlsRef}
 						onLock={() => lockIn()}
 						onUnlock={() => unlock()}
 					/>
 					<Player />
+					<ZoomControls controlsRef={pointerLockControlsRef} />
 					<Ambient />
 					{children}
 				</Canvas>
-				<JoystickControls />
-				<Crosshair />
-				<ControlsHint />
+				{!inVR && (
+					<>
+						<JoystickControls />
+						<Crosshair />
+						<ControlsHint />
+						<InformationHotkey />
+					</>
+				)}
 			</ViewerContainer>
 		</KeyboardControls>
 	);

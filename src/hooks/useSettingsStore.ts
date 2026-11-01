@@ -1,6 +1,8 @@
 import { create } from "zustand";
 
 export interface SettingsState {
+	informationNodesVisible: boolean;
+	setInformationNodesVisible: (visible: boolean) => void;
 	debug: boolean;
 	setDebug: (debug: boolean) => void;
 	mobileDebug: boolean;
@@ -25,6 +27,9 @@ export interface SettingsState {
 }
 
 export const useSettingsStore = create<SettingsState>((set) => ({
+	informationNodesVisible: true,
+	setInformationNodesVisible: (visible) =>
+		set({ informationNodesVisible: visible }),
 	debug: false,
 	setDebug: (debug) => set({ debug }),
 	mobileDebug: false,

@@ -27,12 +27,16 @@ dist-ssr
 *.ply
 *.splat
 *.ksplat
+*.spz
+
+!DCC_Norte/*.spz
+DCC_Norte/raw
+
 
 !docs/DCC_Norte/*
 !docs/Khachkars/*
 
-!public/SalitaCropped.ksplat
-!public/Ofisalita.ksplat
-!public/Hallway.ksplat
-
 bundle-visualization.html
+
+TODO.md
+readme/notes

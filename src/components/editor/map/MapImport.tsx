@@ -2,7 +2,7 @@ import Button from "@/components/input/Button";
 import DirectorySelector from "@/components/input/DirectorySelector";
 import Modal from "@/components/Modal";
 import { useGSStore } from "@/hooks/useGSStore";
-import { fileToSplatBuffer } from "@/model/GSScene";
+import { validateSceneFile } from "@/model/GSScene";
 import {
 	findAndReadMapFile,
 	getAllFiles,
@@ -32,7 +32,7 @@ export default function MapImport() {
 			const gsmap = await findAndReadMapFile(files);
 			verifySceneFilePresence(files, gsmap);
 
-			// Buffer all scenes
+			// Keep source files so viewer resources can be recreated after mode changes.
 			for (const sceneId of Object.keys(gsmap.scenes)) {
 				const filePath = gsmap.scenes[sceneId].filePath;
 
@@ -42,10 +42,10 @@ export default function MapImport() {
 						throw new Error(`Scene file not found: ${filePath}`);
 					}
 
-					const splatBuffer = await fileToSplatBuffer(file);
-					gsmap.scenes[sceneId].buffer = splatBuffer;
+					await validateSceneFile(file);
+					gsmap.scenes[sceneId].file = file;
 				} catch (err) {
-					throw new Error(`Failed to load scene buffer: ${filePath}, ${err}`);
+					throw new Error(`Failed to read scene file: ${filePath}, ${err}`);
 				}
 			}
 

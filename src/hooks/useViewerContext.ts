@@ -2,8 +2,8 @@ import { RefObject } from "react";
 import { create } from "zustand";
 
 interface ViewerState {
-	viewerContainerRef: RefObject<HTMLDivElement> | null;
-	setViewerContainerRef: (ref: RefObject<HTMLDivElement>) => void;
+	viewerContainerRef: RefObject<HTMLDivElement | null> | null;
+	setViewerContainerRef: (ref: RefObject<HTMLDivElement | null>) => void;
 }
 
 const useViewerStore = create<ViewerState>((set) => ({

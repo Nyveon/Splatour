@@ -6,9 +6,11 @@ import { Canvas } from "@react-three/fiber";
 import { Perf } from "r3f-perf";
 import type { ReactNode } from "react";
 import { useEffect, useRef, useState } from "react";
+import SparkLayer from "./gsplats/SparkLayer";
 import BenchmarkModal from "./interface/BenchmarkModal";
 import BenchmarkReport from "./interface/BenchmarkReport";
 import BenchmarkTool from "./interface/BenchmarkTool";
+import ScenePostProcessing from "./ScenePostProcessing";
 
 const ViewerContainer = styled.div`
 	position: relative;
@@ -67,6 +69,8 @@ export default function BenchmarkViewer({
 				}}
 				dpr={1} //? this can be lowered even more for better performance
 			>
+				<SparkLayer />
+				<ScenePostProcessing />
 				<Ambient />
 				{children}
 				{benchmarkOngoing && <Perf deepAnalyze={true} overClock={true} />}

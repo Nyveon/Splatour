@@ -12,8 +12,11 @@ import styled from "@emotion/styled";
 import PanelArtifacts from "./PanelArtifacts";
 import PanelBackdrop from "./PanelBackdrop";
 import PanelBarriers from "./PanelBarriers";
+import PanelFloorAlignment from "./PanelFloorAlignment";
 import PanelPlacement from "./PanelPlacement";
 import PanelPortals from "./PanelPortals";
+import PanelPostProcessing from "./PanelPostProcessing";
+import PanelScaleCalibration from "./PanelScaleCalibration";
 import SceneIsDefault from "./SceneIsDefault";
 
 const SceneCardContainer = styled.div`
@@ -150,6 +153,12 @@ export default function SceneCard({
 				<CardItem>
 					<PanelPlacement sceneId={sceneId} />
 				</CardItem>
+				<CardItem>
+					<PanelScaleCalibration sceneId={sceneId} />
+				</CardItem>
+				<CardItem>
+					<PanelFloorAlignment sceneId={sceneId} />
+				</CardItem>
 
 				<CardItem>
 					<PanelArtifacts sceneId={sceneId} />
@@ -165,6 +174,9 @@ export default function SceneCard({
 
 				<CardItem>
 					<PanelBackdrop sceneId={sceneId} />
+				</CardItem>
+				<CardItem>
+					<PanelPostProcessing sceneId={sceneId} />
 				</CardItem>
 			</Collapsible>
 		</SceneCardContainer>

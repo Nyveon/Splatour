@@ -32,6 +32,9 @@ export default function Artifact({
 		(state) => state.gsmap.scenes[sceneId].artifacts[artifactId].radius
 	);
 	const visible = useSettingsStore((state) => state.debug && state.debugNodes);
+	const informationVisible = useSettingsStore(
+		(state) => state.informationNodesVisible
+	);
 	const ready = useRef(false);
 	const inActiveScene = useRef(false);
 
@@ -39,6 +42,12 @@ export default function Artifact({
 		const artifact = artifactMesh.current;
 
 		if (!artifact) {
+			return;
+		}
+		if (!informationVisible) {
+			if (ready.current) setInteractable(false);
+			ready.current = false;
+			if (isActive) setIsActive(false);
 			return;
 		}
 
@@ -112,7 +121,7 @@ export default function Artifact({
 	});
 
 	function handleClick() {
-		if (!ready.current) {
+		if (!informationVisible || !ready.current) {
 			return;
 		}
 
@@ -127,12 +136,14 @@ export default function Artifact({
 		<group
 			position={[artifactPosition.x, artifactPosition.y, artifactPosition.z]}
 		>
-			<ArtifactContentView
-				active={isActive}
-				sceneId={sceneId}
-				artifactId={artifactId}
-			/>
-			<ArtifactContentHint ref={artifactHint} />
+			{informationVisible && (
+				<ArtifactContentView
+					active={isActive}
+					sceneId={sceneId}
+					artifactId={artifactId}
+				/>
+			)}
+			{informationVisible && <ArtifactContentHint ref={artifactHint} />}
 
 			<mesh ref={artifactMesh} visible={visible} onClick={() => handleClick()}>
 				<sphereGeometry args={[artifactRadius, 16]} />

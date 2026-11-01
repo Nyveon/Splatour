@@ -7,27 +7,26 @@
     "scenes": [
         {
             "id": "70527e14-fbed-481c-a867-a0744126f42c",
-            "filePath": "SalitaCropped.ksplat",
+            "filePath": "salita.spz",
             "name": "Salita",
             "scale": {
-                "x": 0.65,
-                "y": 0.65,
-                "z": 0.65
+                "x": 3,
+                "y": 3,
+                "z": 3
             },
             "rotation": {
-                "x": 3.1590459461097367,
-                "y": 5.742133239061344,
-                "z": 0.017453292519943295
+                "x": -1.5447683145896007,
+                "y": 0.017354899895970957,
+                "z": -1.5345260007587787
             },
             "position": {
-                "x": 0,
-                "y": 0,
-                "z": 0
+                "x": 0.0781557011505728,
+                "y": 1.7154469663339633,
+                "z": -0.014080028934152722
             },
             "sky": {
-                "type": "hemi",
-                "primary": "#9ca085",
-                "secondary": "#abb3a0"
+                "type": "flat",
+                "primary": "#000000"
             },
             "artifacts": {
                 "83048c7c-9d4b-4138-88d4-3e4197be075a": {
@@ -36,23 +35,23 @@
                     "name": "Refrigerador",
                     "content": "# Refrigerador\n\nEste refrigerador es de uso libre, pero si guardas algo ponle nombre y no olvides sacarlo después.",
                     "position": {
-                        "x": 4.435734853684871,
-                        "y": -1.8425262211495346,
-                        "z": 3.3085262172037466
+                        "x": -0.9423378791746363,
+                        "y": 0.42046515975780596,
+                        "z": -0.15240245757181642
                     },
-                    "radius": 0.3846153846153846
+                    "radius": 0.07302277445848818
                 },
                 "ef2037cb-659f-43ce-b478-782d1c6aa31f": {
                     "type": 1,
                     "id": "ef2037cb-659f-43ce-b478-782d1c6aa31f",
                     "name": "Trophies",
-                    "content": "# #DCCCampeón\n\n¿Sabías que el DCC lleva una racha de 2 victorias en la Mona?\n\n*vo tenis que ser del anakena*\n",
+                    "content": "# #DCCCampeón\n\n¿Sabías que el DCC lleva una racha de *~2~ ~3~* **4** victorias en la Mona?!?\n\n*vo tenis que ser del anakena*\n",
                     "position": {
-                        "x": 2.7135010199746126,
-                        "y": -4.013005687192123,
-                        "z": 4.983641811872971
+                        "x": -1.064862868899303,
+                        "y": -0.017409056788659505,
+                        "z": 0.2612791344480474
                     },
-                    "radius": 0.3846153846153846
+                    "radius": 0.07302277445848818
                 },
                 "9bd9a32f-da00-4380-9a1d-da68ded29c70": {
                     "type": 1,
@@ -60,11 +59,11 @@
                     "name": "Tazas",
                     "content": "# Tazas\n\n1. Las tazas sin nombre se pueden usar\n2. Las con nombre NO se pueden usar\n3. **Siempre lavar después de usar.**",
                     "position": {
-                        "x": 2.3825290004944337,
-                        "y": -1.4687508747330364,
-                        "z": 4.820462943160933
+                        "x": -1.0047633389544388,
+                        "y": -0.05991003861007385,
+                        "z": -0.22124306642552943
                     },
-                    "radius": 0.3846153846153846
+                    "radius": 0.07302277445848818
                 },
                 "a96924f2-3a9f-4c95-88f2-867950351c49": {
                     "type": 1,
@@ -72,11 +71,11 @@
                     "name": "Insumos",
                     "content": "# Insumos\n\nLos condimentos, endulzantes, tés y cafés sin nombre son de uso libre.",
                     "position": {
-                        "x": 3.4863719222333405,
-                        "y": -2.377783909797763,
-                        "z": 4.335913448859147
+                        "x": -1.0264863523119092,
+                        "y": 0.16890179577189746,
+                        "z": -0.049939683147811935
                     },
-                    "radius": 0.3846153846153846
+                    "radius": 0.07302277445848818
                 },
                 "cf4c4ae6-9bc4-49e9-9ac6-1ee4cf93506b": {
                     "type": 1,
@@ -84,11 +83,11 @@
                     "name": "Wifi",
                     "content": "# Wifi\n\nAparte de la red CaDCC, en el DCC llegan las siguientes redes:\n\n1. DCCAir (con la cuenta Anakena)\n2. Eduroam (U-Pasaporte)\n3. FCFM (ing@uchile)\n",
                     "position": {
-                        "x": -1.3589575414243087,
-                        "y": -1.3551330825362626,
-                        "z": 3.929033294906367
+                        "x": -0.5130647938460043,
+                        "y": -0.5999899224314078,
+                        "z": -0.23740003233384796
                     },
-                    "radius": 0.3846153846153846
+                    "radius": 0.07302277445848818
                 },
                 "c03e6bfc-4c08-48c6-ae5f-c27d6eb1f20a": {
                     "type": 1,
@@ -96,11 +95,11 @@
                     "name": "Iceberg",
                     "content": "Preguntale a tu viejón más cercano sobre el \"Iceberg DCC\"...",
                     "position": {
-                        "x": 5.691152005061524,
-                        "y": -3.501076402726603,
-                        "z": 2.2108573572200387
+                        "x": -0.8768441626389213,
+                        "y": 0.7314779928262299,
+                        "z": 0.16125578867363446
                     },
-                    "radius": 0.3846153846153846
+                    "radius": 0.07302277445848818
                 },
                 "bb8e4a04-dda3-4741-a3ae-9c68d0e0a6fa": {
                     "type": 1,
@@ -108,11 +107,11 @@
                     "name": "Plasticina",
                     "content": "# \"Plasticina\"\n\nSi aún no sabes que son, paciencia, lo sabrás algún día.",
                     "position": {
-                        "x": -5.122879344744205,
-                        "y": -1.3801256238292876,
-                        "z": -2.242993008810726
+                        "x": 0.8581470850884103,
+                        "y": -0.658929171539741,
+                        "z": -0.22497124022480416
                     },
-                    "radius": 0.3846153846153846
+                    "radius": 0.07302277445848818
                 },
                 "5eb77793-1f32-4444-a6ee-8aeaac7c9258": {
                     "type": 1,
@@ -120,11 +119,11 @@
                     "name": "CRT",
                     "content": "# El CRT\n\nConectada a este televisor hay una Wii, Playstation 1 y Playstation 2.\n\nSe usa principalmente para jugar *Super Smash Bros Melee*.",
                     "position": {
-                        "x": -3.2535351939789297,
-                        "y": -1.7514573836794245,
-                        "z": -4.398752010196624
+                        "x": 1.0444502722209548,
+                        "y": -0.15001246739842414,
+                        "z": -0.15607400799807114
                     },
-                    "radius": 0.3846153846153846
+                    "radius": 0.07302277445848818
                 },
                 "f4f81112-795d-42c4-a3f2-5e7a402049e7": {
                     "type": 1,
@@ -132,11 +131,11 @@
                     "name": "Gaming",
                     "content": "# Gaming\n\nEn la Salita la gente suele juntarse a jugar videojuegos.\n\nConectada a esta tele hay una Nintendo Switch, Playstation 3 y Xbox 360, con una gran variedad de juegos.",
                     "position": {
-                        "x": -0.2609489014782405,
-                        "y": -2.2580288160992414,
-                        "z": -6.793761594678525
+                        "x": 1.1672737697017048,
+                        "y": 0.5676697749558101,
+                        "z": -0.06291129030319091
                     },
-                    "radius": 0.7846153846153845
+                    "radius": 0.14896645989531584
                 },
                 "2ea453ba-b9fb-4e13-b4d3-481080ccff00": {
                     "type": 1,
@@ -144,11 +143,11 @@
                     "name": "Arte",
                     "content": "# Arte\n\nNotarás que los muros de la salita están cubiertos en arte hecho por talentosxs DCCianxs.\n\nNo estamos *beating the allegations* de ser otakus, eso sí.",
                     "position": {
-                        "x": 2.7816417522088126,
-                        "y": -2.724159228102276,
-                        "z": -4.331052255660838
+                        "x": 0.4782321311313082,
+                        "y": 0.8477068368016718,
+                        "z": 0.020445767138205288
                     },
-                    "radius": 0.3846153846153846
+                    "radius": 0.07302277445848818
                 },
                 "e41355b3-aa44-42c2-a597-b353860d7fd3": {
                     "type": 1,
@@ -156,11 +155,11 @@
                     "name": "Puerta2",
                     "content": "# La Otra Puerta\n\nLa Salita eran dos salas distintas... \n\nHasta que se derribó el muro a lo 1989.",
                     "position": {
-                        "x": -4.028566773292513,
-                        "y": -2.5584456274629774,
-                        "z": -0.3412390000110544
+                        "x": 0.4404378659466227,
+                        "y": -0.6504907455712764,
+                        "z": -0.0035420146859301803
                     },
-                    "radius": 0.3846153846153846
+                    "radius": 0.07302277445848818
                 },
                 "ed31c3a8-922c-411b-88d3-d70ce564f023": {
                     "type": 1,
@@ -168,11 +167,11 @@
                     "name": "Mesas",
                     "content": "# Mesas\n\nEn la salita la gente estudia, socializa, juega, almuerza, entre otras cosas.\n\nSi buscas un lugar más silencioso para estudiar, se recomienda el *Toqui* o el *Eniac* en el edificio Poniente.",
                     "position": {
-                        "x": 2.1140739606160226,
-                        "y": -1.2344884767467712,
-                        "z": -1.8141867999869583
+                        "x": 0.1227468857964376,
+                        "y": 0.5042774790786517,
+                        "z": -0.2625432146979931
                     },
-                    "radius": 0.9846153846153844
+                    "radius": 0.1869383026137297
                 },
                 "11579a87-f06b-4c51-979e-88bc8494ab9a": {
                     "type": 1,
@@ -180,11 +179,11 @@
                     "name": "Pikachus",
                     "content": "# Pikachus\n\nEstos pikachus con pelo son los premios de los *DCC Awards 2016*.\n\n",
                     "position": {
-                        "x": -1.9620109797788416,
-                        "y": -1.6055626432070271,
-                        "z": -6.39450354253399
+                        "x": 1.2577285010234502,
+                        "y": 0.24768497982120743,
+                        "z": -0.18466445465050044
                     },
-                    "radius": 0.3846153846153846
+                    "radius": 0.07302277445848818
                 },
                 "c5f7ffdd-384b-4be3-844f-502fc38542d3": {
                     "type": 1,
@@ -192,11 +191,11 @@
                     "name": "Electros",
                     "content": "# Electrodomésticos\n\nEn la Salita hay un par de hervidores, un microondas y un horno eléctrico. Son de uso común, pero se ruega **mantenerlos limpios** y **no calentar comidas apestosas**. Para eso están los microondas del pasillo.",
                     "position": {
-                        "x": 3.5966284222788545,
-                        "y": -1.5055418118499169,
-                        "z": 3.8803398801289166
+                        "x": -0.9600024991984963,
+                        "y": 0.22819613514098633,
+                        "z": -0.2154934649815426
                     },
-                    "radius": 0.3846153846153846
+                    "radius": 0.07302277445848818
                 },
                 "59007b50-1e57-4720-934f-8299e3001f2f": {
                     "type": 1,
@@ -204,11 +203,11 @@
                     "name": "Guitars",
                     "content": "# Guitarras\n\nLas mismísimas guitarras del clásico \"Hombre pelo negro con lentes tocando guitarra en la salita\"",
                     "position": {
-                        "x": -3.1733348739886633,
-                        "y": -0.8056671370524212,
-                        "z": -0.8080890827250224
+                        "x": 0.4413139418678417,
+                        "y": -0.4672104795550708,
+                        "z": -0.33726701356566574
                     },
-                    "radius": 0.3846153846153846
+                    "radius": 0.07302277445848818
                 },
                 "546c155f-b09a-4201-ba50-529505c183a3": {
                     "type": 1,
@@ -216,11 +215,11 @@
                     "name": "Water",
                     "content": "# Agua\n\nCon este pote se trae agua filtrada de la cocina DCC para el hervidor.",
                     "position": {
-                        "x": 4.7477099585417974,
-                        "y": -1.4547626350256684,
-                        "z": 1.1165937633578609
+                        "x": -0.6062952026701678,
+                        "y": 0.67314427868183,
+                        "z": -0.22551106508876903
                     },
-                    "radius": 0.2846153846153846
+                    "radius": 0.05403685309928125
                 },
                 "16081b81-0257-4f9a-b71d-68084e6ef40b": {
                     "type": 1,
@@ -228,11 +227,11 @@
                     "name": "Placeholding",
                     "content": "# \"No place holding\"\n\nHay épocas del año cuando la Salita es mucho más concurrida. En estos tiempos, hay que tener cuidado de no dejar \"guardados\" puestos dejando mochilas o computadores.",
                     "position": {
-                        "x": 4.241586148916672,
-                        "y": -2.888778170037414,
-                        "z": -2.0623959416293087
+                        "x": -0.032979063862228174,
+                        "y": 0.8822433615661405,
+                        "z": 0.04877208764281656
                     },
-                    "radius": 0.3846153846153846
+                    "radius": 0.07302277445848818
                 },
                 "bc96c7e7-6c78-41fc-8eda-5a01691466d4": {
                     "type": 1,
@@ -240,11 +239,11 @@
                     "name": "Guitar Hero",
                     "content": "# Guitar Hero\n\nDentro de los varios juegos que se juegan la salita, también se juega *Guitar Hero*.",
                     "position": {
-                        "x": -4.765108393196331,
-                        "y": -0.8404521138156573,
-                        "z": -3.5342790843984595
+                        "x": 1.040460697806596,
+                        "y": -0.48146220984119725,
+                        "z": -0.32736420887418
                     },
-                    "radius": 0.3846153846153846
+                    "radius": 0.07302277445848818
                 },
                 "a9bb04b3-fe7d-4759-a28d-e69b197068b7": {
                     "type": 1,
@@ -252,11 +251,11 @@
                     "name": "Birthdays",
                     "content": "# Cumpleaños\n\nHay un gráfico radial de cumpleaños, pero como no se actualiza es más como una reliquia de otra época.",
                     "position": {
-                        "x": 5.498175373981091,
-                        "y": -2.5099017370406016,
-                        "z": 2.6664266740821314
+                        "x": -0.9338299205318092,
+                        "y": 0.6566235345612539,
+                        "z": -0.026856162409768125
                     },
-                    "radius": 0.3846153846153846
+                    "radius": 0.07302277445848818
                 },
                 "351916ce-e028-4fad-9d52-4771eaef03f7": {
                     "type": 1,
@@ -264,11 +263,11 @@
                     "name": "Windows",
                     "content": "Las ventanas no se abren mucho, pero hay que dejarlas abiertas igual porque el DCC no tiene muy buena ventilación que digamos...\n\nOjalá eso cambie con la actual remodelación de la Salita :D",
                     "position": {
-                        "x": 3.7411367852803368,
-                        "y": -1.7931245260706088,
-                        "z": -3.265190873245059
+                        "x": 0.21397280918675862,
+                        "y": 0.9084184255934822,
+                        "z": -0.15805836224473882
                     },
-                    "radius": 0.3846153846153846
+                    "radius": 0.07302277445848818
                 }
             },
             "barriers": {
@@ -277,342 +276,342 @@
                     "id": "beee8fc2-dbee-4a0d-a4e4-e7ed6d0f822e",
                     "name": "Wall",
                     "startPosition": {
-                        "x": -1.4352719893158608,
+                        "x": -1.3263212759130028,
                         "y": 0,
-                        "z": -3.777277095234239
+                        "z": -3.297826659981767
                     },
                     "endPosition": {
-                        "x": -0.7630233486525098,
+                        "x": -0.73720909186411,
                         "y": 0,
-                        "z": -3.1832297352276346
+                        "z": -2.7772154959578748
                     },
-                    "thickness": 0.1
+                    "thickness": 0.08762732935018586
                 },
                 "a3bc0d3c-ca1e-4c77-95b4-0977cd865876": {
                     "type": 3,
                     "id": "a3bc0d3c-ca1e-4c77-95b4-0977cd865876",
                     "name": "Wall",
                     "startPosition": {
-                        "x": -0.7861053168147901,
+                        "x": -0.7574362103085375,
                         "y": 0,
-                        "z": -3.1952855706133247
+                        "z": -2.7877813509947185
                     },
                     "endPosition": {
-                        "x": 2.794363571026293,
+                        "x": 2.3801189710245385,
                         "y": 0,
-                        "z": -3.1482725026774414
+                        "z": -2.7464442953095984
                     },
-                    "thickness": 0.1
+                    "thickness": 0.08762732935018586
                 },
                 "a387d877-62af-4496-8ff8-c6fa26d40187": {
                     "type": 3,
                     "id": "a387d877-62af-4496-8ff8-c6fa26d40187",
                     "name": "Wall",
                     "startPosition": {
-                        "x": 2.7904433490059395,
+                        "x": 2.3766841594403343,
                         "y": 0,
-                        "z": -3.136154505351895
+                        "z": -2.7358250046939983
                     },
                     "endPosition": {
-                        "x": 2.761663784646168,
+                        "x": 2.3517210581613828,
                         "y": 0,
-                        "z": 3.52452275258553
+                        "z": 3.101167452084668
                     },
-                    "thickness": 0.1
+                    "thickness": 0.08762732935018586
                 },
                 "da277aec-61a7-42e7-996a-cb3edce81518": {
                     "type": 3,
                     "id": "da277aec-61a7-42e7-996a-cb3edce81518",
                     "name": "Wall",
                     "startPosition": {
-                        "x": 2.728904620068062,
+                        "x": 2.323009910056293,
                         "y": 0,
-                        "z": 3.410257544710079
+                        "z": 3.0010314366910396
                     },
                     "endPosition": {
-                        "x": -0.9579566485111063,
+                        "x": -0.9077735947264612,
                         "y": 0,
-                        "z": 3.4406153663251517
+                        "z": 3.0274932090283766
                     },
-                    "thickness": 0.1
+                    "thickness": 0.08762732935018586
                 },
                 "92d71e8a-bebc-4530-85dd-711d0b51b944": {
                     "type": 3,
                     "id": "92d71e8a-bebc-4530-85dd-711d0b51b944",
                     "name": "Wall",
                     "startPosition": {
-                        "x": -0.9074291750561503,
+                        "x": -0.8634953148405855,
                         "y": 0,
-                        "z": 3.4722478833644823
+                        "z": 3.055215877965073
                     },
                     "endPosition": {
-                        "x": -0.9983362282392546,
+                        "x": -0.9432089304489238,
                         "y": 0,
-                        "z": 2.1195963695580926
+                        "z": 1.8698346955208347
                     },
-                    "thickness": 0.1
+                    "thickness": 0.08762732935018586
                 },
                 "de1f41a5-8fb5-4905-95dd-d9ee486a5550": {
                     "type": 3,
                     "id": "de1f41a5-8fb5-4905-95dd-d9ee486a5550",
                     "name": "Wall",
                     "startPosition": {
-                        "x": -1.0080117400756654,
+                        "x": -0.9516847747680364,
                         "y": 0,
-                        "z": 2.1917170230366514
+                        "z": 1.9330362730339101
                     },
                     "endPosition": {
-                        "x": -1.1652196287057126,
+                        "x": -1.089457827464581,
                         "y": 0,
-                        "z": 1.87249276953054
+                        "z": 1.6532824072379282
                     },
-                    "thickness": 0.1
+                    "thickness": 0.08762732935018586
                 },
                 "ad0d1222-6cbe-4b16-a9e5-27b04f2a63a6": {
                     "type": 3,
                     "id": "ad0d1222-6cbe-4b16-a9e5-27b04f2a63a6",
                     "name": "Wall",
                     "startPosition": {
-                        "x": -1.1618007308938438,
+                        "x": -1.0864594155454035,
                         "y": 0,
-                        "z": 1.9359652903863702
+                        "z": 1.7089058157589105
                     },
                     "endPosition": {
-                        "x": -1.0560539181252564,
+                        "x": -0.9939441922090422,
                         "y": 0,
-                        "z": -1.9712011583941675
+                        "z": -1.7150820801124647
                     },
-                    "thickness": 0.1
+                    "thickness": 0.08762732935018586
                 },
                 "4b81896d-2587-4359-b4f1-ec715641b20e": {
                     "type": 3,
                     "id": "4b81896d-2587-4359-b4f1-ec715641b20e",
                     "name": "Wall",
                     "startPosition": {
-                        "x": -1.0520131529201393,
+                        "x": -0.9904016163279797,
                         "y": 0,
-                        "z": -1.92790346243522
+                        "z": -1.6771385799726544
                     },
                     "endPosition": {
-                        "x": -1.9953966936454146,
+                        "x": -1.8170917852306006,
                         "y": 0,
-                        "z": -2.0891592420239147
+                        "z": -1.8184891869246298
                     },
-                    "thickness": 0.1
+                    "thickness": 0.08762732935018586
                 },
                 "96d08064-f4c3-48d2-a155-f3290122550d": {
                     "type": 3,
                     "id": "96d08064-f4c3-48d2-a155-f3290122550d",
                     "name": "Wall",
                     "startPosition": {
-                        "x": -1.972504350818975,
+                        "x": -1.7970298106374578,
                         "y": 0,
-                        "z": -2.050490136660053
+                        "z": -1.7846011634407177
                     },
                     "endPosition": {
-                        "x": -1.9384053321484451,
+                        "x": -1.7671757278999274,
                         "y": 0,
-                        "z": -2.746278868847425
+                        "z": -2.394344805682282
                     },
-                    "thickness": 0.1
+                    "thickness": 0.08762732935018586
                 },
                 "b12ced76-ed3a-49fd-a816-d60273c5e7fd": {
                     "type": 3,
                     "id": "b12ced76-ed3a-49fd-a816-d60273c5e7fd",
                     "name": "Wall",
                     "startPosition": {
-                        "x": 2.819869762124731,
+                        "x": 2.402494626822397,
                         "y": 0,
-                        "z": -2.5074423968913506
+                        "z": -2.1848606009357194
                     },
                     "endPosition": {
-                        "x": 0.4744694616629176,
+                        "x": 0.347236916564524,
                         "y": 0,
-                        "z": -2.272794952881719
+                        "z": -1.9793207809801752
                     },
-                    "thickness": 0.1
+                    "thickness": 0.08762732935018586
                 },
                 "dd0bcb01-7fe4-4c70-8852-2ab216beff0d": {
                     "type": 3,
                     "id": "dd0bcb01-7fe4-4c70-8852-2ab216beff0d",
                     "name": "Wall",
                     "startPosition": {
-                        "x": 0.5575826232226812,
+                        "x": 0.4200666400605178,
                         "y": 0,
-                        "z": -2.3266517225397836
+                        "z": -2.0265142270251646
                     },
                     "endPosition": {
-                        "x": 0.5170584067434877,
+                        "x": 0.38459565064282464,
                         "y": 0,
-                        "z": -1.280768709482913
+                        "z": -1.1099704895083433
                     },
-                    "thickness": 0.1
+                    "thickness": 0.08762732935018586
                 },
                 "9aea0559-0855-454f-8e9e-6496a45c9d18": {
                     "type": 3,
                     "id": "9aea0559-0855-454f-8e9e-6496a45c9d18",
                     "name": "Wall",
                     "startPosition": {
-                        "x": 0.500510642107649,
+                        "x": 0.3700915600405527,
                         "y": 0,
-                        "z": -1.367494403808307
+                        "z": -1.185972004349403
                     },
                     "endPosition": {
-                        "x": 2.8005183397067475,
+                        "x": 2.385582408636866,
                         "y": 0,
-                        "z": -1.3285246766685164
+                        "z": -1.151732899522325
                     },
-                    "thickness": 0.1
+                    "thickness": 0.08762732935018586
                 },
                 "29415b0b-00af-498d-b1ec-6f4a8b90cb37": {
                     "type": 3,
                     "id": "29415b0b-00af-498d-b1ec-6f4a8b90cb37",
                     "name": "Wall",
                     "startPosition": {
-                        "x": 2.811297204876508,
+                        "x": 2.395063896651353,
                         "y": 0,
-                        "z": -0.39302218492970714
+                        "z": -0.3319176502154339
                     },
                     "endPosition": {
-                        "x": 0.720636191365448,
+                        "x": 0.5630252350464483,
                         "y": 0,
-                        "z": -0.3706448854557183
+                        "z": -0.31238806917670087
                     },
-                    "thickness": 0.1
+                    "thickness": 0.08762732935018586
                 },
                 "80db1b93-f6b2-477d-ae65-a6bd122c8b4a": {
                     "type": 3,
                     "id": "80db1b93-f6b2-477d-ae65-a6bd122c8b4a",
                     "name": "Wall",
                     "startPosition": {
-                        "x": 0.7030140726788088,
+                        "x": 0.5475824782123924,
                         "y": 0,
-                        "z": -0.38495942139316935
+                        "z": -0.32493309547568383
                     },
                     "endPosition": {
-                        "x": 0.7293255335433596,
+                        "x": 0.5706937409386222,
                         "y": 0,
-                        "z": 1.034131271627275
+                        "z": 0.9186686684717967
                     },
-                    "thickness": 0.1
+                    "thickness": 0.08762732935018586
                 },
                 "23c8dd06-4108-4260-ba2f-9f89902284f2": {
                     "type": 3,
                     "id": "23c8dd06-4108-4260-ba2f-9f89902284f2",
                     "name": "Wall",
                     "startPosition": {
-                        "x": 0.7287402445228197,
+                        "x": 0.5701782173162587,
                         "y": 0,
-                        "z": 0.9656185338839003
+                        "z": 0.8586284437572693
                     },
                     "endPosition": {
-                        "x": 2.7932688546430273,
+                        "x": 2.3793184583198723,
                         "y": 0,
-                        "z": 0.9775517335086045
+                        "z": 0.8691653943841872
                     },
-                    "thickness": 0.1
+                    "thickness": 0.08762732935018586
                 },
                 "026be481-cf23-4db8-bb62-0ebd9925a93a": {
                     "type": 3,
                     "id": "026be481-cf23-4db8-bb62-0ebd9925a93a",
                     "name": "Wall",
                     "startPosition": {
-                        "x": 2.7985705057589314,
+                        "x": 2.3840117393422937,
                         "y": 0,
-                        "z": 2.2107797933085136
+                        "z": 1.9498881690676777
                     },
                     "endPosition": {
-                        "x": 1.959469472305605,
+                        "x": 1.6486884850016437,
                         "y": 0,
-                        "z": 1.6464822321344905
+                        "z": 1.4553414136505598
                     },
-                    "thickness": 0.1
+                    "thickness": 0.08762732935018586
                 },
                 "e7072b27-9a93-40e3-b9d1-586316a8bdf8": {
                     "type": 3,
                     "id": "e7072b27-9a93-40e3-b9d1-586316a8bdf8",
                     "name": "Wall",
                     "startPosition": {
-                        "x": 1.971241325400266,
+                        "x": 1.659004570670925,
                         "y": 0,
-                        "z": 1.658140163193734
+                        "z": 1.4655581353906462
                     },
                     "endPosition": {
-                        "x": 0.5501513998933911,
+                        "x": 0.4137039793286055,
                         "y": 0,
-                        "z": 1.5526534916890817
+                        "z": 1.3730616400968632
                     },
-                    "thickness": 0.1
+                    "thickness": 0.08762732935018586
                 },
                 "fb5279b9-319e-4e6d-a0b2-d5b60582f580": {
                     "type": 3,
                     "id": "fb5279b9-319e-4e6d-a0b2-d5b60582f580",
                     "name": "Wall",
                     "startPosition": {
-                        "x": 2.9643713019956346,
+                        "x": 2.529323220814607,
                         "y": 0,
-                        "z": 2.7506458361360564
+                        "z": 2.422998784803441
                     },
                     "endPosition": {
-                        "x": 1.8012039698811058,
+                        "x": 1.5100400391426443,
                         "y": 0,
-                        "z": 2.6625822013464755
+                        "z": 2.345780656064025
                     },
-                    "thickness": 0.1
+                    "thickness": 0.08762732935018586
                 },
                 "81692a25-84d7-42dd-9b5d-3db162301d49": {
                     "type": 3,
                     "id": "81692a25-84d7-42dd-9b5d-3db162301d49",
                     "name": "Wall",
                     "startPosition": {
-                        "x": 1.897009635874739,
+                        "x": 1.5939944491436993,
                         "y": 0,
-                        "z": 2.6681165522167163
+                        "z": 2.350634295991835
                     },
                     "endPosition": {
-                        "x": 1.1256228585555454,
+                        "x": 0.9180266251668822,
                         "y": 0,
-                        "z": 2.5623176272812596
+                        "z": 2.257889165713197
                     },
-                    "thickness": 0.1
+                    "thickness": 0.08762732935018586
                 },
                 "63f7e663-7a08-4e4d-8e89-c83cf361306b": {
                     "type": 2,
                     "id": "63f7e663-7a08-4e4d-8e89-c83cf361306b",
                     "name": "Solid",
                     "position": {
-                        "x": 0.5660270143104827,
+                        "x": 0.4276375535533224,
                         "y": 0,
-                        "z": 2.119736080031931
+                        "z": 1.8700173339354724
                     },
-                    "radius": 0.6
+                    "radius": 0.525763976101115
                 },
                 "b543d14a-cc49-4fc6-b81a-3b8c7a84a664": {
                     "type": 3,
                     "id": "b543d14a-cc49-4fc6-b81a-3b8c7a84a664",
                     "name": "Wall",
                     "startPosition": {
-                        "x": 1.2106533936395514,
+                        "x": 0.9925376847815269,
                         "y": 0,
-                        "z": 2.5382869023252748
+                        "z": 2.236833440463142
                     },
                     "endPosition": {
-                        "x": 0.9713459336149236,
+                        "x": 0.7828279177320691,
                         "y": 0,
-                        "z": 2.397729050865228
+                        "z": 2.1136482768055265
                     },
-                    "thickness": 0.1
+                    "thickness": 0.08762732935018586
                 },
                 "e9042161-c7f8-4254-932f-2501183a3270": {
                     "type": 2,
                     "id": "e9042161-c7f8-4254-932f-2501183a3270",
                     "name": "Fan",
                     "position": {
-                        "x": 0.40458080844063116,
+                        "x": 0.28621972584455746,
                         "y": 0,
-                        "z": 3.5998660250976755
+                        "z": 3.1671027870130137
                     },
-                    "radius": 0.5
+                    "radius": 0.4381366467509292
                 }
             },
             "portals": {
@@ -621,38 +620,38 @@
                     "id": "3e39058e-adae-4514-889c-11441cf77003",
                     "name": "Edge",
                     "startPosition": {
-                        "x": -2.0410355300861145,
+                        "x": -1.8571106881450734,
                         "y": 0,
-                        "z": -2.7579155041160215
+                        "z": -2.404546361861165
                     },
                     "endPosition": {
-                        "x": -1.3828429563479694,
+                        "x": -1.2803752102734294,
                         "y": 0,
-                        "z": -3.7078310163480364
+                        "z": -3.236966519277342
                     },
-                    "thickness": 0.1,
+                    "thickness": 0.08762732935018586,
                     "destination": "bbea6b37-b841-4d11-b643-75a2aeeb6fa6"
                 }
             }
         },
         {
             "id": "bbea6b37-b841-4d11-b643-75a2aeeb6fa6",
-            "filePath": "Hallway.ksplat",
+            "filePath": "hallway.spz",
             "name": "Hallway",
             "scale": {
-                "x": 1.6000000000000005,
-                "y": 1.6000000000000005,
-                "z": 1.6000000000000005
+                "x": 8.187825850751606,
+                "y": 8.187825850751608,
+                "z": 8.18782585075161
             },
             "rotation": {
-                "x": 3.141592653589793,
-                "y": 3.141592653589793,
-                "z": 0
+                "x": -1.5647146953765159,
+                "y": -0.07302404928510425,
+                "z": 1.6242802042801676
             },
             "position": {
-                "x": -0.30000000000000004,
-                "y": -0.8999999999999999,
-                "z": 2.0000000000000004
+                "x": -2.7874138867217755,
+                "y": 1.7931701455589346,
+                "z": 1.2597738517740107
             },
             "sky": {
                 "type": "hemi",
@@ -666,11 +665,11 @@
                     "name": "Printer",
                     "content": "# Impresora\n\nInformación sobre cómo imprimir en el DCC se puede encontrar en el FAQ CaDCC.",
                     "position": {
-                        "x": 2.186160659539503,
-                        "y": -1.3485304056715373,
-                        "z": -2.549740908768778
+                        "x": 0.37237240673512084,
+                        "y": 0.0978861953498072,
+                        "z": -0.060114416635619596
                     },
-                    "radius": 0.25625
+                    "radius": 0.050074342990864155
                 },
                 "634295f5-7700-41cc-a47d-5697f733fe07": {
                     "type": 1,
@@ -678,11 +677,11 @@
                     "name": "Biblioteca",
                     "content": "# Biblioteca CaDCC\n\nLibros de computación donados al CaDCC. Se pueden pedir prestados.\n\nPara pedir prestado un libro, te puedes dejar anotadx en la Ofisalita.\n",
                     "position": {
-                        "x": 2.2544477604306357,
-                        "y": -1.5105156391994936,
-                        "z": -1.2366896771607168
+                        "x": 0.11750341949757126,
+                        "y": 0.12169040612323132,
+                        "z": -0.021493205935722376
                     },
-                    "radius": 0.25625
+                    "radius": 0.050074342990864155
                 },
                 "78f67c37-bd19-4f35-ae42-686a9b7e8d70": {
                     "type": 1,
@@ -690,11 +689,11 @@
                     "name": "Casilleros",
                     "content": "# Casilleros\n\nAl comienzo de cada año, el CaDCC le arrienda estos casilleros a estudiantes. Así que, ¡atentx a las redes CaDCC!",
                     "position": {
-                        "x": 2.1724852281898297,
-                        "y": -1.560019330969527,
-                        "z": 0.2096411329336798
+                        "x": -0.16534857825103189,
+                        "y": 0.11951868243183106,
+                        "z": -0.006656244346310325
                     },
-                    "radius": 0.15624999999999994
+                    "radius": 0.03053313597003911
                 },
                 "c9cf0039-2094-4cb1-b2ca-68fe6ae3776a": {
                     "type": 1,
@@ -702,11 +701,11 @@
                     "name": "Reciclaje",
                     "content": "# Reciclaje\n\nAquí se pueden reciclar plásticos, vidrios y metales. Salvemos a las tortugas 🐢🐢🐢.",
                     "position": {
-                        "x": 2.221154219656243,
-                        "y": -0.8320086375767743,
-                        "z": 2.339125519957813
+                        "x": -0.5829615985316567,
+                        "y": 0.16271332881162695,
+                        "z": -0.1378971552515611
                     },
-                    "radius": 0.15624999999999994
+                    "radius": 0.03053313597003911
                 },
                 "249343e5-eb18-4112-a918-82ace6f7a1f5": {
                     "type": 1,
@@ -714,11 +713,11 @@
                     "name": "Linux",
                     "content": "# Linux\n\nEn el DCC hay una población notable de usuarixs de Linux",
                     "position": {
-                        "x": 1.0111427222541403,
-                        "y": -1.5623076045586997,
-                        "z": 1.263643471992692
+                        "x": -0.38310257965005456,
+                        "y": -0.09567748882974329,
+                        "z": -0.020706594482510943
                     },
-                    "radius": 0.1
+                    "radius": 0.019541207020825038
                 },
                 "19ceb709-2493-4316-a3a5-ae62fd60d58d": {
                     "type": 1,
@@ -726,11 +725,11 @@
                     "name": "Ofisalita",
                     "content": "# Ofisalita\n\nLa oficina-salita del CaDCC, suele estar abierto al público. Aquí dentro se pueden encontrar varias cosas útiles.",
                     "position": {
-                        "x": 1.0997979641768094,
-                        "y": -1.5044716551772181,
-                        "z": 1.6619895156183635
+                        "x": -0.46010495780874233,
+                        "y": -0.07344804806245167,
+                        "z": -0.028685784810844647
                     },
-                    "radius": 0.15624999999999994
+                    "radius": 0.03053313597003911
                 },
                 "4dfd836c-62ae-44e8-b3da-8c671fe2dd1c": {
                     "type": 1,
@@ -738,11 +737,11 @@
                     "name": "Salita",
                     "content": "# Salita\n\nLa Salita DCC, un icónico lugar en la facultad donde DCCianes se juntan a socializar, jugar y estudiar.",
                     "position": {
-                        "x": 1.1073725188349692,
-                        "y": -1.5684709098043292,
-                        "z": -3.1551703599916827
+                        "x": 0.4800291203504461,
+                        "y": -0.12166602005334996,
+                        "z": -0.03795597730731975
                     },
-                    "radius": 0.15624999999999994
+                    "radius": 0.03053313597003911
                 },
                 "2eac6d3f-5a17-421a-9b6a-24cc4b18013b": {
                     "type": 1,
@@ -750,23 +749,23 @@
                     "name": "DIM",
                     "content": "# Portal\n\nAlgunos dicen que esto es un Portal al nether. Otros dicen que es a salida de emergencia. Pero los reales saben que es algo mucho peor... una escalera al DIM.\n\nTambién no grabé muy bien esta parte y por eso se ve tan hecho pebre XD",
                     "position": {
-                        "x": 1.6144938059089495,
-                        "y": -1.5411084172140308,
-                        "z": -3.7576160924492426
+                        "x": 0.602761290381296,
+                        "y": -0.028688445371601014,
+                        "z": -0.037597415517425556
                     },
-                    "radius": 0.15624999999999994
+                    "radius": 0.03053313597003911
                 },
                 "ae78266b-a3ea-4983-8de6-8d4af4bf7628": {
                     "type": 1,
                     "id": "ae78266b-a3ea-4983-8de6-8d4af4bf7628",
                     "name": "Demo",
-                    "content": "# Demo\n\nPara esta demo, solo se incluye la Salita, Ofisalita y el Pasillo entre las dos. Si ya exploraste todo, apreciaría mucho si contestaras la encuesta c:",
+                    "content": "# Demo\n\nPara esta demo, solo se incluye la Salita, Ofisalita y el Pasillo entre las dos. ~Si ya exploraste todo, apreciaría mucho si contestaras la encuesta c:~ Gracias por visitar!!",
                     "position": {
-                        "x": 1.6503080597849733,
-                        "y": -1.6062823218994038,
-                        "z": 2.4037442003003324
+                        "x": -0.5986989275848807,
+                        "y": 0.039358965332375234,
+                        "z": 0.0036350410672557174
                     },
-                    "radius": 0.35624999999999996
+                    "radius": 0.06961555001168919
                 }
             },
             "barriers": {
@@ -775,14 +774,14 @@
                     "id": "4b8deae7-9fb5-4320-812d-412bb8913906",
                     "name": "Wall",
                     "startPosition": {
-                        "x": -1.5522816282287608,
+                        "x": 1.005078025081179,
                         "y": 0,
-                        "z": 3.275196602120501
+                        "z": 4.372112378139116
                     },
                     "endPosition": {
-                        "x": -3.650895235569944,
+                        "x": -1.0936745904056462,
                         "y": 0,
-                        "z": 3.152084060924778
+                        "z": 4.2491987460611815
                     },
                     "thickness": 0.1
                 },
@@ -791,14 +790,14 @@
                     "id": "ac896fdd-bc6b-4cce-b463-f7d5b6d7ca4d",
                     "name": "Wall",
                     "startPosition": {
-                        "x": -3.630406424343561,
+                        "x": -1.0731900731157054,
                         "y": 0,
-                        "z": 3.2079034670342437
+                        "z": 4.30502429643727
                     },
                     "endPosition": {
-                        "x": -3.6017434988446286,
+                        "x": -1.0443938293531652,
                         "y": 0,
-                        "z": 1.9394181947800897
+                        "z": 3.03634825681422
                     },
                     "thickness": 0.1
                 },
@@ -807,14 +806,14 @@
                     "id": "95c34e4a-a731-4c3d-b1a0-254defee8d20",
                     "name": "Wall",
                     "startPosition": {
-                        "x": -3.6625701549110348,
+                        "x": -1.1052242081911055,
                         "y": 0,
-                        "z": 1.9328897894322776
+                        "z": 3.029825178443457
                     },
                     "endPosition": {
-                        "x": -3.2630404296760087,
+                        "x": -0.7056667164239068,
                         "y": 0,
-                        "z": 1.9437395814848584
+                        "z": 3.0406352388933113
                     },
                     "thickness": 0.1
                 },
@@ -823,14 +822,14 @@
                     "id": "bd7715f5-11e9-4e8f-a2e8-57eb345a3708",
                     "name": "Wall",
                     "startPosition": {
-                        "x": -3.337985010299934,
+                        "x": -0.7806159417524148,
                         "y": 0,
-                        "z": 1.9362552796524235
+                        "z": 3.0331575832475925
                     },
                     "endPosition": {
-                        "x": -3.3141596092599377,
+                        "x": -0.7564693055983533,
                         "y": 0,
-                        "z": -1.151820603450229
+                        "z": -0.05537796063857825
                     },
                     "thickness": 0.1
                 },
@@ -839,14 +838,14 @@
                     "id": "d72e56a2-8e81-4bf9-8ada-886f975fe6de",
                     "name": "Wall",
                     "startPosition": {
-                        "x": -3.3166627177546504,
+                        "x": -0.7589976081850631,
                         "y": 0,
-                        "z": -0.9100698748607909
+                        "z": 0.18640881860522596
                     },
                     "endPosition": {
-                        "x": -3.2884901669748308,
+                        "x": -0.7303529832641136,
                         "y": 0,
-                        "z": -5.452961748306126
+                        "z": -4.357158553750685
                     },
                     "thickness": 0.1
                 },
@@ -855,14 +854,14 @@
                     "id": "91b28621-89e3-4c07-bbea-d54613d21232",
                     "name": "Wall",
                     "startPosition": {
-                        "x": -1.6805371055649474,
+                        "x": 0.8776312574583953,
                         "y": 0,
-                        "z": -4.630586623096159
+                        "z": -3.5348280435489903
                     },
                     "endPosition": {
-                        "x": -1.6312257441582423,
+                        "x": 0.9262364440986914,
                         "y": 0,
-                        "z": 2.229029569772123
+                        "z": 3.3257986267926913
                     },
                     "thickness": 0.1
                 },
@@ -871,14 +870,14 @@
                     "id": "8e8ef029-02fb-4f41-b11b-7429acb65c19",
                     "name": "Wall",
                     "startPosition": {
-                        "x": -3.5421499598019164,
+                        "x": -0.9840763166371822,
                         "y": 0,
-                        "z": -5.016115352361907
+                        "z": -3.920221236559464
                     },
                     "endPosition": {
-                        "x": -1.0106886589628974,
+                        "x": 1.5476439710421834,
                         "y": 0,
-                        "z": -5.750096050159296
+                        "z": -4.6545725230277135
                     },
                     "thickness": 0.1
                 }
@@ -889,14 +888,14 @@
                     "id": "9ea50951-42a0-482e-9902-20b7984efbbe",
                     "name": "Salita Door",
                     "startPosition": {
-                        "x": -1.7380770906349368,
+                        "x": 1.008458899727275,
                         "y": 0,
-                        "z": -4.586605175044994
+                        "z": -3.678400242569328
                     },
                     "endPosition": {
-                        "x": -0.784782778822021,
+                        "x": 1.5851943775989188,
                         "y": 0,
-                        "z": -5.793880183174419
+                        "z": -4.510820399985505
                     },
                     "thickness": 0.1,
                     "destination": "70527e14-fbed-481c-a867-a0744126f42c"
@@ -906,14 +905,14 @@
                     "id": "dd57fecf-c2a1-4431-aff3-271af12d4f14",
                     "name": "Edge",
                     "startPosition": {
-                        "x": -0.843798553757759,
+                        "x": 1.7136678124570421,
                         "y": 0,
-                        "z": 2.7389452564466708
+                        "z": 3.8357083351563306
                     },
                     "endPosition": {
-                        "x": -1.5877848813391036,
+                        "x": 0.9695713193959179,
                         "y": 0,
-                        "z": 3.2837540806927294
+                        "z": 4.3806747970594655
                     },
                     "thickness": 0.1,
                     "destination": "fa6094fe-8699-4030-9908-f3171e4379a0"
@@ -922,22 +921,22 @@
         },
         {
             "id": "fa6094fe-8699-4030-9908-f3171e4379a0",
-            "filePath": "Ofisalita.ksplat",
+            "filePath": "ofisalita.spz",
             "name": "Ofisalita",
             "scale": {
-                "x": 2.7000000000000015,
-                "y": 2.7000000000000015,
-                "z": 2.7000000000000015
+                "x": 2.7709325785845733,
+                "y": 2.770932578584572,
+                "z": 2.770932578584573
             },
             "rotation": {
-                "x": 0,
-                "y": 2.9845130209103035,
-                "z": 0
+                "x": -1.5732167851745298,
+                "y": 0.01640470621784927,
+                "z": 1.556803591805222
             },
             "position": {
-                "x": 0.2,
-                "y": 0,
-                "z": 6.099999999999994
+                "x": 0.21857187832041186,
+                "y": 1.7491946876068523,
+                "z": 6.317551601006479
             },
             "sky": {
                 "type": "hemi",
@@ -951,11 +950,11 @@
                     "name": "Botiquin",
                     "content": "# Botiquín\n\nEn la Ofisalita hay un botiquín con insumos de primeros auxilios de uso común. Desinfectantes, parches, paracetamol y más.",
                     "position": {
-                        "x": -0.9527329696622948,
-                        "y": 0.35357120814271475,
-                        "z": -0.061071818639718334
+                        "x": -0.24641444454654254,
+                        "y": -0.9355719297783315,
+                        "z": -0.2886108313366679
                     },
-                    "radius": 0.09259259259259255
+                    "radius": 0.09022233234115828
                 },
                 "d96eed33-a8c5-49cf-970f-283e95854c84": {
                     "type": 1,
@@ -963,11 +962,11 @@
                     "name": "Boardgames",
                     "content": "# Juegos de Mesa\n\nEn la Ofisalita hay una variedad de juegos de mesa que se pueden pedir prestados anotándose en un papel o una pizarra que suele estar cerca.",
                     "position": {
-                        "x": -0.8948228046229445,
-                        "y": 0.7149823231884064,
-                        "z": 0.40933640386699843
+                        "x": 0.20764515947730086,
+                        "y": -0.9401395788344878,
+                        "z": 0.07347900950612929
                     },
-                    "radius": 0.09259259259259255
+                    "radius": 0.09022233234115828
                 },
                 "51eb4753-ee1d-4ed6-9db9-3544f2a45cc6": {
                     "type": 1,
@@ -975,11 +974,11 @@
                     "name": "Cups",
                     "content": "# Vasito CaDCC\n\nCada año el CaDCC se saca un nuevo diseño de vaso edición limitada, a la venta en la Ofisalita o en eventos CaDCC.",
                     "position": {
-                        "x": 0.060020476128577416,
-                        "y": 0.7727636846097268,
-                        "z": 0.5616281114171318
+                        "x": 0.4858943530274403,
+                        "y": -0.03963461500583909,
+                        "z": 0.12351541920363596
                     },
-                    "radius": 0.09259259259259255
+                    "radius": 0.09022233234115828
                 },
                 "818cc2ba-76f0-48eb-a4ae-181f2d669f19": {
                     "type": 1,
@@ -987,11 +986,11 @@
                     "name": "Kiosk",
                     "content": "# Kioskito\n\nA pesar de que en este escaneo se ve bien vacío, el Kioskito CaDCC suele estar repleto de snack y bebidas que se pueden comprar.",
                     "position": {
-                        "x": 0.1359191634074891,
-                        "y": 0.49152119072067746,
-                        "z": 0.5102615921888314
+                        "x": 0.45279198595163667,
+                        "y": 0.03695237274770698,
+                        "z": -0.15237017699392152
                     },
-                    "radius": 0.1925925925925925
+                    "radius": 0.18766245126960923
                 },
                 "4fe565e9-071f-4bc9-8ba0-02b74ce044e2": {
                     "type": 1,
@@ -999,11 +998,11 @@
                     "name": "Aaron",
                     "content": "# Aaron Swartz\n\nEsta caja de información que estás leyendo fue hecho en Markdown, creado por Aaron Swartz. \n\nSi no sabes quien es, puede ser iluminador leer al respecto.\n\n",
                     "position": {
-                        "x": 0.09689695759532962,
-                        "y": 1.0265221200826369,
-                        "z": -0.7553126499835856
+                        "x": -0.7841216433587248,
+                        "y": 0.18185383570165864,
+                        "z": 0.3405589317309762
                     },
-                    "radius": 0.09259259259259255
+                    "radius": 0.09022233234115828
                 },
                 "645596cf-c916-4ab4-84dc-8817efdc993c": {
                     "type": 1,
@@ -1011,11 +1010,11 @@
                     "name": "Cajones",
                     "content": "# Cajones\n\nLas leyendas cuentan que nadie sabe que hay en estos cajones.....",
                     "position": {
-                        "x": -0.4569977289820734,
-                        "y": 0.21819103334925083,
-                        "z": 0.5393231725727377
+                        "x": 0.40418542176177535,
+                        "y": -0.5425099429235651,
+                        "z": -0.4119436164486773
                     },
-                    "radius": 0.09259259259259255
+                    "radius": 0.09022233234115828
                 },
                 "e92d1a8e-5b10-4a06-aae1-716a1ae9ed22": {
                     "type": 1,
@@ -1023,11 +1022,11 @@
                     "name": "Whiteboard",
                     "content": "# La Pizarra\n\nPlanes secretos del CaDCC, memes, tier lists, dibujos y contadores. En esta pizarra se puede encontrar de todo.",
                     "position": {
-                        "x": 0.8017417265273308,
-                        "y": 0.7202925397138098,
-                        "z": -0.2108683759437855
+                        "x": -0.15485322620997238,
+                        "y": 0.7820708672716165,
+                        "z": 0.047417513309320536
                     },
-                    "radius": 0.09259259259259255
+                    "radius": 0.09022233234115828
                 }
             },
             "barriers": {
@@ -1036,14 +1035,14 @@
                     "id": "3eab9434-184b-45bc-93d4-b860dafc9bb0",
                     "name": "Wall",
                     "startPosition": {
-                        "x": -2.189486407911777,
+                        "x": -2.137606616505926,
                         "y": 0,
-                        "z": -2.058798671269418
+                        "z": -1.9207569761902663
                     },
                     "endPosition": {
-                        "x": -1.2974793144625003,
+                        "x": -1.2455775754518454,
                         "y": 0,
-                        "z": -1.2420381823459055
+                        "z": -1.1038301904207692
                     },
                     "thickness": 0.1
                 },
@@ -1052,14 +1051,14 @@
                     "id": "7872d028-d66a-4f34-99b6-31e240d6a567",
                     "name": "Wall",
                     "startPosition": {
-                        "x": -1.3292386667585672,
+                        "x": -1.2773372059830945,
                         "y": 0,
-                        "z": -1.2496933430166832
+                        "z": -1.1114874592775514
                     },
                     "endPosition": {
-                        "x": 2.333377367052293,
+                        "x": 2.3852957836360758,
                         "y": 0,
-                        "z": -1.0111345718928861
+                        "z": -0.8728002141144078
                     },
                     "thickness": 0.1
                 },
@@ -1068,14 +1067,14 @@
                     "id": "64a4d62b-f13a-4044-86f2-33fa126e5d5d",
                     "name": "Wall",
                     "startPosition": {
-                        "x": 2.2818695201350985,
+                        "x": 2.3337851697551772,
                         "y": 0,
-                        "z": -1.1221485652833216
+                        "z": -0.9838351727692132
                     },
                     "endPosition": {
-                        "x": 2.172829217129711,
+                        "x": 2.2247892706632837,
                         "y": 0,
-                        "z": 0.7828744847006863
+                        "z": 0.9215243253524976
                     },
                     "thickness": 0.1
                 },
@@ -1084,14 +1083,14 @@
                     "id": "2b618624-07d4-4eb8-b8c8-56b53f0f4920",
                     "name": "Wall",
                     "startPosition": {
-                        "x": 2.1797680467774625,
+                        "x": 2.2317269013846865,
                         "y": 0,
-                        "z": 0.7309107617443944
+                        "z": 0.8695515181397617
                     },
                     "endPosition": {
-                        "x": 1.0696631190100614,
+                        "x": 1.121632982943002,
                         "y": 0,
-                        "z": 1.3461763494001744
+                        "z": 1.4849005233784371
                     },
                     "thickness": 0.1
                 },
@@ -1100,14 +1099,14 @@
                     "id": "9dae4d7b-f38a-4acf-85bc-b4c17e6fec94",
                     "name": "Wall",
                     "startPosition": {
-                        "x": 1.8428733326831248,
+                        "x": 1.8948380187913618,
                         "y": 0,
-                        "z": 1.0236675590710709
+                        "z": 1.162352500708269
                     },
                     "endPosition": {
-                        "x": -0.21346239874207057,
+                        "x": -0.16150266772152871,
                         "y": 0,
-                        "z": 1.0840816465833916
+                        "z": 1.2227290435562548
                     },
                     "thickness": 0.1
                 },
@@ -1116,14 +1115,14 @@
                     "id": "864d5bf2-dcff-4cb3-a5b2-c431d5529168",
                     "name": "Wall",
                     "startPosition": {
-                        "x": 1.0093758444955887,
+                        "x": 1.0613432553531124,
                         "y": 0,
-                        "z": 1.2496858029044207
+                        "z": 1.3883913899476417
                     },
                     "endPosition": {
-                        "x": 0.06501113265517844,
+                        "x": 0.11695945958517395,
                         "y": 0,
-                        "z": 0.5617651888518695
+                        "z": 0.7003261771115223
                     },
                     "thickness": 0.1
                 },
@@ -1132,14 +1131,14 @@
                     "id": "4ce12055-1bcd-40c4-b83e-c7f7ec38c36f",
                     "name": "Wall",
                     "startPosition": {
-                        "x": 0.2043778297249576,
+                        "x": 0.25632800380898063,
                         "y": 0,
-                        "z": 0.6220200018338602
+                        "z": 0.760594985966482
                     },
                     "endPosition": {
-                        "x": -1.1061717017557393,
+                        "x": -1.0542163724623317,
                         "y": 0,
-                        "z": 1.0144831018619236
+                        "z": 1.1530971469794977
                     },
                     "thickness": 0.1
                 },
@@ -1148,14 +1147,14 @@
                     "id": "d998851e-2fad-403d-a053-64c97cadcdb8",
                     "name": "Wall",
                     "startPosition": {
-                        "x": -0.505779246356076,
+                        "x": -0.4538248608457263,
                         "y": 0,
-                        "z": 0.8950597759548655
+                        "z": 1.0336666700349033
                     },
                     "endPosition": {
-                        "x": -0.7590643671341244,
+                        "x": -0.7071171896265527,
                         "y": 0,
-                        "z": 0.6215852537846027
+                        "z": 0.7601375328786997
                     },
                     "thickness": 0.1
                 },
@@ -1164,14 +1163,14 @@
                     "id": "2151ae75-eb0b-4e1f-8998-536d21f08bf4",
                     "name": "Wall",
                     "startPosition": {
-                        "x": -0.6827436950860231,
+                        "x": -0.630795558169134,
                         "y": 0,
-                        "z": 0.6523623460463064
+                        "z": 0.7909218945779966
                     },
                     "endPosition": {
-                        "x": -2.0456858830369824,
+                        "x": -1.9937353152830506,
                         "y": 0,
-                        "z": 0.9357416857216982
+                        "z": 1.0743196526884278
                     },
                     "thickness": 0.1
                 },
@@ -1180,14 +1179,14 @@
                     "id": "b4f092dc-015b-4b79-ad33-6d1f8412b094",
                     "name": "Wall",
                     "startPosition": {
-                        "x": -1.9522199425953668,
+                        "x": -1.900266357925639,
                         "y": 0,
-                        "z": 1.051860586554242
+                        "z": 1.190461412670568
                     },
                     "endPosition": {
-                        "x": -2.051667936791476,
+                        "x": -1.9997587166507145,
                         "y": 0,
-                        "z": -0.8239695786477812
+                        "z": -0.685704902252871
                     },
                     "thickness": 0.1
                 }
@@ -1198,14 +1197,14 @@
                     "id": "809a21e9-97fc-43d6-aabe-fc124a014202",
                     "name": "Edge",
                     "startPosition": {
-                        "x": -2.1521738548231135,
+                        "x": -2.1002651055784565,
                         "y": 0,
-                        "z": -0.8307547985938584
+                        "z": -0.6924936901753878
                     },
                     "endPosition": {
-                        "x": -2.1297614182918982,
+                        "x": -2.0778786114687113,
                         "y": 0,
-                        "z": -1.938290492561885
+                        "z": -1.800225949686956
                     },
                     "thickness": 0.1,
                     "destination": "bbea6b37-b841-4d11-b643-75a2aeeb6fa6"

@@ -18,7 +18,7 @@ and enabling joysticks for movement and looking.
 
 ## Composite
 
-*Placeholder*
+Show all visible scenes together to check their alignment and connections.
 `;
 
 export default function ToolbarModes() {

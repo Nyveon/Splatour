@@ -1,13 +1,13 @@
 import { Vec3 } from "@/utils/data";
-import type {
-	SceneFormatType,
-	SplatBuffer,
-} from "@mkkellogg/gaussian-splats-3d";
-import { KSplatLoader, LoaderUtils } from "@mkkellogg/gaussian-splats-3d";
 import { GSNode, GSNodeArtifact, GSNodeBarrier, GSNodePortal } from "./GSNode";
 import { GSSky } from "./GSSky";
+import {
+	PostProcessingSettings,
+	resolvePostProcessing,
+} from "./PostProcessing";
 
 export interface SerialGSScene {
+	postProcessing?: PostProcessingSettings;
 	id: string;
 	filePath: string;
 	name: string;
@@ -21,6 +21,7 @@ export interface SerialGSScene {
 }
 
 export interface GSScene {
+	postProcessing: PostProcessingSettings;
 	// Metadata
 	id: string;
 	filePath: string;
@@ -32,7 +33,7 @@ export interface GSScene {
 	position: Vec3;
 
 	// Rendering
-	buffer?: SplatBuffer;
+	file?: File;
 	hidden?: boolean;
 
 	// Skybox
@@ -53,6 +54,7 @@ export const gssResetTransform = {
 
 export function gssCreate(filePath: string, name: string): GSScene {
 	return {
+		postProcessing: resolvePostProcessing(),
 		id: crypto.randomUUID(),
 		filePath: filePath,
 		name: name,
@@ -66,17 +68,16 @@ export function gssCreate(filePath: string, name: string): GSScene {
 	};
 }
 
-export function gssCreateBuffer(
-	fileName: string,
-	buffer: SplatBuffer
-): GSScene {
-	const scene = gssCreate(fileName, fileName);
-	scene.buffer = buffer;
+/** Keep the original file; each viewer owns and disposes its decoded GPU data. */
+export function gssCreateFromFile(file: File): GSScene {
+	const scene = gssCreate(file.name, file.name);
+	scene.file = file;
 	return scene;
 }
 
 export function gssDeserialize(scene: SerialGSScene): GSScene {
 	const gssBase = gssCreate(scene.filePath, scene.name);
+	gssBase.postProcessing = resolvePostProcessing(scene.postProcessing);
 	if (scene.id) gssBase.id = scene.id;
 	gssBase.scale = scene.scale;
 	gssBase.rotation = scene.rotation;
@@ -97,6 +98,7 @@ export function gssDeserialize(scene: SerialGSScene): GSScene {
 
 export function gssSerialize(scene: GSScene): SerialGSScene {
 	return {
+		postProcessing: resolvePostProcessing(scene.postProcessing),
 		id: scene.id,
 		filePath: scene.filePath,
 		name: scene.name,
@@ -115,64 +117,78 @@ export function gssSerialize(scene: GSScene): SerialGSScene {
 
 export class SplatFormatError extends Error {
 	constructor() {
-		super("Invalid file format");
+		super(
+			"Unsupported scene format. Choose a Gaussian splat .ply, .ksplat, or .spz file."
+		);
 		this.name = "SplatFormatError";
 	}
 }
 
-/**
- * Turns a ply/splat/ksplat file into a loaded splat buffer
- * ! .ply and .splat are currently disabled
- * @param fileBufferData of the file
- * @param format GS3D format of the file
- * @returns Promise of the loaded splat buffer
- */
-export async function fileToSplatBuffer(file: File) {
-	const fileName = file.name;
-	const format = LoaderUtils.sceneFormatFromPath(fileName);
-
-	if (!format) {
-		throw new SplatFormatError();
-	}
-
-	const fileData = await file.arrayBuffer();
-	return fileBufferToSplatBuffer(fileData, format);
+export function isSupportedSceneFile(fileName: string): boolean {
+	return /\.(ply|ksplat|spz)$/i.test(fileName);
 }
 
-function fileBufferToSplatBuffer(
-	fileBufferData: ArrayBuffer,
-	format: SceneFormatType
-): Promise<SplatBuffer> {
-	if (format === 0) {
-		// splat
-		throw new Error("Not yet implement, try with .ksplat");
-		// return GaussianSplats3D.PlyLoader.loadFromFileData(
-		// 	fileBufferData.data,
-		// 	alphaRemovalThreshold,
-		// 	compressionLevel,
-		// 	true,
-		// 	outSphericalHarmonicsDegree,
-		// 	sectionSize,
-		// 	sceneCenter,
-		// 	blockSize,
-		// 	bucketSize
-		// );
-	} else if (format === 2) {
-		//ply
-		throw new Error("Not yet implement, try with .ksplat");
-		// return GaussianSplats3D.SplatLoader.loadFromFileData(
-		// 	fileBufferData.data,
-		// 	alphaRemovalThreshold,
-		// 	compressionLevel,
-		// 	true,
-		// 	sectionSize,
-		// 	sceneCenter,
-		// 	blockSize,
-		// 	bucketSize
-		// );
-	} else if (format === 1) {
-		//ksplat
-		return KSplatLoader.loadFromFileData(fileBufferData);
+/** Check the small SPZ header without decoding the full point cloud. */
+async function validateSpzFile(file: File): Promise<void> {
+	let header = new Uint8Array(await file.slice(0, 32).arrayBuffer());
+	const gzip = header[0] === 0x1f && header[1] === 0x8b;
+	if (gzip) {
+		const reader = file
+			.stream()
+			.pipeThrough(new DecompressionStream("gzip"))
+			.getReader();
+		try {
+			header = new Uint8Array(16);
+			let offset = 0;
+			while (offset < header.length) {
+				const { value, done } = await reader.read();
+				if (done) throw new Error("Incomplete SPZ header.");
+				const count = Math.min(value.length, header.length - offset);
+				header.set(value.subarray(0, count), offset);
+				offset += count;
+			}
+		} catch {
+			throw new Error("Invalid or truncated gzip-compressed SPZ file.");
+		} finally {
+			await reader.cancel().catch(() => undefined);
+		}
 	}
-	throw new Error("Invalid file format");
+	if (header.length < (gzip ? 16 : 32))
+		throw new Error("Incomplete SPZ header.");
+	const view = new DataView(
+		header.buffer,
+		header.byteOffset,
+		header.byteLength
+	);
+	if (view.getUint32(0, true) !== 0x5053474e)
+		throw new Error("Invalid SPZ header.");
+	const version = view.getUint32(4, true);
+	if (gzip ? version < 1 || version > 3 : version !== 4)
+		throw new Error(`Unsupported SPZ version: ${version}.`);
+	if (view.getUint32(8, true) === 0)
+		throw new Error("SPZ file contains no splats.");
+	if (!gzip) {
+		const streams = header[15];
+		const tableOffset = view.getUint32(16, true);
+		if (!streams || tableOffset < 32 || tableOffset + streams * 16 >= file.size)
+			throw new Error("SPZ attribute data is truncated.");
+	}
+}
+
+/** Validate the local asset without storing renderer resources in project state. */
+export async function validateSceneFile(file: File): Promise<void> {
+	if (!isSupportedSceneFile(file.name)) throw new SplatFormatError();
+	if (file.size < 4) throw new Error("Scene file is empty or truncated.");
+	if (/\.ply$/i.test(file.name)) {
+		const header = await file.slice(0, 65536).text();
+		if (!header.startsWith("ply\n") && !header.startsWith("ply\r\n")) {
+			throw new Error("Invalid PLY header.");
+		}
+		if (!header.includes("end_header"))
+			throw new Error("Incomplete PLY header.");
+	} else if (/\.spz$/i.test(file.name)) {
+		await validateSpzFile(file);
+	} else if (file.size < 4096) {
+		throw new Error("KSPLAT file is truncated.");
+	}
 }

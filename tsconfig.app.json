@@ -26,10 +26,9 @@
 
     "types": ["vite/client", "@types/wicg-file-system-access"],
 
-    "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
     }
   },
-  "include": ["src", "src/decs.d.ts"]
+  "include": ["src"]
 }

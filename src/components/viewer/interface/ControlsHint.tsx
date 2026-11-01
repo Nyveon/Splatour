@@ -90,6 +90,13 @@ export default function ControlsHints() {
 			<Controls className="controls-content">
 				<ControlSubGroup>
 					<GroupSide>
+						<Icon icon="info" />
+						Information markers:
+					</GroupSide>
+					<GroupSide>N key (viewing)</GroupSide>
+				</ControlSubGroup>
+				<ControlSubGroup>
+					<GroupSide>
 						<Icon icon="eye" />
 						Lock in:
 					</GroupSide>
@@ -114,10 +121,26 @@ export default function ControlsHints() {
 
 				<ControlSubGroup>
 					<GroupSide>
+						<Icon icon="chevrons-down" />
+						Crouch:
+					</GroupSide>
+					<GroupSide>Shift key</GroupSide>
+				</ControlSubGroup>
+
+				<ControlSubGroup>
+					<GroupSide>
 						<Icon icon="camera" />
 						Look:
 					</GroupSide>
 					<GroupSide>Move mouse</GroupSide>
+				</ControlSubGroup>
+
+				<ControlSubGroup>
+					<GroupSide>
+						<Icon icon="zoom-in" />
+						Zoom:
+					</GroupSide>
+					<GroupSide>Mouse wheel</GroupSide>
 				</ControlSubGroup>
 
 				<ControlSubGroup>

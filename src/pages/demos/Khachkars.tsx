@@ -1,4 +1,4 @@
-import mapUrl from "Khachkars/map.json?url";
+import mapUrl from "../../../Khachkars/map.json?url";
 import CompositePreview from "./CompositePreview";
 
 export default function Khachkars() {

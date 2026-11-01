@@ -19,7 +19,7 @@ const placementFar = 10;
 export default function PortalEdgePlacer() {
 	const previewRef = useRef<Mesh>(null);
 	const placerRef = useRef<Mesh>(null);
-	const startPosition = useRef<Vector3>();
+	const startPosition = useRef<Vector3 | undefined>(undefined);
 
 	function reset() {
 		startPosition.current = undefined;

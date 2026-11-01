@@ -20,7 +20,7 @@ export default function MapSave() {
 			const fileHandle = await directoryHandle.getFileHandle(mapFileName);
 
 			const mapData = useGSStore.getState().gsmap;
-			const serializedMap = JSON.stringify(gsmSerialize(mapData));
+			const serializedMap = JSON.stringify(gsmSerialize(mapData), null, 4) + "\n";
 
 			const writeable = await fileHandle.createWritable();
 			await writeable.write(serializedMap);

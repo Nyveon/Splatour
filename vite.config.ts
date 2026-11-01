@@ -22,17 +22,10 @@ export default defineConfig(({ mode }) => {
 		// staticFiles.push({ src: "./public/test.ksplat", dest: "./" });
 		// staticFiles.push({ src: "./public/SalitaFinal.ksplat", dest: "./" });
 
-		// Demo: DCC Norte
+		// DCC_Norte is the editable project; publish its flat map + assets together.
+		// New scenes need no additional build configuration. Excludes archive/.
 		staticFiles.push({
-			src: "./DCC_Norte/hallway.compressed.ply",
-			dest: "./DCC_Norte",
-		});
-		staticFiles.push({
-			src: "./DCC_Norte/ofisalita.compressed.ply",
-			dest: "./DCC_Norte",
-		});
-		staticFiles.push({
-			src: "./DCC_Norte/salita2x.compressed.ply",
+			src: "./DCC_Norte/*.{json,ply,ksplat}",
 			dest: "./DCC_Norte",
 		});
 

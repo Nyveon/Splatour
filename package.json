@@ -6,7 +6,9 @@
     "homepage": "https://github.com/Nyveon/Splatour",
     "scripts": {
         "dev": "vite --host",
-        "build:main": "vite build --mode main",
+        "edit:dcc": "node scripts/check-dcc.mjs --edit && vite --host --open /#/editor",
+        "check:dcc": "node scripts/check-dcc.mjs",
+        "build:main": "npm run check:dcc && vite build --mode main",
         "build:viewer": "vite build --mode viewer",
         "build": "tsc -b && npm run build:main && npm run build:viewer",
         "lint": "eslint .",

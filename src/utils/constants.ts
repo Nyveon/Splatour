@@ -60,7 +60,7 @@ export const mapAssetsSubfolder = "gsmap";
 
 //* 1 unit = 100cm
 export const playerHeight = 1.7;
-export const playerCrouchHeight = 0.7;
+export const playerCrouchHeight = 1.1;
 export const barrierHeight = playerHeight * 1.5;
 export const barrierWallThickness = 0.1;
 

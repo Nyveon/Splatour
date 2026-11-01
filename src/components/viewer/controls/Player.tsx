@@ -1,12 +1,18 @@
+import { useGSStore } from "@/hooks/useGSStore";
 import { useInteractions } from "@/hooks/useInteractions";
 import { useJoystickControls } from "@/hooks/useJoystickControls";
 import { useSettingsStore } from "@/hooks/useSettingsStore";
-import { Controls, playerCrouchHeight, playerHeight } from "@/utils/constants";
-import { toastError } from "@/utils/toasts";
+import {
+	barrierHeight,
+	Controls,
+	playerCrouchHeight,
+	playerHeight,
+} from "@/utils/constants";
+import { moveTourPlayer } from "@/utils/tourCollisions";
 import { useKeyboardControls } from "@react-three/drei";
 import { RootState, useFrame } from "@react-three/fiber";
 import { useRef } from "react";
-import { MathUtils, Matrix3, type Object3D, Raycaster, Vector3 } from "three";
+import { MathUtils, Vector3 } from "three";
 
 const rotationSpeed = 1.5; // for joystick
 const walkingSpeed = 1.4; // meters per second
@@ -19,114 +25,24 @@ const forward = new Vector3();
 const right = new Vector3();
 const move = new Vector3();
 
-const collisionDirection = new Vector3();
-const collisionRaycaster = new Raycaster();
-const collisionNormal = new Vector3();
-const collidables: Object3D[] = [];
-const remainingMovement = new Vector3();
-const proposedPosition = new Vector3();
-const normalMatrix = new Matrix3();
-
-//todo: make this a cache and only invalidate it when adding/removing collidables
-function findCollidablesRecursively(object: Object3D) {
-	if (object.userData.collidable) {
-		collidables.push(object);
-		return;
-	}
-
-	if (object.userData.hasCollidables) {
-		object.children.forEach(findCollidablesRecursively);
-	}
-}
-
-function checkCollisions(
-	scene: Object3D,
-	currentPosition: Vector3,
-	proposedPosition: Vector3
-): Vector3 | null {
-	collidables.length = 0;
-	scene.children.forEach(findCollidablesRecursively);
-
-	collisionDirection.subVectors(proposedPosition, currentPosition).normalize();
-	const distance = currentPosition.distanceTo(proposedPosition);
-
-	collisionRaycaster.near = 0;
-	collisionRaycaster.far = distance;
-	collisionRaycaster.set(currentPosition, collisionDirection);
-
-	const intersects = collisionRaycaster.intersectObjects(collidables, false);
-
-	if (intersects.length > 0) {
-		const collider = intersects[0];
-
-		if (
-			collider.object.userData.portalFrom &&
-			collider.object.userData.portalTo
-		) {
-			const portalFrom = collider.object.userData.portalFrom as string;
-			const portalTo = collider.object.userData.portalTo as string;
-			const currentScene = useInteractions.getState().currentSceneId;
-
-			if (portalFrom === currentScene) {
-				if (portalTo === currentScene) {
-					toastError("Must set a destination for the portal");
-				} else {
-					useInteractions.getState().setCurrentSceneId(portalTo);
-				}
-			}
-
-			return null;
-		} else if (collider.face) {
-			normalMatrix.getNormalMatrix(collider.object.matrixWorld);
-			collisionNormal
-				.copy(collider.face.normal)
-				.applyNormalMatrix(normalMatrix)
-				.normalize();
-		} else {
-			collisionNormal.set(0, 1, 0);
-		}
-
-		return collisionNormal;
-	}
-
-	return null;
-}
-
 function applyCollisionResponse(
-	scene: Object3D,
 	currentPosition: Vector3,
 	movementVector: Vector3
 ): void {
 	if (useSettingsStore.getState().noclip && useSettingsStore.getState().debug) {
 		return;
 	}
-
-	const maxIterations = 3;
-	let iteration = 0;
-	remainingMovement.copy(movementVector);
-
-	while (iteration < maxIterations && remainingMovement.lengthSq() > 0) {
-		proposedPosition.copy(currentPosition).add(remainingMovement);
-
-		const collisionResult = checkCollisions(
-			scene,
-			currentPosition,
-			proposedPosition
-		);
-
-		if (!collisionResult) {
-			break;
-		}
-
-		const collisionNormal = collisionResult;
-		const pushBack =
-			remainingMovement.dot(collisionNormal) / collisionNormal.lengthSq();
-		const adjustment = collisionNormal.clone().multiplyScalar(pushBack);
-		remainingMovement.sub(adjustment);
-		iteration++;
+	// Preserve the editor's ability to fly above or below the ground barriers.
+	if (currentPosition.y < 0 || currentPosition.y > barrierHeight) return;
+	const map = useGSStore.getState().gsmap;
+	const interactions = useInteractions.getState();
+	const sceneId = interactions.currentSceneId || map.defaultScene;
+	const result = moveTourPlayer(map, sceneId, currentPosition, movementVector);
+	movementVector.x = result.position.x - currentPosition.x;
+	movementVector.z = result.position.z - currentPosition.z;
+	if (result.sceneId !== sceneId) {
+		interactions.setCurrentSceneId(result.sceneId);
 	}
-
-	movementVector.copy(remainingMovement);
 }
 
 export default function Player() {
@@ -138,12 +54,13 @@ export default function Player() {
 	useFrame((state: RootState, delta: number) => {
 		// WebXR owns the head pose; VRControls moves its parent rig instead.
 		if (state.gl.xr.isPresenting) return;
+		// Avoid huge camera jumps after a stall or returning to a background tab.
+		delta = Math.min(delta, 0.1);
 		// Handle teleportation
 		const teleportPending = useInteractions.getState().teleportPending;
 		const setTeleportPending = useInteractions.getState().setTeleportPending;
 
 		if (teleportPending) {
-			console.log(teleportPending);
 			state.camera.position.set(
 				teleportPending.x,
 				teleportPending.y,
@@ -163,7 +80,9 @@ export default function Player() {
 
 		// Crouching
 		const crouching = Boolean(controls[Controls.crouch]);
-		const targetCrouchOffset = crouching ? playerCrouchHeight - playerHeight : 0;
+		const targetCrouchOffset = crouching
+			? playerCrouchHeight - playerHeight
+			: 0;
 		const prevCrouchOffset = crouchOffset.current;
 		// smoothing
 		crouchOffset.current = MathUtils.damp(
@@ -172,7 +91,7 @@ export default function Player() {
 			10,
 			delta
 		);
-		camera.position.y += crouchOffset.current - prevCrouchOffset
+		camera.position.y += crouchOffset.current - prevCrouchOffset;
 
 		// Camera direction from inputs
 		camera.rotation.order = "YXZ";
@@ -196,11 +115,6 @@ export default function Player() {
 			strafeDirection !== 0 ||
 			verticalDirection !== 0;
 
-		// Skip if no change
-		if (!rotationChange && !translationChange) {
-			return;
-		}
-
 		// Calculate movement
 		camera.getWorldDirection(forward);
 		forward.y = 0;
@@ -215,14 +129,17 @@ export default function Player() {
 
 		move.normalize();
 		const instantSpeed =
-			useSettingsStore.getState().flySpeed * walkingSpeed * (crouching ? 0.5 : 1.0) * delta;
+			useSettingsStore.getState().flySpeed *
+			walkingSpeed *
+			(crouching ? 0.5 : 1.0) *
+			delta;
 		move.multiplyScalar(instantSpeed);
 
 		// Collisions
-		applyCollisionResponse(state.scene, camera.position, move);
+		applyCollisionResponse(camera.position, move);
 
 		// View bobbing
-		if (move.length() > instantSpeed / 2) {
+		if (translationChange && move.length() > instantSpeed / 2) {
 			bobbingPhase.current += delta * bobbingSpeed;
 			bobbingOffset.current = Math.sin(bobbingPhase.current) * bobbingAmplitude;
 		} else {
@@ -232,13 +149,21 @@ export default function Player() {
 		camera.position.y += bobbingOffset.current - prevBobbingOffset;
 
 		// Update camera
-		state.events.update?.();
 		camera.position.add(move);
 		camera.rotation.y += cameraDY;
 		camera.rotation.x = Math.max(
 			-Math.PI / 2,
 			Math.min(Math.PI / 2, camera.rotation.x + cameraDX)
 		);
+		if (
+			rotationChange ||
+			move.lengthSq() > 0 ||
+			teleportPending ||
+			Math.abs(crouchOffset.current - prevCrouchOffset) > 1e-6 ||
+			bobbingOffset.current !== prevBobbingOffset
+		) {
+			state.events.update?.();
+		}
 	});
 
 	return null;

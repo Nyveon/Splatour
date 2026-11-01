@@ -86,7 +86,11 @@ export default function SceneDynamic({
 	return (
 		<group
 			ref={sceneRef}
-			userData={{ hasCollidables: true, floorAlignmentSceneId: sceneId }}
+			userData={{
+				hasCollidables: true,
+				floorAlignmentSceneId: sceneId,
+				tourSceneId: sceneId,
+			}}
 		>
 			<group ref={relativeGroupRef}>
 				<SceneViewer ref={splatSceneRef} sceneData={sceneData} />

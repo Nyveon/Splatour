@@ -3,9 +3,10 @@ import { playerHeight } from "@/utils/constants";
 import { useFrame, useThree } from "@react-three/fiber";
 import { Hand, SparkXr, type JointSplats } from "@sparkjsdev/spark";
 import { useEffect, useRef, type RefObject } from "react";
-import { Euler, Group, PerspectiveCamera, Vector3 } from "three";
+import { Euler, Group, PerspectiveCamera } from "three";
+import VRLocomotion from "./VRLocomotion";
 
-/** Experimental free movement viewer. Tour collisions and portals are not used. */
+/** VR session, tracked hands, and comfort locomotion for the tour viewer. */
 export default function VRControls({
 	containerRef,
 	onSessionChange,
@@ -16,6 +17,7 @@ export default function VRControls({
 	const { gl, camera, scene } = useThree();
 	const xrRef = useRef<SparkXr | null>(null);
 	const handMeshesRef = useRef<JointSplats[]>([]);
+	const rigRef = useRef<Group | null>(null);
 
 	useEffect(() => {
 		const container = containerRef.current;
@@ -23,6 +25,7 @@ export default function VRControls({
 		let disposed = false;
 		let active = false;
 		const rig = new Group();
+		rigRef.current = rig;
 		rig.name = "DCC Norte VR player";
 		const savedPosition = camera.position.clone();
 		const savedQuaternion = camera.quaternion.clone();
@@ -127,30 +130,10 @@ export default function VRControls({
 					if (disposed && xr?.session)
 						void xr.session.end().catch(console.error);
 				},
-				controllers: {
-					moveSpeed: 1,
-					rotateSpeed: 1,
-					moveDirection: true,
-					// Flat movement only; Spark's defaults also allow trigger flight.
-					getMove: ({ left }) =>
-						new Vector3(
-							Math.abs(left?.axes[2] ?? 0) > 0.15 ? left!.axes[2] : 0,
-							0,
-							Math.abs(left?.axes[3] ?? 0) > 0.15 ? left!.axes[3] : 0
-						),
-					getRotate: ({ right }) =>
-						new Vector3(
-							Math.abs(right?.axes[2] ?? 0) > 0.15 ? right!.axes[2] : 0,
-							0,
-							0
-						),
-					getFast: () => false,
-					getSlow: () => false,
-				},
 				onReady: (supported) => {
 					if (disposed || !supported) return;
 					status.textContent =
-						"VR WIP. Left stick to move, right stick to rotate. Exit using the Quest menu.";
+						"Left stick to move, right stick to turn.";
 					panel.style.display = "";
 				},
 			});
@@ -202,6 +185,7 @@ export default function VRControls({
 			disposed = true;
 			xrRef.current = null;
 			exit();
+			rigRef.current = null;
 			for (const hand of handMeshesRef.current) {
 				hand.removeFromParent();
 				hand.dispose();
@@ -220,7 +204,6 @@ export default function VRControls({
 		gl.xr.updateCamera(camera);
 		const xr = xrRef.current;
 		if (!xr) return;
-		xr.updateControllers(camera);
 		// Clear stale poses even when this frame has no usable hand tracking.
 		for (const hand of xr.hands) hand.joints = undefined;
 		if (xrFrame) xr.updateHands({ xrFrame });
@@ -229,5 +212,5 @@ export default function VRControls({
 			mesh.updateJoints(hand?.joints);
 		}
 	}, -1);
-	return null;
+	return <VRLocomotion rigRef={rigRef} />;
 }

@@ -27,6 +27,11 @@ dist-ssr
 *.ply
 *.splat
 *.ksplat
+*.spz
+
+!DCC_Norte/*.spz
+DCC_Norte/raw
+
 
 !docs/DCC_Norte/*
 !docs/Khachkars/*

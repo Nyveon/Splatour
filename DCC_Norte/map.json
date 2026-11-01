@@ -7,7 +7,7 @@
     "scenes": [
         {
             "id": "70527e14-fbed-481c-a867-a0744126f42c",
-            "filePath": "salita2x.compressed.ply",
+            "filePath": "salita.spz",
             "name": "Salita",
             "scale": {
                 "x": 3,
@@ -15,9 +15,9 @@
                 "z": 3
             },
             "rotation": {
-                "x": -2.774997103899145,
-                "y": 1.524025243301884,
-                "z": -0.33969629755590736
+                "x": -1.5447683145896007,
+                "y": 0.017354899895970957,
+                "z": -1.5345260007587787
             },
             "position": {
                 "x": 0.0781557011505728,
@@ -35,9 +35,9 @@
                     "name": "Refrigerador",
                     "content": "# Refrigerador\n\nEste refrigerador es de uso libre, pero si guardas algo ponle nombre y no olvides sacarlo después.",
                     "position": {
-                        "x": -0.9390535854484526,
-                        "y": 0.16619290807073217,
-                        "z": 0.4225830322372597
+                        "x": -0.9423378791746363,
+                        "y": 0.42046515975780596,
+                        "z": -0.15240245757181642
                     },
                     "radius": 0.07302277445848818
                 },
@@ -47,9 +47,9 @@
                     "name": "Trophies",
                     "content": "# #DCCCampeón\n\n¿Sabías que el DCC lleva una racha de *~2~ ~3~* **4** victorias en la Mona?!?\n\n*vo tenis que ser del anakena*\n",
                     "position": {
-                        "x": -1.0649042474207435,
-                        "y": -0.26168976386601034,
-                        "z": -0.0004496995184636639
+                        "x": -1.064862868899303,
+                        "y": -0.017409056788659505,
+                        "z": 0.2612791344480474
                     },
                     "radius": 0.07302277445848818
                 },
@@ -59,9 +59,9 @@
                     "name": "Tazas",
                     "content": "# Tazas\n\n1. Las tazas sin nombre se pueden usar\n2. Las con nombre NO se pueden usar\n3. **Siempre lavar después de usar.**",
                     "position": {
-                        "x": -1.0052542484936082,
-                        "y": 0.21916880281597606,
-                        "z": -0.05929592087375989
+                        "x": -1.0047633389544388,
+                        "y": -0.05991003861007385,
+                        "z": -0.22124306642552943
                     },
                     "radius": 0.07302277445848818
                 },
@@ -71,9 +71,9 @@
                     "name": "Insumos",
                     "content": "# Insumos\n\nLos condimentos, endulzantes, tés y cafés sin nombre son de uso libre.",
                     "position": {
-                        "x": -1.0251444819639761,
-                        "y": 0.05549831984760057,
-                        "z": 0.17519916564695387
+                        "x": -1.0264863523119092,
+                        "y": 0.16890179577189746,
+                        "z": -0.049939683147811935
                     },
                     "radius": 0.07302277445848818
                 },
@@ -83,9 +83,9 @@
                     "name": "Wifi",
                     "content": "# Wifi\n\nAparte de la red CaDCC, en el DCC llegan las siguientes redes:\n\n1. DCCAir (con la cuenta Anakena)\n2. Eduroam (U-Pasaporte)\n3. FCFM (ing@uchile)\n",
                     "position": {
-                        "x": -0.5178027621597412,
-                        "y": 0.2175113725304874,
-                        "z": -0.6034494737550506
+                        "x": -0.5130647938460043,
+                        "y": -0.5999899224314078,
+                        "z": -0.23740003233384796
                     },
                     "radius": 0.07302277445848818
                 },
@@ -95,9 +95,9 @@
                     "name": "Iceberg",
                     "content": "Preguntale a tu viejón más cercano sobre el \"Iceberg DCC\"...",
                     "position": {
-                        "x": -0.8710523209401627,
-                        "y": -0.13704830921519529,
-                        "z": 0.7432393854269356
+                        "x": -0.8768441626389213,
+                        "y": 0.7314779928262299,
+                        "z": 0.16125578867363446
                     },
                     "radius": 0.07302277445848818
                 },
@@ -107,9 +107,9 @@
                     "name": "Plasticina",
                     "content": "# \"Plasticina\"\n\nSi aún no sabes que son, paciencia, lo sabrás algún día.",
                     "position": {
-                        "x": 0.8529086003307877,
-                        "y": 0.20312004857801885,
-                        "z": -0.6726851395917043
+                        "x": 0.8581470850884103,
+                        "y": -0.658929171539741,
+                        "z": -0.22497124022480416
                     },
                     "radius": 0.07302277445848818
                 },
@@ -119,9 +119,9 @@
                     "name": "CRT",
                     "content": "# El CRT\n\nConectada a este televisor hay una Wii, Playstation 1 y Playstation 2.\n\nSe usa principalmente para jugar *Super Smash Bros Melee*.",
                     "position": {
-                        "x": 1.0432066475962316,
-                        "y": 0.15102555828704226,
-                        "z": -0.16324943689057744
+                        "x": 1.0444502722209548,
+                        "y": -0.15001246739842414,
+                        "z": -0.15607400799807114
                     },
                     "radius": 0.07302277445848818
                 },
@@ -131,9 +131,9 @@
                     "name": "Gaming",
                     "content": "# Gaming\n\nEn la Salita la gente suele juntarse a jugar videojuegos.\n\nConectada a esta tele hay una Nintendo Switch, Playstation 3 y Xbox 360, con una gran variedad de juegos.",
                     "position": {
-                        "x": 1.1716670978724308,
-                        "y": 0.08155893367476941,
-                        "z": 0.556128770502526
+                        "x": 1.1672737697017048,
+                        "y": 0.5676697749558101,
+                        "z": -0.06291129030319091
                     },
                     "radius": 0.14896645989531584
                 },
@@ -143,9 +143,9 @@
                     "name": "Arte",
                     "content": "# Arte\n\nNotarás que los muros de la salita están cubiertos en arte hecho por talentosxs DCCianxs.\n\nNo estamos *beating the allegations* de ser otakus, eso sí.",
                     "position": {
-                        "x": 0.48485878228689777,
-                        "y": 0.007488154662236091,
-                        "z": 0.8441485476973704
+                        "x": 0.4782321311313082,
+                        "y": 0.8477068368016718,
+                        "z": 0.020445767138205288
                     },
                     "radius": 0.07302277445848818
                 },
@@ -155,9 +155,9 @@
                     "name": "Puerta2",
                     "content": "# La Otra Puerta\n\nLa Salita eran dos salas distintas... \n\nHasta que se derribó el muro a lo 1989.",
                     "position": {
-                        "x": 0.435331010638509,
-                        "y": -0.017902600166817464,
-                        "z": -0.653683928045693
+                        "x": 0.4404378659466227,
+                        "y": -0.6504907455712764,
+                        "z": -0.0035420146859301803
                     },
                     "radius": 0.07302277445848818
                 },
@@ -167,9 +167,9 @@
                     "name": "Mesas",
                     "content": "# Mesas\n\nEn la salita la gente estudia, socializa, juega, almuerza, entre otras cosas.\n\nSi buscas un lugar más silencioso para estudiar, se recomienda el *Toqui* o el *Eniac* en el edificio Poniente.",
                     "position": {
-                        "x": 0.12662841133421013,
-                        "y": 0.27901437667713863,
-                        "z": 0.4943761083558164
+                        "x": 0.1227468857964376,
+                        "y": 0.5042774790786517,
+                        "z": -0.2625432146979931
                     },
                     "radius": 0.1869383026137297
                 },
@@ -179,9 +179,9 @@
                     "name": "Pikachus",
                     "content": "# Pikachus\n\nEstos pikachus con pelo son los premios de los *DCC Awards 2016*.\n\n",
                     "position": {
-                        "x": 1.259584979868886,
-                        "y": 0.1927005517451935,
-                        "z": 0.23160735776932756
+                        "x": 1.2577285010234502,
+                        "y": 0.24768497982120743,
+                        "z": -0.18466445465050044
                     },
                     "radius": 0.07302277445848818
                 },
@@ -191,9 +191,9 @@
                     "name": "Electros",
                     "content": "# Electrodomésticos\n\nEn la Salita hay un par de hervidores, un microondas y un horno eléctrico. Son de uso común, pero se ruega **mantenerlos limpios** y **no calentar comidas apestosas**. Para eso están los microondas del pasillo.",
                     "position": {
-                        "x": -0.9582379128927321,
-                        "y": 0.22291465887936096,
-                        "z": 0.22848384004579497
+                        "x": -0.9600024991984963,
+                        "y": 0.22819613514098633,
+                        "z": -0.2154934649815426
                     },
                     "radius": 0.07302277445848818
                 },
@@ -203,9 +203,9 @@
                     "name": "Guitars",
                     "content": "# Guitarras\n\nLas mismísimas guitarras del clásico \"Hombre pelo negro con lentes tocando guitarra en la salita\"",
                     "position": {
-                        "x": 0.4375623980647192,
-                        "y": 0.3216803286024093,
-                        "z": -0.4815117650926226
+                        "x": 0.4413139418678417,
+                        "y": -0.4672104795550708,
+                        "z": -0.33726701356566574
                     },
                     "radius": 0.07302277445848818
                 },
@@ -215,9 +215,9 @@
                     "name": "Water",
                     "content": "# Agua\n\nCon este pote se trae agua filtrada de la cocina DCC para el hervidor.",
                     "position": {
-                        "x": -0.6010604834799191,
-                        "y": 0.24758103572064435,
-                        "z": 0.6700763084386662
+                        "x": -0.6062952026701678,
+                        "y": 0.67314427868183,
+                        "z": -0.22551106508876903
                     },
                     "radius": 0.05403685309928125
                 },
@@ -227,9 +227,9 @@
                     "name": "Placeholding",
                     "content": "# \"No place holding\"\n\nHay épocas del año cuando la Salita es mucho más concurrida. En estos tiempos, hay que tener cuidado de no dejar \"guardados\" puestos dejando mochilas o computadores.",
                     "position": {
-                        "x": -0.026059607199435092,
-                        "y": -0.019674647558990992,
-                        "z": 0.8836025629941504
+                        "x": -0.032979063862228174,
+                        "y": 0.8822433615661405,
+                        "z": 0.04877208764281656
                     },
                     "radius": 0.07302277445848818
                 },
@@ -239,9 +239,9 @@
                     "name": "Guitar Hero",
                     "content": "# Guitar Hero\n\nDentro de los varios juegos que se juegan la salita, también se juega *Guitar Hero*.",
                     "position": {
-                        "x": 1.036581562958293,
-                        "y": 0.3113014125532229,
-                        "z": -0.5001217274969022
+                        "x": 1.040460697806596,
+                        "y": -0.48146220984119725,
+                        "z": -0.32736420887418
                     },
                     "radius": 0.07302277445848818
                 },
@@ -251,9 +251,9 @@
                     "name": "Birthdays",
                     "content": "# Cumpleaños\n\nHay un gráfico radial de cumpleaños, pero como no se actualiza es más como una reliquia de otra época.",
                     "position": {
-                        "x": -0.9286671618045086,
-                        "y": 0.04849613838281742,
-                        "z": 0.6626759896264933
+                        "x": -0.9338299205318092,
+                        "y": 0.6566235345612539,
+                        "z": -0.026856162409768125
                     },
                     "radius": 0.07302277445848818
                 },
@@ -263,9 +263,9 @@
                     "name": "Windows",
                     "content": "Las ventanas no se abren mucho, pero hay que dejarlas abiertas igual porque el DCC no tiene muy buena ventilación que digamos...\n\nOjalá eso cambie con la actual remodelación de la Salita :D",
                     "position": {
-                        "x": 0.22104033108623203,
-                        "y": 0.18790107048022514,
-                        "z": 0.9010134320031955
+                        "x": 0.21397280918675862,
+                        "y": 0.9084184255934822,
+                        "z": -0.15805836224473882
                     },
                     "radius": 0.07302277445848818
                 }
@@ -636,7 +636,7 @@
         },
         {
             "id": "bbea6b37-b841-4d11-b643-75a2aeeb6fa6",
-            "filePath": "hallway.compressed.ply",
+            "filePath": "hallway.spz",
             "name": "Hallway",
             "scale": {
                 "x": 8.187825850751606,
@@ -644,9 +644,9 @@
                 "z": 8.18782585075161
             },
             "rotation": {
-                "x": 0.43071657548869124,
-                "y": -1.51216614550974,
-                "z": -2.7137230320670653
+                "x": -1.5647146953765159,
+                "y": -0.07302404928510425,
+                "z": 1.6242802042801676
             },
             "position": {
                 "x": -2.7874138867217755,
@@ -665,9 +665,9 @@
                     "name": "Printer",
                     "content": "# Impresora\n\nInformación sobre cómo imprimir en el DCC se puede encontrar en el FAQ CaDCC.",
                     "position": {
-                        "x": 0.3723708042052353,
-                        "y": 0.06482355800080442,
-                        "z": 0.09483960211256898
+                        "x": 0.37237240673512084,
+                        "y": 0.0978861953498072,
+                        "z": -0.060114416635619596
                     },
                     "radius": 0.050074342990864155
                 },
@@ -677,9 +677,9 @@
                     "name": "Biblioteca",
                     "content": "# Biblioteca CaDCC\n\nLibros de computación donados al CaDCC. Se pueden pedir prestados.\n\nPara pedir prestado un libro, te puedes dejar anotadx en la Ofisalita.\n",
                     "position": {
-                        "x": 0.11750256352624605,
-                        "y": 0.027403430294666298,
-                        "z": 0.12049799172725012
+                        "x": 0.11750341949757126,
+                        "y": 0.12169040612323132,
+                        "z": -0.021493205935722376
                     },
                     "radius": 0.050074342990864155
                 },
@@ -689,9 +689,9 @@
                     "name": "Casilleros",
                     "content": "# Casilleros\n\nAl comienzo de cada año, el CaDCC le arrienda estos casilleros a estudiantes. Así que, ¡atentx a las redes CaDCC!",
                     "position": {
-                        "x": -0.16534911043377185,
-                        "y": 0.012472153826638466,
-                        "z": 0.1190516292469837
+                        "x": -0.16534857825103189,
+                        "y": 0.11951868243183106,
+                        "z": -0.006656244346310325
                     },
                     "radius": 0.03053313597003911
                 },
@@ -701,9 +701,9 @@
                     "name": "Reciclaje",
                     "content": "# Reciclaje\n\nAquí se pueden reciclar plásticos, vidrios y metales. Salvemos a las tortugas 🐢🐢🐢.",
                     "position": {
-                        "x": -0.5829650724165352,
-                        "y": 0.14565405061574666,
-                        "z": 0.15579505782799324
+                        "x": -0.5829615985316567,
+                        "y": 0.16271332881162695,
+                        "z": -0.1378971552515611
                     },
                     "radius": 0.03053313597003911
                 },
@@ -713,9 +713,9 @@
                     "name": "Linux",
                     "content": "# Linux\n\nEn el DCC hay una población notable de usuarixs de Linux",
                     "position": {
-                        "x": -0.3831027091152329,
-                        "y": 0.016008789677641966,
-                        "z": -0.09657413929195233
+                        "x": -0.38310257965005456,
+                        "y": -0.09567748882974329,
+                        "z": -0.020706594482510943
                     },
                     "radius": 0.019541207020825038
                 },
@@ -725,9 +725,9 @@
                     "name": "Ofisalita",
                     "content": "# Ofisalita\n\nLa oficina-salita del CaDCC, suele estar abierto al público. Aquí dentro se pueden encontrar varias cosas útiles.",
                     "position": {
-                        "x": -0.46010533010701965,
-                        "y": 0.025060678159504468,
-                        "z": -0.07476034932956782
+                        "x": -0.46010495780874233,
+                        "y": -0.07344804806245167,
+                        "z": -0.028685784810844647
                     },
                     "radius": 0.03053313597003911
                 },
@@ -737,9 +737,9 @@
                     "name": "Salita",
                     "content": "# Salita\n\nLa Salita DCC, un icónico lugar en la facultad donde DCCianes se juntan a socializar, jugar y estudiar.",
                     "position": {
-                        "x": 0.4800287074081949,
-                        "y": 0.03198906891795966,
-                        "z": -0.1233708740634459
+                        "x": 0.4800291203504461,
+                        "y": -0.12166602005334996,
+                        "z": -0.03795597730731975
                     },
                     "radius": 0.03053313597003911
                 },
@@ -749,9 +749,9 @@
                     "name": "DIM",
                     "content": "# Portal\n\nAlgunos dicen que esto es un Portal al nether. Otros dicen que es a salida de emergencia. Pero los reales saben que es algo mucho peor... una escalera al DIM.\n\nTambién no grabé muy bien esta parte y por eso se ve tan hecho pebre XD",
                     "position": {
-                        "x": 0.6027605815349945,
-                        "y": 0.036166880204178464,
-                        "z": -0.03048612565489922
+                        "x": 0.602761290381296,
+                        "y": -0.028688445371601014,
+                        "z": -0.037597415517425556
                     },
                     "radius": 0.03053313597003911
                 },
@@ -759,11 +759,11 @@
                     "type": 1,
                     "id": "ae78266b-a3ea-4983-8de6-8d4af4bf7628",
                     "name": "Demo",
-                    "content": "# Demo\n\nPara esta demo, solo se incluye la Salita, Ofisalita y el Pasillo entre las dos. Si ya exploraste todo, apreciaría mucho si contestaras la encuesta c:",
+                    "content": "# Demo\n\nPara esta demo, solo se incluye la Salita, Ofisalita y el Pasillo entre las dos. ~Si ya exploraste todo, apreciaría mucho si contestaras la encuesta c:~ Gracias por visitar!!",
                     "position": {
-                        "x": -0.5986989783588332,
-                        "y": -0.0017245481168424726,
-                        "z": 0.03948805911619474
+                        "x": -0.5986989275848807,
+                        "y": 0.039358965332375234,
+                        "z": 0.0036350410672557174
                     },
                     "radius": 0.06961555001168919
                 }
@@ -921,7 +921,7 @@
         },
         {
             "id": "fa6094fe-8699-4030-9908-f3171e4379a0",
-            "filePath": "ofisalita.compressed.ply",
+            "filePath": "ofisalita.spz",
             "name": "Ofisalita",
             "scale": {
                 "x": 2.7709325785845733,

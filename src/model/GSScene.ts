@@ -118,14 +118,61 @@ export function gssSerialize(scene: GSScene): SerialGSScene {
 export class SplatFormatError extends Error {
 	constructor() {
 		super(
-			"Unsupported scene format. Choose a Gaussian splat .ply or .ksplat file."
+			"Unsupported scene format. Choose a Gaussian splat .ply, .ksplat, or .spz file."
 		);
 		this.name = "SplatFormatError";
 	}
 }
 
 export function isSupportedSceneFile(fileName: string): boolean {
-	return /\.(ply|ksplat)$/i.test(fileName);
+	return /\.(ply|ksplat|spz)$/i.test(fileName);
+}
+
+/** Check the small SPZ header without decoding the full point cloud. */
+async function validateSpzFile(file: File): Promise<void> {
+	let header = new Uint8Array(await file.slice(0, 32).arrayBuffer());
+	const gzip = header[0] === 0x1f && header[1] === 0x8b;
+	if (gzip) {
+		const reader = file
+			.stream()
+			.pipeThrough(new DecompressionStream("gzip"))
+			.getReader();
+		try {
+			header = new Uint8Array(16);
+			let offset = 0;
+			while (offset < header.length) {
+				const { value, done } = await reader.read();
+				if (done) throw new Error("Incomplete SPZ header.");
+				const count = Math.min(value.length, header.length - offset);
+				header.set(value.subarray(0, count), offset);
+				offset += count;
+			}
+		} catch {
+			throw new Error("Invalid or truncated gzip-compressed SPZ file.");
+		} finally {
+			await reader.cancel().catch(() => undefined);
+		}
+	}
+	if (header.length < (gzip ? 16 : 32))
+		throw new Error("Incomplete SPZ header.");
+	const view = new DataView(
+		header.buffer,
+		header.byteOffset,
+		header.byteLength
+	);
+	if (view.getUint32(0, true) !== 0x5053474e)
+		throw new Error("Invalid SPZ header.");
+	const version = view.getUint32(4, true);
+	if (gzip ? version < 1 || version > 3 : version !== 4)
+		throw new Error(`Unsupported SPZ version: ${version}.`);
+	if (view.getUint32(8, true) === 0)
+		throw new Error("SPZ file contains no splats.");
+	if (!gzip) {
+		const streams = header[15];
+		const tableOffset = view.getUint32(16, true);
+		if (!streams || tableOffset < 32 || tableOffset + streams * 16 >= file.size)
+			throw new Error("SPZ attribute data is truncated.");
+	}
 }
 
 /** Validate the local asset without storing renderer resources in project state. */
@@ -139,6 +186,8 @@ export async function validateSceneFile(file: File): Promise<void> {
 		}
 		if (!header.includes("end_header"))
 			throw new Error("Incomplete PLY header.");
+	} else if (/\.spz$/i.test(file.name)) {
+		await validateSpzFile(file);
 	} else if (file.size < 4096) {
 		throw new Error("KSPLAT file is truncated.");
 	}

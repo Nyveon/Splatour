@@ -22,10 +22,9 @@ export default defineConfig(({ mode }) => {
 		// staticFiles.push({ src: "./public/test.ksplat", dest: "./" });
 		// staticFiles.push({ src: "./public/SalitaFinal.ksplat", dest: "./" });
 
-		// DCC_Norte is the editable project; publish its flat map + assets together.
-		// New scenes need no additional build configuration. Excludes archive/.
+		// Publish the flat DCC Norte project folder.
 		staticFiles.push({
-			src: "./DCC_Norte/*.{json,ply,ksplat}",
+			src: "./DCC_Norte/*.{json,ply,ksplat,spz}",
 			dest: "./DCC_Norte",
 		});
 

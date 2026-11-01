@@ -36,7 +36,9 @@ export function createSplatMesh(
 			? SplatFileType.PLY
 			: extension === "ksplat"
 				? SplatFileType.KSPLAT
-				: undefined;
+				: extension === "spz"
+					? SplatFileType.SPZ
+					: undefined;
 	const mesh = new SplatMesh({
 		...(fileBytes ? { fileBytes, fileName: filePath } : { url: filePath }),
 		fileType,

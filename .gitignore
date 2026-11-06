@@ -30,11 +30,13 @@ dist-ssr
 *.spz
 
 !DCC_Norte/*.spz
+!Supermarket/*.spz
 DCC_Norte/raw
 
 
 !docs/DCC_Norte/*
 !docs/Khachkars/*
+!docs/Supermarket/*
 
 bundle-visualization.html
 

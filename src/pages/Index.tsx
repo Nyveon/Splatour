@@ -49,6 +49,9 @@ export default function App() {
 					<Link to="khachkars">Demo: Khachkars</Link>
 				</LinkListItem>
 				<LinkListItem>
+					<Link to="supermarket">Demo: Supermarket</Link>
+				</LinkListItem>
+				<LinkListItem>
 					<Link to="editor">Editor</Link>
 				</LinkListItem>
 				<LinkListItem>

@@ -28,6 +28,12 @@ export default defineConfig(({ mode }) => {
 			dest: "./DCC_Norte",
 		});
 
+		// Demo: Supermarket
+		staticFiles.push({
+			src: "./Supermarket/*.{json,spz}",
+			dest: "./Supermarket",
+		});
+
 		// Demo: Khachkars
 		staticFiles.push({
 			src: "./Khachkars/Khachkar_12_4.ksplat",

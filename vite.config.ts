@@ -30,7 +30,7 @@ export default defineConfig(({ mode }) => {
 
 		// Demo: Supermarket
 		staticFiles.push({
-			src: "./Supermarket/*.{json,spz}",
+			src: "./Supermarket/*.{json,spz,png,jpg,jpeg,webp}",
 			dest: "./Supermarket",
 		});
 

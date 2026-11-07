@@ -15,12 +15,18 @@ const Input = styled(BaseInput)<React.ComponentProps<"input">>`
 interface TextInputProps {
 	value: string;
 	valueHandler: (value: string) => void;
+	label?: string;
 }
 
-export default function TextInput({ value, valueHandler }: TextInputProps) {
+export default function TextInput({
+	value,
+	valueHandler,
+	label,
+}: TextInputProps) {
 	return (
 		<Input
 			type="text"
+			aria-label={label}
 			value={value}
 			onChange={(e) => valueHandler(e.target.value)}
 			onClick={(e) => e.stopPropagation()}

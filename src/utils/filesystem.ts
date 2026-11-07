@@ -63,12 +63,16 @@ export function verifySceneFilePresence(files: File[], gsmap: GSMap) {
 		if (!files.find((file) => file.name === filePath)) {
 			missing.push(filePath);
 		}
+		for (const artifact of Object.values(scene.artifacts)) {
+			const image = artifact.product?.image;
+			if (image && !files.some((file) => file.name === image))
+				missing.push(image);
+		}
 	}
 
 	if (missing.length) {
-		const missingList = missing.join(", ");
 		throw new Error(
-			`Missing scene file/s in project directory: ${missingList}`
+			`Missing project assets: ${[...new Set(missing)].join(", ")}`
 		);
 	}
 }

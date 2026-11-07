@@ -35,7 +35,7 @@ export default function PanelArtifacts({ sceneId }: { sceneId: string }) {
 			icon={AppIcons.Artifact}
 			helpInfo={helpInfo}
 		>
-			<NodeList sceneId={sceneId} type={NodeType.Artifact} />
+			<NodeList sceneId={sceneId} type={NodeType.Artifact} kind="information" />
 			<NodeCreate targetState={UserState.Artifacts} label="New Artifact" />
 		</SceneCardPanel>
 	);

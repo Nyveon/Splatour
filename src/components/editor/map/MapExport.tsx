@@ -54,6 +54,13 @@ export default function MapExport() {
 
 			outputFolder[`${subfolder}/${scene.filePath}`] =
 				await fileAsUint8Array(sceneFile);
+			for (const artifact of Object.values(scene.artifacts)) {
+				const image = artifact.product?.image;
+				if (!image || outputFolder[`${subfolder}/${image}`]) continue;
+				const photo = allFiles.find((file) => file.name === image);
+				if (!photo) throw new Error(`Product photo not found: ${image}`);
+				outputFolder[`${subfolder}/${image}`] = await fileAsUint8Array(photo);
+			}
 
 			// temporary modification of gsmap scene file paths
 			gsmap.scenes[sceneId] = {

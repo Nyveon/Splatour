@@ -16,6 +16,7 @@ import PanelFloorAlignment from "./PanelFloorAlignment";
 import PanelPlacement from "./PanelPlacement";
 import PanelPortals from "./PanelPortals";
 import PanelPostProcessing from "./PanelPostProcessing";
+import PanelProducts from "./PanelProducts";
 import PanelScaleCalibration from "./PanelScaleCalibration";
 import SceneIsDefault from "./SceneIsDefault";
 
@@ -160,6 +161,9 @@ export default function SceneCard({
 					<PanelFloorAlignment sceneId={sceneId} />
 				</CardItem>
 
+				<CardItem>
+					<PanelProducts sceneId={sceneId} />
+				</CardItem>
 				<CardItem>
 					<PanelArtifacts sceneId={sceneId} />
 				</CardItem>

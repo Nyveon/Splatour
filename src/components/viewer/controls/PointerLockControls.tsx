@@ -1,9 +1,5 @@
-import {
-	EventManager,
-	ThreeElement,
-	RootState,
-	useThree,
-} from "@react-three/fiber";
+import { useInteractions } from "@/hooks/useInteractions";
+import { EventManager, ThreeElement, useThree } from "@react-three/fiber";
 import {
 	forwardRef,
 	ForwardRefExoticComponent,
@@ -70,11 +66,26 @@ export const PointerLockControls: ForwardRefComponent<
 
 	useEffect(() => {
 		if (enabled) {
+			const ownerDocument = explDomElement.ownerDocument;
+			const guardMouseLook = () => {
+				// The library's isLocked flag updates on pointerlockchange, which
+				// can arrive after mouse events generated while restoring the cursor.
+				if (
+					ownerDocument.pointerLockElement !== explDomElement ||
+					!useInteractions.getState().isLocked
+				)
+					controls.isLocked = false;
+			};
+			ownerDocument.addEventListener("mousemove", guardMouseLook, true);
 			controls.connect(explDomElement);
 			// Force events to be centered while PLC is active
 			const oldComputeOffsets = get().events.compute;
 			setEvents({
-				compute(_, state: RootState) {
+				compute(event, state, previous) {
+					if (!controls.isLocked) {
+						oldComputeOffsets?.(event, state, previous);
+						return;
+					}
 					const offsetX = state.size.width / 2;
 					const offsetY = state.size.height / 2;
 					state.pointer.set(
@@ -85,6 +96,7 @@ export const PointerLockControls: ForwardRefComponent<
 				},
 			});
 			return () => {
+				ownerDocument.removeEventListener("mousemove", guardMouseLook, true);
 				controls.disconnect();
 				setEvents({ compute: oldComputeOffsets });
 			};

@@ -3,6 +3,7 @@ import Player from "@/components/viewer/controls/Player";
 import { PointerLockControls } from "@/components/viewer/controls/PointerLockControls";
 import Ambient from "@/components/viewer/world/Ambient";
 import { useInteractions } from "@/hooks/useInteractions";
+import { useProductStore } from "@/hooks/useProductStore";
 import useViewerStore from "@/hooks/useViewerContext";
 import { KeyMap, playerHeight } from "@/utils/constants";
 import styled from "@emotion/styled";
@@ -19,6 +20,9 @@ import SparkLayer from "./gsplats/SparkLayer";
 import ControlsHint from "./interface/ControlsHint";
 import Crosshair from "./interface/Crosshair";
 import InformationHotkey from "./interface/InformationHotkey";
+import Cart from "./products/Cart";
+import ProductDialog from "./products/ProductDialog";
+import ProductPicker from "./products/ProductPicker";
 import ScenePostProcessing from "./ScenePostProcessing";
 
 const ViewerContainer = styled.div`
@@ -54,6 +58,11 @@ export default function Viewer({
 	}, [setViewerContainerRef]);
 
 	function handleClick() {
+		if (
+			useProductStore.getState().active ||
+			useProductStore.getState().cartOpen
+		)
+			return;
 		if (preventPointerLock || inVR) return;
 		if (!pointerLockControlsRef.current || !viewerContainerRef.current) {
 			return;
@@ -82,6 +91,7 @@ export default function Viewer({
 					onClick={handleClick}
 				>
 					<SparkLayer />
+					<ProductPicker />
 					<ScenePostProcessing />
 					{import.meta.env.DEV && <Perf position="top-right" />}
 					{enableVR && (
@@ -101,6 +111,8 @@ export default function Viewer({
 					<Ambient />
 					{children}
 				</Canvas>
+				<ProductDialog onResume={handleClick} />
+				<Cart onResume={handleClick} />
 				{!inVR && (
 					<>
 						<JoystickControls />

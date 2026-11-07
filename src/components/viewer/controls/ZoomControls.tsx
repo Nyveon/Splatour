@@ -1,5 +1,6 @@
 import { fovNotch, maxFov, minFov } from "@/utils/constants";
 import { useInteractions } from "@/hooks/useInteractions";
+import { useProductStore } from "@/hooks/useProductStore";
 import useViewerStore from "@/hooks/useViewerContext";
 import { useFrame, useThree } from "@react-three/fiber";
 import { useEffect, useRef, type RefObject } from "react";
@@ -17,7 +18,7 @@ export default function ZoomControls({
     useEffect(() => {
         desiredFov.current = camera.fov;
         const handleWheel = (event: WheelEvent) => {
-            if (event.ctrlKey) return;
+            if (event.ctrlKey || useProductStore.getState().active || useProductStore.getState().cartOpen) return;
             const container = viewerContainerRef?.current;
             const locked = useInteractions.getState().isLocked;
             const insideViewer =

@@ -7,7 +7,7 @@
     "scenes": [
         {
             "id": "70527e14-fbed-481c-a867-a0744126f42c",
-            "filePath": "salita-lod.rad",
+            "filePath": "salita.spz",
             "name": "Salita",
             "scale": {
                 "x": 3,
@@ -636,7 +636,7 @@
         },
         {
             "id": "bbea6b37-b841-4d11-b643-75a2aeeb6fa6",
-            "filePath": "hallway-lod.rad",
+            "filePath": "hallway.spz",
             "name": "Hallway",
             "scale": {
                 "x": 8.187825850751606,
@@ -921,7 +921,7 @@
         },
         {
             "id": "fa6094fe-8699-4030-9908-f3171e4379a0",
-            "filePath": "ofisalita-lod.rad",
+            "filePath": "ofisalita.spz",
             "name": "Ofisalita",
             "scale": {
                 "x": 2.7709325785845733,

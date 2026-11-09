@@ -1,0 +1,17 @@
+{
+  "format": "splatour-spz-parts",
+  "version": 1,
+  "fileName": "supermarket.spz",
+  "byteLength": 34389526,
+  "sha256": "4fb56202108d07d389f320658c33618d99e18ba904a0832f22d25b3688255792",
+  "parts": [
+    {
+      "fileName": "supermarket.spz.part000",
+      "byteLength": 25000000
+    },
+    {
+      "fileName": "supermarket.spz.part001",
+      "byteLength": 9389526
+    }
+  ]
+}

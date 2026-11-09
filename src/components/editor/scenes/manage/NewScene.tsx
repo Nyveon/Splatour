@@ -2,6 +2,8 @@ import Button from "@/components/input/Button";
 import { useGSStore } from "@/hooks/useGSStore";
 import { useInteractions } from "@/hooks/useInteractions";
 import { gssCreateFromFile, validateSceneFile } from "@/model/GSScene";
+import { getAllFiles } from "@/utils/filesystem";
+import { isSplitSpz, readLocalScene } from "@/utils/spzParts";
 import { toastError, toastSuccess, toastUnknownError } from "@/utils/toasts";
 import { useState } from "react";
 import SceneImport from "./SceneImport";
@@ -14,8 +16,15 @@ export default function NewScene() {
 
 	const handleSplatSelect = async (file: File) => {
 		try {
-			await validateSceneFile(file);
-			const newGss = gssCreateFromFile(file);
+			if (isSplitSpz(file.name) && !directoryHandle)
+				throw new Error("Open the project folder to load a split SPZ scene.");
+			const source =
+				isSplitSpz(file.name) && directoryHandle
+					? await readLocalScene(file, await getAllFiles(directoryHandle))
+					: file;
+			await validateSceneFile(source);
+			const newGss = gssCreateFromFile(source);
+			newGss.filePath = file.name;
 			setAddScene(newGss);
 			useInteractions.getState().setCurrentSceneId(newGss.id);
 			setModalOpen(false);

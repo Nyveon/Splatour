@@ -53,7 +53,11 @@ export default function SceneInclude({
 			getAllFiles(directoryHandle)
 				.then((retrievedFiles) => {
 					const filteredFiles = retrievedFiles.filter(
-						(file) => isSupportedSceneFile(file.name)
+						(file) =>
+							isSupportedSceneFile(file.name) &&
+							!retrievedFiles.some(
+								(other) => other.name === `${file.name}.parts`
+							)
 					);
 					setFiles(filteredFiles);
 				})

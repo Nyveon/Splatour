@@ -8,6 +8,7 @@ import {
 	getAllFiles,
 	verifySceneFilePresence,
 } from "@/utils/filesystem";
+import { readLocalScene } from "@/utils/spzParts";
 import { toastError, toastSuccess, toastUnknownError } from "@/utils/toasts";
 import { useState } from "react";
 
@@ -42,8 +43,9 @@ export default function MapImport() {
 						throw new Error(`Scene file not found: ${filePath}`);
 					}
 
-					await validateSceneFile(file);
-					gsmap.scenes[sceneId].file = file;
+					const source = await readLocalScene(file, files);
+					await validateSceneFile(source);
+					gsmap.scenes[sceneId].file = source;
 				} catch (err) {
 					throw new Error(`Failed to read scene file: ${filePath}, ${err}`);
 				}

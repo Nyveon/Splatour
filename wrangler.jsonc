@@ -1,0 +1,8 @@
+{
+  "name": "splatour",
+  "compatibility_date": "2026-11-09",
+  "assets": {
+    "directory": "./docs",
+    "not_found_handling": "none"
+  }
+}

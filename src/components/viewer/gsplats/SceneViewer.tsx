@@ -1,5 +1,6 @@
 import { invalidateScene } from "@/utils/rendering";
 import { createSplatMesh } from "@/utils/splatRenderer";
+import { loadSceneSource } from "@/utils/spzParts";
 import { toastError } from "@/utils/toasts";
 import { useThree } from "@react-three/fiber";
 import type { SplatMesh } from "@sparkjsdev/spark";
@@ -24,6 +25,7 @@ const SceneViewer = forwardRef<Group, SceneViewerProps>(function SceneViewer(
 		if (!host) return;
 		host.userData.splatLoading = true;
 		let cancelled = false;
+		const controller = new AbortController();
 		let settled = false;
 		let disposed = false;
 		let mesh: SplatMesh | undefined;
@@ -37,9 +39,11 @@ const SceneViewer = forwardRef<Group, SceneViewerProps>(function SceneViewer(
 
 		void (async () => {
 			try {
-				const fileBytes = file ? await file.arrayBuffer() : undefined;
+				const source = file
+					? { fileName: file.name, fileBytes: await file.arrayBuffer() }
+					: await loadSceneSource(filePath, controller.signal);
 				if (cancelled) return;
-				mesh = createSplatMesh(filePath, fileBytes);
+				mesh = createSplatMesh(source.fileName, source.fileBytes);
 				await mesh.initialized;
 				settled = true;
 				if (cancelled) {
@@ -48,15 +52,13 @@ const SceneViewer = forwardRef<Group, SceneViewerProps>(function SceneViewer(
 				}
 				host.add(mesh);
 				mesh.userData.splatReady = true;
-				const source = mesh.extSplats ?? mesh.packedSplats;
-				const lod = source?.lodSplats;
 				console.info("Splat scene loaded", {
 					file: filePath,
-					storedSplats: (lod ?? source)?.numSplats ?? 0,
-					lod: Boolean(lod),
-					shDegree: (lod ?? source)?.getNumSh() ?? 0,
+					splats: mesh.numSplats,
+					shDegree: mesh.extSplats?.getNumSh() ?? 0,
 				});
 			} catch (error) {
+				controller.abort();
 				settled = true;
 				dispose();
 				if (!cancelled) {
@@ -76,6 +78,7 @@ const SceneViewer = forwardRef<Group, SceneViewerProps>(function SceneViewer(
 
 		return () => {
 			cancelled = true;
+			controller.abort();
 			host.userData.splatLoading = false;
 			toast.dismiss(loading);
 			// A decoder may finish after unmount; dispose it once its promise settles.

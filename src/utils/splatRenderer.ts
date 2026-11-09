@@ -9,17 +9,8 @@ export function createSplatRenderer(
 		renderer,
 		onDirty,
 		minAlpha: 1 / 255,
-		enableLod: true,
-		lodTraverseMode: "dynamic",
+		enableLod: false,
 		minSortIntervalMs: 33,
-		lodSplatScale: 1,
-		lodRenderScale: 2,
-		coneFov0: 140,
-		coneFov: 170,
-		coneFoveate: 0.75,
-		behindFoveate: 0.5,
-		// Interaction uses map nodes instead of splat raycasting.
-		lodRaycast: 0,
 		accumExtSplats: true,
 		// Covariances preserve independent X/Y/Z scaling in existing maps.
 		covSplats: true,
@@ -27,7 +18,6 @@ export function createSplatRenderer(
 		// Z-depth sorting drops them until the asynchronous sorter catches up.
 		sortRadial: true,
 	});
-	spark.lodSplatCount = Math.min(spark.defaultSplatTarget(), 750_000);
 	spark.name = "Splatour Spark renderer";
 	return spark;
 }
@@ -49,22 +39,14 @@ export function createSplatMesh(
 				? SplatFileType.KSPLAT
 				: extension === "spz"
 					? SplatFileType.SPZ
-					: extension === "rad"
-						? SplatFileType.RAD
-						: undefined;
+					: undefined;
 	const mesh = new SplatMesh({
 		...(fileBytes ? { fileBytes, fileName: filePath } : { url: filePath }),
 		fileType,
 		extSplats: true,
 		covSplats: true,
-		// RAD already contains its LOD hierarchy.
-		lod: fileType !== SplatFileType.RAD,
-		// Fetch complete scenes upfront.
-		paged: false,
-		lodAbove: 250_000,
-		// LOD leaves already contain the original splats.
-		nonLod: false,
-		enableLod: true,
+		lod: false,
+		enableLod: false,
 		// Scene collision and interaction use the project's explicit node geometry.
 		raycastable: false,
 	});

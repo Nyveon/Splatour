@@ -1,11 +1,23 @@
 import basicSsl from "@vitejs/plugin-basic-ssl";
 import react from "@vitejs/plugin-react-swc";
+import { existsSync, readdirSync } from "node:fs";
 import { readFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import { visualizer } from "rollup-plugin-visualizer";
 import { defineConfig, type Rolldown } from "vite";
 import { viteStaticCopy } from "vite-plugin-static-copy";
 import { viewerTemplateFiles } from "./src/utils/exportViewer.ts";
+
+function sceneAssets(folder: string, extensions: RegExp) {
+	return readdirSync(folder)
+		.filter(
+			(name) => extensions.test(name) || /\.spz\.(parts|part\d+)$/i.test(name)
+		)
+		.filter(
+			(name) => !/\.spz$/i.test(name) || !existsSync(`${folder}/${name}.parts`)
+		)
+		.map((name) => ({ src: `./${folder}/${name}`, dest: `./${folder}` }));
+}
 
 export default defineConfig(({ mode }) => {
 	const isViewer = mode === "viewer";
@@ -26,22 +38,15 @@ export default defineConfig(({ mode }) => {
 		// staticFiles.push({ src: "./public/SalitaFinal.ksplat", dest: "./" });
 
 		// Publish the flat DCC Norte project folder.
-		staticFiles.push({
-			src: "./DCC_Norte/*.{json,ply,ksplat,spz,rad}",
-			dest: "./DCC_Norte",
-		});
+		staticFiles.push(...sceneAssets("DCC_Norte", /\.(json|ply|ksplat|spz)$/i));
 
 		// Demo: Supermarket
-		staticFiles.push({
-			src: "./Supermarket/*.{json,spz,rad,png,jpg,jpeg,webp}",
-			dest: "./Supermarket",
-		});
+		staticFiles.push(
+			...sceneAssets("Supermarket", /\.(json|spz|png|jpg|jpeg|webp)$/i)
+		);
 
 		// Demo: Khachkars
-		staticFiles.push({
-			src: "./Khachkars/*.{ksplat,rad}",
-			dest: "./Khachkars",
-		});
+		staticFiles.push(...sceneAssets("Khachkars", /\.ksplat$/i));
 	} else {
 		rollupOutputOptions.entryFileNames = `assets/[name].js`;
 		rollupOutputOptions.chunkFileNames = `assets/[name].js`;

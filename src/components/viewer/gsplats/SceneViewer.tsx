@@ -1,5 +1,7 @@
+import { invalidateScene } from "@/utils/rendering";
 import { createSplatMesh } from "@/utils/splatRenderer";
 import { toastError } from "@/utils/toasts";
+import { useThree } from "@react-three/fiber";
 import type { SplatMesh } from "@sparkjsdev/spark";
 import { forwardRef, useEffect, useRef } from "react";
 import { toast } from "react-toastify";
@@ -14,6 +16,8 @@ const SceneViewer = forwardRef<Group, SceneViewerProps>(function SceneViewer(
 	ref
 ) {
 	const hostRef = useRef<Group>(null);
+	const invalidate = useThree((state) => state.invalidate);
+	const scene = useThree((state) => state.scene);
 
 	useEffect(() => {
 		const host = hostRef.current;
@@ -44,10 +48,13 @@ const SceneViewer = forwardRef<Group, SceneViewerProps>(function SceneViewer(
 				}
 				host.add(mesh);
 				mesh.userData.splatReady = true;
+				const source = mesh.extSplats ?? mesh.packedSplats;
+				const lod = source?.lodSplats;
 				console.info("Splat scene loaded", {
 					file: filePath,
-					splats: mesh.numSplats,
-					shDegree: mesh.extSplats?.getNumSh() ?? 0,
+					storedSplats: (lod ?? source)?.numSplats ?? 0,
+					lod: Boolean(lod),
+					shDegree: (lod ?? source)?.getNumSh() ?? 0,
 				});
 			} catch (error) {
 				settled = true;
@@ -59,7 +66,10 @@ const SceneViewer = forwardRef<Group, SceneViewerProps>(function SceneViewer(
 					);
 				}
 			} finally {
-				if (!cancelled) host.userData.splatLoading = false;
+				if (!cancelled) {
+					host.userData.splatLoading = false;
+					invalidateScene(scene, invalidate);
+				}
 				toast.dismiss(loading);
 			}
 		})();
@@ -70,8 +80,9 @@ const SceneViewer = forwardRef<Group, SceneViewerProps>(function SceneViewer(
 			toast.dismiss(loading);
 			// A decoder may finish after unmount; dispose it once its promise settles.
 			if (settled) dispose();
+			invalidateScene(scene, invalidate);
 		};
-	}, [filePath, file]);
+	}, [filePath, file, scene, invalidate]);
 
 	return (
 		<group ref={ref}>

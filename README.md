@@ -18,7 +18,7 @@ Check out the demos at: [maps.eri.cl](https://maps.eri.cl/)
 3. Click on the "Create" button in the Editor and select the folder you created.
 4. Import and edit Gaussian Splat scenes, 3D models, and web content.
 
-Gaussian splat scenes can be imported from `.ply`, `.ksplat`, or `.spz` files. For an existing
+Gaussian splat scenes can be imported from `.ply`, `.ksplat`, `.spz`, or `.rad` files. For an existing
 project, put the file in the project folder, then use **Add scene**. Saving keeps
 the original filename, and exported tours include the original scene file.
 PLY support is for Gaussian splat data, rather than ordinary polygon meshes.
@@ -82,6 +82,10 @@ npm run dev
 npm run build
 npm run preview
 ```
+
+After replacing a bundled source scene, run `npm run build:lod` to regenerate
+its `*-lod.rad` file and update map references. This requires Git and Rust.
+Commit the generated RAD files and `scripts/lod-assets.json` with the map changes.
 
 ### Resources & Technology
 

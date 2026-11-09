@@ -24,23 +24,19 @@ export default defineConfig(({ mode }) => {
 
 		// Publish the flat DCC Norte project folder.
 		staticFiles.push({
-			src: "./DCC_Norte/*.{json,ply,ksplat,spz}",
+			src: "./DCC_Norte/*.{json,ply,ksplat,spz,rad}",
 			dest: "./DCC_Norte",
 		});
 
 		// Demo: Supermarket
 		staticFiles.push({
-			src: "./Supermarket/*.{json,spz,png,jpg,jpeg,webp}",
+			src: "./Supermarket/*.{json,spz,rad,png,jpg,jpeg,webp}",
 			dest: "./Supermarket",
 		});
 
 		// Demo: Khachkars
 		staticFiles.push({
-			src: "./Khachkars/Khachkar_12_4.ksplat",
-			dest: "./Khachkars",
-		});
-		staticFiles.push({
-			src: "./Khachkars/Khachkar_12_5.ksplat",
+			src: "./Khachkars/*.{ksplat,rad}",
 			dest: "./Khachkars",
 		});
 	} else {

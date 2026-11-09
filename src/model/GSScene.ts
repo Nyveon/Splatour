@@ -118,14 +118,14 @@ export function gssSerialize(scene: GSScene): SerialGSScene {
 export class SplatFormatError extends Error {
 	constructor() {
 		super(
-			"Unsupported scene format. Choose a Gaussian splat .ply, .ksplat, or .spz file."
+			"Unsupported scene format. Choose a Gaussian splat .ply, .ksplat, .spz, or .rad file."
 		);
 		this.name = "SplatFormatError";
 	}
 }
 
 export function isSupportedSceneFile(fileName: string): boolean {
-	return /\.(ply|ksplat|spz)$/i.test(fileName);
+	return /\.(ply|ksplat|spz|rad)$/i.test(fileName);
 }
 
 /** Check the small SPZ header without decoding the full point cloud. */
@@ -188,6 +188,13 @@ export async function validateSceneFile(file: File): Promise<void> {
 			throw new Error("Incomplete PLY header.");
 	} else if (/\.spz$/i.test(file.name)) {
 		await validateSpzFile(file);
+	} else if (/\.rad$/i.test(file.name)) {
+		const bytes = await file.slice(0, 8).arrayBuffer();
+		if (bytes.byteLength < 8 || new DataView(bytes).getUint32(0, true) !== 0x30444152)
+			throw new Error("Invalid RAD header.");
+		const metadataBytes = new DataView(bytes).getUint32(4, true);
+		if (!metadataBytes || metadataBytes + 8 >= file.size)
+			throw new Error("RAD file is truncated.");
 	} else if (file.size < 4096) {
 		throw new Error("KSPLAT file is truncated.");
 	}

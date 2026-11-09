@@ -23,6 +23,7 @@ import InformationHotkey from "./interface/InformationHotkey";
 import Cart from "./products/Cart";
 import ProductDialog from "./products/ProductDialog";
 import ProductPicker from "./products/ProductPicker";
+import RenderOnChange from "./RenderOnChange";
 import ScenePostProcessing from "./ScenePostProcessing";
 
 const ViewerContainer = styled.div`
@@ -77,6 +78,7 @@ export default function Viewer({
 		<KeyboardControls map={KeyMap}>
 			<ViewerContainer ref={viewerContainerRef} id="#viewer">
 				<Canvas
+					frameloop={inVR ? "always" : "demand"}
 					camera={{
 						position: [0, playerHeight, 0],
 						fov: 90,
@@ -90,6 +92,7 @@ export default function Viewer({
 					dpr={isMobile ? 1 : [1, 2]}
 					onClick={handleClick}
 				>
+					<RenderOnChange />
 					<SparkLayer />
 					<ProductPicker />
 					<ScenePostProcessing />

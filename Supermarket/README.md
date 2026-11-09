@@ -12,6 +12,8 @@ This assumes the average capture height represents 1.70 m; it is not a surveyed
 measurement. The scene and its ground barriers are scaled together. Viewer eye
 height remains at its standard setting.
 
-`supermarket.spz` is the published asset, with all 1,346,550 splats and SH degree 3.
+`map.json` loads `supermarket-lod.rad`, generated from `supermarket.spz`
+(1,346,550 splats, SH degree 3). After replacing the source, regenerate it with
+`npm run build:lod -- Supermarket/supermarket.spz` from the repo root.
 The original `supermarket.ply` remains local. Scene placement and scale are saved
 in `map.json`.

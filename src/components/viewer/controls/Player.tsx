@@ -61,7 +61,7 @@ export default function Player() {
 		)
 			return;
 		// Avoid huge camera jumps after a stall or returning to a background tab.
-		delta = Math.min(delta, 0.1);
+		delta = delta > 0.25 ? 1 / 60 : Math.min(delta, 0.1);
 		// Handle teleportation
 		const teleportPending = useInteractions.getState().teleportPending;
 		const setTeleportPending = useInteractions.getState().setTeleportPending;
@@ -97,6 +97,8 @@ export default function Player() {
 			10,
 			delta
 		);
+		if (Math.abs(crouchOffset.current - targetCrouchOffset) < 1e-5)
+			crouchOffset.current = targetCrouchOffset;
 		camera.position.y += crouchOffset.current - prevCrouchOffset;
 
 		// Camera direction from inputs
@@ -170,6 +172,16 @@ export default function Player() {
 		) {
 			state.events.update?.();
 		}
+		if (
+			straightDirection !== 0 ||
+			strafeDirection !== 0 ||
+			(debug && verticalDirection !== 0) ||
+			rotationChange ||
+			Math.abs(targetCrouchOffset - crouchOffset.current) > 1e-5 ||
+			Math.abs(crouchOffset.current - prevCrouchOffset) > 1e-6 ||
+			bobbingOffset.current !== prevBobbingOffset
+		)
+			state.invalidate();
 	});
 
 	return null;

@@ -16,7 +16,7 @@ export default function SceneImport({
 				open={isOpen}
 				handleClose={() => close()}
 				title="Import a New Scene"
-				description="Choose a Gaussian splat .ply, .ksplat, or .spz file to start editing"
+				description="Choose a Gaussian splat .ply, .ksplat, .spz, or .rad file to start editing"
 			>
 				<span>
 					You are not working in a project directory. Changes{" "}
@@ -35,7 +35,7 @@ export default function SceneImport({
 							{
 								description: "Gaussian Splat Scene",
 								accept: {
-									"application/octet-stream": [".ply", ".ksplat", ".spz"],
+									"application/octet-stream": [".ply", ".ksplat", ".spz", ".rad"],
 								},
 							},
 						],

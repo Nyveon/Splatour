@@ -1,6 +1,7 @@
 import type { PostProcessingSettings } from "@/model/PostProcessing";
 import {
 	HalfFloatType,
+	Matrix4,
 	NoBlending,
 	NoToneMapping,
 	RawShaderMaterial,
@@ -103,7 +104,13 @@ export class ScenePostProcessor {
 	private quad = new FullScreenQuad(this.outputMaterial);
 	private size = new Vector2();
 	private pixels = new Uint8Array(64 * 36 * 4);
-	private elapsed = 0.25;
+	private meteredAt = -Infinity;
+	private meterDirty = true;
+	private meterTimer: ReturnType<typeof setTimeout> | undefined;
+	private cameraMatrix = new Matrix4();
+	private projectionMatrix = new Matrix4();
+	private renderRevision = -1;
+	private autoExposure = false;
 	private pending = false;
 	private disposed = false;
 	private meteringFailed = false;
@@ -113,6 +120,13 @@ export class ScenePostProcessor {
 	private correction = 0;
 	private exposure: number | undefined;
 
+	constructor(private readonly onDirty?: () => void) {}
+
+	private clearMeterTimer() {
+		if (this.meterTimer !== undefined) clearTimeout(this.meterTimer);
+		this.meterTimer = undefined;
+	}
+
 	render(
 		gl: WebGLRenderer,
 		scene: Scene,
@@ -121,6 +135,19 @@ export class ScenePostProcessor {
 		sceneId: string,
 		delta: number
 	) {
+		camera.updateWorldMatrix(true, false);
+		const revision = scene.userData.renderRevision ?? 0;
+		if (
+			!this.cameraMatrix.equals(camera.matrixWorld) ||
+			!this.projectionMatrix.equals(camera.projectionMatrix) ||
+			this.renderRevision !== revision ||
+			this.autoExposure !== settings.autoExposure
+		)
+			this.meterDirty = true;
+		this.cameraMatrix.copy(camera.matrixWorld);
+		this.projectionMatrix.copy(camera.projectionMatrix);
+		this.renderRevision = revision;
+		this.autoExposure = settings.autoExposure;
 		let loading = false,
 			splats = false;
 		scene.traverseVisible((object) => {
@@ -133,7 +160,8 @@ export class ScenePostProcessor {
 			if (sceneId !== this.sceneId) this.correction = 0;
 			this.sceneId = sceneId;
 			this.ready = ready;
-			this.elapsed = 0.25;
+			this.meteredAt = -Infinity;
+			this.meterDirty = true;
 		}
 		const correction = settings.autoExposure
 			? Math.max(
@@ -151,6 +179,8 @@ export class ScenePostProcessor {
 						(-Math.min(delta, 0.1) * 3) /
 							(settings.autoExposure ? settings.adaptationTime : 0.15)
 					));
+		if (ready && Math.abs(target - this.exposure) < 0.001)
+			this.exposure = target;
 		const uniforms = this.outputMaterial.uniforms;
 		uniforms.exposure.value = 2 ** this.exposure;
 		uniforms.contrast.value = settings.contrast;
@@ -174,15 +204,17 @@ export class ScenePostProcessor {
 			gl.toneMapping = NoToneMapping;
 			gl.setRenderTarget(this.hdr);
 			gl.render(scene, camera);
-			this.elapsed += delta;
 			if (
 				ready &&
 				settings.autoExposure &&
+				this.meterDirty &&
 				!this.pending &&
 				!this.meteringFailed &&
-				this.elapsed >= 0.25
+				performance.now() - this.meteredAt >= 250
 			) {
-				this.elapsed = 0;
+				this.meteredAt = performance.now();
+				this.meterDirty = false;
+				this.clearMeterTimer();
 				this.quad.material = this.meterMaterial;
 				gl.setRenderTarget(this.meter);
 				this.quad.render(gl);
@@ -196,6 +228,7 @@ export class ScenePostProcessor {
 						if (measured !== undefined) this.correction = measured;
 					})
 					.catch((error) => {
+						if (this.disposed || generation !== this.generation) return;
 						this.meteringFailed = true;
 						this.correction = 0;
 						console.warn(
@@ -206,6 +239,7 @@ export class ScenePostProcessor {
 					.finally(() => {
 						this.pending = false;
 						if (this.disposed) this.meter.dispose();
+						else this.onDirty?.();
 					});
 			}
 			this.quad.material = this.outputMaterial;
@@ -216,10 +250,29 @@ export class ScenePostProcessor {
 			gl.toneMapping = previousToneMapping;
 			gl.autoClear = previousAutoClear;
 		}
+		if (ready && Math.abs(target - this.exposure) >= 0.001) this.onDirty?.();
+		if (
+			ready &&
+			settings.autoExposure &&
+			this.meterDirty &&
+			!this.pending &&
+			!this.meteringFailed
+		) {
+			if (this.meterTimer === undefined && this.onDirty) {
+				this.meterTimer = setTimeout(
+					() => {
+						this.meterTimer = undefined;
+						if (!this.disposed) this.onDirty?.();
+					},
+					Math.max(0, 250 - (performance.now() - this.meteredAt))
+				);
+			}
+		} else this.clearMeterTimer();
 	}
 
 	dispose() {
 		this.disposed = true;
+		this.clearMeterTimer();
 		this.hdr.dispose();
 		if (!this.pending) this.meter.dispose();
 		this.meterMaterial.dispose();

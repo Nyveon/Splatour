@@ -107,13 +107,30 @@ export function gsnSolidCreate(position: Vec3, radius: number): GSNodeSolid {
 //#endregion
 
 //#region Artifacts
+export interface GSProduct {
+	image: string;
+	imageCrop: {
+		x: number;
+		y: number;
+		width: number;
+		height: number;
+		sourceWidth: number;
+		sourceHeight: number;
+	};
+	price: number;
+	currency: string;
+	unit: string;
+	/** Full dimensions in scene-local units. */
+	hitbox: Vec3;
+}
+
 export interface GSNodeArtifact extends GSNodeBase {
 	type: NodeType.Artifact;
 
 	content: string;
 	position: Vec3;
 	radius: number;
-	//todo: box shape?
+	product?: GSProduct;
 }
 
 export function nodeIsArtifact(node: GSNodeBase): node is GSNodeArtifact {

@@ -55,6 +55,7 @@ export default function NodeContainer({
 			<Label>
 				<Icon icon={icon} />
 				<TextInput
+					label="Node name"
 					value={nodeName}
 					valueHandler={(value: string) =>
 						setNodeTransform(sceneId, nodeId, { name: value })

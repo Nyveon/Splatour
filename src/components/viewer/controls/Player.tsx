@@ -1,6 +1,7 @@
 import { useGSStore } from "@/hooks/useGSStore";
 import { useInteractions } from "@/hooks/useInteractions";
 import { useJoystickControls } from "@/hooks/useJoystickControls";
+import { useProductStore } from "@/hooks/useProductStore";
 import { useSettingsStore } from "@/hooks/useSettingsStore";
 import {
 	barrierHeight,
@@ -54,8 +55,13 @@ export default function Player() {
 	useFrame((state: RootState, delta: number) => {
 		// WebXR owns the head pose; VRControls moves its parent rig instead.
 		if (state.gl.xr.isPresenting) return;
+		if (
+			useProductStore.getState().active ||
+			useProductStore.getState().cartOpen
+		)
+			return;
 		// Avoid huge camera jumps after a stall or returning to a background tab.
-		delta = Math.min(delta, 0.1);
+		delta = delta > 0.25 ? 1 / 60 : Math.min(delta, 0.1);
 		// Handle teleportation
 		const teleportPending = useInteractions.getState().teleportPending;
 		const setTeleportPending = useInteractions.getState().setTeleportPending;
@@ -91,6 +97,8 @@ export default function Player() {
 			10,
 			delta
 		);
+		if (Math.abs(crouchOffset.current - targetCrouchOffset) < 1e-5)
+			crouchOffset.current = targetCrouchOffset;
 		camera.position.y += crouchOffset.current - prevCrouchOffset;
 
 		// Camera direction from inputs
@@ -164,6 +172,16 @@ export default function Player() {
 		) {
 			state.events.update?.();
 		}
+		if (
+			straightDirection !== 0 ||
+			strafeDirection !== 0 ||
+			(debug && verticalDirection !== 0) ||
+			rotationChange ||
+			Math.abs(targetCrouchOffset - crouchOffset.current) > 1e-5 ||
+			Math.abs(crouchOffset.current - prevCrouchOffset) > 1e-6 ||
+			bobbingOffset.current !== prevBobbingOffset
+		)
+			state.invalidate();
 	});
 
 	return null;

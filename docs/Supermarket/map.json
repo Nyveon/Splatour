@@ -1,0 +1,1041 @@
+{
+    "metadata": {
+        "name": "Supermarket",
+        "version": 1,
+        "defaultScene": "88368c74-bbe6-4121-8208-a2d5a3cce710"
+    },
+    "scenes": [
+        {
+            "postProcessing": {
+                "autoExposure": true,
+                "exposure": 0,
+                "exposureRange": 1,
+                "adaptationTime": 1.5,
+                "contrast": 1,
+                "saturation": 1,
+                "temperature": 0,
+                "tint": 0
+            },
+            "id": "88368c74-bbe6-4121-8208-a2d5a3cce710",
+            "filePath": "supermarket-lod.rad",
+            "name": "Supermarket",
+            "scale": {
+                "x": 4.183147085455832,
+                "y": 4.183147085455832,
+                "z": 4.183147085455832
+            },
+            "rotation": {
+                "x": -1.5083905051967619,
+                "y": 0.0018558236704391193,
+                "z": 0.785340237479868
+            },
+            "position": {
+                "x": 0,
+                "y": 1.6999999940054598,
+                "z": 0
+            },
+            "sky": {
+                "type": "hemi",
+                "primary": "#000000",
+                "secondary": "#c9bbaa"
+            },
+            "artifacts": {
+                "product-apples": {
+                    "type": 1,
+                    "id": "product-apples",
+                    "name": "Apples",
+                    "content": "",
+                    "position": {
+                        "x": -0.054814642954845325,
+                        "y": -0.34504305933494095,
+                        "z": -0.17574368111017588
+                    },
+                    "radius": 0.08,
+                    "product": {
+                        "image": "produce-display.png",
+                        "imageCrop": {
+                            "x": 600,
+                            "y": 815,
+                            "width": 240,
+                            "height": 180,
+                            "sourceWidth": 1920,
+                            "sourceHeight": 1080
+                        },
+                        "price": 2.49,
+                        "currency": "USD",
+                        "unit": "kg",
+                        "hitbox": {
+                            "x": 0.16,
+                            "y": 0.15,
+                            "z": 0.09
+                        }
+                    }
+                },
+                "product-bananas": {
+                    "type": 1,
+                    "id": "product-bananas",
+                    "name": "Bananas",
+                    "content": "",
+                    "position": {
+                        "x": -0.058545611831146274,
+                        "y": -0.54405486907776,
+                        "z": -0.10144761096393079
+                    },
+                    "radius": 0.08,
+                    "product": {
+                        "image": "produce-display.png",
+                        "imageCrop": {
+                            "x": 365,
+                            "y": 700,
+                            "width": 240,
+                            "height": 180,
+                            "sourceWidth": 1920,
+                            "sourceHeight": 1080
+                        },
+                        "price": 1.49,
+                        "currency": "USD",
+                        "unit": "kg",
+                        "hitbox": {
+                            "x": 0.13,
+                            "y": 0.13,
+                            "z": 0.07
+                        }
+                    }
+                },
+                "product-watermelon": {
+                    "type": 1,
+                    "id": "product-watermelon",
+                    "name": "Watermelon",
+                    "content": "",
+                    "position": {
+                        "x": 0.02634175046703115,
+                        "y": -0.510288335197458,
+                        "z": -0.18871217403814605
+                    },
+                    "radius": 0.08,
+                    "product": {
+                        "image": "watermelon-display.png",
+                        "imageCrop": {
+                            "x": 470,
+                            "y": 625,
+                            "width": 464,
+                            "height": 348,
+                            "sourceWidth": 1920,
+                            "sourceHeight": 1080
+                        },
+                        "price": 0.99,
+                        "currency": "USD",
+                        "unit": "kg",
+                        "hitbox": {
+                            "x": 0.18,
+                            "y": 0.14,
+                            "z": 0.1
+                        }
+                    }
+                },
+                "product-pomegranates": {
+                    "type": 1,
+                    "id": "product-pomegranates",
+                    "name": "Pomegranates",
+                    "content": "",
+                    "position": {
+                        "x": -0.10613666135840204,
+                        "y": -0.35636073334243745,
+                        "z": -0.05737593176109751
+                    },
+                    "radius": 0.08,
+                    "product": {
+                        "image": "product-pomegranates.png",
+                        "imageCrop": {
+                            "x": 0,
+                            "y": 0,
+                            "width": 220,
+                            "height": 165,
+                            "sourceWidth": 220,
+                            "sourceHeight": 165
+                        },
+                        "price": 3.49,
+                        "currency": "USD",
+                        "unit": "kg",
+                        "hitbox": {
+                            "x": 0.18,
+                            "y": 0.18,
+                            "z": 0.065
+                        }
+                    }
+                },
+                "product-white-peaches": {
+                    "type": 1,
+                    "id": "product-white-peaches",
+                    "name": "White peaches",
+                    "content": "",
+                    "position": {
+                        "x": -0.20308195941996868,
+                        "y": -0.27539554943494376,
+                        "z": -0.061257865273043666
+                    },
+                    "radius": 0.08,
+                    "product": {
+                        "image": "product-white-peaches.png",
+                        "imageCrop": {
+                            "x": 0,
+                            "y": 0,
+                            "width": 180,
+                            "height": 135,
+                            "sourceWidth": 180,
+                            "sourceHeight": 135
+                        },
+                        "price": 4.49,
+                        "currency": "USD",
+                        "unit": "kg",
+                        "hitbox": {
+                            "x": 0.14,
+                            "y": 0.17,
+                            "z": 0.065
+                        }
+                    }
+                },
+                "product-dragon-fruit": {
+                    "type": 1,
+                    "id": "product-dragon-fruit",
+                    "name": "Dragon fruit",
+                    "content": "",
+                    "position": {
+                        "x": -0.2806858957439483,
+                        "y": -0.18389015140945414,
+                        "z": -0.06060711468107138
+                    },
+                    "radius": 0.08,
+                    "product": {
+                        "image": "product-dragon-fruit.png",
+                        "imageCrop": {
+                            "x": 0,
+                            "y": 0,
+                            "width": 200,
+                            "height": 150,
+                            "sourceWidth": 200,
+                            "sourceHeight": 150
+                        },
+                        "price": 4.99,
+                        "currency": "USD",
+                        "unit": "kg",
+                        "hitbox": {
+                            "x": 0.14,
+                            "y": 0.18,
+                            "z": 0.065
+                        }
+                    }
+                },
+                "product-mandarins": {
+                    "type": 1,
+                    "id": "product-mandarins",
+                    "name": "Mandarins",
+                    "content": "",
+                    "position": {
+                        "x": -0.3876983608785966,
+                        "y": -0.09893579540269819,
+                        "z": -0.06273990893607756
+                    },
+                    "radius": 0.08,
+                    "product": {
+                        "image": "product-mandarins.png",
+                        "imageCrop": {
+                            "x": 0,
+                            "y": 0,
+                            "width": 260,
+                            "height": 195,
+                            "sourceWidth": 260,
+                            "sourceHeight": 195
+                        },
+                        "price": 2.29,
+                        "currency": "USD",
+                        "unit": "kg",
+                        "hitbox": {
+                            "x": 0.22,
+                            "y": 0.19,
+                            "z": 0.065
+                        }
+                    }
+                },
+                "product-red-apples": {
+                    "type": 1,
+                    "id": "product-red-apples",
+                    "name": "Red apples",
+                    "content": "",
+                    "position": {
+                        "x": -0.16925496135261442,
+                        "y": -0.25955347214380736,
+                        "z": -0.19153549397216948
+                    },
+                    "radius": 0.08,
+                    "product": {
+                        "image": "product-red-apples.png",
+                        "imageCrop": {
+                            "x": 0,
+                            "y": 0,
+                            "width": 155,
+                            "height": 116,
+                            "sourceWidth": 155,
+                            "sourceHeight": 116
+                        },
+                        "price": 2.99,
+                        "currency": "USD",
+                        "unit": "kg",
+                        "hitbox": {
+                            "x": 0.12,
+                            "y": 0.13,
+                            "z": 0.085
+                        }
+                    }
+                },
+                "product-asian-pears": {
+                    "type": 1,
+                    "id": "product-asian-pears",
+                    "name": "Asian pears",
+                    "content": "",
+                    "position": {
+                        "x": -0.2126427294267216,
+                        "y": -0.1503977731835311,
+                        "z": -0.17671001283924687
+                    },
+                    "radius": 0.08,
+                    "product": {
+                        "image": "product-asian-pears.png",
+                        "imageCrop": {
+                            "x": 0,
+                            "y": 0,
+                            "width": 148,
+                            "height": 111,
+                            "sourceWidth": 148,
+                            "sourceHeight": 111
+                        },
+                        "price": 3.29,
+                        "currency": "USD",
+                        "unit": "kg",
+                        "hitbox": {
+                            "x": 0.13,
+                            "y": 0.13,
+                            "z": 0.085
+                        }
+                    }
+                },
+                "product-guavas": {
+                    "type": 1,
+                    "id": "product-guavas",
+                    "name": "Guavas",
+                    "content": "",
+                    "position": {
+                        "x": -0.3027035024195308,
+                        "y": -0.060441883647638264,
+                        "z": -0.18275363609316098
+                    },
+                    "radius": 0.08,
+                    "product": {
+                        "image": "product-guavas.png",
+                        "imageCrop": {
+                            "x": 0,
+                            "y": 0,
+                            "width": 110,
+                            "height": 83,
+                            "sourceWidth": 110,
+                            "sourceHeight": 83
+                        },
+                        "price": 3.49,
+                        "currency": "USD",
+                        "unit": "kg",
+                        "hitbox": {
+                            "x": 0.055,
+                            "y": 0.055,
+                            "z": 0.07
+                        }
+                    }
+                },
+                "product-packaged-yellow-fruit": {
+                    "type": 1,
+                    "id": "product-packaged-yellow-fruit",
+                    "name": "Yellow fruit selection",
+                    "content": "",
+                    "position": {
+                        "x": -0.34824426478038933,
+                        "y": -0.020930790902722332,
+                        "z": -0.18633647205302023
+                    },
+                    "radius": 0.08,
+                    "product": {
+                        "image": "product-packaged-yellow-fruit.png",
+                        "imageCrop": {
+                            "x": 0,
+                            "y": 0,
+                            "width": 168,
+                            "height": 126,
+                            "sourceWidth": 168,
+                            "sourceHeight": 126
+                        },
+                        "price": 3.99,
+                        "currency": "USD",
+                        "unit": "kg",
+                        "hitbox": {
+                            "x": 0.055,
+                            "y": 0.055,
+                            "z": 0.07
+                        }
+                    }
+                },
+                "product-red-pomelos": {
+                    "type": 1,
+                    "id": "product-red-pomelos",
+                    "name": "Red pomelos",
+                    "content": "",
+                    "position": {
+                        "x": -0.5881656059492045,
+                        "y": -0.195695944399585,
+                        "z": -0.16561810752085676
+                    },
+                    "radius": 0.08,
+                    "product": {
+                        "image": "product-red-pomelos.png",
+                        "imageCrop": {
+                            "x": 0,
+                            "y": 0,
+                            "width": 320,
+                            "height": 240,
+                            "sourceWidth": 320,
+                            "sourceHeight": 240
+                        },
+                        "price": 2.79,
+                        "currency": "USD",
+                        "unit": "kg",
+                        "hitbox": {
+                            "x": 0.08,
+                            "y": 0.08,
+                            "z": 0.085
+                        }
+                    }
+                },
+                "product-white-pomelos": {
+                    "type": 1,
+                    "id": "product-white-pomelos",
+                    "name": "White pomelos",
+                    "content": "",
+                    "position": {
+                        "x": -0.4684937985518859,
+                        "y": -0.3352049529107691,
+                        "z": -0.15993573379909584
+                    },
+                    "radius": 0.08,
+                    "product": {
+                        "image": "product-white-pomelos.png",
+                        "imageCrop": {
+                            "x": 0,
+                            "y": 0,
+                            "width": 310,
+                            "height": 360,
+                            "sourceWidth": 310,
+                            "sourceHeight": 360
+                        },
+                        "price": 2.49,
+                        "currency": "USD",
+                        "unit": "kg",
+                        "hitbox": {
+                            "x": 0.065,
+                            "y": 0.065,
+                            "z": 0.085
+                        }
+                    }
+                },
+                "product-honey-pomelos": {
+                    "type": 1,
+                    "id": "product-honey-pomelos",
+                    "name": "Honey pomelos",
+                    "content": "",
+                    "position": {
+                        "x": -0.4046994403002054,
+                        "y": -0.40047556229476267,
+                        "z": -0.15793045876179376
+                    },
+                    "radius": 0.08,
+                    "product": {
+                        "image": "product-honey-pomelos.png",
+                        "imageCrop": {
+                            "x": 0,
+                            "y": 0,
+                            "width": 255,
+                            "height": 320,
+                            "sourceWidth": 255,
+                            "sourceHeight": 320
+                        },
+                        "price": 2.99,
+                        "currency": "USD",
+                        "unit": "kg",
+                        "hitbox": {
+                            "x": 0.065,
+                            "y": 0.065,
+                            "z": 0.085
+                        }
+                    }
+                },
+                "product-packaged-pears": {
+                    "type": 1,
+                    "id": "product-packaged-pears",
+                    "name": "Packaged pears",
+                    "content": "",
+                    "position": {
+                        "x": -0.2952306647424006,
+                        "y": -0.5211561499417163,
+                        "z": -0.17393552620700925
+                    },
+                    "radius": 0.08,
+                    "product": {
+                        "image": "product-packaged-pears.png",
+                        "imageCrop": {
+                            "x": 0,
+                            "y": 0,
+                            "width": 365,
+                            "height": 275,
+                            "sourceWidth": 365,
+                            "sourceHeight": 275
+                        },
+                        "price": 3.79,
+                        "currency": "USD",
+                        "unit": "kg",
+                        "hitbox": {
+                            "x": 0.29,
+                            "y": 0.15,
+                            "z": 0.085
+                        }
+                    }
+                },
+                "product-red-dates": {
+                    "type": 1,
+                    "id": "product-red-dates",
+                    "name": "Dried red dates",
+                    "content": "",
+                    "position": {
+                        "x": -0.4869095533957272,
+                        "y": 0.07149998139050397,
+                        "z": -0.19460600091122085
+                    },
+                    "radius": 0.08,
+                    "product": {
+                        "image": "product-red-dates.png",
+                        "imageCrop": {
+                            "x": 0,
+                            "y": 0,
+                            "width": 420,
+                            "height": 365,
+                            "sourceWidth": 420,
+                            "sourceHeight": 365
+                        },
+                        "price": 7.99,
+                        "currency": "USD",
+                        "unit": "kg",
+                        "hitbox": {
+                            "x": 0.25,
+                            "y": 0.17,
+                            "z": 0.09
+                        }
+                    }
+                },
+                "product-rock-sugar": {
+                    "type": 1,
+                    "id": "product-rock-sugar",
+                    "name": "Rock sugar",
+                    "content": "",
+                    "position": {
+                        "x": -0.6315743658020337,
+                        "y": -0.06134833149927936,
+                        "z": -0.19030742513601093
+                    },
+                    "radius": 0.08,
+                    "product": {
+                        "image": "product-rock-sugar.png",
+                        "imageCrop": {
+                            "x": 0,
+                            "y": 0,
+                            "width": 348,
+                            "height": 420,
+                            "sourceWidth": 348,
+                            "sourceHeight": 420
+                        },
+                        "price": 2.99,
+                        "currency": "USD",
+                        "unit": "kg",
+                        "hitbox": {
+                            "x": 0.08,
+                            "y": 0.08,
+                            "z": 0.09
+                        }
+                    }
+                },
+                "product-walnuts": {
+                    "type": 1,
+                    "id": "product-walnuts",
+                    "name": "Walnuts",
+                    "content": "",
+                    "position": {
+                        "x": -0.6230328365903501,
+                        "y": -0.13536079903241283,
+                        "z": -0.19114828897632702
+                    },
+                    "radius": 0.08,
+                    "product": {
+                        "image": "product-walnuts.png",
+                        "imageCrop": {
+                            "x": 0,
+                            "y": 0,
+                            "width": 220,
+                            "height": 200,
+                            "sourceWidth": 220,
+                            "sourceHeight": 200
+                        },
+                        "price": 6.49,
+                        "currency": "USD",
+                        "unit": "kg",
+                        "hitbox": {
+                            "x": 0.045,
+                            "y": 0.045,
+                            "z": 0.07
+                        }
+                    }
+                },
+                "product-dried-chrysanthemum": {
+                    "type": 1,
+                    "id": "product-dried-chrysanthemum",
+                    "name": "Dried chrysanthemum",
+                    "content": "",
+                    "position": {
+                        "x": -0.46288303120257307,
+                        "y": 0.03791580995577144,
+                        "z": -0.0934892692880861
+                    },
+                    "radius": 0.08,
+                    "product": {
+                        "image": "product-dried-chrysanthemum.png",
+                        "imageCrop": {
+                            "x": 0,
+                            "y": 0,
+                            "width": 152,
+                            "height": 195,
+                            "sourceWidth": 152,
+                            "sourceHeight": 195
+                        },
+                        "price": 12.99,
+                        "currency": "USD",
+                        "unit": "kg",
+                        "hitbox": {
+                            "x": 0.045,
+                            "y": 0.045,
+                            "z": 0.065
+                        }
+                    }
+                },
+                "product-dried-lily-bulbs": {
+                    "type": 1,
+                    "id": "product-dried-lily-bulbs",
+                    "name": "Dried lily bulbs",
+                    "content": "",
+                    "position": {
+                        "x": -0.5842961889052375,
+                        "y": -0.040910687005058274,
+                        "z": -0.08772051909434447
+                    },
+                    "radius": 0.08,
+                    "product": {
+                        "image": "product-dried-lily-bulbs.png",
+                        "imageCrop": {
+                            "x": 0,
+                            "y": 0,
+                            "width": 180,
+                            "height": 158,
+                            "sourceWidth": 180,
+                            "sourceHeight": 158
+                        },
+                        "price": 14.99,
+                        "currency": "USD",
+                        "unit": "kg",
+                        "hitbox": {
+                            "x": 0.045,
+                            "y": 0.045,
+                            "z": 0.065
+                        }
+                    }
+                },
+                "product-dried-licorice": {
+                    "type": 1,
+                    "id": "product-dried-licorice",
+                    "name": "Dried licorice root",
+                    "content": "",
+                    "position": {
+                        "x": -0.5541421085580766,
+                        "y": -0.06558426620297268,
+                        "z": -0.0807834556342299
+                    },
+                    "radius": 0.08,
+                    "product": {
+                        "image": "product-dried-licorice.png",
+                        "imageCrop": {
+                            "x": 0,
+                            "y": 0,
+                            "width": 160,
+                            "height": 159,
+                            "sourceWidth": 160,
+                            "sourceHeight": 159
+                        },
+                        "price": 11.99,
+                        "currency": "USD",
+                        "unit": "kg",
+                        "hitbox": {
+                            "x": 0.045,
+                            "y": 0.045,
+                            "z": 0.065
+                        }
+                    }
+                },
+                "product-dried-hawthorn": {
+                    "type": 1,
+                    "id": "product-dried-hawthorn",
+                    "name": "Dried hawthorn",
+                    "content": "",
+                    "position": {
+                        "x": -0.5681585926829114,
+                        "y": -0.10348891637768683,
+                        "z": -0.08047122094732273
+                    },
+                    "radius": 0.08,
+                    "product": {
+                        "image": "product-dried-hawthorn.png",
+                        "imageCrop": {
+                            "x": 0,
+                            "y": 0,
+                            "width": 170,
+                            "height": 159,
+                            "sourceWidth": 170,
+                            "sourceHeight": 159
+                        },
+                        "price": 8.99,
+                        "currency": "USD",
+                        "unit": "kg",
+                        "hitbox": {
+                            "x": 0.045,
+                            "y": 0.045,
+                            "z": 0.065
+                        }
+                    }
+                }
+            },
+            "barriers": {
+                "e13bbd87-e952-4644-a7f4-a66b44a07e15": {
+                    "type": 3,
+                    "id": "e13bbd87-e952-4644-a7f4-a66b44a07e15",
+                    "name": "Wall",
+                    "startPosition": {
+                        "x": -1.0662556920775053,
+                        "y": 0,
+                        "z": -0.3363052953461402
+                    },
+                    "endPosition": {
+                        "x": -0.513667996738523,
+                        "y": 0,
+                        "z": -0.091905748091114
+                    },
+                    "thickness": 0.0844975982079864
+                },
+                "1bc86e30-c286-4699-963e-6a65690183c4": {
+                    "type": 3,
+                    "id": "1bc86e30-c286-4699-963e-6a65690183c4",
+                    "name": "Wall",
+                    "startPosition": {
+                        "x": -0.5708531716024117,
+                        "y": 0,
+                        "z": -0.151524174788702
+                    },
+                    "endPosition": {
+                        "x": 0.9322745487083124,
+                        "y": 0,
+                        "z": 0.046505597263204176
+                    },
+                    "thickness": 0.0844975982079864
+                },
+                "187077b7-2b88-4981-9507-137785351a53": {
+                    "type": 3,
+                    "id": "187077b7-2b88-4981-9507-137785351a53",
+                    "name": "Wall",
+                    "startPosition": {
+                        "x": 0.8746210715962522,
+                        "y": 0,
+                        "z": 0.06356846355807026
+                    },
+                    "endPosition": {
+                        "x": 1.0885866415265875,
+                        "y": 0,
+                        "z": -2.0096991119110665
+                    },
+                    "thickness": 0.0844975982079864
+                },
+                "094a975a-196c-45e4-920a-9ee3f1be6f4a": {
+                    "type": 3,
+                    "id": "094a975a-196c-45e4-920a-9ee3f1be6f4a",
+                    "name": "Wall",
+                    "startPosition": {
+                        "x": 1.0842138811832078,
+                        "y": 0,
+                        "z": -1.9727075752459917
+                    },
+                    "endPosition": {
+                        "x": 0.8673569571647984,
+                        "y": 0,
+                        "z": -2.0330189003269727
+                    },
+                    "thickness": 0.0844975982079864
+                },
+                "57ffcb3d-200f-494f-b52e-b31b6d7f7ff8": {
+                    "type": 3,
+                    "id": "57ffcb3d-200f-494f-b52e-b31b6d7f7ff8",
+                    "name": "Wall",
+                    "startPosition": {
+                        "x": 0.8630596953427192,
+                        "y": 0,
+                        "z": -2.034874338028559
+                    },
+                    "endPosition": {
+                        "x": 0.845860461136123,
+                        "y": 0,
+                        "z": -2.302234737713061
+                    },
+                    "thickness": 0.0844975982079864
+                },
+                "cc95a393-58e9-4ad1-8523-310195ecfec8": {
+                    "type": 3,
+                    "id": "cc95a393-58e9-4ad1-8523-310195ecfec8",
+                    "name": "Wall",
+                    "startPosition": {
+                        "x": 0.873197644468039,
+                        "y": 0,
+                        "z": -2.298206070616099
+                    },
+                    "endPosition": {
+                        "x": -0.9566865702454846,
+                        "y": 0,
+                        "z": -2.423290092532101
+                    },
+                    "thickness": 0.0844975982079864
+                },
+                "334bb901-6d91-4e91-832a-2e6817eacc03": {
+                    "type": 3,
+                    "id": "334bb901-6d91-4e91-832a-2e6817eacc03",
+                    "name": "Wall",
+                    "startPosition": {
+                        "x": -0.8881247465466953,
+                        "y": 0,
+                        "z": -2.434980948601623
+                    },
+                    "endPosition": {
+                        "x": -1.0222733375564,
+                        "y": 0,
+                        "z": -0.3525308666796392
+                    },
+                    "thickness": 0.0844975982079864
+                },
+                "33570e01-f524-4abb-95f5-aabd0c922e1d": {
+                    "type": 3,
+                    "id": "33570e01-f524-4abb-95f5-aabd0c922e1d",
+                    "name": "Wall",
+                    "startPosition": {
+                        "x": 3.253575483409357,
+                        "y": 0,
+                        "z": -3.3865447758312444
+                    },
+                    "endPosition": {
+                        "x": 2.8182013573348588,
+                        "y": 0,
+                        "z": 0.6168176816979292
+                    },
+                    "thickness": 0.0844975982079864
+                },
+                "280806db-5262-46e4-9f97-3d7cddfe8c0d": {
+                    "type": 3,
+                    "id": "280806db-5262-46e4-9f97-3d7cddfe8c0d",
+                    "name": "Wall",
+                    "startPosition": {
+                        "x": 2.8019271104260235,
+                        "y": 0,
+                        "z": 0.5090140122767042
+                    },
+                    "endPosition": {
+                        "x": 2.7913210420983456,
+                        "y": 0,
+                        "z": 3.267795506984458
+                    },
+                    "thickness": 0.0844975982079864
+                },
+                "5692b693-0793-4629-abb6-128ec39209fd": {
+                    "type": 3,
+                    "id": "5692b693-0793-4629-abb6-128ec39209fd",
+                    "name": "Wall",
+                    "startPosition": {
+                        "x": 2.7986620064995407,
+                        "y": 0,
+                        "z": 3.1791915315556403
+                    },
+                    "endPosition": {
+                        "x": 3.195334730733088,
+                        "y": 0,
+                        "z": 3.8023358330248693
+                    },
+                    "thickness": 0.0844975982079864
+                },
+                "c2628101-d767-4268-ba30-c9f7b617f1c4": {
+                    "type": 3,
+                    "id": "c2628101-d767-4268-ba30-c9f7b617f1c4",
+                    "name": "Wall",
+                    "startPosition": {
+                        "x": 3.3092866468976556,
+                        "y": 0,
+                        "z": 3.8235309108547435
+                    },
+                    "endPosition": {
+                        "x": -2.8148389176023723,
+                        "y": 0,
+                        "z": 3.327464491155284
+                    },
+                    "thickness": 0.0844975982079864
+                },
+                "a75d61ca-3fcb-4dbc-899d-787229b98ab0": {
+                    "type": 3,
+                    "id": "a75d61ca-3fcb-4dbc-899d-787229b98ab0",
+                    "name": "Wall",
+                    "startPosition": {
+                        "x": -2.8070204167927453,
+                        "y": 0,
+                        "z": 3.4612276207020893
+                    },
+                    "endPosition": {
+                        "x": -2.3955149879210684,
+                        "y": 0,
+                        "z": -2.0014164015737954
+                    },
+                    "thickness": 0.0844975982079864
+                },
+                "ed81a517-f962-4cff-b2ec-b86b9ee8df53": {
+                    "type": 3,
+                    "id": "ed81a517-f962-4cff-b2ec-b86b9ee8df53",
+                    "name": "Wall",
+                    "startPosition": {
+                        "x": -2.4098581078188666,
+                        "y": 0,
+                        "z": -1.5639753522435433
+                    },
+                    "endPosition": {
+                        "x": -3.1058343151942114,
+                        "y": 0,
+                        "z": -2.254635499588342
+                    },
+                    "thickness": 0.0844975982079864
+                },
+                "591a6ff3-7a76-4bac-82ba-2e91c5637ba7": {
+                    "type": 3,
+                    "id": "591a6ff3-7a76-4bac-82ba-2e91c5637ba7",
+                    "name": "Wall",
+                    "startPosition": {
+                        "x": -3.1120774451339726,
+                        "y": 0,
+                        "z": -2.179625404525056
+                    },
+                    "endPosition": {
+                        "x": -3.050179916890112,
+                        "y": 0,
+                        "z": -4.427735521522927
+                    },
+                    "thickness": 0.0844975982079864
+                },
+                "0af438ee-09f3-4ebd-9e4a-39103c69132d": {
+                    "type": 3,
+                    "id": "0af438ee-09f3-4ebd-9e4a-39103c69132d",
+                    "name": "Wall",
+                    "startPosition": {
+                        "x": -3.149988131644106,
+                        "y": 0,
+                        "z": -4.45968060020385
+                    },
+                    "endPosition": {
+                        "x": 3.2203346586522494,
+                        "y": 0,
+                        "z": -3.8608848818954358
+                    },
+                    "thickness": 0.0844975982079864
+                },
+                "75adfd53-898e-4223-9987-cc954ddd155e": {
+                    "type": 3,
+                    "id": "75adfd53-898e-4223-9987-cc954ddd155e",
+                    "name": "Wall",
+                    "startPosition": {
+                        "x": 3.3324233578687172,
+                        "y": 0,
+                        "z": -3.9364485474249817
+                    },
+                    "endPosition": {
+                        "x": 3.342837929650372,
+                        "y": 0,
+                        "z": -3.291667549088819
+                    },
+                    "thickness": 0.0844975982079864
+                },
+                "e62e6a8a-cc47-41bb-91ea-48971c9eadab": {
+                    "type": 2,
+                    "id": "e62e6a8a-cc47-41bb-91ea-48971c9eadab",
+                    "name": "Solid",
+                    "position": {
+                        "x": 1.0024870598246396,
+                        "y": 0,
+                        "z": 1.7890689792909238
+                    },
+                    "radius": 0.806567974569706
+                },
+                "fe2a3949-5cd5-4e9e-8778-55ed951286f8": {
+                    "type": 3,
+                    "id": "fe2a3949-5cd5-4e9e-8778-55ed951286f8",
+                    "name": "Wall",
+                    "startPosition": {
+                        "x": 0.5711423791490982,
+                        "y": 0,
+                        "z": 2.3741363220875185
+                    },
+                    "endPosition": {
+                        "x": -1.2057495749928864,
+                        "y": 0,
+                        "z": 2.159319386089131
+                    },
+                    "thickness": 0.0844975982079864
+                },
+                "d04edd64-8958-4aec-9f81-8de77ef25bdd": {
+                    "type": 2,
+                    "id": "d04edd64-8958-4aec-9f81-8de77ef25bdd",
+                    "name": "Solid",
+                    "position": {
+                        "x": -0.9944567656719238,
+                        "y": 0,
+                        "z": 1.584322786159835
+                    },
+                    "radius": 0.806567974569706
+                },
+                "7173d131-fc49-4ab3-9b9e-4b507b14d787": {
+                    "type": 3,
+                    "id": "7173d131-fc49-4ab3-9b9e-4b507b14d787",
+                    "name": "Wall",
+                    "startPosition": {
+                        "x": 0.6227860069634229,
+                        "y": 0,
+                        "z": 1.2735551286431097
+                    },
+                    "endPosition": {
+                        "x": -0.5297992505555162,
+                        "y": 0,
+                        "z": 1.013429826422156
+                    },
+                    "thickness": 0.0844975982079864
+                }
+            },
+            "portals": {}
+        }
+    ]
+}

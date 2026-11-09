@@ -1,5 +1,5 @@
 import { useGSStore } from "@/hooks/useGSStore";
-import { NodeType } from "@/model/GSNode";
+import { NodeType, nodeIsArtifact } from "@/model/GSNode";
 import { color } from "@/utils/theme";
 import styled from "@emotion/styled";
 import { useShallow } from "zustand/react/shallow";
@@ -22,14 +22,22 @@ const ListItem = styled.li`
 export default function NodeList({
 	sceneId,
 	type,
+	kind,
 }: {
 	sceneId: string;
 	type: NodeType;
+	kind?: "product" | "information";
 }) {
 	const nodeIds = useGSStore(
 		useShallow((state) => {
 			const nodes = Object.values(state.gsmap.scenes[sceneId].nodes);
-			const filtered = nodes.filter((node) => node.type === type);
+			const filtered = nodes.filter(
+				(node) =>
+					node.type === type &&
+					(!kind ||
+						(nodeIsArtifact(node) &&
+							(kind === "product" ? !!node.product : !node.product)))
+			);
 			const ids = filtered.map((node) => node.id);
 			return ids;
 		})

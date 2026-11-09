@@ -7,6 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import SimpleBenchmark from "./pages/benchmarks/SimpleBenchmark";
 import DCCNorte from "./pages/demos/DCCNorte";
 import Khachkars from "./pages/demos/Khachkars";
+import Supermarket from "./pages/demos/Supermarket";
 import Editor from "./pages/Editor";
 import Index from "./pages/Index";
 import { color } from "./utils/theme";
@@ -39,6 +40,7 @@ createRoot(root).render(
 				<Route path="editor" element={<Editor />} />
 				<Route path="dcc" element={<DCCNorte />} />
 				<Route path="khachkars" element={<Khachkars />} />
+				<Route path="supermarket" element={<Supermarket />} />
 				<Route path="benchmark" element={<SimpleBenchmark />} />
 			</Routes>
 		</HashRouter>

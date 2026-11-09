@@ -14,6 +14,8 @@ const Aside = styled.aside`
 	z-index: 3;
 
 	width: ${sidebarWidthREM}rem;
+	max-height: 100%;
+	overflow-y: auto;
 	padding: 1rem;
 
 	border-bottom-left-radius: 1rem;

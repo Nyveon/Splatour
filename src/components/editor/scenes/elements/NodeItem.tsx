@@ -1,7 +1,7 @@
 import Icon from "@/components/Icon";
 import { useGSStore } from "@/hooks/useGSStore";
 import { useInteractions } from "@/hooks/useInteractions";
-import { NodeIconMap, NodeType } from "@/model/GSNode";
+import { NodeIconMap, nodeIsArtifact, NodeType } from "@/model/GSNode";
 import { color, UnstyledButton } from "@/utils/theme";
 import styled from "@emotion/styled";
 
@@ -50,13 +50,17 @@ export default function NodeItem({
 	const nodeName = useGSStore(
 		(state) => state.gsmap.scenes[sceneId].nodes[nodeId].name
 	);
+	const isProduct = useGSStore((state) => {
+		const node = state.gsmap.scenes[sceneId].nodes[nodeId];
+		return nodeIsArtifact(node) && !!node.product;
+	});
 
 	return (
 		<Clickable
 			onClick={() => setCurrentNode(nodeId, nodeType)}
 			data-active={currentNodeId === nodeId}
 		>
-			<Icon icon={NodeIconMap[nodeType]} />
+			<Icon icon={isProduct ? "shopping-bag" : NodeIconMap[nodeType]} />
 			{nodeName}
 		</Clickable>
 	);

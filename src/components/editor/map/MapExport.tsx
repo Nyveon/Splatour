@@ -2,30 +2,14 @@ import Button from "@/components/input/Button";
 import { useGSStore } from "@/hooks/useGSStore";
 import { gsmSerialize } from "@/model/GSMap";
 import { mapAssetsSubfolder } from "@/utils/constants";
+import { fetchViewerTemplate } from "@/utils/exportViewer";
 import {
 	downloadFile,
-	fetchAsUint8Array,
 	fileAsUint8Array,
 	getAllFiles,
 } from "@/utils/filesystem";
+import { toastError } from "@/utils/toasts";
 import { strToU8, zip } from "fflate";
-
-async function insertViewerTemplate(outputFolder: Record<string, Uint8Array>) {
-	const basePath = "./export";
-	const viewerFiles = [
-		"assets/index.css",
-		"assets/index.js",
-		"assets/main.woff2",
-		"assets/feather-sprite.svg",
-		"coi.js",
-		"index.html",
-	];
-
-	for (const fileName of viewerFiles) {
-		const filePath = `${basePath}/${fileName}`;
-		outputFolder[fileName] = await fetchAsUint8Array(filePath);
-	}
-}
 
 export default function MapExport() {
 	const directoryHandle = useGSStore((state) => state.gsmap.directoryHandle);
@@ -76,21 +60,21 @@ export default function MapExport() {
 	}
 
 	async function exportMap() {
-		const outputFolder: Record<string, Uint8Array> = {};
-
-		//todo: configurable inclusion of viewer template
-		await insertViewerTemplate(outputFolder);
-		await insertMapData(outputFolder);
-
-		console.log(outputFolder);
-
-		zip(outputFolder, (err, data) => {
-			if (err) {
-				throw new Error("Compression failed");
-			}
-
+		try {
+			const outputFolder = await fetchViewerTemplate();
+			await insertMapData(outputFolder);
+			const data = await new Promise<Uint8Array>((resolve, reject) => {
+				zip(outputFolder, (err, data) => {
+					if (err) reject(err);
+					else resolve(data);
+				});
+			});
 			downloadFile(data, "test.zip", "application/zip");
-		});
+		} catch (error) {
+			toastError(
+				`Map export failed: ${error instanceof Error ? error.message : String(error)}`
+			);
+		}
 	}
 
 	return (

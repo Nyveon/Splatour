@@ -15,6 +15,7 @@
         "preview": "vite preview",
         "postinstall": "patch-package",
         "typecheck": "tsc -b",
+        "test:export": "node --test tests/export-viewer.test.mjs",
         "test:scale": "node --import ./tests/register-typescript.mjs --test tests/scale-calibration.test.mjs"
     },
     "dependencies": {

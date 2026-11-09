@@ -1,8 +1,11 @@
 import basicSsl from "@vitejs/plugin-basic-ssl";
 import react from "@vitejs/plugin-react-swc";
+import { readFile } from "node:fs/promises";
+import { resolve } from "node:path";
 import { visualizer } from "rollup-plugin-visualizer";
 import { defineConfig, type Rolldown } from "vite";
 import { viteStaticCopy } from "vite-plugin-static-copy";
+import { viewerTemplateFiles } from "./src/utils/exportViewer.ts";
 
 export default defineConfig(({ mode }) => {
 	const isViewer = mode === "viewer";
@@ -46,10 +49,42 @@ export default defineConfig(({ mode }) => {
 	}
 
 	return {
+		base: isViewer ? "./" : "/",
 		publicDir: false,
 		plugins: [
 			react(),
 			basicSsl(),
+			{
+				name: "splatour-export-template",
+				configureServer(server) {
+					// Serve built files before Vite's HTML fallback can substitute the editor.
+					server.middlewares.use("/export", (req, res) => {
+						const fileName = new URL(
+							req.url ?? "/",
+							"http://localhost"
+						).pathname.slice(1);
+						if (!Object.hasOwn(viewerTemplateFiles, fileName)) {
+							res.statusCode = 404;
+							res.end("Export viewer file not found");
+							return;
+						}
+						void readFile(
+							resolve(server.config.root, "docs/export", fileName)
+						).then(
+							(data) => {
+								res.setHeader("Content-Type", viewerTemplateFiles[fileName]);
+								res.end(data);
+							},
+							() => {
+								res.statusCode = 404;
+								res.end(
+									"Export viewer template unavailable. Run npm run build:viewer."
+								);
+							}
+						);
+					});
+				},
+			},
 			{
 				name: "splatour-entry",
 				transformIndexHtml: {

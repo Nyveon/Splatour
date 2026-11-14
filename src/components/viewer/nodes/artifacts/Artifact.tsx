@@ -11,6 +11,7 @@ import ArtifactContentView from "./ArtifactContentView";
 const activationRangeBase = 1.25; // 75cm average arm length
 const artifactWorldPosition = new Vector3();
 const artifactWorldScale = new Vector3();
+const cameraWorldPosition = new Vector3();
 
 //todo: right click to edit
 
@@ -37,14 +38,16 @@ export default function Artifact({
 	);
 	const ready = useRef(false);
 	const inActiveScene = useRef(false);
+	const withinRange = useRef(false);
 
-	useFrame(({ raycaster }) => {
+	useFrame(({ raycaster, camera }) => {
 		const artifact = artifactMesh.current;
 
 		if (!artifact) {
 			return;
 		}
 		if (!informationVisible) {
+			withinRange.current = false;
 			if (ready.current) setInteractable(false);
 			ready.current = false;
 			if (isActive) setIsActive(false);
@@ -55,6 +58,10 @@ export default function Artifact({
 
 		if (currentSceneId !== sceneId) {
 			inActiveScene.current = false;
+			withinRange.current = false;
+			if (ready.current) setInteractable(false);
+			ready.current = false;
+			if (isActive) setIsActive(false);
 
 			if (artifactHint.current) {
 				artifactHint.current.style.display = "none";
@@ -65,11 +72,17 @@ export default function Artifact({
 		inActiveScene.current = true;
 
 		artifact.getWorldPosition(artifactWorldPosition);
-		const distance = raycaster.ray.origin.distanceTo(artifactWorldPosition);
+		camera.getWorldPosition(cameraWorldPosition);
+		const distance = cameraWorldPosition.distanceTo(artifactWorldPosition);
 
 		artifact.getWorldScale(artifactWorldScale);
 		const artifactTrueSize = artifactRadius * artifactWorldScale.x;
 		const activationRange = artifactTrueSize + activationRangeBase;
+		withinRange.current = distance <= activationRange;
+		if (artifactHint.current) {
+			artifactHint.current.style.pointerEvents =
+				withinRange.current && !isActive ? "auto" : "none";
+		}
 
 		if (distance > activationRange) {
 			if (artifactHint.current) {
@@ -121,7 +134,11 @@ export default function Artifact({
 	});
 
 	function handleClick() {
-		if (!informationVisible || !ready.current) {
+		if (
+			!informationVisible ||
+			!inActiveScene.current ||
+			!withinRange.current
+		) {
 			return;
 		}
 
@@ -141,9 +158,15 @@ export default function Artifact({
 					active={isActive}
 					sceneId={sceneId}
 					artifactId={artifactId}
+					onClose={() => setIsActive(false)}
 				/>
 			)}
-			{informationVisible && <ArtifactContentHint ref={artifactHint} />}
+			{informationVisible && (
+				<ArtifactContentHint
+					ref={artifactHint}
+					onClick={handleClick}
+				/>
+			)}
 
 			<mesh ref={artifactMesh} visible={visible} onClick={() => handleClick()}>
 				<sphereGeometry args={[artifactRadius, 16]} />

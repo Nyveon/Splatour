@@ -9,6 +9,7 @@ const joystickMargin = 32;
 
 const JoystickContainer = styled.div`
 	position: absolute;
+	z-index: 300;
 	bottom: ${joystickMargin}px;
 `;
 
